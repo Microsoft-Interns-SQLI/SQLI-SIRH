@@ -1,9 +1,8 @@
 ﻿namespace API_MySIRH.Entities
 {
-    public class Post
+    public class Post : EntityBase
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = String.Empty;
 
     }
 }
