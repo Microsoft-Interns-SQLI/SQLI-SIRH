@@ -13,6 +13,8 @@ namespace API_MySIRH.Data
 
         public DbSet<Memo> Memos { get; set; }
         public DbSet<Niveau> Niveaux { get; set; }
+        public DbSet<Site> Sites { get; set; }
+        public DbSet<Post> Posts { get; set; }
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
 
