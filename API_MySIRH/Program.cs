@@ -34,8 +34,8 @@ builder.Services.AddScoped<IMemoRepository, MemoRepository>();
 //DBContext Config 
 builder.Services.AddDbContext<DataContext>(options =>
 {
-    //options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    //options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 //enable CORS
