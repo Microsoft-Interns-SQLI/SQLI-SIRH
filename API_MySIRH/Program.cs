@@ -3,7 +3,10 @@ using API_MySIRH.Helpers;
 using API_MySIRH.Interfaces;
 using API_MySIRH.Repositories;
 using API_MySIRH.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +21,16 @@ builder.Services.AddControllers();
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
 );
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(option => {
+                    option.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["TokenKey"])),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                    };
+                });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -29,6 +42,7 @@ builder.Services.AddScoped<IToDoListService, ToDoListService>();
 builder.Services.AddScoped<IToDoItemService, ToDoItemService>();
 builder.Services.AddScoped<IMemoService, MemoService>();
 builder.Services.AddScoped<IMemoRepository, MemoRepository>();
+builder.Services.AddSingleton<ITokenService, TokenService>();
 
 
 //DBContext Config 
@@ -65,6 +79,8 @@ app.UseHttpsRedirection();
 app.UseCors(myAllowSpecificOrigins);
 
 app.UseAuthorization();
+
+app.UseAuthentication();
 
 app.MapControllers();
 
