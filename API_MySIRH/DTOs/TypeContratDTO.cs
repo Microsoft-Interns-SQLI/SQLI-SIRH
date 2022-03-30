@@ -1,8 +1,10 @@
-﻿namespace API_MySIRH.DTOs
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace API_MySIRH.DTOs
 {
-    public class TypeContratDTO
+    public class TypeContratDto : DtoBase
     {
-        public int id { get; set; }
-        public string name { get; set; }
+        [Required(ErrorMessage = "This field is required!")]
+        public string Name { get; set; }
     }
 }
