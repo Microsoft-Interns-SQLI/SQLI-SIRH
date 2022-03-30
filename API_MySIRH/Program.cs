@@ -29,7 +29,10 @@ builder.Services.AddScoped<IToDoListService, ToDoListService>();
 builder.Services.AddScoped<IToDoItemService, ToDoItemService>();
 builder.Services.AddScoped<IMemoService, MemoService>();
 builder.Services.AddScoped<IMemoRepository, MemoRepository>();
-
+builder.Services.AddScoped<IPostService, PostService>();
+builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddScoped<ISiteService, SiteService>();
+builder.Services.AddScoped<ISiteRepository, SiteRepository>();
 
 //DBContext Config 
 builder.Services.AddDbContext<DataContext>(options =>
