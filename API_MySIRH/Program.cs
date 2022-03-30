@@ -31,6 +31,8 @@ builder.Services.AddScoped<IMemoService, MemoService>();
 builder.Services.AddScoped<IMemoRepository, MemoRepository>();
 builder.Services.AddScoped<INiveauService, NiveauService>();
 builder.Services.AddScoped<INiveauRepository, NiveauRepository>();
+builder.Services.AddScoped<ITypeContratRepository, TypeContratRepository>();
+builder.Services.AddScoped<ITypeContratService, TypeContratService>();
 
 
 //DBContext Config 
