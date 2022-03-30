@@ -4,6 +4,7 @@ using API_MySIRH.Interfaces;
 using API_MySIRH.Repositories;
 using API_MySIRH.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -22,18 +23,32 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
 );
 
-ConfigurationManager Configuration = builder.Configuration;
+ConfigurationManager configuration = builder.Configuration;
+// Adding Authentication
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+})
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                    .AddJwtBearer(options => {
-                        options.TokenValidationParameters = new TokenValidationParameters
-                        {
-                            ValidateIssuerSigningKey = true,
-                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"])),
-                            ValidateIssuer = false,
-                            ValidateAudience = false
-                        };
-                    });
+// Adding Jwt Bearer
+.AddJwtBearer(options =>
+ {
+     options.SaveToken = true;
+     options.RequireHttpsMetadata = false;
+     options.TokenValidationParameters = new TokenValidationParameters()
+     {
+         ValidateIssuer = true,
+         ValidateAudience = true,
+         ValidAudience = configuration["JWT:ValidAudience"],
+         ValidIssuer = configuration["JWT:ValidIssuer"],
+         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
+     };
+ });
+//inject identity service
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<DataContext>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -52,7 +67,7 @@ builder.Services.AddSingleton<ITokenService, TokenService>();
 builder.Services.AddDbContext<DataContext>(options =>
 {
     //options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 //enable CORS
