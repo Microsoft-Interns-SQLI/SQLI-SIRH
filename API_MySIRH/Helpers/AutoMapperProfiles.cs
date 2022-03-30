@@ -4,7 +4,7 @@ using AutoMapper;
 
 namespace API_MySIRH.Helpers
 {
-    public class AutoMapperProfiles: Profile
+    public class AutoMapperProfiles : Profile
     {
         public AutoMapperProfiles()
         {
@@ -16,6 +16,7 @@ namespace API_MySIRH.Helpers
                 .ForMember(s => s.ToDoItemList, c => c.MapFrom(m => m.ToDoItemList));
             CreateMap<Memo, MemoDTO>();
             CreateMap<MemoDTO, Memo>();
+            CreateMap<Niveau, NiveauDTO>().ReverseMap();
         }
 
     }

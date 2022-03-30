@@ -29,6 +29,8 @@ builder.Services.AddScoped<IToDoListService, ToDoListService>();
 builder.Services.AddScoped<IToDoItemService, ToDoItemService>();
 builder.Services.AddScoped<IMemoService, MemoService>();
 builder.Services.AddScoped<IMemoRepository, MemoRepository>();
+builder.Services.AddScoped<INiveauService, NiveauService>();
+builder.Services.AddScoped<INiveauRepository, NiveauRepository>();
 
 
 //DBContext Config 

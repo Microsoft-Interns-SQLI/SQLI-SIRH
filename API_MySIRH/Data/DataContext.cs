@@ -12,9 +12,10 @@ namespace API_MySIRH.Data
         public DbSet<ToDoList> ToDoLists { get; set; }
 
         public DbSet<Memo> Memos { get; set; }
+        public DbSet<Niveau> Niveaux { get; set; }
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            
+
             this.ChangeTracker.DetectChanges();
             var added = this.ChangeTracker.Entries()
                         .Where(t => t.State == EntityState.Added)
@@ -27,7 +28,7 @@ namespace API_MySIRH.Data
                 {
                     var track = entity as EntityBase;
                     track.CreationDate = DateTime.Now;
-                    track.ModificationDate= DateTime.Now;
+                    track.ModificationDate = DateTime.Now;
                 }
             }
 
