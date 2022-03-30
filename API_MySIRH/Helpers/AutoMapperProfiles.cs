@@ -8,15 +8,14 @@ namespace API_MySIRH.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<ToDoItem, ToDoItemDTO>();
-            CreateMap<ToDoItemDTO, ToDoItem>();
+            CreateMap<ToDoItem, ToDoItemDTO>().ReverseMap();
             CreateMap<ToDoListDTO, ToDoList>()
-                .ForMember(s => s.ToDoItemList, c => c.MapFrom(m => m.ToDoItemList));
-            CreateMap<ToDoList, ToDoListDTO>()
-                .ForMember(s => s.ToDoItemList, c => c.MapFrom(m => m.ToDoItemList));
-            CreateMap<Memo, MemoDTO>();
-            CreateMap<MemoDTO, Memo>();
+                .ForMember(s => s.ToDoItemList, c => c.MapFrom(m => m.ToDoItemList)).ReverseMap();
+            CreateMap<Memo, MemoDTO>().ReverseMap();
             CreateMap<Niveau, NiveauDTO>().ReverseMap();
+            CreateMap<Post, PostDTO>().ReverseMap();
+            CreateMap<Site, SiteDTO>().ReverseMap();
+
         }
 
     }
