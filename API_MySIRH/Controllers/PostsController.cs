@@ -1,34 +1,31 @@
 ﻿using API_MySIRH.DTOs;
+using API_MySIRH.Entities;
 using API_MySIRH.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_MySIRH.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class PostsController : ControllerBase
-    {
-        private readonly ILogger<PostsController> _logger;
-        private readonly IPostService _postService;
 
-        public PostsController(ILogger<PostsController> logger, IPostService postService)
+    public class PostsController : MdmController<Post, PostDTO>
+    {
+
+        public PostsController(IMdmService<Post, PostDTO> mdmService) : base(mdmService)
         {
-            this._logger = logger;
-            this._postService = postService;
+
         }
 
-        [HttpGet]
+        [HttpGet("postes")]
         public async Task<ActionResult<IEnumerable<PostDTO>>> GetPosts()
         {
-            var result = await _postService.GetPosts();
+            var result = await _mdmService.GetAll();
             return Ok(result);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("postes/{id}")]
         public async Task<ActionResult<PostDTO>> GetPost(int id)
         {
-            var post = await _postService.GetPost(id);
+            var post = await _mdmService.GetById(id);
 
             if (post == null)
             {
@@ -38,7 +35,7 @@ namespace API_MySIRH.Controllers
             return post;
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("postes/{id}")]
         public async Task<IActionResult> PutPost(int id, PostDTO post)
         {
             if (id != post.Id)
@@ -48,7 +45,7 @@ namespace API_MySIRH.Controllers
 
             try
             {
-                await _postService.UpdatePost(id, post);
+                await _mdmService.Update(id, post);
             }
             catch
             {
@@ -58,24 +55,24 @@ namespace API_MySIRH.Controllers
             return NoContent();
         }
 
-        
-        [HttpPost]
+
+        [HttpPost("postes")]
         public async Task<ActionResult<PostDTO>> PostPost(PostDTO post)
         {
-            var returnedPost = await _postService.AddPost(post);
+            var returnedPost = await _mdmService.Add(post);
             return CreatedAtAction("GetPost", new { id = returnedPost.Id }, returnedPost);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePost(int id)
         {
-            var postToDelete = await _postService.GetPost(id);
+            var postToDelete = await _mdmService.GetById(id);
             if (postToDelete == null)
             {
                 return NotFound();
             }
 
-            await _postService.DeletePost(id);
+            await _mdmService.Delete(id);
 
             return NoContent();
         }
