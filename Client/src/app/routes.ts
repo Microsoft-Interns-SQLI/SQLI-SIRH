@@ -18,6 +18,8 @@ import { LayoutComponent } from './layout/layout.component';
 import { AddEditMemosComponent } from './memos/add-edit-memos/add-edit-memos.component';
 import { MemoComponent } from './memos/memo/memo.component';
 import { ReportsComponent } from './reports/reports.component';
+import { ModalComponent } from './shared/modal/modal.component';
+import { ToastComponent } from './shared/toast/toast.component';
 import { ToDoComponent } from './to-do/list-todo/to-do.component';
 
 

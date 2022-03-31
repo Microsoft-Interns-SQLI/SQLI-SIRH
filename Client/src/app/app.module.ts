@@ -35,6 +35,8 @@ import { AddEditMemosComponent } from './memos/add-edit-memos/add-edit-memos.com
 import { AddEditCandidatComponent } from './candidats/add-edit-candidat/add-edit-candidat.component';
 import { AddEditCollaborateurComponent } from './collaborateurs/add-edit-collaborateur/add-edit-collaborateur.component';
 import { LayoutComponent } from './layout/layout.component';
+import { ModalComponent } from './shared/modal/modal.component';
+import { ToastComponent } from './shared/toast/toast.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,9 @@ import { LayoutComponent } from './layout/layout.component';
       AddEditMemosComponent,
       AddEditCandidatComponent,
       AddEditCollaborateurComponent,
-      LayoutComponent
+      LayoutComponent,
+      ModalComponent,
+      ToastComponent
    ],
   imports: [
     CommonModule,
