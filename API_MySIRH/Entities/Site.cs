@@ -1,6 +1,6 @@
-﻿namespace API_MySIRH.DTOs
+﻿namespace API_MySIRH.Entities
 {
-    public class SiteDTO : DtoBase
+    public class Site : EntityBase
     {
         public string Name { get; set; } = String.Empty;
     }

@@ -14,6 +14,10 @@ namespace API_MySIRH.Data
         public DbSet<ToDoList> ToDoLists { get; set; }
 
         public DbSet<Memo> Memos { get; set; }
+        public DbSet<Niveau> Niveaux { get; set; }
+        public DbSet<Site> Sites { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<TypeContrat> TypeContrats { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,7 +36,7 @@ namespace API_MySIRH.Data
                 new IdentityUser
                 {
                     Id = "8e445865-a24d-4543-a6c6-9443d048cdb9", // primary key
-                UserName = "myuser",
+                    UserName = "myuser",
                     NormalizedUserName = "MYUSER",
                     PasswordHash = hasher.HashPassword(null, "Pa$$w0rd")
                 }
@@ -52,7 +56,7 @@ namespace API_MySIRH.Data
         }
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            
+
             this.ChangeTracker.DetectChanges();
             var added = this.ChangeTracker.Entries()
                         .Where(t => t.State == EntityState.Added)
@@ -65,7 +69,7 @@ namespace API_MySIRH.Data
                 {
                     var track = entity as EntityBase;
                     track.CreationDate = DateTime.Now;
-                    track.ModificationDate= DateTime.Now;
+                    track.ModificationDate = DateTime.Now;
                 }
             }
 

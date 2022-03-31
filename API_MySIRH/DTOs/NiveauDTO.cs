@@ -1,6 +1,6 @@
-﻿namespace API_MySIRH.DTOs
+namespace API_MySIRH.DTOs
 {
-    public class SiteDTO : DtoBase
+    public class NiveauDTO : DtoBase
     {
         public string Name { get; set; } = String.Empty;
     }

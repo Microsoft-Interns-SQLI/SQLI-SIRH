@@ -1,9 +1,8 @@
 ﻿namespace API_MySIRH.DTOs
 {
-    public class PostDTO
+    public class PostDTO : DtoBase
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = String.Empty;
 
     }
 }
