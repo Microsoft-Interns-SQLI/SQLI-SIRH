@@ -1,40 +1,36 @@
 using API_MySIRH.DTOs;
+using API_MySIRH.Entities;
 using API_MySIRH.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_MySIRH.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class NiveauxController : ControllerBase
+    public class NiveauxController : MdmController<Niveau, NiveauDTO>
     {
-        private readonly INiveauService _niveauService;
-
-        public NiveauxController(INiveauService niveauService)
+        public NiveauxController(IMdmService<Niveau, NiveauDTO> mdmService) : base(mdmService)
         {
-            _niveauService = niveauService;
         }
 
-        [HttpGet]
+        [HttpGet("niveaux")]
         public async Task<ActionResult<IEnumerable<NiveauDTO>>> GetNiveaux()
         {
-            return Ok(await _niveauService.GetNiveaux());
+            return Ok(await _mdmService.GetAll());
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("niveaux/{id}")]
         public async Task<ActionResult<NiveauDTO>> GetNiveau(int id)
         {
-            return Ok(await _niveauService.GetNiveau(id));
+            return Ok(await _mdmService.GetById(id));
         }
 
-        [HttpPost]
+        [HttpPost("niveaux")]
         public async Task<ActionResult> AddNiveau(NiveauDTO niveau)
         {
-            var niveauToCreate = await _niveauService.AddNiveau(niveau);
-            return CreatedAtAction(nameof(GetNiveaux), new { id = niveauToCreate.Id }, niveauToCreate);
+            var niveauToCreate = await _mdmService.Add(niveau);
+            return CreatedAtAction(nameof(GetNiveau), new { id = niveauToCreate.Id }, niveauToCreate);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("niveaux/{id}")]
         public async Task<ActionResult<NiveauDTO>> UpdateNiveau(int id, NiveauDTO niveau)
         {
             if (id != niveau.Id)
@@ -44,7 +40,7 @@ namespace API_MySIRH.Controllers
 
             try
             {
-                await _niveauService.UpdateNiveau(id, niveau);
+                await _mdmService.Update(id, niveau);
             }
             catch
             {
@@ -54,16 +50,16 @@ namespace API_MySIRH.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("niveaux/{id}")]
         public async Task<IActionResult> DeleteToDoItem(int id)
         {
-            var niveau = await _niveauService.GetNiveau(id);
+            var niveau = await _mdmService.GetById(id);
             if (niveau == null)
             {
                 return NotFound();
             }
 
-            await _niveauService.DeleteNiveau(id);
+            await _mdmService.Delete(id);
 
             return NoContent();
         }

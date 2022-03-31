@@ -1,4 +1,4 @@
-﻿namespace API_MySIRH.DTOs
+namespace API_MySIRH.DTOs
 {
     public class SiteDTO : DtoBase
     {
