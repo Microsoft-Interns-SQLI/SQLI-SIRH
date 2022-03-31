@@ -33,6 +33,8 @@ builder.Services.AddScoped<INiveauService, NiveauService>();
 builder.Services.AddScoped<INiveauRepository, NiveauRepository>();
 builder.Services.AddScoped<ITypeContratRepository, TypeContratRepository>();
 builder.Services.AddScoped<ITypeContratService, TypeContratService>();
+builder.Services.AddScoped<ICollaborateurService, CollaborateurService>();
+builder.Services.AddScoped<ICollaborateurRepository, CollaborateurRepository>();
 
 
 //DBContext Config 

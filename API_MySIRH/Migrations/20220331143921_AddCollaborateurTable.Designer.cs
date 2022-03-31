@@ -4,6 +4,7 @@ using API_MySIRH.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_MySIRH.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220331143921_AddCollaborateurTable")]
+    partial class AddCollaborateurTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,13 +34,12 @@ namespace API_MySIRH.Migrations
 
                     b.Property<string>("Civilite")
                         .IsRequired()
-                        .HasMaxLength(1)
                         .HasColumnType("nvarchar(1)");
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DateDebutStage")
+                    b.Property<DateTime>("DateDebutStage")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateEntreeSqli")
@@ -47,10 +48,10 @@ namespace API_MySIRH.Migrations
                     b.Property<DateTime>("DateNaissance")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DatePremiereExperience")
+                    b.Property<DateTime>("DatePremiereExperience")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DateSortieSqli")
+                    b.Property<DateTime>("DateSortieSqli")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Diplomes")
@@ -59,8 +60,7 @@ namespace API_MySIRH.Migrations
 
                     b.Property<string>("Matricule")
                         .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ModeRecrutement")
                         .IsRequired()
@@ -299,7 +299,7 @@ namespace API_MySIRH.Migrations
                         new
                         {
                             Id = "2c5e174e-3b0e-446f-86af-483d56fd7210",
-                            ConcurrencyStamp = "3b312981-511e-4592-947c-3b3629cef5e1",
+                            ConcurrencyStamp = "049f03cf-40dc-40ef-9b36-410a173ae976",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -399,13 +399,13 @@ namespace API_MySIRH.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3b90a726-d94f-4bcc-9bd2-cd5ca8b47174",
+                            ConcurrencyStamp = "e8e0949e-cd5d-4fd4-8c89-f9b811db3256",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "MYUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJK4bzWqL/FWHISzWUxzi3eSNmy4rCM1XzWkP0z4ziWkpHmZMQqM4v4PfHoZP9GJrw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEVV8OqIGSjhsgUpofOYevEmUIJIBWJK8SQrg17Z59s8S8ipPaF54u9w7TEAL879yg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "72aaad74-8967-402b-ba99-b83fd6bc93c6",
+                            SecurityStamp = "e6d35e78-0c78-433c-9b92-c1decf7b0f0a",
                             TwoFactorEnabled = false,
                             UserName = "myuser"
                         });
