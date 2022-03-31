@@ -1,0 +1,9 @@
+@media (min-width: 1000px) {
+    .my-row {
+        display: flex;
+    }
+    
+    .my-col {
+        margin-right: 10px;
+    }
+}
