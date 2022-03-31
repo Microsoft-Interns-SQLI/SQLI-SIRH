@@ -63,7 +63,7 @@ namespace API_MySIRH.Controllers
             return CreatedAtAction("GetPost", new { id = returnedPost.Id }, returnedPost);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("postes/{id}")]
         public async Task<IActionResult> DeletePost(int id)
         {
             var postToDelete = await _mdmService.GetById(id);
