@@ -1,9 +1,13 @@
 using API_MySIRH.Data;
+using API_MySIRH.Extentions;
 using API_MySIRH.Helpers;
 using API_MySIRH.Interfaces;
 using API_MySIRH.Repositories;
 using API_MySIRH.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +27,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //Add IoC Mapping 
+builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IToDoItemsRepository, ToDoItemsRepository>();
 builder.Services.AddScoped<IToDoListRepository, ToDoListRepository>();
 builder.Services.AddScoped<IToDoListService, ToDoListService>();
@@ -46,6 +51,21 @@ builder.Services.AddDbContext<DataContext>(options =>
     //options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+//Add Identity Extensions Configuration
+builder.Services.AddIdentityServices();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"])),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
+
 //enable CORS
 builder.Services.AddCors(options =>
 {
@@ -67,6 +87,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseAuthentication();
 
 app.UseHttpsRedirection();
 
