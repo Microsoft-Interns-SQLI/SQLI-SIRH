@@ -1,7 +1,9 @@
-﻿namespace API_MySIRH.Interfaces
+﻿using API_MySIRH.Entities.Auth;
+
+namespace API_MySIRH.Interfaces
 {
     public interface ITokenService
     {
-        string CreateToken(string identifiant);
+        Task<string> CreateToken(User user);
     }
 }

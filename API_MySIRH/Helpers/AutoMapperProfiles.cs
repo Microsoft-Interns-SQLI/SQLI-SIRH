@@ -1,5 +1,7 @@
 ﻿using API_MySIRH.DTOs;
+using API_MySIRH.DTOs.Auth;
 using API_MySIRH.Entities;
+using API_MySIRH.Entities.Auth;
 using AutoMapper;
 
 namespace API_MySIRH.Helpers
@@ -18,6 +20,9 @@ namespace API_MySIRH.Helpers
             CreateMap<Collaborateur, CollaborateurDTO>().ReverseMap();
             CreateMap<SkillCenter, SkillCenterDTO>().ReverseMap();
             CreateMap<TypeContrat, TypeContratDTO>().ReverseMap();
+            CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<UserDto, User>().ReverseMap();
+
         }
     }
 }
