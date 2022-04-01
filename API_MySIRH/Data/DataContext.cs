@@ -53,8 +53,12 @@ namespace API_MySIRH.Data
                 }
             );
 
+            modelBuilder.Entity<Collaborateur>().HasData(
+                DataInitializer.SeedData().ToList<Collaborateur>()
+            );
 
         }
+
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
 

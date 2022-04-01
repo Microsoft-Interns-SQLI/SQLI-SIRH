@@ -1,6 +1,9 @@
+using API_MySIRH.Data;
 using API_MySIRH.DTOs;
+using API_MySIRH.Entities;
 using API_MySIRH.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace API_MySIRH.Controllers
 {
@@ -18,6 +21,7 @@ namespace API_MySIRH.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CollaborateurDTO>>> GetCollaborateurs()
         {
+            var test = DataInitializer.SeedData();
             return Ok(await this._collaborateurService.GetCollaborateurs());
         }
 

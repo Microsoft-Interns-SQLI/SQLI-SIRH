@@ -21,10 +21,10 @@ namespace API_MySIRH.Entities
         */
 
         public string ModeRecrutement { get; set; } = String.Empty;
-        public DateTime DatePremiereExperience { get; set; }
-        public DateTime DateEntreeSqli { get; set; }
-        public DateTime DateSortieSqli { get; set; }
-        public DateTime DateDebutStage { get; set; }
+        public DateTime? DatePremiereExperience { get; set; }
+        public DateTime? DateEntreeSqli { get; set; }
+        public DateTime? DateSortieSqli { get; set; }
+        public DateTime? DateDebutStage { get; set; }
         public string Diplomes { get; set; } = String.Empty;
     }
 }

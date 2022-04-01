@@ -40,7 +40,7 @@ namespace API_MySIRH.DTOs
         public DateTime? DatePremiereExperience { get; set; }
 
         [RegularExpression(@"(((0|1)[0-9]|2[0-9]|3[0-1])\/(0[1-9]|1[0-2])\/((19|20)\d\d))$", ErrorMessage = "Le format de la date est invalid.")]
-        public DateTime DateEntreeSqli { get; set; }
+        public DateTime? DateEntreeSqli { get; set; }
 
         [RegularExpression(@"(((0|1)[0-9]|2[0-9]|3[0-1])\/(0[1-9]|1[0-2])\/((19|20)\d\d))$", ErrorMessage = "Le format de la date est invalid.")]
         public DateTime? DateSortieSqli { get; set; }
