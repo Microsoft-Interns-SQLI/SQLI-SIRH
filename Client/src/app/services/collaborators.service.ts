@@ -11,13 +11,12 @@ export class CollaboratorsService {
 
     constructor(private http: HttpClient) {}
 
-    getCollaboratorsList(): Observable<Collaborator[]> {
+    getCollaboratorsList(): Observable<any> {
         return this.http.get<any>(this.myUrl, {responseType: 'json'});
     }
 
-    getCollaboratorByMatricule(id: string): Observable<Collaborator> {
+    getCollaboratorByMatricule(id:number|string): Observable<Collaborator> {
         return this.http.get<any>(this.myUrl + "/"+ id, {responseType: 'json'});
-        
     }
 
     addCollaborator(collabToAdd: any) {

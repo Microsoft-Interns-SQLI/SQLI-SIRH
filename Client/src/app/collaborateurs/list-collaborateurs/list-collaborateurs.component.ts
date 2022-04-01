@@ -21,11 +21,12 @@ export class ListCollaborateursComponent implements OnInit {
 
   collaboratorsServiceMap(): void {
     this.service.getCollaboratorsList().subscribe((data) => {
-      for (let i = 0; i < data.length; i += this.elementsPerPage) {
-        const chunk = data.slice(i, i + this.elementsPerPage);
+      console.log(data.items.length);
+      for (let i = 0; i < data.items.length; i += this.elementsPerPage) {
+        const chunk = data.items.slice(i, i + this.elementsPerPage);
         this.collaboratorsArray.push(chunk);
       }
-      this.numberOfPaginations = Array(Math.ceil(data.length / this.elementsPerPage)).fill(0).map((x,i)=>i);
+      this.numberOfPaginations = Array(Math.ceil(data.items.length / this.elementsPerPage)).fill(0).map((x,i)=>i);
     });
   }
   changePagination(i: number) {
