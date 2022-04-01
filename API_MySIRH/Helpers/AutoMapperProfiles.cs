@@ -20,7 +20,6 @@ namespace API_MySIRH.Helpers
             CreateMap<Collaborateur, CollaborateurDTO>().ReverseMap();
             CreateMap<SkillCenter, SkillCenterDTO>().ReverseMap();
             CreateMap<User, UserDto>().ReverseMap();
-            CreateMap<UserDto, User>().ReverseMap();
 
         }
     }
