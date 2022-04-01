@@ -1,31 +1,40 @@
-<div class="container">
-    <div class="my-row">
-        <div class="my-col">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title text-center"> {{collab?.nom}} {{ collab?.prenom }} Profile</h5>
-                    <img src="/assets/place_holder.jpg" class="figure-img img-fluid rounded-circle" alt="place_holder">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                </div>
-            </div>
-        </div>
-        <div>
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                  <a class="nav-link active" href="#">Active</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
-              </ul>
-        </div>
-    </div>
+<div class="container row">
+  <div class=" col-4">
+      <div class="profile-card">
+
+          <h5 class="name">{{collab.nom}} {{collab.prenom}} Profile</h5>
+          <div class="image-container">
+              <img class="image" src="/assets/place_holder.jpg" />
+          </div>
+          <div class="field">
+              <p class="field-label">Location</p>
+              <p class="field-value">Rabat</p>
+          </div>
+          <div class="field">
+              <p class="field-label">Age</p>
+              <p class="field-value">{{age}}</p>
+          </div>
+          <div class="field">
+              <p class="field-label">date Entree Sqli</p>
+              <p class="field-value">{{collab.dateEntreeSqli | date: 'dd MMMM yyyy'}}</p>
+          </div>
+          <div class="field" *ngIf="collab.dateDebutStage">
+              <p class="field-label">date Debut Stage</p>
+              <p class="field-value">{{collab.dateDebutStage | date: 'dd MMMM yyyy'}}</p>
+          </div>
+          <button class="save">Save Changes</button>
+      </div>
+  </div>
+  <div class=" col-8 body">
+      <div class="header">
+          <p class="tab about">About Lina</p>
+          <p class="tab edit">Edit photos</p>
+      </div>
+      <div class="input-container">
+          <p class="input-label">Diplomes</p>
+          <textarea class="input-value">
+
+          </textarea>
+      </div>
+  </div>
 </div>

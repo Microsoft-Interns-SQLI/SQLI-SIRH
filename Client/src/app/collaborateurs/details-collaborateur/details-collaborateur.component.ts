@@ -12,6 +12,7 @@ export class DetailsCollaborateurComponent implements OnInit {
 
   collab_id: string;
   collab: any;
+  age?: number;
 
   constructor(private actRoute: ActivatedRoute, private service: CollaboratorsService) {
     this.collab_id = this.actRoute.snapshot.params['id'];
