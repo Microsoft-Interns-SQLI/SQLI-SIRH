@@ -2,7 +2,7 @@
 
 namespace API_MySIRH.Entities
 {
-    public class TypeContrat:EntityBase
+    public class TypeContrat : EntityBase
     {
         public string Name { get; set; }
     }
