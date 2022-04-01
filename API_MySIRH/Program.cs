@@ -35,6 +35,8 @@ builder.Services.AddScoped<ITypeContratRepository, TypeContratRepository>();
 builder.Services.AddScoped<ITypeContratService, TypeContratService>();
 builder.Services.AddScoped<ICollaborateurService, CollaborateurService>();
 builder.Services.AddScoped<ICollaborateurRepository, CollaborateurRepository>();
+builder.Services.AddScoped(typeof(IMdmRepository<>), typeof(MdmRepository<>));
+builder.Services.AddScoped(typeof(IMdmService<,>), typeof(MdmService<,>));
 
 
 //DBContext Config 

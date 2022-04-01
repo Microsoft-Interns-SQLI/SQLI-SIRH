@@ -1396,6 +1396,29 @@ namespace API_MySIRH.Migrations
                     b.ToTable("Sites");
                 });
 
+            modelBuilder.Entity("API_MySIRH.Entities.SkillCenter", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ModificationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SkillCenters");
+                });
+
             modelBuilder.Entity("API_MySIRH.Entities.ToDoItem", b =>
                 {
                     b.Property<int>("Id")
@@ -1517,7 +1540,7 @@ namespace API_MySIRH.Migrations
                         new
                         {
                             Id = "2c5e174e-3b0e-446f-86af-483d56fd7210",
-                            ConcurrencyStamp = "3a080ad8-3ebf-460a-8309-9e039905523e",
+                            ConcurrencyStamp = "0c80adad-104a-4bc0-ac6e-bd8154c1ec90",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -1617,13 +1640,13 @@ namespace API_MySIRH.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6b764c2c-dc57-42d7-ad04-373db441c48f",
+                            ConcurrencyStamp = "d0213a95-a944-4134-bf79-c16af41357a6",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "MYUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAELlKy0jNAoz6mljK20j9jDzBZl5Er2fqvisKm97dWTjrRVAVAUfxNncWfX/xChlLmA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPLyNbiR/1eNn6JYJpcsAUuXds5llb63TMYhUpbM5USNJ891mGcvGxSA2pUbq+LeSw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ae86128c-14d4-4413-9a02-ef37f350dbe7",
+                            SecurityStamp = "99702ec6-8d12-46c8-8874-adc93bf8db32",
                             TwoFactorEnabled = false,
                             UserName = "myuser"
                         });

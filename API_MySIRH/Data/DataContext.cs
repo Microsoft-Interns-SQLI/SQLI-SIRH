@@ -19,6 +19,7 @@ namespace API_MySIRH.Data
         public DbSet<Post> Posts { get; set; }
         public DbSet<TypeContrat> TypeContrats { get; set; }
         public DbSet<Collaborateur> Collaborateurs { get; set; }
+        public DbSet<SkillCenter> SkillCenters { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

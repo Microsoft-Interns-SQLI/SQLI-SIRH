@@ -6,21 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API_MySIRH.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class TypeContratController : ControllerBase
+    public class TypeContratController : MdmController<TypeContrat, TypeContratDTO>
     {
-        private readonly ITypeContratService _iTypeContrat;
-
-        public TypeContratController(ITypeContratService iTypeContrat)
+        public TypeContratController(IMdmService<TypeContrat, TypeContratDTO> mdmService) : base(mdmService)
         {
-            _iTypeContrat = iTypeContrat;
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<TypeContratDto>> get(int id)
+        [HttpGet("contrats/{id}")]
+        public async Task<ActionResult<TypeContratDTO>> get(int id)
         {
-            var type = await _iTypeContrat.GetById(id);
+            var type = await _mdmService.GetById(id);
             if (type != null)
                 return Ok(type);
             else
@@ -29,10 +24,10 @@ namespace API_MySIRH.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<TypeContratDto>>> get()
+        [HttpGet("contrats")]
+        public async Task<ActionResult<IEnumerable<TypeContratDTO>>> get()
         {
-            var type = await _iTypeContrat.GetAll();
+            var type = await _mdmService.GetAll();
             if (type != null)
                 return Ok(type);
             else
@@ -41,14 +36,14 @@ namespace API_MySIRH.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<ActionResult<TypeContratDto>> post([FromBody] TypeContratDto type)
+        [HttpPost("contrats")]
+        public async Task<ActionResult<TypeContratDTO>> post([FromBody] TypeContratDTO type)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    await _iTypeContrat.Add(type);
+                    await _mdmService.Add(type);
                 }
                 catch (Exception ex)
                 {
@@ -62,16 +57,16 @@ namespace API_MySIRH.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> update(int id, [FromBody] TypeContratDto type)
+        [HttpPut("contrats/{id}")]
+        public async Task<IActionResult> update(int id, [FromBody] TypeContratDTO type)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    await _iTypeContrat.Update(id, type);
+                    await _mdmService.Update(id, type);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     return BadRequest(ex.Message);
                 }
@@ -83,14 +78,14 @@ namespace API_MySIRH.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("contrats/{id}")]
         public async Task<IActionResult> delete(int id)
         {
             try
             {
-                await _iTypeContrat.Delete(id);
+                await _mdmService.Delete(id);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return NotFound(ex.Message);
             }

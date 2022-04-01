@@ -9,17 +9,17 @@ namespace API_MySIRH.Services
     {
 
         private readonly ITypeContratRepository _typeContratRepository;
-        private readonly IMapper _iMapper;
+        private readonly IMapper _mapper;
 
         public TypeContratService(ITypeContratRepository typeContratRepository, IMapper mapper)
         {
             _typeContratRepository = typeContratRepository;
-            _iMapper = mapper;
+            _mapper = mapper;
         }
 
-        public async Task Add(TypeContratDto typeDto)
+        public async Task Add(TypeContratDTO typeDto)
         {
-            await _typeContratRepository.Add(_iMapper.Map<TypeContrat>(typeDto));
+            await _typeContratRepository.Add(_mapper.Map<TypeContrat>(typeDto));
         }
 
         public async Task Delete(int id)
@@ -27,21 +27,21 @@ namespace API_MySIRH.Services
             await _typeContratRepository.Delete(id);
         }
 
-        public async Task<IEnumerable<TypeContratDto>> GetAll()
+        public async Task<IEnumerable<TypeContratDTO>> GetAll()
         {
             var list = await _typeContratRepository.GetAll();
-            return _iMapper.Map<IEnumerable<TypeContrat>, IEnumerable<TypeContratDto>>(list);
+            return _mapper.Map<IEnumerable<TypeContrat>, IEnumerable<TypeContratDTO>>(list);
         }
 
-        public async Task<TypeContratDto> GetById(int id)
+        public async Task<TypeContratDTO> GetById(int id)
         {
             var entity = await _typeContratRepository.GetById(id);
-            return _iMapper.Map<TypeContratDto>(entity);
+            return _mapper.Map<TypeContratDTO>(entity);
         }
 
-        public async Task Update(int id, TypeContratDto type)
+        public async Task Update(int id, TypeContratDTO type)
         {
-            await _typeContratRepository.Update(id,_iMapper.Map<TypeContrat>(type));
+            await _typeContratRepository.Update(id, _mapper.Map<TypeContrat>(type));
         }
     }
 }

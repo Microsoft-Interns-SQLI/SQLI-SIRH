@@ -1,4 +1,4 @@
-﻿namespace API_MySIRH.Entities
+namespace API_MySIRH.Entities
 {
     public class Site : EntityBase
     {
