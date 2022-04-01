@@ -1,48 +1,196 @@
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-    <h2 class="h2">Ajouter Collaborateur</h2>
-    <!-- <div class="btn-toolbar mb-2 mb-md-0">
-      <div class="btn-group me-2">
-        <button type="button" class="btn btn-sm btn-outline-primary" routerLink="/addEditcollaborateur">Ajout</button>
-        <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-      </div>
-      <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-        <span data-feather="calendar"></span>
-        Filtres
-      </button>
-    </div> -->
-</div>
-<form class="row">
-    <div class="col-md-6">
-        <div class="mb-3">
-            <label for="MatriculeInput" class="form-label">Matricule</label>
-            <input type="input" class="form-control" id="MatriculeInput">
+<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
+    aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">
+                Accueil
+            </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            <a href="#">
+                Collaborateurs
+            </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            Détail
+        </li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-md-4 mt-3 bg-light shadow-lg p-3 rounded">
+        <div class="row">
+            <div class="col-md-12 d-flex justify-content-center mt-3">
+                <h5>
+                    Lena Profile
+                </h5>
+            </div>
+            <div class="col-md-12 d-flex justify-content-center mt-3">
+                <img src="https://myfjamaica.org/wp-content/uploads/2015/08/provider_female_avatar.jpg"
+                    alt="Photo de Lena" class="border border-dark">
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="Location">
+                        <strong>
+                            Location :
+                        </strong>
+                    </label>
+                    <input type="text" name="Location" id="Location" class="form-control-plaintext" readonly
+                        value="Cavalero, American Samoa">
+                </div>
+            </div>
+            <div class="col-md-12 mt-1">
+                <div class="form-group">
+                    <label for="Age">
+                        <strong>
+                            Age :
+                        </strong>
+                    </label>
+                    <input type="text" name="Age" id="Age" class="form-control-plaintext" readonly value="46">
+                </div>
+            </div>
+            <div class="col-md-12 mt-1">
+                <div class="form-group">
+                    <label for="lastActive">
+                        <strong>
+                            Last active :
+                        </strong>
+                    </label>
+                    <input type="text" name="lastActive" id="lastActive" class="form-control-plaintext" readonly
+                        value="54 seconds ago">
+                </div>
+            </div>
+            <div class="col-md-12 mt-1">
+                <div class="form-group">
+                    <label for="since">
+                        <strong>
+                            Since :
+                        </strong>
+                    </label>
+                    <input type="text" name="since" id="since" class="form-control-plaintext" readonly
+                        value="3 years ago">
+                </div>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="LoginInput" class="form-label">Login</label>
-            <input type="input" class="form-control" id="LoginInput">
-        </div>
-        <div class="mb-3">
-            <label for="NomCompletInput" class="form-label">Nom Complet</label>
-            <input type="email" class="form-control" id="NomCompletInput">
-        </div>
-        <div class="mb-3">
-            <label for="EmailInput" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="EmailInput">
-        </div>
-        <div class="mb-3">
-            <label for="BirthDateInput" class="form-label">Birth date</label>
-            <input type="date" class="form-control" id="BirthDateInput">
-        </div>
-        <div class="mb-3">
-            <select class="form-select" aria-label="AgencySelectInput">
-                <option selected>Agency</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <select class="form-select" aria-label="SkillCenterSelectInput">
-                <option selected>Skill Center</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
     </div>
-</form>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                Modification des données
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">
+                                    Modifier
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" href="#">
+                                    Edit photo
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-6 mt-3">
+                        <div class="form-group">
+                            <label for="nom">Nom :</label>
+                            <input type="text" name="nom" id="nom" class="form-control form-control-sm"
+                                [required]="true">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="form-group">
+                            <label for="prenom">Prenom :</label>
+                            <input type="text" name="prenom" id="prenom" class="form-control form-control-sm"
+                                [required]="true">
+                        </div>
+                    </div>
+                    <div class="col-md-4 mt-3">
+                        <div class="form-group">
+                            <label for="username">Username :</label>
+                            <input type="text" name="username" id="username" class="form-control form-control-sm"
+                                [disabled]="true">
+                        </div>
+                    </div>
+                    <div class="col-md-4 mt-3">
+                        <div class="form-group">
+                            <label for="dateNaissance">Date de naissance :</label>
+                            <input type="date" name="dateNaissance" id="dateNaissance"
+                                class="form-control form-control-sm" [required]="true">
+                        </div>
+                    </div>
+                    <div class="col-md-4 mt-3">
+                        <div class="form-group">
+                            <label for="civilite">Civilité :</label>
+                            <select name="civilite" id="civilite" class="form-control form-control-sm"
+                                [required]="true">
+                                <option value="M">Homme</option>
+                                <option value="F">Femme</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="form-group">
+                            <label for="dateEntreeSqli">Entrée SQLI :</label>
+                            <input type="date" name="dateEntreeSqli" id="dateEntreeSqli"
+                                class="form-control form-control-sm" [required]="true">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="form-group">
+                            <label for="dateSortieSqli">Sortie de SQLI :</label>
+                            <input type="date" name="dateSortieSqli" id="dateSortieSqli"
+                                class="form-control form-control-sm" [required]="true">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="form-group">
+                            <label for="modeRecrutement">Recrutement :</label>
+                            <select name="modeRecrutement" id="modeRecrutement" class="form-control form-control-sm"
+                                [required]="true">
+                                <option value="E-Chalenge">E-Chalenge</option>
+                                <option value="Stage PFE">Stage PFE</option>
+                                <option value="Recommandation">Recommandation</option>
+                                <option value="Spontané">Spontané</option>
+                                <option value="Autre">Autre</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="form-group">
+                            <label for="matricule">Matricule :</label>
+                            <input type="date" name="matricule" id="matricule" class="form-control form-control-sm"
+                                [required]="true">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="form-group">
+                            <label for="dateDebutStage">Début du stage :</label>
+                            <input type="date" name="dateDebutStage" id="dateDebutStage"
+                                class="form-control form-control-sm" [required]="true">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="form-group">
+                            <label for="datePremiereExperience">Premiere éxperience :</label>
+                            <input type="date" name="datePremiereExperience" id="datePremiereExperience"
+                                class="form-control form-control-sm" [required]="true">
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <div class="form-group">
+                            <label for="diplomes">Diplômes :</label>
+                            <textarea name="diplomes" id="diplomes" rows="4"
+                                class="form-control form-control-sm"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
