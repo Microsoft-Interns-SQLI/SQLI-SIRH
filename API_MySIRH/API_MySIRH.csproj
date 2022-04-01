@@ -30,7 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Extentions\" />
     <Folder Include="Errors\" />
     <Folder Include="Logger\" />
   </ItemGroup>
