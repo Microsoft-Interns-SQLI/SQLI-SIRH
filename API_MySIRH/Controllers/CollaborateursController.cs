@@ -3,6 +3,7 @@ using API_MySIRH.DTOs;
 using API_MySIRH.Entities;
 using API_MySIRH.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using API_MySIRH.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -21,9 +22,32 @@ namespace API_MySIRH.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CollaborateurDTO>>> GetCollaborateurs()
+        public async Task<ActionResult<PagedCollectionResponse<CollaborateurDTO>>> GetCollaborateurs([FromQuery] FilterModel filterModel)
         {
-            return Ok(await this._collaborateurService.GetCollaborateurs());
+            IEnumerable<CollaborateurDTO> collabs = await Task.FromResult<IEnumerable<CollaborateurDTO>>(await this._collaborateurService.GetCollaborateurs());
+
+            Func<FilterModel, IEnumerable<CollaborateurDTO>> filterData = (filterModel) =>
+            {
+                return collabs.Where(p => p.Nom.StartsWith(filterModel.Term ?? String.Empty, StringComparison.InvariantCultureIgnoreCase))
+                .Skip((filterModel.Page - 1) * filterModel.Limit)
+                .Take(filterModel.Limit);
+            };
+
+            var result = new PagedCollectionResponse<CollaborateurDTO>();
+            result.Items = filterData(filterModel);
+
+            FilterModel nextFilter = filterModel.Clone() as FilterModel;
+            nextFilter.Page += 1;
+            String nextUrl = filterData(nextFilter).Count() <= 0 ? null : this.Url.Action(nameof(GetCollaborateurs), null, nextFilter, Request.Scheme);
+
+            FilterModel previousFilter = filterModel.Clone() as FilterModel;
+            previousFilter.Page -= 1;
+            String previousUrl = previousFilter.Page <= 0 ? null : this.Url.Action(nameof(GetCollaborateurs), null, previousFilter, Request.Scheme);
+
+            result.NextPage = !String.IsNullOrWhiteSpace(nextUrl) ? new Uri(nextUrl) : null;
+            result.PreviousPage = !String.IsNullOrWhiteSpace(previousUrl) ? new Uri(previousUrl) : null;
+            result.Total = collabs.Count();
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
@@ -67,6 +91,5 @@ namespace API_MySIRH.Controllers
             await this._collaborateurService.DeleteCollaborateur(id);
             return NoContent();
         }
-
     }
 }
