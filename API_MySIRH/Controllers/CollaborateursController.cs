@@ -21,7 +21,6 @@ namespace API_MySIRH.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CollaborateurDTO>>> GetCollaborateurs()
         {
-            var test = DataInitializer.SeedData();
             return Ok(await this._collaborateurService.GetCollaborateurs());
         }
 
