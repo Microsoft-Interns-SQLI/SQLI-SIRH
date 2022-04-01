@@ -7,7 +7,7 @@ import { Collaborator } from '../Models/Collaborator';
     providedIn: 'root'
 })
 export class CollaboratorsService {
-    readonly myUrl: string = "http://localhost:3000/collabs";
+    readonly myUrl: string = "https://localhost:7019/api/Collaborateurs";
 
     constructor(private http: HttpClient) {}
 

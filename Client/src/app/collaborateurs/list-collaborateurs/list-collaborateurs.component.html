@@ -17,18 +17,18 @@
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Login</th>
-        <th scope="col">Nom Complet</th>
-        <th scope="col">Agence</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Prenom</th>
+        <th scope="col">Date Entree</th>
         <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of collaboratorsArray[currentPagination]">
-        <td>{{item.id}}</td>
-        <td>{{item.Login}}</td>
-        <td>{{ item["Nom Complet"] }}</td>
-        <td>{{item.Agence}}</td>
+        <td>{{item.matricule}}</td>
+        <td>{{ item.nom }}</td>
+        <td>{{item.prenom }}</td>
+        <td>{{item.dateEntreeSqli | date: 'dd MMMM yyyy'}}</td>
         <td>delete | <button type="button" class="btn btn-sm btn-outline-primary" [routerLink]="['/detailCollaborator', item.id]">Details</button></td>
       </tr>
     </tbody>

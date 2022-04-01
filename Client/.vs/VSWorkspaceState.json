@@ -1,0 +1,10 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\auth\\signin",
+    "\\src\\app\\auth\\signup"
+  ],
+  "PreviewInSolutionExplorer": false
+}

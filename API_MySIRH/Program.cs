@@ -29,13 +29,21 @@ builder.Services.AddScoped<IToDoListService, ToDoListService>();
 builder.Services.AddScoped<IToDoItemService, ToDoItemService>();
 builder.Services.AddScoped<IMemoService, MemoService>();
 builder.Services.AddScoped<IMemoRepository, MemoRepository>();
+builder.Services.AddScoped<INiveauService, NiveauService>();
+builder.Services.AddScoped<INiveauRepository, NiveauRepository>();
+builder.Services.AddScoped<ITypeContratRepository, TypeContratRepository>();
+builder.Services.AddScoped<ITypeContratService, TypeContratService>();
+builder.Services.AddScoped<ICollaborateurService, CollaborateurService>();
+builder.Services.AddScoped<ICollaborateurRepository, CollaborateurRepository>();
+builder.Services.AddScoped(typeof(IMdmRepository<>), typeof(MdmRepository<>));
+builder.Services.AddScoped(typeof(IMdmService<,>), typeof(MdmService<,>));
 
 
 //DBContext Config 
 builder.Services.AddDbContext<DataContext>(options =>
 {
-    //options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    //options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 //enable CORS
@@ -44,7 +52,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: myAllowSpecificOrigins,
         builder =>
         {
-            builder.WithOrigins("http://localhost:4200")
+            builder.WithOrigins("http://localhost:4200", "http://localhost:4201")
             .AllowAnyMethod()
             .AllowAnyHeader()
             ;
