@@ -14,40 +14,45 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="card2 card border-0 px-4 py-5">
-                    <div class="row px-3"> <label class="mb-1">
-                            <h6 class="mb-0 text-sm">
-                                Adresse email :
-                            </h6>
-                        </label>
-                        <input class="mb-4" type="text" name="email" placeholder="adresse.email@mail.com" required>
-                    </div>
-                    <div class="row px-3"> <label class="mb-1">
-                            <h6 class="mb-0 text-sm">
-                                Mot de passe :
-                            </h6>
-                        </label>
-                        <input type="password" name="password" placeholder="Password" required>
-                    </div>
-                    <div class="row px-3 mb-4 ">
-                        <a class="ml-auto mb-0 text-sm d-flex justify-content-end">Mot de passe oublié ?</a>
-                    </div>
-                    <div class="row mb-3 px-3 mt-5">
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-blue">
-                                Se connecter
-                            </button>
+                <form [formGroup]="forms" (submit)="onSubmit()">
+                    <div class="card2 card border-0 px-4 py-5">
+                        <div class="row px-3"> <label class="mb-1">
+                                <h6 class="mb-0 text-sm">
+                                    E-mail :
+                                </h6>
+                            </label>
+                            <input class="mb-4" type="text" formControlName="email" placeholder="adresse@mail.com" required>
+                            <div class="alert alert-danger" *ngIf="forms.controls['email'].invalid && forms.controls['email'].touched">
+                                <small *ngIf="forms.controls['email'].errors"></small>
+                            </div>
+                        </div>
+                        <div class="row px-3"> <label class="mb-1">
+                                <h6 class="mb-0 text-sm">
+                                    Password :
+                                </h6>
+                            </label>
+                            <input type="password" formControlName="password" placeholder="Password" required>
+                        </div>
+                        <div class="row px-3 mb-4 ">
+                            <a class="ml-auto mb-0 text-sm d-flex justify-content-end">Mot de passe oublié ?</a>
+                        </div>
+                        <div class="row mb-3 px-3 mt-5">
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-blue">
+                                    Se connecter
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row mb-4 px-3 text-center">
+                            <small class="font-weight-bold">
+                                Problème lors de l'authentification ?
+                                <a class="text-danger ">
+                                    Contacter le support.
+                                </a>
+                            </small>
                         </div>
                     </div>
-                    <div class="row mb-4 px-3 text-center">
-                        <small class="font-weight-bold">
-                            Problème lors de l'authentification ?
-                            <a class="text-danger ">
-                                Contacter le support.
-                            </a>
-                        </small>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
         <div class="bg-blue py-4">
