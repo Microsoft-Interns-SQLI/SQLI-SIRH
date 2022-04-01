@@ -12,7 +12,8 @@
   <div class="navbar-nav">
     <div class="nav-item text-nowrap">
       <!-- <a class="nav-link px-3" routerLink='/home'>Sign out</a> -->
-      <a class="nav-link px-3" routerLink='/login'>Sign in</a>
+      <a class="nav-link px-3" routerLink='/login' *ngIf="!isLogin">Signin</a>
+      <button class="btn nav-link px-3" (click)="onSignOut()" *ngIf="isLogin">Logout</button>
     </div>
   </div>
 </header>

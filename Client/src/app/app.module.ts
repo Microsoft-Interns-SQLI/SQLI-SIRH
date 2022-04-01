@@ -9,7 +9,6 @@ import { ListCandidatsComponent } from './candidats/list-candidats/list-candidat
 import { ListCollaborateursComponent } from './collaborateurs/list-collaborateurs/list-collaborateurs.component';
 import { HomeComponent } from './home/home.component';
 import { RouterModule } from '@angular/router';
-import { appRoutes } from './routes';
 import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { ToDoComponent } from './to-do/list-todo/to-do.component';
@@ -24,9 +23,9 @@ import { IntegrationsComponent } from './integrations/integrations.component';
 import { ReportsComponent } from './reports/reports.component';
 import { DemissionsComponent } from './demissions/demissions.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { AddEditTodoComponent } from './to-do/add-edit-todo/addEditTodo.component';
-import {DatePipe} from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { NgxEditorModule } from 'ngx-editor';
 import { CommonModule } from "@angular/common";
 import { ListFreelancesComponent } from './freelances/list-freelances/list-freelances.component';
@@ -37,6 +36,7 @@ import { AddEditCollaborateurComponent } from './collaborateurs/add-edit-collabo
 import { LayoutComponent } from './layout/layout.component';
 import { ModalComponent } from './shared/modal/modal.component';
 import { ToastComponent } from './shared/toast/toast.component';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -51,29 +51,29 @@ import { ToastComponent } from './shared/toast/toast.component';
     ToDoComponent,
     MemoComponent,
     AboutComponent,
-      DashboardComponent,
-      NotFoundComponent,
-      ServerErrorComponent,
-      TestErrorsComponent,
-      FormationsComponent,
-      IntegrationsComponent,
-      ReportsComponent,
-      DemissionsComponent,
-      AddEditTodoComponent,
-      ListFreelancesComponent,
-      AddEditFreelancesComponent,
-      AddEditMemosComponent,
-      AddEditCandidatComponent,
-      AddEditCollaborateurComponent,
-      LayoutComponent,
-      ModalComponent,
-      ToastComponent
-   ],
+    DashboardComponent,
+    NotFoundComponent,
+    ServerErrorComponent,
+    TestErrorsComponent,
+    FormationsComponent,
+    IntegrationsComponent,
+    ReportsComponent,
+    DemissionsComponent,
+    AddEditTodoComponent,
+    ListFreelancesComponent,
+    AddEditFreelancesComponent,
+    AddEditMemosComponent,
+    AddEditCandidatComponent,
+    AddEditCollaborateurComponent,
+    LayoutComponent,
+    ModalComponent,
+    ToastComponent,
+    SpinnerComponent
+  ],
   imports: [
     CommonModule,
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(appRoutes),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
