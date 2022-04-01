@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { AddEditCandidatComponent } from './candidats/add-edit-candidat/add-edit-candidat.component';
 import { ListCandidatsComponent } from './candidats/list-candidats/list-candidats.component';
 import { AddEditCollaborateurComponent } from './collaborateurs/add-edit-collaborateur/add-edit-collaborateur.component';
+import { DetailsCollaborateurComponent } from './collaborateurs/details-collaborateur/details-collaborateur.component';
 import { ListCollaborateursComponent } from './collaborateurs/list-collaborateurs/list-collaborateurs.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DemissionsComponent } from './demissions/demissions.component';
@@ -25,6 +26,7 @@ export const appRoutes: Routes = [
   { path: 'candidats', component: ListCandidatsComponent},
   { path: 'addEditcandidats', component: AddEditCandidatComponent},
   { path: 'collaborateurs', component: ListCollaborateursComponent},
+  { path: 'detailCollaborator/:id', component: DetailsCollaborateurComponent},
   { path: 'addEditcollaborateur', component: AddEditCollaborateurComponent},
   { path: 'todo', component: ToDoComponent},
   { path: 'memo', component: MemoComponent},

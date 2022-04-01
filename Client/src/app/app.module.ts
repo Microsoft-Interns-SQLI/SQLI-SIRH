@@ -34,6 +34,7 @@ import { AddEditFreelancesComponent } from './freelances/add-edit-freelances/add
 import { AddEditMemosComponent } from './memos/add-edit-memos/add-edit-memos.component';
 import { AddEditCandidatComponent } from './candidats/add-edit-candidat/add-edit-candidat.component';
 import { AddEditCollaborateurComponent } from './collaborateurs/add-edit-collaborateur/add-edit-collaborateur.component';
+import { DetailsCollaborateurComponent } from './collaborateurs/details-collaborateur/details-collaborateur.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { AddEditCollaborateurComponent } from './collaborateurs/add-edit-collabo
       AddEditFreelancesComponent,
       AddEditMemosComponent,
       AddEditCandidatComponent,
-      AddEditCollaborateurComponent
+      AddEditCollaborateurComponent,
+      DetailsCollaborateurComponent
    ],
   imports: [
     CommonModule,

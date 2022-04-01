@@ -1,5 +1,5 @@
 export interface Collaborator {
-    Matricule: string
+    id: string
     Login: string
     Email: string
     "Nom Complet": string
