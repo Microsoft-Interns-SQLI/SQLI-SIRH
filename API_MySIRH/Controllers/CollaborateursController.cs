@@ -2,6 +2,7 @@ using API_MySIRH.Data;
 using API_MySIRH.DTOs;
 using API_MySIRH.Entities;
 using API_MySIRH.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -9,6 +10,7 @@ namespace API_MySIRH.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize()]
     public class CollaborateursController : ControllerBase
     {
         private readonly ICollaborateurService _collaborateurService;

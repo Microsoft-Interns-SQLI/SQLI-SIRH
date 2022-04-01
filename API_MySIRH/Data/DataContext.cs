@@ -50,6 +50,7 @@ namespace API_MySIRH.Data
                 {
                     Id = 1, // primary key
                     Email = "Admin@sqli.com",
+                    NormalizedEmail = "ADMIN@SQLI.COM",
                     UserName = "AdminUser",
                     NormalizedUserName = "ADMINUSER",
                     PasswordHash = hasher.HashPassword(null, "Pa$$w0rd")
