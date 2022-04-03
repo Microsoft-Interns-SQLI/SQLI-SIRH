@@ -19,8 +19,8 @@ export class HeaderBarComponent implements OnInit {
   }
 
   onSignOut(): void {
-    // this.authService.logout();
-    // this.router.navigate(['login']);
+    this.authService.logout();
+    this.router.navigate(['login']);
   }
 
 }

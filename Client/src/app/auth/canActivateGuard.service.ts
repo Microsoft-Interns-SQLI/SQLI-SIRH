@@ -16,6 +16,14 @@ export class CanActivateGuardService implements CanActivate,CanActivateChild{
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+        
+        const exp:number = +JSON.parse(localStorage.getItem("expiration") || '-1');
+
+        if(this.authService.isExpired(exp) || exp === -1){
+            this.authService.logout();
+            return this.router.createUrlTree(['login']);
+        }
+
         return this.authService.user.pipe(
             take(1),
             map((value:User)=>{

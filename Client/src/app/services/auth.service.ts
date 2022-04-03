@@ -28,6 +28,7 @@ export class AuthService {
   private handleAuthentication(userResponse: UserResponse):void{
     this.user.next(userResponse.user);
     localStorage.setItem("token", userResponse.accessToken);
+    localStorage.setItem("expiration", userResponse.expiration);
     localStorage.setItem("user", JSON.stringify(userResponse.user));
   }
 
@@ -40,6 +41,11 @@ export class AuthService {
   logout():void{
     localStorage.clear();
     this.user.next({} as User);
+  }
+
+
+  isExpired(exp:number):boolean{
+    return Date.now() > exp;
   }
 
   private handleError(error:HttpErrorResponse):Observable<never>{

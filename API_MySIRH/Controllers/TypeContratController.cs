@@ -1,6 +1,7 @@
 ﻿using API_MySIRH.DTOs;
 using API_MySIRH.Entities;
 using API_MySIRH.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +24,6 @@ namespace API_MySIRH.Controllers
                 return NotFound();
             }
         }
-
         [HttpGet("contrats")]
         public async Task<ActionResult<IEnumerable<TypeContratDTO>>> get()
         {
