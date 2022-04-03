@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
-import { ActivatedRoute, ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot, UrlTree } from "@angular/router";
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot, UrlTree } from "@angular/router";
+import { ToastrService } from "ngx-toastr";
 import { map, Observable, take } from "rxjs";
+
 import { User } from "../Models/user";
 import { AuthService } from "../services/auth.service";
 
@@ -9,7 +11,7 @@ import { AuthService } from "../services/auth.service";
 })
 export class CanActivateGuardService implements CanActivate,CanActivateChild{
 
-    constructor(private authService:AuthService, private router:Router){}
+    constructor(private authService:AuthService, private router:Router, private toastrService:ToastrService){}
 
     canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
         return this.canActivate(childRoute,state);
@@ -19,18 +21,27 @@ export class CanActivateGuardService implements CanActivate,CanActivateChild{
         
         const exp:number = +JSON.parse(localStorage.getItem("expiration") || '-1');
 
-        if(this.authService.isExpired(exp) || exp === -1){
-            this.authService.logout();
+        if(exp === -1){
+            this.toastrService.warning("You must be logged in before accessing to the page!","Login required");
             return this.router.createUrlTree(['login']);
         }
-
+        if(this.authService.isExpired(exp)){
+            this.authService.logout();
+            this.toastrService.error('Token expired! try to reconnect','Expiration Problem');
+            return this.router.createUrlTree(['login']);
+        }
         return this.authService.user.pipe(
             take(1),
             map((value:User)=>{
                 const isAuth:boolean = !!value.email;
-                return isAuth ? isAuth: this.router.createUrlTree(['login']);
+                if(!isAuth){
+                    this.toastrService.warning("You must be logged in before accessing to the page!","Login required");
+                    return this.router.createUrlTree(['login']);
+                }
+                return isAuth;
             })
         );
+        
     }
 
 }

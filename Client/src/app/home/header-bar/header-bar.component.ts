@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/Models/user';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -10,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class HeaderBarComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router:Router) { }
+  constructor(private authService: AuthService, private router:Router,private toastrService:ToastrService) { }
   isLogin: boolean = false;
   ngOnInit(): void {
     this.authService.user.subscribe((data: User) => {
@@ -21,6 +22,7 @@ export class HeaderBarComponent implements OnInit {
   onSignOut(): void {
     this.authService.logout();
     this.router.navigate(['login']);
+    this.toastrService.success("Operation is done successfully!","Sign-out success");
   }
 
 }

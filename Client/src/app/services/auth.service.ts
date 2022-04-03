@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../Models/user';
@@ -13,7 +14,7 @@ export class AuthService {
   user:BehaviorSubject<User> = new BehaviorSubject({} as User);
 
   url:string = environment.URL;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private toastrService:ToastrService) { }
 
   login(email:string, password:string):Observable<UserResponse>{
     return this.http.post<UserResponse>(this.url+"login",{

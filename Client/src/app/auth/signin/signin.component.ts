@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -17,7 +18,7 @@ export class SigninComponent implements OnInit, OnDestroy {
   error!:string;
   subscription!: Subscription;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private toastrService: ToastrService) { }
   
   ngOnInit(): void {
     this.initForm();
@@ -35,7 +36,8 @@ export class SigninComponent implements OnInit, OnDestroy {
     this.subscription = this.authService.login(email, password).subscribe({
       next:()=>{
         this.router.navigate(['home'])
-        this.isLoading = false
+        this.isLoading = false;
+        this.toastrService.success("Operation is done successfully!","Sign-in success");
       },
       error:(err)=>{        
         this.isLoading = false
