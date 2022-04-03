@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace API_MySIRH.Controllers
 {
@@ -54,9 +55,12 @@ namespace API_MySIRH.Controllers
             if(!roleResult.Succeeded)
                 return BadRequest(roleResult.Errors);
 
+            var token = await _tokenService.CreateToken(user);
+
             return new AuthResponse
             {
-                accessToken = await _tokenService.CreateToken(user),
+                accessToken = new JwtSecurityTokenHandler().WriteToken(token),
+                expiration = token.ValidTo.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds.ToString(),
                 user = _mapper.Map<UserDto>(user)
             };
 
@@ -81,10 +85,11 @@ namespace API_MySIRH.Controllers
             {
                 return BadRequest("Email or password is invalid!");
             }
-
+            var token = await _tokenService.CreateToken(user);
             return new AuthResponse
             {
-                accessToken = await _tokenService.CreateToken(user),
+                accessToken = new JwtSecurityTokenHandler().WriteToken(token),
+                expiration = token.ValidTo.Subtract(new DateTime(1970,1,1)).TotalMilliseconds.ToString(),
                 user = _mapper.Map<UserDto>(user)
             };
         }

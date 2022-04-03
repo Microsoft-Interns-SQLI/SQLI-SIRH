@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { map, take } from 'rxjs';
 import { User } from 'src/app/Models/user';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -20,8 +19,8 @@ export class HeaderBarComponent implements OnInit {
   }
 
   onSignOut(): void {
-    this.authService.logout();
-    this.router.navigate(['login']);
+    // this.authService.logout();
+    // this.router.navigate(['login']);
   }
 
 }
