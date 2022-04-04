@@ -1,9 +1,10 @@
 ﻿using API_MySIRH.Entities.Auth;
+using Microsoft.IdentityModel.Tokens;
 
 namespace API_MySIRH.Interfaces
 {
     public interface ITokenService
     {
-        Task<string> CreateToken(User user);
+        Task<SecurityToken> CreateToken(User user);
     }
 }

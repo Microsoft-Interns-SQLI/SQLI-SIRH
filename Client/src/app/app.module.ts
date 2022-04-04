@@ -1,5 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations"
+import { ToastrModule } from 'ngx-toastr';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
+import { NgxEditorModule } from 'ngx-editor';
+import { CommonModule } from "@angular/common";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,8 +15,6 @@ import { HeaderBarComponent } from './home/header-bar/header-bar.component';
 import { ListCandidatsComponent } from './candidats/list-candidats/list-candidats.component';
 import { ListCollaborateursComponent } from './collaborateurs/list-collaborateurs/list-collaborateurs.component';
 import { HomeComponent } from './home/home.component';
-import { RouterModule } from '@angular/router';
-import { appRoutes } from './routes';
 import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { ToDoComponent } from './to-do/list-todo/to-do.component';
@@ -23,12 +28,7 @@ import { FormationsComponent } from './formations/formations.component';
 import { IntegrationsComponent } from './integrations/integrations.component';
 import { ReportsComponent } from './reports/reports.component';
 import { DemissionsComponent } from './demissions/demissions.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule} from '@angular/common/http';
 import { AddEditTodoComponent } from './to-do/add-edit-todo/addEditTodo.component';
-import {DatePipe} from '@angular/common';
-import { NgxEditorModule } from 'ngx-editor';
-import { CommonModule } from "@angular/common";
 import { ListFreelancesComponent } from './freelances/list-freelances/list-freelances.component';
 import { AddEditFreelancesComponent } from './freelances/add-edit-freelances/add-edit-freelances.component';
 import { AddEditMemosComponent } from './memos/add-edit-memos/add-edit-memos.component';
@@ -38,6 +38,7 @@ import { DetailsCollaborateurComponent } from './collaborateurs/details-collabor
 import { LayoutComponent } from './layout/layout.component';
 import { ModalComponent } from './shared/modal/modal.component';
 import { ToastComponent } from './shared/toast/toast.component';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -52,34 +53,39 @@ import { ToastComponent } from './shared/toast/toast.component';
     ToDoComponent,
     MemoComponent,
     AboutComponent,
-      DashboardComponent,
-      NotFoundComponent,
-      ServerErrorComponent,
-      TestErrorsComponent,
-      FormationsComponent,
-      IntegrationsComponent,
-      ReportsComponent,
-      DemissionsComponent,
-      AddEditTodoComponent,
-      ListFreelancesComponent,
-      AddEditFreelancesComponent,
-      AddEditMemosComponent,
-      AddEditCandidatComponent,
-      AddEditCollaborateurComponent,
-      DetailsCollaborateurComponent,
-      LayoutComponent,
-      ModalComponent,
-      ToastComponent
-   ],
+    DashboardComponent,
+    NotFoundComponent,
+    ServerErrorComponent,
+    TestErrorsComponent,
+    FormationsComponent,
+    IntegrationsComponent,
+    ReportsComponent,
+    DemissionsComponent,
+    AddEditTodoComponent,
+    ListFreelancesComponent,
+    AddEditFreelancesComponent,
+    AddEditMemosComponent,
+    AddEditCandidatComponent,
+    AddEditCollaborateurComponent,
+    LayoutComponent,
+    ModalComponent,
+    ToastComponent,
+    SpinnerComponent
+  ],
   imports: [
     CommonModule,
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(appRoutes),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     NgxEditorModule,
+    ToastrModule.forRoot({
+      positionClass:'toast-top-right',
+      timeOut:2000,
+      closeButton:true
+    }),
+    BrowserAnimationsModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
