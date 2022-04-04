@@ -28,7 +28,7 @@ export class ListCollaborateursComponent implements OnInit {
     });
   }
   changePagination(i: number) {
-    if (i < 0 || i >= this.collaboratorsArray.length)
+    if (i < 0 || i >= this.numberOfPaginations.length)
       return;
     this.currentPagination = i;
     this.collaboratorsServiceMap();
