@@ -1,64 +1,211 @@
-<form class="row g-3 was-validated" novalidate>
-  <div class="col-md-4">
-    <label for="validationCustom01" class="form-label">First name</label>
-    <input type="text" class="form-control" id="validationCustom01" value="Mark" required>
-    <div class="valid-feedback">
-      Looks good!
+<!-- <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
+    aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">
+                Accueil
+            </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            <a href="#">
+                Collaborateurs
+            </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            Détail
+        </li>
+    </ol>
+</nav> -->
+
+<form class="row">
+    <div class="my-col col-md-3 mt-3 bg-white p-3 rounded">
+        <div class="row">
+            <div class="col-md-12 d-flex justify-content-center mt-3">
+                <h5 *ngIf="collab_id">
+                    {{collab?.nom}} {{collab?.prenom}} Profile
+                </h5>
+                <h5 *ngIf="!collab_id">
+                    Add new collab
+                </h5>
+            </div>
+            <div class="col-md-12 d-flex justify-content-center mt-3">
+                <img src="https://myfjamaica.org/wp-content/uploads/2015/08/provider_female_avatar.jpg"
+                    alt="Photo de Lena" class="img-fluid border border-dark">
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="Location">
+                        <strong>
+                            Location :
+                        </strong>
+                    </label>
+                    <input type="text" name="Location" id="Location" class="form-control-plaintext" readonly
+                        value="Rabat">
+                </div>
+            </div>
+            <div class="col-md-12 mt-1">
+                <div class="form-group">
+                    <label for="Age">
+                        <strong>
+                            Age :
+                        </strong>
+                    </label>
+                    <input type="text" name="Age" id="Age" class="form-control-plaintext" readonly value="46">
+                </div>
+            </div>
+            <div class="col-md-12 mt-1">
+                <div class="form-group">
+                    <label for="lastActive">
+                        <strong>
+                            Entre SQLI :
+                        </strong>
+                    </label>
+                    <input type="text" name="lastActive" id="lastActive" class="form-control-plaintext" readonly
+                        [ngModel]="collab?.dateEntreeSqli | date : 'dd MMMM yyyy'">
+                </div>
+            </div>
+            <div class="col-md-12 mt-1">
+                <div class="form-group">
+                    <label for="since">
+                        <strong>
+                            Level :
+                        </strong>
+                    </label>
+                    <input type="text" name="since" id="since" class="form-control-plaintext" readonly
+                        value="Level Placeholder">
+                </div>
+            </div>
+            <div class="col-md-12 mt-1">
+                <button type="submit" class="save" (click)="saveCollaborator()">Save Changes</button>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="col-md-4">
-    <label for="validationCustom02" class="form-label">Last name</label>
-    <input type="text" class="form-control" id="validationCustom02" value="Otto" required>
-    <div class="valid-feedback">
-      Looks good!
+    <div class="my-col col-md-9 mt-3">
+        <div class="card my-col">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">
+                                    Personal Info
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" href="#">
+                                    Placeholder
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-6 mt-3">
+                        <div class="form-group">
+                            <label for="nom">Nom :</label>
+                            <input type="text" name="nom" [(ngModel)]="collab.nom" class="form-control form-control-sm"
+                                required>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="form-group">
+                            <label for="prenom">Prenom :</label>
+                            <input type="text" name="prenom" [(ngModel)]="collab.prenom"
+                                class="form-control form-control-sm" [required]="true">
+                        </div>
+                    </div>
+                    <div class="col-md-4 mt-3">
+                        <div class="form-group">
+                            <label for="username">Username :</label>
+                            <input type="text" name="username" id="username" class="form-control form-control-sm"
+                                [disabled]="true">
+                        </div>
+                    </div>
+                    <div class="col-md-4 mt-3">
+                        <div class="form-group">
+                            <label for="dateNaissance">Date de naissance :</label>
+                            <input type="date" name="dateNaissance"
+                                [ngModel]="collab.dateNaissance | date: 'yyyy-MM-dd'"
+                                (ngModelChange)="collab.dateNaissance = $event" class="form-control form-control-sm"
+                                [required]="true">
+                        </div>
+                    </div>
+                    <div class="col-md-4 mt-3">
+                        <div class="form-group">
+                            <label for="civilite">Civilité :</label>
+                            <select name="civilite" [(ngModel)]="collab.civilite" class="form-select form-select-sm"
+                                [required]="true">
+                                <option value disabled selected>-Sélectionner-</option>
+                                <option value="M">Homme</option>
+                                <option value="F">Femme</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="form-group">
+                            <label for="dateEntreeSqli">Entrée SQLI :</label>
+                            <input type="date" name="dateEntreeSqli"
+                                [ngModel]="collab.dateEntreeSqli | date: 'yyyy-MM-dd'"
+                                (ngModelChange)="collab.dateEntreeSqli = $event" class="form-control form-control-sm"
+                                [required]="true">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="form-group">
+                            <label for="dateSortieSqli">Sortie de SQLI :</label>
+                            <input type="date" name="dateSortieSqli"
+                                [ngModel]="collab.dateSortieSqli | date: 'yyyy-MM-dd'"
+                                (ngModelChange)="collab.dateSortieSqli = $event" class="form-control form-control-sm"
+                                [required]="true">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="form-group">
+                            <label for="modeRecrutement">Recrutement :</label>
+                            <select name="modeRecrutement" [(ngModel)]="collab.modeRecrutement"
+                                class="form-select form-select-sm" [required]="true">
+                                <option value disabled selected>-Sélectionner-</option>
+                                <option value="E-Chalenge">E-Chalenge</option>
+                                <option value="Stage PFE">Stage PFE</option>
+                                <option value="Recommandation">Recommandation</option>
+                                <option value="Spontané">Spontané</option>
+                                <option value="Autre">Autre</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="form-group">
+                            <label for="matricule">Matricule :</label>
+                            <input type="input" name="matricule" [(ngModel)]="collab.matricule"
+                                class="form-control form-control-sm" [required]="true">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="form-group">
+                            <label for="dateDebutStage">Début du stage :</label>
+                            <input type="date" name="dateDebutStage"
+                                [ngModel]="collab.dateDebutStage | date: 'yyyy-MM-dd'"
+                                (ngModelChange)="collab.dateDebutStage = $event" class="form-control form-control-sm"
+                                [required]="true">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="form-group">
+                            <label for="datePremiereExperience">Premiere éxperience :</label>
+                            <input type="date" name="datePremiereExperience"
+                                [ngModel]="collab.datePremiereExperience | date: 'yyyy-MM-dd'"
+                                (ngModelChange)="collab.datePremiereExperience = $event"
+                                class="form-control form-control-sm" [required]="true">
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <div class="form-group">
+                            <label for="diplomes">Diplômes :</label>
+                            <textarea name="diplomes" [(ngModel)]="collab.diplomes" rows="4"
+                                class="form-control form-control-sm"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="col-md-4">
-    <label for="validationCustomUsername" class="form-label">Username</label>
-    <div class="input-group has-validation">
-      <span class="input-group-text" id="inputGroupPrepend">@</span>
-      <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
-      <div class="invalid-feedback">
-        Please choose a username.
-      </div>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <label for="validationCustom03" class="form-label">City</label>
-    <input type="text" class="form-control" id="validationCustom03" required>
-    <div class="invalid-feedback">
-      Please provide a valid city.
-    </div>
-  </div>
-  <div class="col-md-3">
-    <label for="validationCustom04" class="form-label">State</label>
-    <select class="form-select" id="validationCustom04" required>
-      <option selected disabled value="">Choose...</option>
-      <option>...</option>
-    </select>
-    <div class="invalid-feedback">
-      Please select a valid state.
-    </div>
-  </div>
-  <div class="col-md-3">
-    <label for="validationCustom05" class="form-label">Zip</label>
-    <input type="text" class="form-control" id="validationCustom05" required>
-    <div class="invalid-feedback">
-      Please provide a valid zip.
-    </div>
-  </div>
-  <div class="col-12">
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-      <label class="form-check-label" for="invalidCheck">
-        Agree to terms and conditions
-      </label>
-      <div class="invalid-feedback">
-        You must agree before submitting.
-      </div>
-    </div>
-  </div>
-  <div class="col-12">
-    <button class="btn btn-primary" type="submit">Submit form</button>
-  </div>
 </form>
