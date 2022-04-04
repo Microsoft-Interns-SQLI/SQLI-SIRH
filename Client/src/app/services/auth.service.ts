@@ -50,7 +50,8 @@ export class AuthService {
   }
 
   private handleError(error:HttpErrorResponse):Observable<never>{
-
+    if(error.status === 0)
+      return throwError(()=> "Something went wrong!");
     return throwError(()=> error.error);
   }
 }
