@@ -7,7 +7,7 @@ import { Collaborator } from '../Models/Collaborator';
     providedIn: 'root'
 })
 export class CollaboratorsService {
-    readonly myUrl: string = "https://localhost:7019/api/Collaborateurs";
+    readonly myUrl: string = "https://sqli-sirh-backend.herokuapp.com/api/Collaborateurs";
 
     constructor(private http: HttpClient) {}
 

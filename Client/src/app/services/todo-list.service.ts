@@ -7,7 +7,7 @@ import { todoList } from '../Models/todoList';
   providedIn: 'root'
 })
 export class TodoListService {
-  readonly mySIRHAPIUrl = 'https://localhost:7019/api';
+  readonly mySIRHAPIUrl = 'https://sqli-sirh-backend.herokuapp.com/api';
 
   constructor(private http: HttpClient) {}
 
