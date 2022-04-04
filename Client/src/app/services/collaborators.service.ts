@@ -11,8 +11,8 @@ export class CollaboratorsService {
 
     constructor(private http: HttpClient) {}
 
-    getCollaboratorsList(): Observable<any> {
-        return this.http.get<any>(this.myUrl, {responseType: 'json'});
+    getCollaboratorsList(limit: number, page: number): Observable<any> {
+        return this.http.get<any>(this.myUrl + `?Page=${page}&Limit=${limit}`, {responseType: 'json'});
     }
 
     getCollaboratorByMatricule(id:number|string): Observable<Collaborator> {

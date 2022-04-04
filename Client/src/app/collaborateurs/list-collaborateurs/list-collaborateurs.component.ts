@@ -8,7 +8,8 @@ import { CollaboratorsService } from 'src/app/services/collaborators.service';
   styleUrls: ['./list-collaborateurs.component.css']
 })
 export class ListCollaborateursComponent implements OnInit {
-  collaboratorsArray: Collaborator[][] = [];
+  collaboratorsArray: Collaborator[] = [];
+  collabToDelete?: Collaborator = new Collaborator();
   elementsPerPage: number = 10;
   currentPagination: number = 0;
   numberOfPaginations: number[] = [];
@@ -20,25 +21,33 @@ export class ListCollaborateursComponent implements OnInit {
   }
 
   collaboratorsServiceMap(): void {
-    this.service.getCollaboratorsList().subscribe((data) => {
-      console.log(data.items.length);
-      for (let i = 0; i < data.items.length; i += this.elementsPerPage) {
-        const chunk = data.items.slice(i, i + this.elementsPerPage);
-        this.collaboratorsArray.push(chunk);
-      }
-      this.numberOfPaginations = Array(Math.ceil(data.items.length / this.elementsPerPage)).fill(0).map((x,i)=>i);
+    this.service.getCollaboratorsList(this.elementsPerPage, this.currentPagination + 1)
+      .subscribe((data) => {
+      this.collaboratorsArray = data.items;
+      this.numberOfPaginations = Array(Math.ceil(data.total / this.elementsPerPage)).fill(0).map((x,i)=>i);
     });
   }
   changePagination(i: number) {
     if (i < 0 || i >= this.collaboratorsArray.length)
       return;
     this.currentPagination = i;
+    this.collaboratorsServiceMap();
   }
 
-  deleteCollab(id:number|string): void {
-    this.service.deleteCollaborator(id).subscribe(res => {
-      console.log("deletion success!");
-      this.collaboratorsServiceMap();
-    })
+  deleteCollab(id:any): void {
+    // this.service.deleteCollaborator(id).subscribe(res => {
+    //   console.log("deletion success!");
+    //   this.collaboratorsServiceMap();
+    // })
+    this.collabToDelete = id;
   }
+  confirmDelete(id:any): void {
+    if (id) {
+      this.service.deleteCollaborator(id).subscribe(res => {
+        console.log("deletion success!");
+        this.collaboratorsServiceMap();
+      });
+    }
+  }
+  
 }

@@ -59,7 +59,7 @@
       <th style="text-align:right">Options</th>
     </thead>
     <tbody>
-      <tr class="shadow-sm p-3 mb-5 bg-body rounded align-baseline" *ngFor="let item of collaboratorsArray[currentPagination]">
+      <tr class="shadow-sm p-3 mb-5 bg-body rounded align-baseline" id="{{item.id}}" *ngFor="let item of collaboratorsArray">
         <td class="text-start">{{item.matricule}}</td>
         <td>{{item.nom}}</td>
         <td>{{item.prenom }}</td>
@@ -75,7 +75,7 @@
                   d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
               </svg>
             </button>
-            <button (click)="deleteCollab(item.id)" class="btn btn-sm btn-danger me-2 mb-1" aria-label="delete">
+            <button (click)="deleteCollab(item)" class="btn btn-sm btn-danger me-2 mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal" aria-label="delete">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
                 viewBox="0 0 16 16">
                 <path
@@ -99,6 +99,25 @@
     <li class="page-item"><a class="page-link" (click)="changePagination(currentPagination + 1)">Next</a></li>
   </ul>
 </nav>
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are You Sure You want to delete ? {{collabToDelete?.nom}} {{collabToDelete?.prenom}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" data-bs-dismiss="modal" (click)="confirmDelete(collabToDelete?.id)" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
     <!--     
     <nav aria-label="Page navigation example" >
       <ul class="pagination pagination-sm d-flex align-items-end flex-column">
