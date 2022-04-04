@@ -16,7 +16,7 @@ export class CollaboratorsService {
     }
 
     getCollaboratorByMatricule(id:number|string): Observable<Collaborator> {
-        return this.http.get<any>(this.myUrl + "/"+ id, {responseType: 'json'});
+        return this.http.get<any>(this.myUrl + "/" + id, {responseType: 'json'});
     }
 
     addCollaborator(collabToAdd: any) {
@@ -24,10 +24,10 @@ export class CollaboratorsService {
     }
 
     updateCollaborator(id: number|string, data: any) {
-        return this.http.put(this.myUrl + `${id}`, data);
+        return this.http.put(this.myUrl + `/${id}`, data);
     }
 
     deleteCollaborator(id: number|string) {
-        return this.http.delete(this.myUrl + `${id}`);
+        return this.http.delete(this.myUrl + `/${id}`);
     }
 }

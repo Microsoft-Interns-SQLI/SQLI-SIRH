@@ -34,4 +34,11 @@ export class ListCollaborateursComponent implements OnInit {
       return;
     this.currentPagination = i;
   }
+
+  deleteCollab(id:number|string): void {
+    this.service.deleteCollaborator(id).subscribe(res => {
+      console.log("deletion success!");
+      this.collaboratorsServiceMap();
+    })
+  }
 }

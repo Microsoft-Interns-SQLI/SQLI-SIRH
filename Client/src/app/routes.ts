@@ -34,7 +34,7 @@ export const appRoutes: Routes = [
       { path: 'candidats', component: ListCandidatsComponent },
       { path: 'addEditcandidats', component: AddEditCandidatComponent },
       { path: 'collaborateurs', component: ListCollaborateursComponent },
-      { path: 'detailCollaborator/:id', component: DetailsCollaborateurComponent},
+      { path: 'addEditcollaborateur', component: AddEditCollaborateurComponent},
       { path: 'addEditcollaborateur/:id', component: AddEditCollaborateurComponent },
       { path: 'todo', component: ToDoComponent },
       { path: 'memo', component: MemoComponent },
