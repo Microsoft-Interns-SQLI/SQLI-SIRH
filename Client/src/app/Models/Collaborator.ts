@@ -1,16 +1,16 @@
-export interface Collaborator {
-  id: number
-  creationDate: string
-  modificationDate: string
-  nom: string
-  prenom: string
-  dateNaissance: string
-  matricule: string
-  civilite: string
-  modeRecrutement: string
-  datePremiereExperience: string
-  dateEntreeSqli: string
-  dateSortieSqli: string
-  dateDebutStage: string
-  diplomes: string
-  }
+export class Collaborator {
+  id: number = 0;
+  creationDate: Date = new Date();
+  modificationDate: Date = new Date();
+  nom: string = "";
+  prenom: string = "";
+  dateNaissance: Date = new Date();
+  matricule: string = "";
+  civilite: string = "";
+  modeRecrutement: string = "";
+  datePremiereExperience: Date = new Date();
+  dateEntreeSqli: Date = new Date();
+  dateSortieSqli: Date = new Date();
+  dateDebutStage: Date = new Date();
+  diplomes: string = "";
+}

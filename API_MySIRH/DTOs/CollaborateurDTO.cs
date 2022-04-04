@@ -12,8 +12,7 @@ namespace API_MySIRH.DTOs
         [Required(ErrorMessage = "le prénom est obligatoire")]
         public string Prenom { get; set; } = String.Empty;
 
-        [Required(ErrorMessage = "la date de naissance est obligatoire")]
-        [RegularExpression(@"(((0|1)[0-9]|2[0-9]|3[0-1])\/(0[1-9]|1[0-2])\/((19|20)\d\d))$", ErrorMessage = "Le format de la date est invalid.")]
+        [Required(ErrorMessage = "la date de naissance est obligatoire")]   
         public DateTime DateNaissance { get; set; }
 
         [Required(ErrorMessage = "la matricule est obligatoire")]
@@ -35,17 +34,11 @@ namespace API_MySIRH.DTOs
         */
 
         public string ModeRecrutement { get; set; } = String.Empty;
-
-        [RegularExpression(@"(((0|1)[0-9]|2[0-9]|3[0-1])\/(0[1-9]|1[0-2])\/((19|20)\d\d))$", ErrorMessage = "Le format de la date est invalid.")]
         public DateTime? DatePremiereExperience { get; set; }
 
-        [RegularExpression(@"(((0|1)[0-9]|2[0-9]|3[0-1])\/(0[1-9]|1[0-2])\/((19|20)\d\d))$", ErrorMessage = "Le format de la date est invalid.")]
         public DateTime? DateEntreeSqli { get; set; }
 
-        [RegularExpression(@"(((0|1)[0-9]|2[0-9]|3[0-1])\/(0[1-9]|1[0-2])\/((19|20)\d\d))$", ErrorMessage = "Le format de la date est invalid.")]
         public DateTime? DateSortieSqli { get; set; }
-
-        [RegularExpression(@"(((0|1)[0-9]|2[0-9]|3[0-1])\/(0[1-9]|1[0-2])\/((19|20)\d\d))$", ErrorMessage = "Le format de la date est invalid.")]
         public DateTime? DateDebutStage { get; set; }
 
         public string Diplomes { get; set; } = String.Empty;

@@ -17,12 +17,15 @@
     </ol>
 </nav> -->
 
-<div class="row">
+<form class="row">
     <div class="my-col col-md-3 mt-3 bg-white p-3 rounded">
         <div class="row">
             <div class="col-md-12 d-flex justify-content-center mt-3">
-                <h5>
+                <h5 *ngIf="collab_id">
                     {{collab?.nom}} {{collab?.prenom}} Profile
+                </h5>
+                <h5 *ngIf="!collab_id">
+                    Add new collab
                 </h5>
             </div>
             <div class="col-md-12 d-flex justify-content-center mt-3">
@@ -37,7 +40,7 @@
                         </strong>
                     </label>
                     <input type="text" name="Location" id="Location" class="form-control-plaintext" readonly
-                        value="Cavalero, American Samoa">
+                        value="Rabat">
                 </div>
             </div>
             <div class="col-md-12 mt-1">
@@ -54,23 +57,26 @@
                 <div class="form-group">
                     <label for="lastActive">
                         <strong>
-                            Last active :
+                            Entre SQLI :
                         </strong>
                     </label>
                     <input type="text" name="lastActive" id="lastActive" class="form-control-plaintext" readonly
-                        value="54 seconds ago">
+                        [ngModel]="collab?.dateEntreeSqli | date : 'dd MMMM yyyy'">
                 </div>
             </div>
             <div class="col-md-12 mt-1">
                 <div class="form-group">
                     <label for="since">
                         <strong>
-                            Since :
+                            Level :
                         </strong>
                     </label>
                     <input type="text" name="since" id="since" class="form-control-plaintext" readonly
-                        value="3 years ago">
+                        value="Level Placeholder">
                 </div>
+            </div>
+            <div class="col-md-12 mt-1">
+                <button type="submit" class="save" (click)="saveCollaborator()">Save Changes</button>
             </div>
         </div>
     </div>
@@ -82,12 +88,12 @@
                         <ul class="nav nav-tabs">
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="#">
-                                    Modifier
+                                    Personal Info
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link disabled" href="#">
-                                    Edit photo
+                                    Placeholder
                                 </a>
                             </li>
                         </ul>
@@ -96,15 +102,15 @@
                     <div class="col-md-6 mt-3">
                         <div class="form-group">
                             <label for="nom">Nom :</label>
-                            <input type="text" name="nom" id="nom" class="form-control form-control-sm"
-                                [required]="true">
+                            <input type="text" name="nom" [(ngModel)]="collab.nom"
+                                class="form-control form-control-sm" required>
                         </div>
                     </div>
                     <div class="col-md-6 mt-3">
                         <div class="form-group">
                             <label for="prenom">Prenom :</label>
-                            <input type="text" name="prenom" id="prenom" class="form-control form-control-sm"
-                                [required]="true">
+                            <input type="text" name="prenom" [(ngModel)]="collab.prenom"
+                                class="form-control form-control-sm" [required]="true">
                         </div>
                     </div>
                     <div class="col-md-4 mt-3">
@@ -117,14 +123,16 @@
                     <div class="col-md-4 mt-3">
                         <div class="form-group">
                             <label for="dateNaissance">Date de naissance :</label>
-                            <input type="date" name="dateNaissance" id="dateNaissance"
-                                class="form-control form-control-sm" [required]="true">
+                            <input type="date" name="dateNaissance"
+                                [ngModel]="collab.dateNaissance | date: 'yyyy-MM-dd'"
+                                (ngModelChange)="collab.dateNaissance = $event" class="form-control form-control-sm"
+                                [required]="true">
                         </div>
                     </div>
                     <div class="col-md-4 mt-3">
                         <div class="form-group">
                             <label for="civilite">Civilité :</label>
-                            <select name="civilite" id="civilite" class="form-control form-control-sm"
+                            <select name="civilite" [(ngModel)]="collab.civilite" class="form-control form-control-sm"
                                 [required]="true">
                                 <option value="M">Homme</option>
                                 <option value="F">Femme</option>
@@ -134,22 +142,26 @@
                     <div class="col-md-6 mt-3">
                         <div class="form-group">
                             <label for="dateEntreeSqli">Entrée SQLI :</label>
-                            <input type="date" name="dateEntreeSqli" id="dateEntreeSqli"
-                                class="form-control form-control-sm" [required]="true">
+                            <input type="date" name="dateEntreeSqli"
+                                [ngModel]="collab.dateEntreeSqli | date: 'yyyy-MM-dd'"
+                                (ngModelChange)="collab.dateEntreeSqli = $event" class="form-control form-control-sm"
+                                [required]="true">
                         </div>
                     </div>
                     <div class="col-md-6 mt-3">
                         <div class="form-group">
                             <label for="dateSortieSqli">Sortie de SQLI :</label>
-                            <input type="date" name="dateSortieSqli" id="dateSortieSqli"
-                                class="form-control form-control-sm" [required]="true">
+                            <input type="date" name="dateSortieSqli"
+                                [ngModel]="collab.dateSortieSqli | date: 'yyyy-MM-dd'"
+                                (ngModelChange)="collab.dateSortieSqli = $event" class="form-control form-control-sm"
+                                [required]="true">
                         </div>
                     </div>
                     <div class="col-md-6 mt-3">
                         <div class="form-group">
                             <label for="modeRecrutement">Recrutement :</label>
-                            <select name="modeRecrutement" id="modeRecrutement" class="form-control form-control-sm"
-                                [required]="true">
+                            <select name="modeRecrutement" [(ngModel)]="collab.modeRecrutement"
+                                class="form-control form-control-sm" [required]="true">
                                 <option value="E-Chalenge">E-Chalenge</option>
                                 <option value="Stage PFE">Stage PFE</option>
                                 <option value="Recommandation">Recommandation</option>
@@ -161,28 +173,32 @@
                     <div class="col-md-6 mt-3">
                         <div class="form-group">
                             <label for="matricule">Matricule :</label>
-                            <input type="date" name="matricule" id="matricule" class="form-control form-control-sm"
-                                [required]="true">
-                        </div>
-                    </div>
-                    <div class="col-md-6 mt-3">
-                        <div class="form-group">
-                            <label for="dateDebutStage">Début du stage :</label>
-                            <input type="date" name="dateDebutStage" id="dateDebutStage"
+                            <input type="input" name="matricule" [(ngModel)]="collab.matricule"
                                 class="form-control form-control-sm" [required]="true">
                         </div>
                     </div>
                     <div class="col-md-6 mt-3">
                         <div class="form-group">
+                            <label for="dateDebutStage">Début du stage :</label>
+                            <input type="date" name="dateDebutStage"
+                                [ngModel]="collab.dateDebutStage | date: 'yyyy-MM-dd'"
+                                (ngModelChange)="collab.dateDebutStage = $event" class="form-control form-control-sm"
+                                [required]="true">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="form-group">
                             <label for="datePremiereExperience">Premiere éxperience :</label>
-                            <input type="date" name="datePremiereExperience" id="datePremiereExperience"
+                            <input type="date" name="datePremiereExperience"
+                                [ngModel]="collab.datePremiereExperience | date: 'yyyy-MM-dd'"
+                                (ngModelChange)="collab.datePremiereExperience = $event"
                                 class="form-control form-control-sm" [required]="true">
                         </div>
                     </div>
                     <div class="col-md-12 mt-3">
                         <div class="form-group">
                             <label for="diplomes">Diplômes :</label>
-                            <textarea name="diplomes" id="diplomes" rows="4"
+                            <textarea name="diplomes" [(ngModel)]="collab.diplomes" rows="4"
                                 class="form-control form-control-sm"></textarea>
                         </div>
                     </div>
@@ -190,4 +206,4 @@
             </div>
         </div>
     </div>
-</div>
+</form>

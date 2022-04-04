@@ -10,18 +10,36 @@ import { CollaboratorsService } from 'src/app/services/collaborators.service';
 })
 export class AddEditCollaborateurComponent implements OnInit {
   readonly collab_id: string;
-  collab?: Collaborator;
+  collab: Collaborator = new Collaborator();
 
   constructor(private actRoute: ActivatedRoute, private sevice: CollaboratorsService) {
     this.collab_id = this.actRoute.snapshot.params['id'];
-    console.log(this.collab_id);
+  
   }
 
   ngOnInit(): void {
-    this.sevice.getCollaboratorByMatricule(this.collab_id).subscribe(res => {
-      this.collab = res;
-      console.log(this.collab);
-    })
+    if (this.collab_id) {
+      this.sevice.getCollaboratorByMatricule(this.collab_id).subscribe(res => {
+        this.collab = res;
+      });
+    } else {
+      this.collab = new Collaborator();
+    }
+  }
+
+  saveCollaborator() : void {
+    console.log(this.collab);
+    if (this.collab_id) {
+      this.sevice.updateCollaborator(this.collab_id, this.collab).subscribe((res) => {
+        console.log('Update Success');
+      })
+    } else {
+      this.sevice.addCollaborator(this.collab).subscribe(res => {
+        let collaborator: any = res;
+        console.log('Add success');
+        window.location.href = `/addEditcollaborateur/${collaborator.id}`;
+      })
+    }
   }
 
 }
