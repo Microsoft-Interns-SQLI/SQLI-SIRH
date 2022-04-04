@@ -24,7 +24,7 @@ import { ToDoComponent } from './to-do/list-todo/to-do.component';
 export const routes: Routes = [
   { path: 'login', component: SigninComponent },
   {
-    path: '', component: LayoutComponent,canActivateChild: [CanActivateGuardService], children: [
+    path: '', component: LayoutComponent, children: [
       { path: '',redirectTo:'home',pathMatch:'full'},
       { path: 'home', component: HomeComponent },
       { path: 'dashboard', component: DashboardComponent },
