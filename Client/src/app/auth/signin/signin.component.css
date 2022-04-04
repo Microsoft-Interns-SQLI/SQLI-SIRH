@@ -1,3 +1,9 @@
+input.ng-invalid.ng-touched{
+    border: 1px solid red;
+}
+#email.ng-valid, #email.ng-untouched{
+    margin-bottom: 1.5rem;
+}
 body {
     color: #000;
     overflow-x: hidden;
