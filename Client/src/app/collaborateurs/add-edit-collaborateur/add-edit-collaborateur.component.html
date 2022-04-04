@@ -102,8 +102,8 @@
                     <div class="col-md-6 mt-3">
                         <div class="form-group">
                             <label for="nom">Nom :</label>
-                            <input type="text" name="nom" [(ngModel)]="collab.nom"
-                                class="form-control form-control-sm" required>
+                            <input type="text" name="nom" [(ngModel)]="collab.nom" class="form-control form-control-sm"
+                                required>
                         </div>
                     </div>
                     <div class="col-md-6 mt-3">
@@ -132,8 +132,9 @@
                     <div class="col-md-4 mt-3">
                         <div class="form-group">
                             <label for="civilite">Civilité :</label>
-                            <select name="civilite" [(ngModel)]="collab.civilite" class="form-control form-control-sm"
+                            <select name="civilite" [(ngModel)]="collab.civilite" class="form-select form-select-sm"
                                 [required]="true">
+                                <option value disabled selected>-Sélectionner-</option>
                                 <option value="M">Homme</option>
                                 <option value="F">Femme</option>
                             </select>
@@ -161,7 +162,8 @@
                         <div class="form-group">
                             <label for="modeRecrutement">Recrutement :</label>
                             <select name="modeRecrutement" [(ngModel)]="collab.modeRecrutement"
-                                class="form-control form-control-sm" [required]="true">
+                                class="form-select form-select-sm" [required]="true">
+                                <option value disabled selected>-Sélectionner-</option>
                                 <option value="E-Chalenge">E-Chalenge</option>
                                 <option value="Stage PFE">Stage PFE</option>
                                 <option value="Recommandation">Recommandation</option>
