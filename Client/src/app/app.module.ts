@@ -34,7 +34,6 @@ import { AddEditFreelancesComponent } from './freelances/add-edit-freelances/add
 import { AddEditMemosComponent } from './memos/add-edit-memos/add-edit-memos.component';
 import { AddEditCandidatComponent } from './candidats/add-edit-candidat/add-edit-candidat.component';
 import { AddEditCollaborateurComponent } from './collaborateurs/add-edit-collaborateur/add-edit-collaborateur.component';
-import { DetailsCollaborateurComponent } from './collaborateurs/details-collaborateur/details-collaborateur.component';
 import { LayoutComponent } from './layout/layout.component';
 import { ModalComponent } from './shared/modal/modal.component';
 import { ToastComponent } from './shared/toast/toast.component';
