@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations"
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations"
 import { ToastrModule } from 'ngx-toastr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -80,9 +80,9 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
     HttpClientModule,
     NgxEditorModule,
     ToastrModule.forRoot({
-      positionClass:'toast-top-right',
-      timeOut:2000,
-      closeButton:true
+      positionClass: 'toast-top-right',
+      timeOut: 2000,
+      closeButton: true
     }),
     BrowserAnimationsModule
   ],

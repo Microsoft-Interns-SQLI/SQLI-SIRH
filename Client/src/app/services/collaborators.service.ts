@@ -7,12 +7,12 @@ import { Collaborator } from '../Models/Collaborator';
     providedIn: 'root'
 })
 export class CollaboratorsService {
-    readonly myUrl: string = "https://localhost:7019/api/Collaborateurs";
+    readonly myUrl: string = "https://sqli-sirh-backend.herokuapp.com/api/Collaborateurs";
 
     constructor(private http: HttpClient) {}
 
     getCollaboratorsList(limit: number, page: number): Observable<any> {
-        return this.http.get<any>(this.myUrl + `?Page=${page}&Limit=${limit}`, {responseType: 'json'});
+        return this.http.get<any>(this.myUrl + `?Page=${page}&Limit=${limit}`);
     }
 
     getCollaboratorByMatricule(id:number|string): Observable<Collaborator> {

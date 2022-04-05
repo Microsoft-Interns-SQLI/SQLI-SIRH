@@ -7,7 +7,7 @@ import { memo } from '../Models/memo';
   providedIn: 'root'
 })
 export class MemoService {
-  readonly mySIRHAPIUrl = 'https://localhost:7019/api';
+  readonly mySIRHAPIUrl = 'https://sqli-sirh-backend.herokuapp.com/api';
 
   constructor(private http: HttpClient) { }
 
