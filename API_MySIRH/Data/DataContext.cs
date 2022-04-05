@@ -1,11 +1,20 @@
 ﻿using API_MySIRH.Entities;
+using API_MySIRH.Entities.Auth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace API_MySIRH.Data
 {
-    public class DataContext : IdentityDbContext
+    public class DataContext : IdentityDbContext<
+        User,
+        Role,
+        int,
+        IdentityUserClaim<int>,
+        UserRole,
+        IdentityUserLogin<int>,
+        IdentityRoleClaim<int>,
+        IdentityUserToken<int>>
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
@@ -18,43 +27,65 @@ namespace API_MySIRH.Data
         public DbSet<Site> Sites { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<TypeContrat> TypeContrats { get; set; }
+        public DbSet<Collaborateur> Collaborateurs { get; set; }
         public DbSet<SkillCenter> SkillCenters { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            //Seeding a  'Administrator' role to AspNetRoles table
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = "2c5e174e-3b0e-446f-86af-483d56fd7210", Name = "Administrator", NormalizedName = "ADMINISTRATOR".ToUpper() });
+            //Seeding a  'Admin' and 'Manager' role to AspNetRoles table
+            modelBuilder.Entity<Role>().HasData(
+                new Role { Id = 2, Name = "Admin", NormalizedName = "ADMIN".ToUpper() },
+                new Role { Id = 3, Name = "Manager", NormalizedName = "Manager".ToUpper() });
 
 
             //a hasher to hash the password before seeding the user to the db
-            var hasher = new PasswordHasher<IdentityUser>();
+            var hasher = new PasswordHasher<User>();
 
 
             //Seeding the User to AspNetUsers table
-            modelBuilder.Entity<IdentityUser>().HasData(
-                new IdentityUser
+            modelBuilder.Entity<User>().HasData(
+                new User
                 {
-                    Id = "8e445865-a24d-4543-a6c6-9443d048cdb9", // primary key
-                    UserName = "myuser",
-                    NormalizedUserName = "MYUSER",
+                    Id = 1, // primary key
+                    Email = "Admin@sqli.com",
+                    NormalizedEmail = "ADMIN@SQLI.COM",
+                    UserName = "AdminUser",
+                    NormalizedUserName = "ADMINUSER",
                     PasswordHash = hasher.HashPassword(null, "Pa$$w0rd")
                 }
             );
 
 
             //Seeding the relation between our user and role to AspNetUserRoles table
-            modelBuilder.Entity<IdentityUserRole<string>>().HasData(
-                new IdentityUserRole<string>
+            modelBuilder.Entity<UserRole>().HasData(
+                new UserRole
                 {
-                    RoleId = "2c5e174e-3b0e-446f-86af-483d56fd7210",
-                    UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
+                    RoleId = 2,
+                    UserId = 1
                 }
             );
 
+            modelBuilder.Entity<Collaborateur>().HasData(
+                DataInitializer.SeedData().ToList<Collaborateur>()
+            );
+            modelBuilder.Entity<User>()
+                .HasMany(u=>u.UserRoles)
+                .WithOne(ur => ur.User)
+                .HasForeignKey(u => u.UserId)
+                .IsRequired();
+
+            modelBuilder.Entity<Role>()
+                .HasMany(r=>r.UserRoles)
+                .WithOne(ur=>ur.Role)
+                .HasForeignKey(r => r.RoleId)
+                .IsRequired();
+
+
 
         }
+
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
 

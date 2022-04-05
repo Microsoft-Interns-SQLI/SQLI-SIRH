@@ -3,3 +3,10 @@ a label {
     cursor: pointer;
     color: white;
 }
+
+#logout:focus{
+    box-shadow: none;
+}
+#logout:hover{
+    background-color: black;
+}
