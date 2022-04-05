@@ -33,6 +33,7 @@ export const routes: Routes = [
       { path: 'addEditcandidats', component: AddEditCandidatComponent },
       { path: 'collaborateurs', component: ListCollaborateursComponent },
       { path: 'addEditcollaborateur', component: AddEditCollaborateurComponent },
+      { path: 'addEditcollaborateur/:id', component: AddEditCollaborateurComponent },
       { path: 'todo', component: ToDoComponent },
       { path: 'memo', component: MemoComponent },
       { path: 'addEdiMemos', component: AddEditMemosComponent },
