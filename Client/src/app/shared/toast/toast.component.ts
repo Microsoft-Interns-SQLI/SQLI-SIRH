@@ -12,27 +12,33 @@ export class ToastComponent implements OnInit {
   title?:string;
 
   @Input()
-  typeMessage?:string;
+  typeMessage?:string= "warning" || "danger" || "success" ;
 
+  @Input()
   message?:string;
 
   ngOnInit(): void {
   }
   
   showToast()
-  {// color: #0d6efd 
+  {
+
     var icoColor=""
     var toastColor="bg-"+this.typeMessage;
     if(this.typeMessage=="warning") {icoColor="#ffc107";this.title="Warning";}
-    else if(this.typeMessage=="primary"){ icoColor="#0d6efd"; this.title="Information";}
     else if(this.typeMessage=="danger") {icoColor="#dc3545";this.title="Danger";}
+    else if(this.typeMessage=="success") {icoColor="#198754";this.title="Success";}//#adb5bd
+    else {icoColor="#0d6efd"; this.title="Information"; toastColor="bg-primary"}//#adb5bd
 
-    var myToast = document.getElementById("liveToast") as HTMLDivElement;
+    var myToast:HTMLDivElement = document.getElementById("toast-div") as HTMLDivElement;
     myToast.setAttribute("class","show "+toastColor);
     
-    var myIco = document.getElementById("myIco") as HTMLElement;
+    var myIco = document.getElementById("icone") as HTMLElement;
     myIco.setAttribute("style","color : "+icoColor+";");
-
-
+  }
+  close()
+  {
+    var myToast:HTMLDivElement = document.getElementById("toast-div") as HTMLDivElement;
+    myToast.setAttribute("class","toast fade hide");
   }
 }

@@ -19,6 +19,7 @@ import { AddEditMemosComponent } from './memos/add-edit-memos/add-edit-memos.com
 import { MemoComponent } from './memos/memo/memo.component';
 import { ReportsComponent } from './reports/reports.component';
 import { ModalComponent } from './shared/modal/modal.component';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { ToastComponent } from './shared/toast/toast.component';
 import { ToDoComponent } from './to-do/list-todo/to-do.component';
 
@@ -45,6 +46,7 @@ export const appRoutes: Routes = [
       { path: 'errors', component: TestErrorsComponent },
       { path: 'not-found', component: NotFoundComponent },
       { path: 'server-error', component: ServerErrorComponent },
+      { path: 'spnr', component: SpinnerComponent },
     ]
   },
 

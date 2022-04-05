@@ -37,6 +37,7 @@ import { AddEditCollaborateurComponent } from './collaborateurs/add-edit-collabo
 import { LayoutComponent } from './layout/layout.component';
 import { ModalComponent } from './shared/modal/modal.component';
 import { ToastComponent } from './shared/toast/toast.component';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { ToastComponent } from './shared/toast/toast.component';
       AddEditCollaborateurComponent,
       LayoutComponent,
       ModalComponent,
-      ToastComponent
+      ToastComponent,
+      SpinnerComponent
    ],
   imports: [
     CommonModule,
