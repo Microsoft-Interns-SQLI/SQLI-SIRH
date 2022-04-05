@@ -6,7 +6,7 @@ const portApi = 7019;
 
 export const environment = {
   production: false,
-  URL: `https://sqli-sirh-backend.herokuapp.com/`
+  URL: `https://localhost:${portApi}/`
 };
 
 /*
