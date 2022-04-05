@@ -1,4 +1,4 @@
-input.ng-invalid.ng-touched{
+/* input.ng-invalid.ng-touched{
     border: 1px solid red;
 }
 #email.ng-valid, #email.ng-untouched{
@@ -167,4 +167,55 @@ a {
         border-top: 1px solid #EEEEEE !important;
         margin: 0px 15px
     }
+} */
+input.ng-invalid.ng-touched{
+    border: 1px solid red;
+}
+img{
+    position: absolute;
+    top:10px;
+    left:10px;
+}
+.spinner{
+    position: absolute;
+    top: 0;
+    right:0;
+    left:0;
+}
+.text-center {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #f5f5f5;
+    height: 100%;
+    width: 100%;
+}
+
+.form-signin {
+  width: 70%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+
+.form-signin .checkbox {
+  font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: 10px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
