@@ -1,10 +1,11 @@
 using API_MySIRH.Entities;
+using API_MySIRH.Helpers;
 
 namespace API_MySIRH.Interfaces
 {
     public interface ICollaborateurRepository
     {
-        Task<IEnumerable<Collaborateur>> GetCollaborateurs();
+        IQueryable<Collaborateur> GetCollaborateurs();
         Task<Collaborateur> GetCollaborateur(int id);
         Task UpdateCollaborateur(int id, Collaborateur collaborateur);
         Task<Collaborateur> AddCollaborateur(Collaborateur collaborateur);

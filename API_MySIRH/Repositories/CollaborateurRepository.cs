@@ -1,5 +1,6 @@
 using API_MySIRH.Data;
 using API_MySIRH.Entities;
+using API_MySIRH.Helpers;
 using API_MySIRH.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -34,9 +35,10 @@ namespace API_MySIRH.Repositories
             await this._context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Collaborateur>> GetCollaborateurs()
+        public IQueryable<Collaborateur> GetCollaborateurs()
         {
-            return await this._context.Collaborateurs.ToListAsync();
+            var query = _context.Collaborateurs;
+            return query;
         }
 
         public async Task<Collaborateur> GetCollaborateur(int id)

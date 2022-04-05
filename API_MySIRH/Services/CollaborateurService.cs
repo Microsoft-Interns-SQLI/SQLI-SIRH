@@ -1,7 +1,10 @@
 using API_MySIRH.DTOs;
 using API_MySIRH.Entities;
+using API_MySIRH.Helpers;
 using API_MySIRH.Interfaces;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace API_MySIRH.Services
 {
@@ -32,9 +35,13 @@ namespace API_MySIRH.Services
             return this._mapper.Map<CollaborateurDTO>(await this._collaborateurRepository.GetCollaborateur(id));
         }
 
-        public async Task<IEnumerable<CollaborateurDTO>> GetCollaborateurs()
+        public async Task<PagedList<CollaborateurDTO>> GetCollaborateurs(FilterParams filterParams)
         {
-            return this._mapper.Map<IEnumerable<Collaborateur>, IEnumerable<CollaborateurDTO>>(await this._collaborateurRepository.GetCollaborateurs());
+            var query = this._collaborateurRepository.GetCollaborateurs().ProjectTo<CollaborateurDTO>(_mapper.ConfigurationProvider).AsNoTracking();
+            //var mapping = this._mapper.Map<PagedList<Collaborateur>, PagedList<CollaborateurDTO>>(collabs);
+
+
+            return await PagedList<CollaborateurDTO>.CreateAsync(query, filterParams.pageNumber, filterParams.pageSize);
         }
 
         public async Task UpdateCollaborateur(int id, CollaborateurDTO collaborateur)
