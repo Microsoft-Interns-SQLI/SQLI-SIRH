@@ -2,6 +2,7 @@ using API_MySIRH.DTOs;
 using API_MySIRH.Entities;
 using API_MySIRH.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace API_MySIRH.Controllers
 {
@@ -9,14 +10,17 @@ namespace API_MySIRH.Controllers
     [Route("/api/mdm")]
     public class MdmController : ControllerBase
     {
-        protected readonly IMdmService<Niveau, NiveauDTO> _mdmServiceNiveau;
-        protected readonly IMdmService<Site, SiteDTO> _mdmServiceSite;
-        protected readonly IMdmService<Post, PostDTO> _mdmServicePoste;
-        protected readonly IMdmService<TypeContrat, TypeContratDTO> _mdmServiceTypeContrat;
-        protected readonly IMdmService<SkillCenter, SkillCenterDTO> _mdmServiceSkillCenter;
+        private IMemoryCache _memoryCache;
+        private readonly IMdmService<Niveau, NiveauDTO> _mdmServiceNiveau;
+        private readonly IMdmService<Site, SiteDTO> _mdmServiceSite;
+        private readonly IMdmService<Post, PostDTO> _mdmServicePoste;
+        private readonly IMdmService<TypeContrat, TypeContratDTO> _mdmServiceTypeContrat;
+        private readonly IMdmService<SkillCenter, SkillCenterDTO> _mdmServiceSkillCenter;
+        private readonly string niveauxKey = "niveauxKey";
 
-        public MdmController(IMdmService<Niveau, NiveauDTO> mdmServiceNiveau, IMdmService<Site, SiteDTO> mdmServiceSite, IMdmService<Post, PostDTO> mdmServicePoste, IMdmService<TypeContrat, TypeContratDTO> mdmServiceTypeContrat, IMdmService<SkillCenter, SkillCenterDTO> mdmServiceSkillCenter)
+        public MdmController(IMemoryCache memoryCache, IMdmService<Niveau, NiveauDTO> mdmServiceNiveau, IMdmService<Site, SiteDTO> mdmServiceSite, IMdmService<Post, PostDTO> mdmServicePoste, IMdmService<TypeContrat, TypeContratDTO> mdmServiceTypeContrat, IMdmService<SkillCenter, SkillCenterDTO> mdmServiceSkillCenter)
         {
+            _memoryCache = memoryCache;
             _mdmServiceNiveau = mdmServiceNiveau;
             _mdmServiceSite = mdmServiceSite;
             _mdmServicePoste = mdmServicePoste;
@@ -27,7 +31,16 @@ namespace API_MySIRH.Controllers
         [HttpGet("niveaux")]
         public async Task<ActionResult<IEnumerable<NiveauDTO>>> GetNiveaux()
         {
-            return Ok(await _mdmServiceNiveau.GetAll());
+
+            IEnumerable<NiveauDTO> niveauxCollection = null;
+            if (_memoryCache.TryGetValue(niveauxKey, out niveauxCollection))
+            {
+                return Ok(niveauxCollection);
+            }
+            niveauxCollection = await _mdmServiceNiveau.GetAll();
+            var cacheOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(30));
+            _memoryCache.Set(niveauxKey, niveauxCollection, cacheOptions);
+            return Ok(niveauxCollection);
         }
 
         [HttpGet("niveaux/{id}")]
