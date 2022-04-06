@@ -9,6 +9,7 @@ namespace API_MySIRH.Repositories
     {
         private readonly DataContext _context;
 
+
         public CollaborateurRepository(DataContext context)
         {
             this._context = context;
@@ -17,6 +18,15 @@ namespace API_MySIRH.Repositories
         public async Task<Collaborateur> AddCollaborateur(Collaborateur collaborateur)
         {
             await this._context.Collaborateurs.AddAsync(collaborateur);
+
+            var dashboard = await _context.Dashboards.SingleOrDefaultAsync();
+            if(dashboard is not null)
+            {
+                if (collaborateur.Civilite == "M")
+                    dashboard.nbMale++;
+                else dashboard.nbFemale++;
+            }
+
             await this._context.SaveChangesAsync();
             return collaborateur;
         }

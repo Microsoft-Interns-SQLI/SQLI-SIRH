@@ -9,14 +9,20 @@ namespace API_MySIRH.Data
 {
     public static class DataInitializer
     {
-        public static List<Collaborateur> SeedData()
+        public static Dictionary<string, object> SeedData()
         {
+            Dictionary<string, object> data = new Dictionary<string, object>();
             List<Collaborateur> collaborateurs = new List<Collaborateur>();
+            Dashboard dashboard = new Dashboard();
             string collaborateursJsonString = System.IO.File.ReadAllText(@"Data/collaborateurs.json");
             var collaborateurDynamicJson = JsonConvert.DeserializeObject<dynamic>(collaborateursJsonString);
             int i = 1;
             foreach (var collaborateurJson in collaborateurDynamicJson)
             {
+                if (collaborateurJson["Civilité"] == "M")
+                    dashboard.nbMale++;
+                else dashboard.nbFemale++;
+
                 collaborateurs.Add(new Collaborateur
                 {
                     Id = i++,
@@ -33,7 +39,9 @@ namespace API_MySIRH.Data
                     DateSortieSqli = collaborateurJson["Date de sortie"].ToString() != String.Empty ? DateTime.Parse(collaborateurJson["Date de sortie"].ToString()) : null,
                 });
             }
-            return collaborateurs;
+            data.Add("Collaborateur", collaborateurs);
+            data.Add("Dashboard", dashboard);
+            return data;
         }
     }
 }
