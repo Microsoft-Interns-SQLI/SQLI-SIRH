@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { NgxEditorModule } from 'ngx-editor';
 import { CommonModule } from "@angular/common";
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -84,6 +85,7 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
       timeOut: 2000,
       closeButton: true
     }),
+    PaginationModule.forRoot(),
     BrowserAnimationsModule
   ],
   providers: [DatePipe],

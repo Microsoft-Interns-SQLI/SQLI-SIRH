@@ -1,18 +1,35 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Collaborator } from '../Models/Collaborator';
+import { PaginatedResults } from '../Models/pagination';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CollaboratorsService {
-    readonly myUrl: string = "https://sqli-sirh-backend.herokuapp.com/api/Collaborateurs";
+    readonly myUrl: string = `${environment.URL}api/Collaborateurs`;
+    paginatedResult: PaginatedResults<Collaborator[]> = new PaginatedResults<Collaborator[]>();
 
     constructor(private http: HttpClient) {}
 
-    getCollaboratorsList(limit: number, page: number): Observable<any> {
-        return this.http.get<any>(this.myUrl + `?Page=${page}&Limit=${limit}`);
+    getCollaboratorsList(itemsPerPage?: number, page?: number) {
+        let params = new HttpParams();
+        if (page != null && itemsPerPage != null) {
+            params = params.append('pageNumber', page.toString());
+            params  = params.append('pageSize', itemsPerPage.toString());
+        }
+        return this.http.get<any>(this.myUrl, {observe: 'response', params}).pipe(
+            map(response => {
+                this.paginatedResult.result = response.body;
+                if (response.headers.get('Pagination') != null) {
+                    this.paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')||'');
+                }
+                return this.paginatedResult;
+            })
+        );
     }
 
     getCollaboratorByMatricule(id:number|string): Observable<Collaborator> {
