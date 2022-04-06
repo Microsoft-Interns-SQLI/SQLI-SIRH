@@ -29,6 +29,7 @@ namespace API_MySIRH.Data
         public DbSet<TypeContrat> TypeContrats { get; set; }
         public DbSet<Collaborateur> Collaborateurs { get; set; }
         public DbSet<SkillCenter> SkillCenters { get; set; }
+        public DbSet<Dashboard> Dashboards { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -67,9 +68,22 @@ namespace API_MySIRH.Data
                 }
             );
 
+            //Get init collaborateurs and add it to db
+            DataInitializer.SeedData().TryGetValue("Collaborateur", out Object collaborateurs); 
             modelBuilder.Entity<Collaborateur>().HasData(
-                DataInitializer.SeedData().ToList<Collaborateur>()
+                 //DataInitializer.SeedData().ToList<Collaborateur>()
+                 (List<Collaborateur>)collaborateurs
+             );
+
+            //Get init dashboard and add it to db
+            DataInitializer.SeedData().TryGetValue("Dashboard", out Object dashboard);
+            Dashboard _dashboard = (Dashboard)dashboard;
+            _dashboard.Id = 1;
+            
+            modelBuilder.Entity<Dashboard>().HasData(
+                 _dashboard
             );
+
             modelBuilder.Entity<User>()
                 .HasMany(u=>u.UserRoles)
                 .WithOne(ur => ur.User)
