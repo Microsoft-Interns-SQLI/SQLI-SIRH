@@ -17,8 +17,13 @@
     </ol>
 </nav> -->
 
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h2 class="h2" *ngIf="!collab_id">Ajouter Collaborateur</h2>
+    <h2 class="h2" *ngIf="collab_id">Details Collaborateur</h2>
+  </div>
+
 <form class="row">
-    <div class="my-col col-md-3 mt-3 bg-white p-3 rounded">
+    <div class="col-md-3 col bg-white p-3 rounded -p3">
         <div class="row">
             <div class="col-md-12 d-flex justify-content-center mt-3">
                 <h5 *ngIf="collab_id">
@@ -80,8 +85,8 @@
             </div>
         </div>
     </div>
-    <div class="my-col col-md-9 mt-3">
-        <div class="card my-col">
+    <div class="col-md-9 col">
+        <div class="card h-100">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12">

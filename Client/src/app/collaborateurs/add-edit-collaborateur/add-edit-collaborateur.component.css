@@ -2,11 +2,6 @@ img {
     border-radius: 50%;
 }
 
-.my-col {
-    min-height: 85vh;
-
-}
-
 .save {
     background-color: rgba(21, 101, 192, 0.7);
     border: none;
