@@ -39,6 +39,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { ModalComponent } from './shared/modal/modal.component';
 import { ToastComponent } from './shared/toast/toast.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
       closeButton: true
     }),
     PaginationModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatTabsModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
