@@ -5,6 +5,8 @@ using API_MySIRH.Helpers;
 using API_MySIRH.Extentions;
 using Syncfusion.XlsIO;
 using System.Collections;
+using AutoMapper;
+using API_MySIRH.Entities;
 
 namespace API_MySIRH.Controllers
 {
@@ -14,10 +16,13 @@ namespace API_MySIRH.Controllers
     public class CollaborateursController : ControllerBase
     {
         private readonly ICollaborateurService _collaborateurService;
+        private readonly IMapper _mapper;
 
-        public CollaborateursController(ICollaborateurService collaborateurService)
+
+        public CollaborateursController(ICollaborateurService collaborateurService, IMapper mapper)
         {
-            this._collaborateurService = collaborateurService;
+            _collaborateurService = collaborateurService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -31,7 +36,7 @@ namespace API_MySIRH.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CollaborateurDTO>> GetCollaborateur(int id)
         {
-            return Ok(await this._collaborateurService.GetCollaborateur(id));
+            return Ok(await this._collaborateurService.GetCollaborateurById(id));
         }
 
         [HttpPost]
@@ -63,7 +68,7 @@ namespace API_MySIRH.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCollaborateur(int id)
         {
-            var collaborateur = await this._collaborateurService.GetCollaborateur(id);
+            var collaborateur = await this._collaborateurService.GetCollaborateurById(id);
             if (collaborateur is null)
                 return NotFound();
             await this._collaborateurService.DeleteCollaborateur(id);
@@ -74,12 +79,52 @@ namespace API_MySIRH.Controllers
         public async Task<IActionResult> UploadFileCSV([FromForm] IFormFile file)
         {
             //Save Excel file into Archive folder
-            //await ImportFeatures.UploadFileLocaly(file);
+            await ImportFeatures.UploadFileLocaly(file);
 
             var list = ImportFeatures.ConvertToList(file);
 
+            foreach(var collaborateur in list)
+            {
+                await InvokeOperation(collaborateur);
+            }
+
             
             return Ok();
+        }
+
+        private async Task InvokeOperation(Collaborateur collaborateur)
+        {
+            //if collab is not a freelancer
+            if (collaborateur.Matricule != "0")
+            {
+                if (await _collaborateurService.CollaborateurExistsByMatricule(collaborateur.Matricule))
+                {
+                    var collab = await _collaborateurService.GetCollaborateurByMatricule(collaborateur.Matricule);
+                    var collabDto = _mapper.Map<CollaborateurDTO>(collaborateur);
+                    collabDto.Id = collab.Id;
+                    await _collaborateurService.UpdateCollaborateur(collab.Id, collabDto);
+                }
+                else
+                {
+                    await _collaborateurService.AddCollaborateur(_mapper.Map<CollaborateurDTO>(collaborateur));
+                }
+            }
+            //if collab ==> freelancer (freelancer doesn't have a matricule so we verify by email)
+            else
+            {
+                if (await _collaborateurService.CollaborateurExistsByEmail(collaborateur.Email))
+                {
+                    var collab = await _collaborateurService.GetCollaborateurByEmail(collaborateur.Email);
+                    var collabDto = _mapper.Map<CollaborateurDTO>(collaborateur);
+                    collabDto.Id = collab.Id;
+
+                    await _collaborateurService.UpdateCollaborateur(collab.Id, collabDto);
+                }
+                else
+                {
+                    await _collaborateurService.AddCollaborateur(_mapper.Map<CollaborateurDTO>(collaborateur));
+                }
+            }
         }
     }
 }

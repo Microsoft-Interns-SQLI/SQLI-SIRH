@@ -6,6 +6,8 @@ namespace API_MySIRH.Entities
     {
         public string Nom { get; set; } = String.Empty;
         public string Prenom { get; set; } = String.Empty;
+
+        public string Email { get; set; } = String.Empty;
         public DateTime DateNaissance { get; set; }
         public string Matricule { get; set; } = String.Empty;
         public string Civilite { get; set; } = String.Empty;

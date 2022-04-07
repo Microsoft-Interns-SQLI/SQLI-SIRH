@@ -12,6 +12,8 @@ namespace API_MySIRH.DTOs
         [Required(ErrorMessage = "le prénom est obligatoire")]
         public string Prenom { get; set; } = String.Empty;
 
+        public string Email { get; set; } = String.Empty;
+
         [Required(ErrorMessage = "la date de naissance est obligatoire")]   
         public DateTime DateNaissance { get; set; }
 

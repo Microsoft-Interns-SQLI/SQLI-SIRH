@@ -21,7 +21,7 @@ namespace API_MySIRH.Repositories
             await this._context.Collaborateurs.AddAsync(collaborateur);
 
             var dashboard = await _context.Dashboards.SingleOrDefaultAsync();
-            if(dashboard is not null)
+            if (dashboard is not null)
             {
                 if (collaborateur.Civilite == "M")
                     dashboard.nbMale++;
@@ -32,10 +32,21 @@ namespace API_MySIRH.Repositories
             return collaborateur;
         }
 
-        public async Task<bool> CollaborateurExists(int id)
+        public async Task<bool> CollaborateurExistsById(int id)
         {
             return await this._context.Collaborateurs.AnyAsync(collaborateur => collaborateur.Id == id);
         }
+
+        public async Task<bool> CollaborateurExistsByMatricule(string matricule)
+        {
+            return await this._context.Collaborateurs.AnyAsync(collaborateur => collaborateur.Matricule == matricule);
+        }
+
+        public async Task<bool> CollaborateurExistsByEmail(string email)
+        {
+            return await this._context.Collaborateurs.AnyAsync(collaborateur => collaborateur.Email == email);
+        }
+
 
         public async Task DeleteCollaborateur(int id)
         {
@@ -51,9 +62,19 @@ namespace API_MySIRH.Repositories
             return query;
         }
 
-        public async Task<Collaborateur> GetCollaborateur(int id)
+        public async Task<Collaborateur> GetCollaborateurById(int id)
         {
             return await this._context.Collaborateurs.FindAsync(id);
+        }
+
+        public async Task<Collaborateur> GetCollaborateurByMatricule(string matricule)
+        {
+            return await this._context.Collaborateurs.Where(c => c.Matricule == matricule).AsNoTracking().FirstOrDefaultAsync();
+        }
+
+        public async Task<Collaborateur> GetCollaborateurByEmail(string email)
+        {
+            return await this._context.Collaborateurs.Where(c => c.Email == email).AsNoTracking().FirstOrDefaultAsync();
         }
 
         public async Task UpdateCollaborateur(int id, Collaborateur collaborateur)

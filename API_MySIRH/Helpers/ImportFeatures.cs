@@ -30,53 +30,51 @@ namespace API_MySIRH.Helpers
 
             IWorkbook workbook = application.Workbooks.Open(fileStream);
 
+            fileStream.Close();
+            
+
             foreach (IWorksheet worksheet in workbook.Worksheets)
             {
-                for(int i = 1; i <= worksheet.Rows.Count(); i++)
+                for(int i = 1; i < worksheet.Rows.Count(); i++)
                 {
+
                     var nomComplet = worksheet.Rows[i].Cells[3].Value.Split(' ');
 
-                    var Nom = nomComplet[0];
+                    var Nom = nomComplet[1];
 
-                    var Prenom = nomComplet[1];
+                    var Prenom = nomComplet[0];
 
                     if(nomComplet.Length>2)
                         Nom += $"{string.Join(" ", nomComplet.Skip(2))}";
 
-                    var collaborator = new Collaborateur
-                    {
-                        Matricule= worksheet.Rows[i].Cells[0].Value,
-                        Nom = Nom,
-                        Prenom = Prenom,
-                        //Site
-                        Civilite = worksheet.Rows[i].Cells[5].Value,
-                        DateNaissance = Convert.ToDateTime(worksheet.Rows[i].Cells[6].Value),
-                        //SkillCenter
-                        //Poste
-                        //Niveau
-                        //Type de contrat
-                        ModeRecrutement = worksheet.Rows[i].Cells[11].Value,
+                    Collaborateur collaborateur = new Collaborateur();
+                    collaborateur.Matricule = worksheet.Rows[i].Cells[0].Value.ToString();
+                    collaborateur.Nom = Nom;
+                    collaborateur.Prenom = Prenom;
+                    collaborateur.Email = worksheet.Rows[i].Cells[2].Value.ToString();
+                    collaborateur.Civilite = worksheet.Rows[i].Cells[5].Value.ToString();
+                    collaborateur.Diplomes = worksheet.Rows[i].Cells[16].Value.ToString();
+                    collaborateur.ModeRecrutement = worksheet.Rows[i].Cells[11].Value.ToString();
 
-                        DatePremiereExperience = 
-                            worksheet.Rows[i].Cells[12].Value.Length!=0 ?
-                            Convert.ToDateTime(worksheet.Rows[i].Cells[12].Value) :
-                            null,
-                        DateEntreeSqli = Convert.ToDateTime(worksheet.Rows[i].Cells[13].Value),
-                        DateDebutStage =
-                            worksheet.Rows[i].Cells[14].Value.Length != 0 ?
-                            Convert.ToDateTime(worksheet.Rows[i].Cells[14].Value) :
-                            null,
-                        DateSortieSqli =
-                            worksheet.Rows[i].Cells[15].Value.Length != 0 ?
-                            Convert.ToDateTime(worksheet.Rows[i].Cells[14].Value) :
-                            null,
-                        Diplomes = worksheet.Rows[i].Cells[16].Value
-                        //Responsable Skill Center
-                    };
-                    list.Add(collaborator);
+                    if (worksheet.Rows[i].Cells[6].Value != "")
+                        collaborateur.DateNaissance = Convert.ToDateTime(worksheet.Rows[i].Cells[6].Value);
+                    if(worksheet.Rows[i].Cells[12].Value !="")
+                        collaborateur.DatePremiereExperience = Convert.ToDateTime(worksheet.Rows[i].Cells[12].Value);
+                    if(worksheet.Rows[i].Cells[13].Value != "")
+                        collaborateur.DateEntreeSqli = Convert.ToDateTime(worksheet.Rows[i].Cells[13].Value);
+                    if(worksheet.Rows[i].Cells[14].Value != "")
+                        collaborateur.DateDebutStage = Convert.ToDateTime(worksheet.Rows[i].Cells[14].Value);
+                    if(worksheet.Rows[i].Cells[15].Value != "")
+                        collaborateur.DateSortieSqli = Convert.ToDateTime(worksheet.Rows[i].Cells[15].Value);
+
+                    
+                    list.Add(collaborateur);
                 }
 
             }
+            workbook.Close();
+
+            excelEngine.Dispose();
 
             return list;
         }

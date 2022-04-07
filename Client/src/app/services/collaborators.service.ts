@@ -33,23 +33,23 @@ export class CollaboratorsService {
     }
 
     getCollaboratorByMatricule(id:number|string): Observable<Collaborator> {
-        return this.http.get<any>(this.url + "/" + id, {responseType: 'json'});
+        return this.http.get<any>(this.myUrl + "/" + id, {responseType: 'json'});
     }
 
     addCollaborator(collabToAdd: any) {
-        return this.http.post(this.url, collabToAdd);
+        return this.http.post(this.myUrl, collabToAdd);
     }
 
     updateCollaborator(id: number|string, data: any) {
-        return this.http.put(this.url + `/${id}`, data);
+        return this.http.put(this.myUrl + `/${id}`, data);
     }
 
     deleteCollaborator(id: number|string) {
-        return this.http.delete(this.url + `/${id}`);
+        return this.http.delete(this.myUrl + `/${id}`);
     }
 
     importCollaborateurs(file:FormData){
-        return this.http.post<FormData>(this.url+"api/Collaborateurs/import", file,
+        return this.http.post<FormData>(this.myUrl+"/import", file,
             {reportProgress: true, observe:'events'})
     }
 }
