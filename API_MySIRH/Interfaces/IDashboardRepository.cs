@@ -1,8 +1,9 @@
-﻿namespace API_MySIRH.Interfaces
+﻿using API_MySIRH.Entities;
+
+namespace API_MySIRH.Interfaces
 {
     public interface IDashboardRepository
     {
-        Task<int> GetNbFemale();
-        Task<int> GetNbMale();
+        Task<Dashboard> getDashboard();
     }
 }

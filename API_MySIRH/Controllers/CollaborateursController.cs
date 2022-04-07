@@ -1,12 +1,10 @@
-using API_MySIRH.Data;
 using API_MySIRH.DTOs;
-using API_MySIRH.Entities;
 using API_MySIRH.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using API_MySIRH.Helpers;
 using API_MySIRH.Extentions;
+using Syncfusion.XlsIO;
+using System.Collections;
 
 namespace API_MySIRH.Controllers
 {
@@ -70,6 +68,18 @@ namespace API_MySIRH.Controllers
                 return NotFound();
             await this._collaborateurService.DeleteCollaborateur(id);
             return NoContent();
+        }
+
+        [HttpPost("import")]
+        public async Task<IActionResult> UploadFileCSV([FromForm] IFormFile file)
+        {
+            //Save Excel file into Archive folder
+            //await ImportFeatures.UploadFileLocaly(file);
+
+            var list = ImportFeatures.ConvertToList(file);
+
+            
+            return Ok();
         }
     }
 }

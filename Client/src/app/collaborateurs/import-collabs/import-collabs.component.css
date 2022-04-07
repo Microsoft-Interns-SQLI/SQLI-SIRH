@@ -1,0 +1,8 @@
+.dragdrop{
+    padding-top: 25%;
+    padding-bottom: 25%;
+    border: 2px dashed gray;
+    text-align: center;
+}
+.invalid-drag { border: dotted 3px red; }
+.valid-drag { border: dotted 3px green; }
