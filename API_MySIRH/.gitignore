@@ -455,3 +455,6 @@ _ReSharper.*
 bin
 obj
 packages
+
+appsettings.Development.json
+appsettings.json
