@@ -38,6 +38,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { ModalComponent } from './shared/modal/modal.component';
 import { ToastComponent } from './shared/toast/toast.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { UploadComponent } from './upload/upload.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
     LayoutComponent,
     ModalComponent,
     ToastComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    UploadComponent
   ],
   imports: [
     CommonModule,

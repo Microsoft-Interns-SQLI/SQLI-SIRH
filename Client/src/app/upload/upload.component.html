@@ -1,0 +1,11 @@
+<label for="upload">Upload</label>
+<input
+  type="file"
+  #file
+  (change)="readFiles(file.files)"
+  name="upload"
+  multiple
+  accept=".doc,.docx,.pdf"
+  id=""
+/>
+<button (click)="uploadFile()">Upload</button>
