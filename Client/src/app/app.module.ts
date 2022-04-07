@@ -40,6 +40,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { ModalComponent } from './shared/modal/modal.component';
 import { ToastComponent } from './shared/toast/toast.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { MatTabsModule } from '@angular/material/tabs';
 import { ImportCollabsComponent } from './collaborateurs/import-collabs/import-collabs.component';
 
 @NgModule({
@@ -91,6 +92,7 @@ import { ImportCollabsComponent } from './collaborateurs/import-collabs/import-c
     PaginationModule.forRoot(),
     BrowserAnimationsModule,
     ngfModule
+    MatTabsModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

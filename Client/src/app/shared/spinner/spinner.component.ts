@@ -28,8 +28,7 @@ export class SpinnerComponent implements OnInit {
     this._isLoading.next(true);
   }
 
-  finish()
-  {
+  finish() {
     this._isLoading.next(false);
   }
 
