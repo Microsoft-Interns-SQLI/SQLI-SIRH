@@ -30,6 +30,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMemoryCache();
 
 //Add IoC Mapping 
+builder.Services.AddScoped<IUploadService, UploadService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IToDoItemsRepository, ToDoItemsRepository>();
 builder.Services.AddScoped<IToDoListRepository, ToDoListRepository>();
