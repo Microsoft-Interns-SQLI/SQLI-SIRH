@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { delay, Observable } from 'rxjs';
 import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Collaborator } from '../Models/Collaborator';
@@ -16,6 +16,7 @@ export class CollaboratorsService {
     constructor(private http: HttpClient) {}
 
     getCollaboratorsList(itemsPerPage?: number, page?: number) {
+        delay(50000);
         let params = new HttpParams();
         if (page != null && itemsPerPage != null) {
             params = params.append('pageNumber', page.toString());
