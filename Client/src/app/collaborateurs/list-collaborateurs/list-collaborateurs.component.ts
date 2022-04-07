@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Collaborator } from 'src/app/Models/Collaborator';
 import { Pagination } from 'src/app/Models/pagination';
 import { CollaboratorsService } from 'src/app/services/collaborators.service';
+import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
 
 @Component({
   selector: 'app-list-collaborateurs',
@@ -9,7 +10,9 @@ import { CollaboratorsService } from 'src/app/services/collaborators.service';
   styleUrls: ['./list-collaborateurs.component.css']
 })
 export class ListCollaborateursComponent implements OnInit {
+  spinner:SpinnerComponent = new SpinnerComponent();
   collaboratorsArray: Collaborator[] = [];
+  displayTable: boolean = false;
   collabToDelete?: Collaborator = new Collaborator();
   pagination!: Pagination;
   pageNumber = 1;
@@ -22,9 +25,11 @@ export class ListCollaborateursComponent implements OnInit {
   }
 
   loadCollaborators() {
+    this.spinner.start();
     this.service.getCollaboratorsList(this.pageSize, this.pageNumber).subscribe(resp => {
       this.collaboratorsArray = resp.result;
       this.pagination = resp.pagination;
+      this.spinner.finish();
     })
   }
 
@@ -43,5 +48,18 @@ export class ListCollaborateursComponent implements OnInit {
     this.pageNumber = even.page;
     this.loadCollaborators();
   }
-  
+  changeDisplay(event: any): void {
+    if (event == 'table') {
+      this.displayTable = true;
+    }
+    if (event == 'card') {
+      this.displayTable = false;
+    }
+  }
+  calculateYears(year: any): any {
+    const date = new Date(year)
+    const now = new Date(Date.now())
+    return Math.abs(now.getFullYear() - date.getFullYear())
+  }
+
 }
