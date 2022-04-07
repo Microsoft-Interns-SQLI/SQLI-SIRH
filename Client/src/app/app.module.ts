@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { NgxEditorModule } from 'ngx-editor';
 import { CommonModule } from "@angular/common";
+import {ngfModule} from "angular-file";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -38,6 +39,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { ModalComponent } from './shared/modal/modal.component';
 import { ToastComponent } from './shared/toast/toast.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { ImportCollabsComponent } from './collaborateurs/import-collabs/import-collabs.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,8 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
     LayoutComponent,
     ModalComponent,
     ToastComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    ImportCollabsComponent
   ],
   imports: [
     CommonModule,
@@ -84,7 +87,8 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
       timeOut: 2000,
       closeButton: true
     }),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ngfModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
