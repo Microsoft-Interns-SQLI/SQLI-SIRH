@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { NgxEditorModule } from 'ngx-editor';
 import { CommonModule } from "@angular/common";
-import {ngfModule} from "angular-file";
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -87,8 +87,8 @@ import { ImportCollabsComponent } from './collaborateurs/import-collabs/import-c
       timeOut: 2000,
       closeButton: true
     }),
-    BrowserAnimationsModule,
-    ngfModule
+    PaginationModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
