@@ -20,35 +20,15 @@ namespace API_MySIRH.Controllers
         {
             try
             {
-                var folderName = Path.Combine(_env.ContentRootPath, "Upload\\files");
-                List<string> Paths = new List<string>();
-                //var file = Request.Form.Files[0];
-                foreach (var file in Request.Form.Files)
+                try
                 {
-                    if (!Directory.Exists(folderName))
-                    {
-                        Directory.CreateDirectory(folderName);
-                    }
-                    var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-                    if (file.Length > 0)
-                    {
-                        var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                        var fullPath = Path.Combine(pathToSave, fileName);
-                        var dbPath = Path.Combine(folderName, fileName);
-                        using (var stream = new FileStream(fullPath, FileMode.Create))
-                        {
-                            await file.CopyToAsync(stream);
-                        }
-
-                        Paths.Add(dbPath);
-
-                    }
-                    else
-                    {
-                        return BadRequest();
-                    }
+                    ICollection<string> Paths = await _uploadService.UploadFile(Request.Form.Files);
+                    return Ok(Paths);
                 }
-                return Ok(Paths);
+                catch (Exception e)
+                {
+                    return BadRequest(e.Message);
+                }
             }
             catch (Exception ex)
             {
