@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { UploadService } from '../services/upload.service';
 
@@ -8,7 +8,14 @@ import { UploadService } from '../services/upload.service';
   styleUrls: ['./upload.component.css'],
 })
 export class UploadComponent implements OnInit {
-  files: any;
+  error: string = '';
+  files: File[] = [];
+  isValid: boolean = true;
+  isDone: boolean = false;
+  validComboDrag!: boolean;
+  accept = '.pdf,.doc,.docx';
+  progress: number = 0;
+  formData: FormData = new FormData();
   constructor(private uploadService: UploadService, private http: HttpClient) {}
 
   ngOnInit(): void {}
@@ -20,11 +27,27 @@ export class UploadComponent implements OnInit {
       if (this.files.length === 0) {
         return;
       }
-      let formData = new FormData();
+
       for (let fileToUpload of this.files) {
-        formData.append('file', fileToUpload, fileToUpload.name);
+        this.formData.append('file', fileToUpload, fileToUpload.name);
       }
-      this.uploadService.upload(formData).subscribe((res) => console.log(res));
+      this.uploadService.upload(this.formData).subscribe({
+        next: (event) => {
+          if (event.type === HttpEventType.UploadProgress) {
+            let total = event.total || 1;
+            this.progress = Math.round(event.loaded / total) * 100;
+          } else if (event.type === HttpEventType.Response) {
+            if (event.ok) {
+              this.error = '';
+            }
+          }
+        },
+        error: (err) => {
+          this.error = err;
+          this.isDone = true;
+        },
+        complete: () => (this.isDone = true),
+      });
     }
   }
 }
