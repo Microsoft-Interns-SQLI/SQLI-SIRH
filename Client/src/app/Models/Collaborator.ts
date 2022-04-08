@@ -13,4 +13,21 @@ export class Collaborator {
   dateSortieSqli: Date = new Date();
   dateDebutStage: Date = new Date();
   diplomes: string = "";
+
+  emailPerso: string = "";
+  emailPro: string = "";
+  phonePerso: string = "";
+  phonePro: string = "";
+  competencePrincipale: string = "";
+  adresse: string = "";
+  technos: string = "";
+  certifications: string = "";
+  langues: string = "";
+  poste: string = "";
+  expertise: string = "";
+  nationnalite: string = "";
+  lieuNaissance: string = "";
+  numCin: string = "";
+  situationFamiliale: string = "";
+  hadAlreadyWorkedAtSQLI: boolean = false;
 }
