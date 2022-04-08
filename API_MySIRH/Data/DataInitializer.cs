@@ -28,6 +28,7 @@ namespace API_MySIRH.Data
                     Id = i++,
                     Nom = collaborateurJson["Nom Complet"].ToString().Split(" ")[0],
                     Prenom = collaborateurJson["Nom Complet"].ToString().Split(" ")[1],
+                    Email = collaborateurJson["Email"].ToString(),
                     Diplomes = collaborateurJson["Diplômes"],
                     Matricule = collaborateurJson["Matricule"],
                     ModeRecrutement = collaborateurJson["Recrutement Mode"],

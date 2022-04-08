@@ -22,6 +22,9 @@ namespace API_MySIRH.Helpers
             CreateMap<TypeContrat, TypeContratDTO>().ReverseMap();
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<Dashboard, DashboardDto>().ReverseMap();
+
+            CreateMap<EntityBase, DtoBase>().ReverseMap();
+
         }
     }
 }

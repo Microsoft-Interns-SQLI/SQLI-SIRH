@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Collaborator } from 'src/app/Models/Collaborator';
+import { Pagination } from 'src/app/Models/pagination';
 import { CollaboratorsService } from 'src/app/services/collaborators.service';
+import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
 
 @Component({
   selector: 'app-list-collaborateurs',
@@ -8,46 +10,56 @@ import { CollaboratorsService } from 'src/app/services/collaborators.service';
   styleUrls: ['./list-collaborateurs.component.css']
 })
 export class ListCollaborateursComponent implements OnInit {
+  spinner:SpinnerComponent = new SpinnerComponent();
   collaboratorsArray: Collaborator[] = [];
+  displayTable: boolean = false;
   collabToDelete?: Collaborator = new Collaborator();
-  elementsPerPage: number = 10;
-  currentPagination: number = 0;
-  numberOfPaginations: number[] = [];
+  pagination!: Pagination;
+  pageNumber = 1;
+  pageSize = 10;
 
   constructor(private service: CollaboratorsService) { }
 
   ngOnInit(): void {
-    this.collaboratorsServiceMap();
+    this.loadCollaborators();
   }
 
-  collaboratorsServiceMap(): void {
-    this.service.getCollaboratorsList(this.elementsPerPage, this.currentPagination + 1)
-      .subscribe((data) => {
-      this.collaboratorsArray = data.items;
-      this.numberOfPaginations = Array(Math.ceil(data.total / this.elementsPerPage)).fill(0).map((x,i)=>i);
-    });
-  }
-  changePagination(i: number) {
-    if (i < 0 || i >= this.numberOfPaginations.length)
-      return;
-    this.currentPagination = i;
-    this.collaboratorsServiceMap();
+  loadCollaborators() {
+    this.spinner.start();
+    this.service.getCollaboratorsList(this.pageSize, this.pageNumber).subscribe(resp => {
+      this.collaboratorsArray = resp.result;
+      this.pagination = resp.pagination;
+      this.spinner.finish();
+    })
   }
 
   deleteCollab(id:any): void {
-    // this.service.deleteCollaborator(id).subscribe(res => {
-    //   console.log("deletion success!");
-    //   this.collaboratorsServiceMap();
-    // })
     this.collabToDelete = id;
   }
   confirmDelete(id:any): void {
     if (id) {
       this.service.deleteCollaborator(id).subscribe(res => {
         console.log("deletion success!");
-        this.collaboratorsServiceMap();
+        this.loadCollaborators();
       });
     }
   }
-  
+  pageChanged(even: any) {
+    this.pageNumber = even.page;
+    this.loadCollaborators();
+  }
+  changeDisplay(event: any): void {
+    if (event == 'table') {
+      this.displayTable = true;
+    }
+    if (event == 'card') {
+      this.displayTable = false;
+    }
+  }
+  calculateYears(year: any): any {
+    const date = new Date(year)
+    const now = new Date(Date.now())
+    return Math.abs(now.getFullYear() - date.getFullYear())
+  }
+
 }

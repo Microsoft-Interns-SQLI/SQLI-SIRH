@@ -6,6 +6,8 @@ namespace API_MySIRH.Entities
     {
         public string Nom { get; set; } = String.Empty;
         public string Prenom { get; set; } = String.Empty;
+
+        public string Email { get; set; } = String.Empty;
         public DateTime DateNaissance { get; set; }
         public string Matricule { get; set; } = String.Empty;
         public string Civilite { get; set; } = String.Empty;
@@ -26,5 +28,27 @@ namespace API_MySIRH.Entities
         public DateTime? DateSortieSqli { get; set; }
         public DateTime? DateDebutStage { get; set; }
         public string Diplomes { get; set; } = String.Empty;
+
+        /*
+        formations - diplômes ?
+        gestion des documents (table ?)*
+        note
+        
+        techno(s) maitrisé
+        email perso
+        telphone perso
+        telphone pro
+        a déja travaillé chez SQLI
+        compétence principale
+        adresse 1
+        certifications
+        langue
+        poste
+        expertise
+        nationnalité
+        Lieu naissance
+        num cin 
+        situation familiale
+        */
     }
 }

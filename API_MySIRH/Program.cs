@@ -6,6 +6,7 @@ using API_MySIRH.Repositories;
 using API_MySIRH.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -40,6 +41,8 @@ builder.Services.AddScoped<IMemoService, MemoService>();
 builder.Services.AddScoped<IMemoRepository, MemoRepository>();
 builder.Services.AddScoped<ICollaborateurService, CollaborateurService>();
 builder.Services.AddScoped<ICollaborateurRepository, CollaborateurRepository>();
+builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
+builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped(typeof(IMdmRepository<>), typeof(MdmRepository<>));
 builder.Services.AddScoped(typeof(IMdmService<,>), typeof(MdmService<,>));
 
@@ -67,6 +70,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ClockSkew = TimeSpan.Zero
         };
     });
+builder.Services.AddSingleton<IFileProvider>(
+        new PhysicalFileProvider(
+            Path.Combine(Directory.GetCurrentDirectory(),"Archives")    
+        )
+);
 
 //enable CORS
 builder.Services.AddCors(options =>
