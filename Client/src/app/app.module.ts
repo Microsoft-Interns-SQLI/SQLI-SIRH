@@ -91,7 +91,7 @@ import { ImportCollabsComponent } from './collaborateurs/import-collabs/import-c
     }),
     PaginationModule.forRoot(),
     BrowserAnimationsModule,
-    ngfModule
+    ngfModule,
     MatTabsModule
   ],
   providers: [DatePipe],
