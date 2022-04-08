@@ -78,15 +78,14 @@ namespace API_MySIRH.Controllers
         [HttpPost("import")]
         public async Task<IActionResult> UploadFileCSV([FromForm] IFormFile file)
         {
+
+            await AddOrUpdateInDB(file);
+
             //Save Excel file into Archive folder
             await ImportFeatures.UploadFileLocaly(file);
 
-            var list = ImportFeatures.ConvertToList(file);
+            
 
-            foreach (var collaborateur in list)
-            {
-                await InvokeOperation(collaborateur);
-            }
 
 
             return Ok();
@@ -126,5 +125,66 @@ namespace API_MySIRH.Controllers
                 }
             }
         }
+
+        private async Task AddOrUpdateInDB(IFormFile file)
+        {
+
+            ExcelEngine excelEngine = new ExcelEngine();
+
+            //Instantiate the Excel application object
+            IApplication application = excelEngine.Excel;
+
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "Archives", file.FileName);
+
+            FileStream fileStream = new FileStream(path, FileMode.Open);
+
+            IWorkbook workbook = application.Workbooks.Open(fileStream);
+
+            fileStream.Close();
+
+
+            foreach (IWorksheet worksheet in workbook.Worksheets)
+            {
+                for (int i = 1; i < worksheet.Rows.Count(); i++)
+                {
+
+                    var nomComplet = worksheet.Rows[i].Cells[3].Value.Split(' ');
+
+                    var Nom = nomComplet[1];
+
+                    var Prenom = nomComplet[0];
+
+                    if (nomComplet.Length > 2)
+                        Nom += $"{string.Join(" ", nomComplet.Skip(2))}";
+
+                    Collaborateur collaborateur = new Collaborateur();
+                    collaborateur.Matricule = worksheet.Rows[i].Cells[0].Value.ToString();
+                    collaborateur.Nom = Nom;
+                    collaborateur.Prenom = Prenom;
+                    collaborateur.Email = worksheet.Rows[i].Cells[2].Value.ToString();
+                    collaborateur.Civilite = worksheet.Rows[i].Cells[5].Value.ToString();
+                    collaborateur.Diplomes = worksheet.Rows[i].Cells[16].Value.ToString();
+                    collaborateur.ModeRecrutement = worksheet.Rows[i].Cells[11].Value.ToString();
+
+                    if (worksheet.Rows[i].Cells[6].Value != "")
+                        collaborateur.DateNaissance = Convert.ToDateTime(worksheet.Rows[i].Cells[6].Value);
+                    if (worksheet.Rows[i].Cells[12].Value != "")
+                        collaborateur.DatePremiereExperience = Convert.ToDateTime(worksheet.Rows[i].Cells[12].Value);
+                    if (worksheet.Rows[i].Cells[13].Value != "")
+                        collaborateur.DateEntreeSqli = Convert.ToDateTime(worksheet.Rows[i].Cells[13].Value);
+                    if (worksheet.Rows[i].Cells[14].Value != "")
+                        collaborateur.DateDebutStage = Convert.ToDateTime(worksheet.Rows[i].Cells[14].Value);
+                    if (worksheet.Rows[i].Cells[15].Value != "")
+                        collaborateur.DateSortieSqli = Convert.ToDateTime(worksheet.Rows[i].Cells[15].Value);
+
+                    await InvokeOperation(collaborateur);
+                }
+
+            }
+            workbook.Close();
+
+            excelEngine.Dispose();
+        }
+
     }
 }

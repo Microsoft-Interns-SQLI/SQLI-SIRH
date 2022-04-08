@@ -53,8 +53,7 @@ export class CollaboratorsService {
         return this.http.post<any>(this.myUrl + "/import", file,
             {
                 reportProgress: true,
-                observe: 'events',
-                responseType:'json'
+                observe: 'events'
             }).pipe(
                 catchError(this.handleError)
             )

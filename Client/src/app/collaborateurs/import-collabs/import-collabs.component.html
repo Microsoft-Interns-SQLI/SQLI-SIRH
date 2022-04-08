@@ -28,8 +28,8 @@
                         <span class="bi bi-trash"></span>
                     </button>  
                 </div> 
-                <div class="bd-highlight align-self-center" *ngIf="isDone">
-                    <span class=" bi bi-check-circle text-success p-1" *ngIf="!error"></span>
+                <div class="bd-highlight align-self-center">
+                    <span class=" bi bi-check-circle text-success p-1" *ngIf="isDone&&!error"></span>
                     <span class="bi bi-x-circle text-danger p-1" *ngIf="error"></span>
                 </div>
             </div>
@@ -37,12 +37,12 @@
                 <div class="progress-bar"
                   role="progressbar"
                   [ngStyle]="{ 'width': progress + '%' }"
-                  [ngClass]="{'bg-success': isDone, 'bg-warning': !isDone}"
+                  [ngClass]="{'bg-success': isDone, 'bg-warning': !isDone, 'bg-danger':error}"
                 >{{progress}} %</div> 
             </div>  
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="close()" [disabled]="isLoading">Close</button>
-                <button type="button" class="btn btn-primary" (click)="uploadFile()" [disabled]="!files.length || isLoading">Send file</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="init()" [disabled]="isLoading">Close</button>
+                <button type="button" class="btn btn-primary" (click)="uploadFile()" [disabled]="!files.length || isLoading || error || isDone">Send file</button>
             </div>
         </div>
     </div>
