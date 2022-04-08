@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace API_MySIRH.Data.Migrations
+namespace API_MySIRH.data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220406111539_Init")]
-    partial class Init
+    [Migration("20220408123234_CreateORSomething")]
+    partial class CreateORSomething
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -57,14 +57,14 @@ namespace API_MySIRH.Data.Migrations
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "ebf481eb-8047-4012-8c88-f52edb1e9b40",
+                            ConcurrencyStamp = "96ba331d-2437-4e32-83a0-44ba773bca40",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "9e3c6527-40a1-4d5a-995e-dc9dd8b2ef2b",
+                            ConcurrencyStamp = "7024559e-5eeb-427c-80e7-e84109c4c849",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -142,13 +142,13 @@ namespace API_MySIRH.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0eb0b2e0-8dff-45d6-8ca9-577063b3deb0",
+                            ConcurrencyStamp = "e818fbd9-fc71-4067-a2fa-b24e9d365706",
                             Email = "Admin@sqli.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@SQLI.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAECXwC6Gx/9A3XH1aVuNlhbYwftGErILLRdS23MuDb4mUw7oeNyQa3neHFBCvoKUczQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHHphvi6F4sUlo+7XvjLDLbPwD+sNjZ9WJCxX+olMJ4J306yRKaDDoGSkate3Ah0YQ==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "AdminUser"
@@ -246,7 +246,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "30783",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(8343),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(4774),
                             Nom = "BAAZZI",
                             Prenom = "Abdellah"
                         },
@@ -261,7 +261,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2009:Ingénieur d'état en génie informatique",
                             Matricule = "30517",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(8606),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5017),
                             Nom = "Afaf",
                             Prenom = "El"
                         },
@@ -275,7 +275,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2010:Ingénieur d'Etat",
                             Matricule = "30595",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(8637),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5056),
                             Nom = "Naimi",
                             Prenom = "Youssef"
                         },
@@ -289,7 +289,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2012:Matser spécialisé en  Informatique|2010:Mastère en informatique|2010:Licence en physique informatique",
                             Matricule = "30903",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(8659),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5078),
                             Nom = "LASMAK",
                             Prenom = "Marouane"
                         },
@@ -303,7 +303,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2016:Diplôme d’ingénierie |2006:Diplôme universitaire de technologie",
                             Matricule = "30376",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(8680),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5100),
                             Nom = "MAJID",
                             Prenom = "Mostafa"
                         },
@@ -317,7 +317,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2004:MIAGE|2006:Master MBDS",
                             Matricule = "30238",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(8703),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5121),
                             Nom = "BENNAI",
                             Prenom = "Naoufal"
                         },
@@ -331,7 +331,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2014:MIAGE",
                             Matricule = "30984",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(8724),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5140),
                             Nom = "AZZI",
                             Prenom = "Younesse"
                         },
@@ -346,7 +346,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2010:Ingenieur",
                             Matricule = "30622",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(8745),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5182),
                             Nom = "Siham",
                             Prenom = "Chouki"
                         },
@@ -361,7 +361,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2013:Master Ingénierie Informatique",
                             Matricule = "30963",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(8768),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5205),
                             Nom = "Mahmoud",
                             Prenom = "Boufaddi"
                         },
@@ -376,7 +376,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2012:Master spécialisé |2005:Maîtrise Sciences et Techniques (MST)",
                             Matricule = "31012",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(8793),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5229),
                             Nom = "KAROUITE",
                             Prenom = "Ouadii"
                         },
@@ -390,7 +390,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2015:technicien spécialisé en développement m",
                             Matricule = "31281",
                             ModeRecrutement = "Spontané",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(8816),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5254),
                             Nom = "DIDI",
                             Prenom = "OMAR"
                         },
@@ -405,7 +405,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2015:Diplôme d’ingénieur option MIAGE",
                             Matricule = "31317",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(8843),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5276),
                             Nom = "ALAOUI",
                             Prenom = "ISMAILI"
                         },
@@ -420,7 +420,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2016:Ingénieur informatique|2012:Diplôme Universitaire de Technologie",
                             Matricule = "31334",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(8865),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5300),
                             Nom = "EL",
                             Prenom = "HAMDAOUI"
                         },
@@ -434,7 +434,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2012:Ingénieur d'état|2009:Licence en génie informatique",
                             Matricule = "31361",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(8889),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5322),
                             Nom = "ASSAYAH",
                             Prenom = "Mimoun"
                         },
@@ -449,7 +449,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "31377",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(8937),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5342),
                             Nom = "BOUHAFER",
                             Prenom = "Anass"
                         },
@@ -463,7 +463,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "31375",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(8964),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5363),
                             Nom = "EL",
                             Prenom = "BOUHAFSI"
                         },
@@ -478,7 +478,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "31447",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(8988),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5381),
                             Nom = "MAAIDEN",
                             Prenom = "Yassine"
                         },
@@ -492,7 +492,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "31436",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9012),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5404),
                             Nom = "BOUKHRIS",
                             Prenom = "Zakaria"
                         },
@@ -507,7 +507,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "31478",
                             ModeRecrutement = "Recommandation",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9031),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5425),
                             Nom = "OUAZZI",
                             Prenom = "Ilyas"
                         },
@@ -521,7 +521,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "31479",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9053),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5467),
                             Nom = "BRAHIMI",
                             Prenom = "Mouad"
                         },
@@ -535,7 +535,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "31553",
                             ModeRecrutement = "E-Chalenge",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9072),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5487),
                             Nom = "EL",
                             Prenom = "AKKEL"
                         },
@@ -549,7 +549,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2015:Ingénierie des systèmes d’informatique|2017:Ingénierie des systèmes d’informations",
                             Matricule = "31452",
                             ModeRecrutement = "E-Chalenge",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9093),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5507),
                             Nom = "OUBAID",
                             Prenom = "Abd"
                         },
@@ -564,7 +564,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "31394",
                             ModeRecrutement = "E-Chalenge",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9114),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5532),
                             Nom = "Echenafi",
                             Prenom = "Imane"
                         },
@@ -579,7 +579,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "31916",
                             ModeRecrutement = "Stage PFE",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9136),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5552),
                             Nom = "Aadil",
                             Prenom = "LAHLOU"
                         },
@@ -593,7 +593,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "31683",
                             ModeRecrutement = "E-Chalenge",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9161),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5573),
                             Nom = "TOUIYEK",
                             Prenom = "Mehdi"
                         },
@@ -607,7 +607,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "31687",
                             ModeRecrutement = "E-Chalenge",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9182),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5592),
                             Nom = "EL",
                             Prenom = "HACHIMI"
                         },
@@ -622,7 +622,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "0",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9232),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5616),
                             Nom = "Kouakou",
                             Prenom = "Miguel"
                         },
@@ -636,7 +636,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "31824",
                             ModeRecrutement = "E-Chalenge",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9260),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5641),
                             Nom = "TOUMI",
                             Prenom = "Achraf"
                         },
@@ -650,7 +650,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "31835",
                             ModeRecrutement = "E-Chalenge",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9282),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5661),
                             Nom = "AIT",
                             Prenom = "EL"
                         },
@@ -665,7 +665,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "31838",
                             ModeRecrutement = "E-Chalenge",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9304),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5683),
                             Nom = "ALBOUFARISSI",
                             Prenom = "Nidal"
                         },
@@ -679,7 +679,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "31840",
                             ModeRecrutement = "E-Chalenge",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9327),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5705),
                             Nom = "NAJI",
                             Prenom = "Naji"
                         },
@@ -693,7 +693,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "31933",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9347),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5723),
                             Nom = "Lahmidi",
                             Prenom = "Fouad"
                         },
@@ -708,7 +708,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "31939",
                             ModeRecrutement = "Cooptation",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9368),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5767),
                             Nom = "TAYEBI",
                             Prenom = "Aziz"
                         },
@@ -722,7 +722,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "31954",
                             ModeRecrutement = "Stage PFE",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9391),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5789),
                             Nom = "SOSSEY",
                             Prenom = "ALAOUI"
                         },
@@ -736,7 +736,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2013:M2: Nouvelles technologies|2013:Ingénieur en informatique et réseau",
                             Matricule = "31293",
                             ModeRecrutement = "Cooptation",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9410),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5808),
                             Nom = "EL",
                             Prenom = "HILALI"
                         },
@@ -750,7 +750,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2016:Technicien Spécialisé en Développement|2017:Licence Universitaire Professionnelle|2014:Baccalauréat Science Physique|2020:Master Universitaire Professionnelle",
                             Matricule = "31970",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9430),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5828),
                             Nom = "CHAFIK",
                             Prenom = "Soufiane"
                         },
@@ -765,7 +765,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32027",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9449),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5846),
                             Nom = "Hamdi",
                             Prenom = "Fatima"
                         },
@@ -779,7 +779,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32000",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9475),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5868),
                             Nom = "Beraich",
                             Prenom = "Badre"
                         },
@@ -793,7 +793,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32083",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9518),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5887),
                             Nom = "Lagzouli",
                             Prenom = "El"
                         },
@@ -807,7 +807,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2016:GÉNIE LOGICIEL|2019:LOGICIEL ET SYSTÈME INFORMATIQUE",
                             Matricule = "32080",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9544),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5905),
                             Nom = "El",
                             Prenom = "Kaddouri"
                         },
@@ -821,7 +821,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32021",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9568),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5925),
                             Nom = "Maadane",
                             Prenom = "Fatima"
                         },
@@ -835,7 +835,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32062",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9590),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5943),
                             Nom = "Adam",
                             Prenom = "El"
                         },
@@ -850,7 +850,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "0",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9613),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5961),
                             Nom = "Droussi",
                             Prenom = "Nabil"
                         },
@@ -865,7 +865,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "0",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9635),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(5981),
                             Nom = "Haouari",
                             Prenom = "Nadir"
                         },
@@ -880,7 +880,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "0",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9658),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6021),
                             Nom = "Laghoui",
                             Prenom = "Lhoucine"
                         },
@@ -895,7 +895,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "0",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9681),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6044),
                             Nom = "Zouitni",
                             Prenom = "Abdelkrim"
                         },
@@ -909,7 +909,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2009:Ingénierie Concepteur de Systèmes d’info|2004:BTS- Génie Informatique|2001:Baccalauréat",
                             Matricule = "32134",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9707),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6064),
                             Nom = "EL",
                             Prenom = "YASNI"
                         },
@@ -923,7 +923,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "0",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9727),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6083),
                             Nom = "Bounzaha",
                             Prenom = "Mohamed"
                         },
@@ -937,7 +937,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32227",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9747),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6101),
                             Nom = "Chaimaa",
                             Prenom = "Chemmam"
                         },
@@ -951,7 +951,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32209",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9766),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6118),
                             Nom = "Mounib",
                             Prenom = "El"
                         },
@@ -965,7 +965,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2018:T. S. en développement Informatique",
                             Matricule = "32214",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9790),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6136),
                             Nom = "Alaa",
                             Prenom = "Hammeni"
                         },
@@ -980,7 +980,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32194",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9828),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6154),
                             Nom = "Yassine",
                             Prenom = "Elmousaoui"
                         },
@@ -994,7 +994,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32248",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9851),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6175),
                             Nom = "Mohamed",
                             Prenom = "Roudani"
                         },
@@ -1008,7 +1008,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32247",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9870),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6194),
                             Nom = "Mouad",
                             Prenom = "Sifane"
                         },
@@ -1022,7 +1022,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32245",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9889),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6212),
                             Nom = "Mohamed",
                             Prenom = "Zidani"
                         },
@@ -1037,7 +1037,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32187",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9907),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6229),
                             Nom = "Hicham",
                             Prenom = "Farraji"
                         },
@@ -1052,7 +1052,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32188",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9929),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6250),
                             Nom = "Ahlam",
                             Prenom = "Jelti"
                         },
@@ -1067,7 +1067,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32189",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9949),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6290),
                             Nom = "Mohamed",
                             Prenom = "Maghnouj"
                         },
@@ -1082,7 +1082,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32190",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9971),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6310),
                             Nom = "Kaoutar",
                             Prenom = "Mehdaoui"
                         },
@@ -1096,7 +1096,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32239",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 205, DateTimeKind.Local).AddTicks(9993),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6330),
                             Nom = "Abdellah",
                             Prenom = "Dbib"
                         },
@@ -1110,7 +1110,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "0",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 206, DateTimeKind.Local).AddTicks(13),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6348),
                             Nom = "Otmani",
                             Prenom = "Amine"
                         },
@@ -1124,7 +1124,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32287",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 206, DateTimeKind.Local).AddTicks(32),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6365),
                             Nom = "Lahcen",
                             Prenom = "Ettout"
                         },
@@ -1138,7 +1138,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32300",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 206, DateTimeKind.Local).AddTicks(50),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6383),
                             Nom = "Salim",
                             Prenom = "El"
                         },
@@ -1152,7 +1152,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32304",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 206, DateTimeKind.Local).AddTicks(70),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6401),
                             Nom = "Mourad",
                             Prenom = "El"
                         },
@@ -1166,7 +1166,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32315",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 206, DateTimeKind.Local).AddTicks(107),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6419),
                             Nom = "Zakaria",
                             Prenom = "Lahmidi"
                         },
@@ -1180,7 +1180,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32325",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 206, DateTimeKind.Local).AddTicks(128),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6437),
                             Nom = "Oussama",
                             Prenom = "Nfaoui"
                         },
@@ -1194,7 +1194,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32334",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 206, DateTimeKind.Local).AddTicks(146),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6455),
                             Nom = "Omar",
                             Prenom = "Assanouni"
                         },
@@ -1208,7 +1208,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32339",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 206, DateTimeKind.Local).AddTicks(165),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6473),
                             Nom = "Benchamekh",
                             Prenom = "Khalil"
                         },
@@ -1222,7 +1222,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2021:MASTER - 2ASI",
                             Matricule = "32337",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 206, DateTimeKind.Local).AddTicks(183),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6491),
                             Nom = "Miloudi",
                             Prenom = "Zakaria"
                         },
@@ -1236,7 +1236,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32352",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 206, DateTimeKind.Local).AddTicks(200),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6529),
                             Nom = "Bouharrada",
                             Prenom = "Mohammed"
                         },
@@ -1250,7 +1250,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "0",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 206, DateTimeKind.Local).AddTicks(219),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6548),
                             Nom = "Khazrouni",
                             Prenom = "Hassan"
                         },
@@ -1264,7 +1264,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2017:Génie logiciel|2018:Sicences mathématiques et informatique|2021:Ingénierie logiciel",
                             Matricule = "32360",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 206, DateTimeKind.Local).AddTicks(237),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6565),
                             Nom = "aribech",
                             Prenom = "mohamed"
                         },
@@ -1278,7 +1278,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2018:Diplôme de Technicien Spécialisé|2011:Baccalauréat",
                             Matricule = "32358",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 206, DateTimeKind.Local).AddTicks(255),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6583),
                             Nom = "Akhardid",
                             Prenom = "Khadija"
                         },
@@ -1293,7 +1293,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2015:Master STRI",
                             Matricule = "32363",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 206, DateTimeKind.Local).AddTicks(273),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6601),
                             Nom = "Azoulay",
                             Prenom = "Zakaria"
                         },
@@ -1307,7 +1307,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32367",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 206, DateTimeKind.Local).AddTicks(295),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6621),
                             Nom = "Fliti",
                             Prenom = "Mouad"
                         },
@@ -1321,7 +1321,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32366",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 206, DateTimeKind.Local).AddTicks(313),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6639),
                             Nom = "Bahi",
                             Prenom = "ben"
                         },
@@ -1335,7 +1335,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32370",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 206, DateTimeKind.Local).AddTicks(351),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6657),
                             Nom = "Berehil",
                             Prenom = "Walid"
                         },
@@ -1349,7 +1349,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32377",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 206, DateTimeKind.Local).AddTicks(369),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6674),
                             Nom = "Naimi",
                             Prenom = "Khalil"
                         },
@@ -1363,7 +1363,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32380",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 206, DateTimeKind.Local).AddTicks(387),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6696),
                             Nom = "Lourhaoui",
                             Prenom = "Soukaina"
                         },
@@ -1377,7 +1377,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "32392",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 206, DateTimeKind.Local).AddTicks(406),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6714),
                             Nom = "Benmachi",
                             Prenom = "Hamza"
                         },
@@ -1391,7 +1391,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2016:Licence en EEA|2019:Ingénieur Automatisme Info Industrielle",
                             Matricule = "32402",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 206, DateTimeKind.Local).AddTicks(424),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6732),
                             Nom = "Ouahdi",
                             Prenom = "Abdachahid"
                         },
@@ -1405,7 +1405,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "0",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 206, DateTimeKind.Local).AddTicks(443),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6751),
                             Nom = "Zakaria",
                             Prenom = "Errafiqi"
                         },
@@ -1420,7 +1420,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2016:Ingénieur d’état en génie informatique",
                             Matricule = "32463",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 206, DateTimeKind.Local).AddTicks(460),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6791),
                             Nom = "Asmae",
                             Prenom = "El"
                         },
@@ -1435,7 +1435,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2017:Diplome d'ingénieur informatique",
                             Matricule = "32524",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 206, DateTimeKind.Local).AddTicks(482),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6813),
                             Nom = "Abderrahmane",
                             Prenom = "Dyar"
                         },
@@ -1449,7 +1449,7 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Matricule = "0",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 206, DateTimeKind.Local).AddTicks(503),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6833),
                             Nom = "Fourtit",
                             Prenom = "Abdelaziz"
                         });
@@ -1484,7 +1484,7 @@ namespace API_MySIRH.Data.Migrations
                         {
                             Id = 1,
                             CreationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ModificationDate = new DateTime(2022, 4, 6, 11, 15, 39, 206, DateTimeKind.Local).AddTicks(530),
+                            ModificationDate = new DateTime(2022, 4, 8, 12, 32, 34, 520, DateTimeKind.Local).AddTicks(6967),
                             nbFemale = 13,
                             nbMale = 72
                         });

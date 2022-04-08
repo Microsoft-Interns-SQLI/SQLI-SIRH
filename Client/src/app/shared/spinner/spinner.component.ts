@@ -15,21 +15,26 @@ export class SpinnerComponent implements OnInit {
       {
         return of(false);
       }
-      return of(true).pipe(delay(100));
+      return of(true).pipe(delay(1000));
     })
   );
-
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  start(){
+  start(){/*
+    this.timeout = setTimeout(()=>{
+      this.isLoading=true;
+    },Infinity);
+    console.log("this is start");*/
     this._isLoading.next(true);
   }
 
-  finish()
-  {
+  finish(){/*
+    this.isLoading=false;
+    clearTimeout(this.timeout);
+    console.log("this is end");*/
     this._isLoading.next(false);
   }
 
