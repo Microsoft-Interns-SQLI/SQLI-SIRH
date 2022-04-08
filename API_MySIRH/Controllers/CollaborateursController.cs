@@ -83,12 +83,12 @@ namespace API_MySIRH.Controllers
 
             var list = ImportFeatures.ConvertToList(file);
 
-            foreach(var collaborateur in list)
+            foreach (var collaborateur in list)
             {
                 await InvokeOperation(collaborateur);
             }
 
-            
+
             return Ok();
         }
 
