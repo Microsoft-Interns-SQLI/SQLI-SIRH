@@ -3,9 +3,7 @@
     [(FormData)] = "formData"
     postName = "file"
 ></ngfFormData>
-<ngfUploadStatus
-  [(percent)] = "progress"
-></ngfUploadStatus>
+
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
@@ -27,21 +25,30 @@
             <div class="alert alert-danger p-1 text-center" *ngIf="error">
                 {{error}}
             </div>
-            <div class="container row p-1" *ngIf="files.length">
-                <img class="col-3" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg/640px-Microsoft_Office_Excel_%282019%E2%80%93present%29.svg.png"
-                    style="width: 4rem;height: 2rem;">
-                <div class="col">{{files[0].name}}</div>
-                <button class="col-2 btn btn-warning btn-sm" (click)="files.length = 0; files.splice(0,1)">Clear</button>   
+            <div class="d-flex justify-content-between bd-highlight p-1" *ngIf="files.length">
+                <div class="row flex-grow-1 bd-highlight">
+                    <img class="col-3" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg/640px-Microsoft_Office_Excel_%282019%E2%80%93present%29.svg.png"
+                        style="width: 4rem;height: 2rem;">
+                    <div class="col-8">{{files[0].name}}</div>
+                    <button *ngIf="!isDone || error" class="col-1 btn btn-warning btn-sm p-1" (click)="files.splice(0,1)">
+                        <span class="bi bi-trash"></span>
+                    </button>  
+                </div> 
+                <div class="bd-highlight align-self-center" *ngIf="isDone">
+                    <span class=" bi bi-check-circle text-success p-1" *ngIf="!error"></span>
+                    <span class="bi bi-x-circle text-danger p-1" *ngIf="error"></span>
+                </div>
             </div>
             <div class="progress" *ngIf="files.length">
-                <div class="progress-bar bg-success"
+                <div class="progress-bar"
                   role="progressbar"
                   [ngStyle]="{ 'width': progress + '%' }"
-                >0 %</div> 
+                  [ngClass]="{'bg-success': isDone, 'bg-warning': !isDone}"
+                >{{progress}} %</div> 
             </div>  
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" [disabled]="!files" (click)="uploadFile()">Send file</button>
+                <button type="button" class="btn btn-primary" [disabled]="!files.length" (click)="uploadFile()">Send file</button>
             </div>
         </div>
     </div>
