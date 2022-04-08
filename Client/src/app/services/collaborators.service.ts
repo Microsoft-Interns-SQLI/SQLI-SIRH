@@ -1,6 +1,6 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpEvent, HttpEventType, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { delay, Observable } from 'rxjs';
+import { catchError, Observable, tap, throwError, delay } from 'rxjs';
 import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Collaborator } from '../Models/Collaborator';
@@ -49,8 +49,19 @@ export class CollaboratorsService {
         return this.http.delete(this.myUrl + `/${id}`);
     }
 
-    importCollaborateurs(file: FormData) {
-        return this.http.post<FormData>(this.myUrl + "/import", file,
-            { reportProgress: true, observe: 'events' })
+    importCollaborateurs(file: FormData): Observable<HttpEvent<any>> {
+        return this.http.post<any>(this.myUrl + "/import", file,
+            {
+                reportProgress: true,
+                observe: 'events'
+            }).pipe(
+                catchError(this.handleError)
+            )
+    }
+
+    private handleError(error: HttpErrorResponse): Observable<never> {
+        if (error.status === 0 || error.status === 500)
+            return throwError(() => "Something went wrong!");
+        return throwError(() => error.error);
     }
 }

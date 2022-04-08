@@ -4,5 +4,11 @@
     border: 2px dashed gray;
     text-align: center;
 }
-.invalid-drag { border: dotted 3px red; }
-.valid-drag { border: dotted 3px green; }
+.invalid-drag { 
+    border: solid 3px red;
+    box-shadow: 1px 1px 10px rgb(243, 103, 103);
+ }
+.valid-drag { 
+    border: solid 3px green;
+    box-shadow: 1px 1px 10px rgb(63, 239, 110);
+ }
