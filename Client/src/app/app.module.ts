@@ -8,6 +8,7 @@ import { DatePipe } from '@angular/common';
 import { NgxEditorModule } from 'ngx-editor';
 import { CommonModule } from "@angular/common";
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import {ngfModule} from 'angular-file';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -40,6 +41,8 @@ import { ModalComponent } from './shared/modal/modal.component';
 import { ToastComponent } from './shared/toast/toast.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { MatTabsModule } from '@angular/material/tabs';
+import { ImportCollabsComponent } from './collaborateurs/import-collabs/import-collabs.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +74,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     LayoutComponent,
     ModalComponent,
     ToastComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    ImportCollabsComponent
   ],
   imports: [
     CommonModule,
@@ -88,7 +92,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     }),
     PaginationModule.forRoot(),
     BrowserAnimationsModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    ngfModule,
+    MatTabsModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

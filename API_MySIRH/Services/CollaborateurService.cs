@@ -30,9 +30,19 @@ namespace API_MySIRH.Services
             await this._collaborateurRepository.DeleteCollaborateur(id);
         }
 
-        public async Task<CollaborateurDTO> GetCollaborateur(int id)
+        public async Task<CollaborateurDTO> GetCollaborateurById(int id)
         {
-            return this._mapper.Map<CollaborateurDTO>(await this._collaborateurRepository.GetCollaborateur(id));
+            return this._mapper.Map<CollaborateurDTO>(await this._collaborateurRepository.GetCollaborateurById(id));
+        }
+
+        public async Task<CollaborateurDTO> GetCollaborateurByMatricule(string matricule)
+        {
+            return this._mapper.Map<CollaborateurDTO>(await this._collaborateurRepository.GetCollaborateurByMatricule(matricule));
+        }
+
+        public async Task<CollaborateurDTO> GetCollaborateurByEmail(string email)
+        {
+            return this._mapper.Map<CollaborateurDTO>(await this._collaborateurRepository.GetCollaborateurByEmail(email));
         }
 
         public async Task<PagedList<CollaborateurDTO>> GetCollaborateurs(FilterParams filterParams)
@@ -48,5 +58,22 @@ namespace API_MySIRH.Services
         {
             await this._collaborateurRepository.UpdateCollaborateur(id, this._mapper.Map<Collaborateur>(collaborateur));
         }
+
+        public Task<bool> CollaborateurExistsById(int id)
+        {
+            return _collaborateurRepository.CollaborateurExistsById(id);
+        }
+
+        public Task<bool> CollaborateurExistsByMatricule(string matricule)
+        {
+            return _collaborateurRepository.CollaborateurExistsByMatricule(matricule);
+        }
+
+        public Task<bool> CollaborateurExistsByEmail(string email)
+        {
+            return _collaborateurRepository.CollaborateurExistsByEmail(email);
+        }
+
+        
     }
 }

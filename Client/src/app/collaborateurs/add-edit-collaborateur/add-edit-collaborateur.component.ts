@@ -14,7 +14,6 @@ export class AddEditCollaborateurComponent implements OnInit {
 
   constructor(private actRoute: ActivatedRoute, private sevice: CollaboratorsService) {
     this.collab_id = this.actRoute.snapshot.params['id'];
-  
   }
 
   ngOnInit(): void {

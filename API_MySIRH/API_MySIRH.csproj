@@ -28,12 +28,14 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.2" />
     <PackageReference Include="SQLite" Version="3.13.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Syncfusion.XlsIO.Net.Core" Version="20.1.0.47" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
     <Folder Include="Errors\" />
     <Folder Include="Logger\" />
+    <Folder Include="Archives\" />
   </ItemGroup>
 
   <Target Name="PrePublishTarget" AfterTargets="Publish">
