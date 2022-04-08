@@ -8,7 +8,7 @@ import { DatePipe } from '@angular/common';
 import { NgxEditorModule } from 'ngx-editor';
 import { CommonModule } from "@angular/common";
 import { PaginationModule } from 'ngx-bootstrap/pagination';
-import {ngfModule} from 'angular-file';
+import { ngfModule } from 'angular-file';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -91,7 +91,7 @@ import { ImportCollabsComponent } from './collaborateurs/import-collabs/import-c
     }),
     PaginationModule.forRoot(),
     BrowserAnimationsModule,
-    ngfModule
+    ngfModule,
     MatTabsModule
   ],
   providers: [DatePipe],

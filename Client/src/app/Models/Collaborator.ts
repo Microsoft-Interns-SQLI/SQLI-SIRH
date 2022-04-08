@@ -14,8 +14,16 @@ export class Collaborator {
   dateDebutStage: Date = new Date();
   diplomes: string = "";
 
-  emailPerso: string = "";
-  emailPro: string = "";
+  note: string = "";
+  phonePersonnel: string = "";
+  phoneProfesionnel: string = "";
+  autreTechnos: string = "";
+  typeContrat: string = "";
+  niveau: string = "";
+  site: string = "";
+  skillCenter: string = "";
+  emailPersonnel: string = "";
+  email: string = "";
   phonePerso: string = "";
   phonePro: string = "";
   competencePrincipale: string = "";
