@@ -143,28 +143,28 @@
                                     <div class="col-md-6 mt-3">
                                         <div class="form-group">
                                             <label for="email_perso">Email personnel :</label>
-                                            <input type="email" name="email_perso" [(ngModel)]="collab.emailPerso"
+                                            <input type="email" name="email_perso" [(ngModel)]="collab.emailPersonnel"
                                                 class="form-control form-control-sm" [required]="true">
                                         </div>
                                     </div>
                                     <div class="col-md-6 mt-3">
                                         <div class="form-group">
                                             <label for="email_pro">Email Profesionnel :</label>
-                                            <input type="email" name="email_pro" [(ngModel)]="collab.emailPro"
+                                            <input type="email" name="email_pro" [(ngModel)]="collab.email"
                                                 class="form-control form-control-sm" [required]="true">
                                         </div>
                                     </div>
                                     <div class="col-md-6 mt-3">
                                         <div class="form-group">
                                             <label for="phone_perso">Phone personnel :</label>
-                                            <input type="tel" name="phone_perso" [(ngModel)]="collab.phonePerso"
+                                            <input type="tel" name="phone_perso" [(ngModel)]="collab.phonePersonnel"
                                                 class="form-control form-control-sm" [required]="true">
                                         </div>
                                     </div>
                                     <div class="col-md-6 mt-3">
                                         <div class="form-group">
                                             <label for="phone_pro">Phone Profesionnel :</label>
-                                            <input type="tel" name="phone_pro" [(ngModel)]="collab.phonePro"
+                                            <input type="tel" name="phone_pro" [(ngModel)]="collab.phoneProfesionnel"
                                                 class="form-control form-control-sm" [required]="true">
                                         </div>
                                     </div>
@@ -172,8 +172,8 @@
                                     <div class="col-md-12 mt-3">
                                         <div class="form-group">
                                             <label for="adresse">Adresse :</label>
-                                            <textarea name="adresse" rows="4"
-                                                class="form-control form-control-sm"></textarea>
+                                            <textarea name="adresse" rows="4" class="form-control form-control-sm"
+                                                [(ngModel)]="collab.adresse"></textarea>
                                         </div>
                                     </div>
 
@@ -189,7 +189,7 @@
                                     <div class="col-md-3 mt-3">
                                         <div class="form-group">
                                             <label for="lieuNaissance">Lieu de naissance :</label>
-                                            <input type="text" name="dateNaissance" [ngModel]="collab.lieuNaissance"
+                                            <input type="text" name="lieuNaissance" [ngModel]="collab.lieuNaissance"
                                                 class=" form-control form-control-sm" [required]="true">
                                         </div>
                                     </div>
@@ -246,10 +246,10 @@
                                             <select name="expertise" [(ngModel)]="collab.expertise"
                                                 class="form-select form-select-sm" [required]="true">
                                                 <option value disabled selected>-Sélectionner-</option>
-                                                <option value="Junior">Junior</option>
-                                                <option value="Opérationnel">Opérationnel</option>
-                                                <option value="Confirmé">Confirmé</option>
-                                                <option value="Senior">Senior</option>
+                                                <option value="Junior">Junior (1an)</option>
+                                                <option value="Opérationnel">Opérationnel (2ans)</option>
+                                                <option value="Confirmé">Confirmé (3ans)</option>
+                                                <option value="Senior">Senior (4ans)</option>
                                             </select>
                                         </div>
                                     </div>
@@ -274,6 +274,7 @@
                                             <select name="situationFamiliale" [(ngModel)]="collab.situationFamiliale"
                                                 class="form-select form-select-sm" [required]="true">
                                                 <option value disabled selected>-Sélectionner-</option>
+                                                <option value="Manager">Manager</option>
                                                 <option value="Célibataire">Célibataire</option>
                                                 <option value="Marié">Marié</option>
                                                 <option value="Divorcé">Divorcé</option>
@@ -314,7 +315,8 @@
                                     <div class="col-md-12 mt-3">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value=""
-                                                id="hadAlreadyWorkedAtSQLI" checked>
+                                                id="hadAlreadyWorkedAtSQLI" [(ngModel)]="collab.hadAlreadyWorkedAtSQLI"
+                                                checked>
                                             <label class="form-check-label" for="hadAlreadyWorkedAtSQLI">
                                                 a déja travaillé à SQLI
                                             </label>

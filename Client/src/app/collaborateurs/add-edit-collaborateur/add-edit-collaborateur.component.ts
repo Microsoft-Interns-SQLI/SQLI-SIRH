@@ -20,13 +20,16 @@ export class AddEditCollaborateurComponent implements OnInit {
     if (this.collab_id) {
       this.sevice.getCollaboratorByMatricule(this.collab_id).subscribe(res => {
         this.collab = res;
+        console.log(
+          res
+        );
       });
     } else {
       this.collab = new Collaborator();
     }
   }
 
-  saveCollaborator() : void {
+  saveCollaborator(): void {
     console.log(this.collab);
     if (this.collab_id) {
       this.sevice.updateCollaborator(this.collab_id, this.collab).subscribe((res) => {
