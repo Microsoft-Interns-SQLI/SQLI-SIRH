@@ -28,13 +28,13 @@ export class ImportCollabsComponent implements OnInit {
 
 
   fileChange(files: File[]) {
-    if(files.length > 1)
-      this.files.splice(0,1);
+    if(files.length > 1){
+      this.init();
+    }
     this.formData.append('file', files[0]);
   }
   clear(){
-    this.error = "";
-    this.files.splice(0,1);
+    this.init();
   }
   uploadFile() {
     this.isLoading = true;
@@ -52,7 +52,7 @@ export class ImportCollabsComponent implements OnInit {
           }
         },
         error: err => {
-          this.error = err; this.isDone = true;this.isLoading = false;
+          this.error = err;this.isLoading = false;
         },
         complete: () => {
           this.isDone = true; 
@@ -61,7 +61,7 @@ export class ImportCollabsComponent implements OnInit {
       })
   }
 
-  close(){
+  init(){
     this.files.splice(0,1);
     this.formData.delete('file');
     this.progress = 0;
