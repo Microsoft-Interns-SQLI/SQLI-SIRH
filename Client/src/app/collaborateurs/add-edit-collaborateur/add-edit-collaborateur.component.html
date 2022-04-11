@@ -17,367 +17,515 @@
     </ol>
 </nav> -->
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-    <h2 class="h2" *ngIf="!collab_id">Ajouter Collaborateur</h2>
-    <h2 class="h2" *ngIf="collab_id">Details Collaborateur</h2>
+<div
+  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom"
+>
+  <h2 class="h2" *ngIf="!collab_id">Ajouter Collaborateur</h2>
+  <h2 class="h2" *ngIf="collab_id">Details Collaborateur</h2>
 </div>
 
 <form class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-12" *ngIf="!collab_id">
-                        <h5>
-                            Add new collab
-                        </h5>
-                    </div>
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12" *ngIf="!collab_id">
+            <h5>Add new collab</h5>
+          </div>
 
-                    <div class="col-md-3">
-                        <div class="row">
-                            <div class="col-md-12 text-center">
-                                <img src="https://myfjamaica.org/wp-content/uploads/2015/08/provider_female_avatar.jpg"
-                                    alt="Photo de Lena" class="border border-dark">
-                            </div>
-                            <div class="col-md-12 text-center" *ngIf="collab_id">
-                                <strong>
-                                    Mme. {{collab?.nom}} {{collab?.prenom}}
-                                </strong>
-                                <br>
-                                <small>
-                                    #M-121245
-                                </small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p>
-                                    Ingénieur Concepteur Développeur, Senior (6ans expérience)
-                                    <br>
-                                    Département Microsoft .Net
-                                    <br>
-                                    CDI (Plein Temps) il y'a <abbr title="aze">8 ans</abbr>
-                                    mode de recrutement : e-challenge
-                                    <br>
-                                    Site D'Oujda
-                                </p>
-                            </div>
-                            <div class="col-md-6">
-                                <p>
-                                    email.perso@mail.com
-                                    <br>
-                                    email.pro@mail.com
-                                </p>
-                                <p>
-                                    <i class="bi bi-phone"></i>
-                                    06 66 66 66 66
-                                    <br>
-                                    <i class="bi bi-phone"></i>
-                                    06 66 66 66 66
-                                </p>
-                                <p>
-                                    Célibataire
-                                    <br>
-                                    0 enfants
-                                    <br>
-                                    adresse maison
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <img
+                  src="https://myfjamaica.org/wp-content/uploads/2015/08/provider_female_avatar.jpg"
+                  alt="Photo de Lena"
+                  class="border border-dark"
+                />
+              </div>
+              <div class="col-md-12 text-center" *ngIf="collab_id">
+                <strong> Mme. {{ collab?.nom }} {{ collab?.prenom }} </strong>
+                <br />
+                <small> #M-121245 </small>
+              </div>
             </div>
-            <div class="card-footer bg-white d-flex justify-content-end">
-                <input type="submit" class="btn btn-primary" (click)="saveCollaborator()" value="Sauvegarder">
+          </div>
+          <div class="col-md-9">
+            <div class="row">
+              <div class="col-md-6">
+                <p>
+                  Ingénieur Concepteur Développeur, Senior (6ans expérience)
+                  <br />
+                  Département Microsoft .Net
+                  <br />
+                  CDI (Plein Temps) il y'a <abbr title="aze">8 ans</abbr>
+                  mode de recrutement : e-challenge
+                  <br />
+                  Site D'Oujda
+                </p>
+              </div>
+              <div class="col-md-6">
+                <p>
+                  email.perso@mail.com
+                  <br />
+                  email.pro@mail.com
+                </p>
+                <p>
+                  <i class="bi bi-phone"></i>
+                  06 66 66 66 66
+                  <br />
+                  <i class="bi bi-phone"></i>
+                  06 66 66 66 66
+                </p>
+                <p>
+                  Célibataire
+                  <br />
+                  0 enfants
+                  <br />
+                  adresse maison
+                </p>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
+      <div class="card-footer bg-white d-flex justify-content-end">
+        <input
+          type="submit"
+          class="btn btn-primary"
+          (click)="saveCollaborator()"
+          value="Sauvegarder"
+        />
+      </div>
     </div>
-    <div class="col-md-12 mt-4">
-        <div class="card h-100">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <mat-tab-group>
-                            <mat-tab label="Info">
-                                <div class="row p-4">
-                                    <div class="col-md-2 mt-3">
-                                        <div class="form-group">
-                                            <label for="civilite">Civilité :</label>
-                                            <select name="civilite" [(ngModel)]="collab.civilite"
-                                                class="form-select form-select-sm" [required]="true">
-                                                <option value disabled selected>-Sélectionner-</option>
-                                                <option value="M">Mr.</option>
-                                                <option value="F">Mme.</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 mt-3">
-                                        <div class="form-group">
-                                            <label for="nom">Nom :</label>
-                                            <input type="text" name="nom" [(ngModel)]="collab.nom"
-                                                class="form-control form-control-sm" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 mt-3">
-                                        <div class="form-group">
-                                            <label for="prenom">Prenom :</label>
-                                            <input type="text" name="prenom" [(ngModel)]="collab.prenom"
-                                                class="form-control form-control-sm" [required]="true">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 mt-3">
-                                        <div class="form-group">
-                                            <label for="username">Username :</label>
-                                            <input type="text" name="username" class="form-control form-control-sm">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 mt-3">
-                                        <div class="form-group">
-                                            <label for="matricule">Matricule :</label>
-                                            <input type="input" name="matricule" [(ngModel)]="collab.matricule"
-                                                class="form-control form-control-sm" [required]="true">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mt-3">
-                                        <div class="form-group">
-                                            <label for="email_perso">Email personnel :</label>
-                                            <input type="email" name="email_perso" [(ngModel)]="collab.emailPersonnel"
-                                                class="form-control form-control-sm" [required]="true">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mt-3">
-                                        <div class="form-group">
-                                            <label for="email_pro">Email Profesionnel :</label>
-                                            <input type="email" name="email_pro" [(ngModel)]="collab.email"
-                                                class="form-control form-control-sm" [required]="true">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mt-3">
-                                        <div class="form-group">
-                                            <label for="phone_perso">Phone personnel :</label>
-                                            <input type="tel" name="phone_perso" [(ngModel)]="collab.phonePersonnel"
-                                                class="form-control form-control-sm" [required]="true">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mt-3">
-                                        <div class="form-group">
-                                            <label for="phone_pro">Phone Profesionnel :</label>
-                                            <input type="tel" name="phone_pro" [(ngModel)]="collab.phoneProfesionnel"
-                                                class="form-control form-control-sm" [required]="true">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12 mt-3">
-                                        <div class="form-group">
-                                            <label for="adresse">Adresse :</label>
-                                            <textarea name="adresse" rows="4" class="form-control form-control-sm"
-                                                [(ngModel)]="collab.adresse"></textarea>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3 mt-3">
-                                        <div class="form-group">
-                                            <label for="dateNaissance">Date de naissance :</label>
-                                            <input type="date" name="dateNaissance"
-                                                [ngModel]="collab.dateNaissance | date: 'yyyy-MM-dd'"
-                                                (ngModelChange)="collab.dateNaissance = $event"
-                                                class="form-control form-control-sm" [required]="true">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 mt-3">
-                                        <div class="form-group">
-                                            <label for="lieuNaissance">Lieu de naissance :</label>
-                                            <input type="text" name="lieuNaissance" [ngModel]="collab.lieuNaissance"
-                                                class=" form-control form-control-sm" [required]="true">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 mt-3">
-                                        <div class="form-group">
-                                            <label for="nationnalite">Nationnalité :</label>
-                                            <input type="text" name="nationnalite" [ngModel]="collab.nationnalite"
-                                                class=" form-control form-control-sm" [required]="true">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 mt-3">
-                                        <div class="form-group">
-                                            <label for="numCin">N&deg; Cin :</label>
-                                            <input type="text" name="numCin" [ngModel]="collab.numCin"
-                                                class=" form-control form-control-sm" [required]="true">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6 mt-3">
-                                        <div class="form-group">
-                                            <label for="dateEntreeSqli">Entrée SQLI :</label>
-                                            <input type="date" name="dateEntreeSqli"
-                                                [ngModel]="collab.dateEntreeSqli | date: 'yyyy-MM-dd'"
-                                                (ngModelChange)="collab.dateEntreeSqli = $event"
-                                                class="form-control form-control-sm" [required]="true">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mt-3">
-                                        <div class="form-group">
-                                            <label for="dateSortieSqli">Sortie de SQLI :</label>
-                                            <input type="date" name="dateSortieSqli"
-                                                [ngModel]="collab.dateSortieSqli | date: 'yyyy-MM-dd'"
-                                                (ngModelChange)="collab.dateSortieSqli = $event"
-                                                class="form-control form-control-sm" [required]="true">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 mt-3">
-                                        <div class="form-group">
-                                            <label for="modeRecrutement">Recrutement :</label>
-                                            <select name="modeRecrutement" [(ngModel)]="collab.modeRecrutement"
-                                                class="form-select form-select-sm" [required]="true">
-                                                <option value disabled selected>-Sélectionner-</option>
-                                                <option value="E-Chalenge">E-Chalenge</option>
-                                                <option value="Stage PFE">Stage PFE</option>
-                                                <option value="Recommandation">Recommandation</option>
-                                                <option value="Spontané">Spontané</option>
-                                                <option value="Autre">Autre</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 mt-3">
-                                        <div class="form-group">
-                                            <label for="expertise">Expertise :</label>
-                                            <select name="expertise" [(ngModel)]="collab.expertise"
-                                                class="form-select form-select-sm" [required]="true">
-                                                <option value disabled selected>-Sélectionner-</option>
-                                                <option value="Junior">Junior (1an)</option>
-                                                <option value="Opérationnel">Opérationnel (2ans)</option>
-                                                <option value="Confirmé">Confirmé (3ans)</option>
-                                                <option value="Senior">Senior (4ans)</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 mt-3">
-                                        <div class="form-group">
-                                            <label for="poste">Poste :</label>
-                                            <select name="poste" [(ngModel)]="collab.poste"
-                                                class="form-select form-select-sm" [required]="true">
-                                                <option value disabled selected>-Sélectionner-</option>
-                                                <option value="Ingénieur Concepteur Développeur">Ingénieur Concepteur
-                                                    Développeur
-                                                </option>
-                                                <option value="E-Technique">E-Technique</option>
-                                                <option value="Chef de projet">Chef de projet</option>
-                                                <option value="Manager">Manager</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 mt-3">
-                                        <div class="form-group">
-                                            <label for="situationFamiliale">Situation familiale :</label>
-                                            <select name="situationFamiliale" [(ngModel)]="collab.situationFamiliale"
-                                                class="form-select form-select-sm" [required]="true">
-                                                <option value disabled selected>-Sélectionner-</option>
-                                                <option value="Manager">Manager</option>
-                                                <option value="Célibataire">Célibataire</option>
-                                                <option value="Marié">Marié</option>
-                                                <option value="Divorcé">Divorcé</option>
-                                                <option value="veuf">Veuf/Veuve</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6 mt-3">
-                                        <div class="form-group">
-                                            <label for="dateDebutStage">Début du stage :</label>
-                                            <input type="date" name="dateDebutStage"
-                                                [ngModel]="collab.dateDebutStage | date: 'yyyy-MM-dd'"
-                                                (ngModelChange)="collab.dateDebutStage = $event"
-                                                class="form-control form-control-sm" [required]="true">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mt-3">
-                                        <div class="form-group">
-                                            <label for="datePremiereExperience">Premiere expérience :</label>
-                                            <input type="date" name="datePremiereExperience"
-                                                [ngModel]="collab.datePremiereExperience | date: 'yyyy-MM-dd'"
-                                                (ngModelChange)="collab.datePremiereExperience = $event"
-                                                class="form-control form-control-sm" [required]="true">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 mt-3">
-                                        <div class="form-group">
-                                            <label for="diplomes">Diplômes :</label>
-                                            <textarea name="diplomes" [(ngModel)]="collab.diplomes" rows="4"
-                                                class="form-control form-control-sm"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </mat-tab>
-                            <mat-tab label="Contrat & Statut">
-                                <div class="row">
-                                    <div class="col-md-12 mt-3">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value=""
-                                                id="hadAlreadyWorkedAtSQLI" [(ngModel)]="collab.hadAlreadyWorkedAtSQLI"
-                                                checked>
-                                            <label class="form-check-label" for="hadAlreadyWorkedAtSQLI">
-                                                a déja travaillé à SQLI
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </mat-tab>
-                            <mat-tab label="Skills">
-                                <div class="row">
-                                    <div class="col-md-12 mt-3">
-                                        <div class="form-group">
-                                            <label for="competence_principale">Compétence principale :</label>
-                                            <select name="competence_principale"
-                                                [(ngModel)]="collab.competencePrincipale"
-                                                class="form-select form-select-sm" [required]="true">
-                                                <option value disabled selected>-Sélectionner-</option>
-                                                <option value="dotNet">dotNet</option>
-                                                <option value="Java">Java</option>
-                                                <option value="PHP">PHP</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 mt-3">
-                                        <div class="form-group">
-                                            <label for="technos">Technos :</label>
-                                            <div class="">
-                                                <span class="badge bg-primary m-1">Asp.Net</span>
-                                                <span class="badge bg-primary m-1">Angular</span>
-                                                <span class="badge bg-primary m-1">MAUI</span>
-                                                <span class="badge bg-primary m-1">Blazor</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 mt-3">
-                                        <div class="form-group">
-                                            <label for="technos">Langues :</label>
-                                            <div class="">
-                                                <span class="badge bg-success m-1">Français</span>
-                                                <span class="badge bg-success m-1">Anglais</span>
-                                                <span class="badge bg-success m-1">Allemand</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 mt-3">
-                                        <label for="certifications">Certifications :</label>
-                                        <div class="">
-                                            <span class="badge bg-danger m-1">Certification 1</span>
-                                            <span class="badge bg-danger m-1">Certification 2</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </mat-tab>
-                            <mat-tab label="Education & Past Jobs"> Education & Past Jobs Content </mat-tab>
-                            <mat-tab label="Manager & TLRHs"> Manager & TLRHs Content </mat-tab>
-                            <mat-tab label="Materiels"> Materiels Content </mat-tab>
-                            <mat-tab label="Cv & Documents"> Cv & Documents Content </mat-tab>
-                            <mat-tab label="HR Incidents"> HR Incidents Content </mat-tab>
-                        </mat-tab-group>
+  </div>
+  <div class="col-md-12 mt-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-tab-group>
+              <mat-tab label="Info">
+                <div class="row p-4">
+                  <div class="col-md-2 mt-3">
+                    <div class="form-group">
+                      <label for="civilite">Civilité :</label>
+                      <select
+                        name="civilite"
+                        [(ngModel)]="collab.civilite"
+                        class="form-select form-select-sm"
+                        [required]="true"
+                      >
+                        <option value disabled selected>-Sélectionner-</option>
+                        <option value="M">Mr.</option>
+                        <option value="F">Mme.</option>
+                      </select>
                     </div>
+                  </div>
+                  <div class="col-md-3 mt-3">
+                    <div class="form-group">
+                      <label for="nom">Nom :</label>
+                      <input
+                        type="text"
+                        name="nom"
+                        [(ngModel)]="collab.nom"
+                        class="form-control form-control-sm"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-3 mt-3">
+                    <div class="form-group">
+                      <label for="prenom">Prenom :</label>
+                      <input
+                        type="text"
+                        name="prenom"
+                        [(ngModel)]="collab.prenom"
+                        class="form-control form-control-sm"
+                        [required]="true"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-2 mt-3">
+                    <div class="form-group">
+                      <label for="username">Username :</label>
+                      <input
+                        type="text"
+                        name="username"
+                        class="form-control form-control-sm"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-2 mt-3">
+                    <div class="form-group">
+                      <label for="matricule">Matricule :</label>
+                      <input
+                        type="input"
+                        name="matricule"
+                        [(ngModel)]="collab.matricule"
+                        class="form-control form-control-sm"
+                        [required]="true"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6 mt-3">
+                    <div class="form-group">
+                      <label for="email_perso">Email personnel :</label>
+                      <input
+                        type="email"
+                        name="email_perso"
+                        [(ngModel)]="collab.emailPersonnel"
+                        class="form-control form-control-sm"
+                        [required]="true"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6 mt-3">
+                    <div class="form-group">
+                      <label for="email_pro">Email Profesionnel :</label>
+                      <input
+                        type="email"
+                        name="email_pro"
+                        [(ngModel)]="collab.email"
+                        class="form-control form-control-sm"
+                        [required]="true"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6 mt-3">
+                    <div class="form-group">
+                      <label for="phone_perso">Phone personnel :</label>
+                      <input
+                        type="tel"
+                        name="phone_perso"
+                        [(ngModel)]="collab.phonePersonnel"
+                        class="form-control form-control-sm"
+                        [required]="true"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6 mt-3">
+                    <div class="form-group">
+                      <label for="phone_pro">Phone Profesionnel :</label>
+                      <input
+                        type="tel"
+                        name="phone_pro"
+                        [(ngModel)]="collab.phoneProfesionnel"
+                        class="form-control form-control-sm"
+                        [required]="true"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 mt-3">
+                    <div class="form-group">
+                      <label for="adresse">Adresse :</label>
+                      <textarea
+                        name="adresse"
+                        rows="4"
+                        class="form-control form-control-sm"
+                        [(ngModel)]="collab.adresse"
+                      ></textarea>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3 mt-3">
+                    <div class="form-group">
+                      <label for="dateNaissance">Date de naissance :</label>
+                      <input
+                        type="date"
+                        name="dateNaissance"
+                        [ngModel]="collab.dateNaissance | date: 'yyyy-MM-dd'"
+                        (ngModelChange)="collab.dateNaissance = $event"
+                        class="form-control form-control-sm"
+                        [required]="true"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-3 mt-3">
+                    <div class="form-group">
+                      <label for="lieuNaissance">Lieu de naissance :</label>
+                      <input
+                        type="text"
+                        name="lieuNaissance"
+                        [ngModel]="collab.lieuNaissance"
+                        class="form-control form-control-sm"
+                        [required]="true"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-3 mt-3">
+                    <div class="form-group">
+                      <label for="nationnalite">Nationnalité :</label>
+                      <input
+                        type="text"
+                        name="nationnalite"
+                        [ngModel]="collab.nationnalite"
+                        class="form-control form-control-sm"
+                        [required]="true"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-3 mt-3">
+                    <div class="form-group">
+                      <label for="numCin">N&deg; Cin :</label>
+                      <input
+                        type="text"
+                        name="numCin"
+                        [ngModel]="collab.numCin"
+                        class="form-control form-control-sm"
+                        [required]="true"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mt-3">
+                    <div class="form-group">
+                      <label for="dateEntreeSqli">Entrée SQLI :</label>
+                      <input
+                        type="date"
+                        name="dateEntreeSqli"
+                        [ngModel]="collab.dateEntreeSqli | date: 'yyyy-MM-dd'"
+                        (ngModelChange)="collab.dateEntreeSqli = $event"
+                        class="form-control form-control-sm"
+                        [required]="true"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6 mt-3">
+                    <div class="form-group">
+                      <label for="dateSortieSqli">Sortie de SQLI :</label>
+                      <input
+                        type="date"
+                        name="dateSortieSqli"
+                        [ngModel]="collab.dateSortieSqli | date: 'yyyy-MM-dd'"
+                        (ngModelChange)="collab.dateSortieSqli = $event"
+                        class="form-control form-control-sm"
+                        [required]="true"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-2 mt-3">
+                    <div class="form-group">
+                      <label for="modeRecrutement">Recrutement :</label>
+                      <select
+                        name="modeRecrutement"
+                        [(ngModel)]="collab.modeRecrutement"
+                        class="form-select form-select-sm"
+                        [required]="true"
+                      >
+                        <option value disabled selected>-Sélectionner-</option>
+                        <option value="E-Chalenge">E-Chalenge</option>
+                        <option value="Stage PFE">Stage PFE</option>
+                        <option value="Recommandation">Recommandation</option>
+                        <option value="Spontané">Spontané</option>
+                        <option value="Autre">Autre</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-4 mt-3">
+                    <div class="form-group">
+                      <label for="expertise">Expertise :</label>
+                      <select
+                        name="expertise"
+                        [(ngModel)]="collab.expertise"
+                        class="form-select form-select-sm"
+                        [required]="true"
+                      >
+                        <option value disabled selected>-Sélectionner-</option>
+                        <option value="Junior">Junior (1an)</option>
+                        <option value="Opérationnel">
+                          Opérationnel (2ans)
+                        </option>
+                        <option value="Confirmé">Confirmé (3ans)</option>
+                        <option value="Senior">Senior (4ans)</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-4 mt-3">
+                    <div class="form-group">
+                      <label for="poste">Poste :</label>
+                      <select
+                        name="poste"
+                        [(ngModel)]="collab.poste"
+                        class="form-select form-select-sm"
+                        [required]="true"
+                      >
+                        <option value disabled selected>-Sélectionner-</option>
+                        <option value="Ingénieur Concepteur Développeur">
+                          Ingénieur Concepteur Développeur
+                        </option>
+                        <option value="E-Technique">E-Technique</option>
+                        <option value="Chef de projet">Chef de projet</option>
+                        <option value="Manager">Manager</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12 mt-3">
+                    <div class="form-group">
+                      <label for="situationFamiliale"
+                        >Situation familiale :</label
+                      >
+                      <select
+                        name="situationFamiliale"
+                        [(ngModel)]="collab.situationFamiliale"
+                        class="form-select form-select-sm"
+                        [required]="true"
+                      >
+                        <option value disabled selected>-Sélectionner-</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Célibataire">Célibataire</option>
+                        <option value="Marié">Marié</option>
+                        <option value="Divorcé">Divorcé</option>
+                        <option value="veuf">Veuf/Veuve</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mt-3">
+                    <div class="form-group">
+                      <label for="dateDebutStage">Début du stage :</label>
+                      <input
+                        type="date"
+                        name="dateDebutStage"
+                        [ngModel]="collab.dateDebutStage | date: 'yyyy-MM-dd'"
+                        (ngModelChange)="collab.dateDebutStage = $event"
+                        class="form-control form-control-sm"
+                        [required]="true"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6 mt-3">
+                    <div class="form-group">
+                      <label for="datePremiereExperience"
+                        >Premiere expérience :</label
+                      >
+                      <input
+                        type="date"
+                        name="datePremiereExperience"
+                        [ngModel]="
+                          collab.datePremiereExperience | date: 'yyyy-MM-dd'
+                        "
+                        (ngModelChange)="collab.datePremiereExperience = $event"
+                        class="form-control form-control-sm"
+                        [required]="true"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12 mt-3">
+                    <div class="form-group">
+                      <label for="diplomes">Diplômes :</label>
+                      <textarea
+                        name="diplomes"
+                        [(ngModel)]="collab.diplomes"
+                        rows="4"
+                        class="form-control form-control-sm"
+                      ></textarea>
+                    </div>
+                  </div>
                 </div>
-            </div>
+              </mat-tab>
+              <mat-tab label="Contrat & Statut">
+                <div class="row">
+                  <div class="col-md-12 mt-3">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="hadAlreadyWorkedAtSQLI"
+                        [(ngModel)]="collab.hadAlreadyWorkedAtSQLI"
+                        checked
+                      />
+                      <label
+                        class="form-check-label"
+                        for="hadAlreadyWorkedAtSQLI"
+                      >
+                        a déja travaillé à SQLI
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </mat-tab>
+              <mat-tab label="Skills">
+                <div class="row">
+                  <div class="col-md-12 mt-3">
+                    <div class="form-group">
+                      <label for="competence_principale"
+                        >Compétence principale :</label
+                      >
+                      <select
+                        name="competence_principale"
+                        [(ngModel)]="collab.competencePrincipale"
+                        class="form-select form-select-sm"
+                        [required]="true"
+                      >
+                        <option value disabled selected>-Sélectionner-</option>
+                        <option value="dotNet">dotNet</option>
+                        <option value="Java">Java</option>
+                        <option value="PHP">PHP</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-4 mt-3">
+                    <div class="form-group">
+                      <label for="technos">Technos :</label>
+                      <div class="">
+                        <span class="badge bg-primary m-1">Asp.Net</span>
+                        <span class="badge bg-primary m-1">Angular</span>
+                        <span class="badge bg-primary m-1">MAUI</span>
+                        <span class="badge bg-primary m-1">Blazor</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 mt-3">
+                    <div class="form-group">
+                      <label for="technos">Langues :</label>
+                      <div class="">
+                        <span class="badge bg-success m-1">Français</span>
+                        <span class="badge bg-success m-1">Anglais</span>
+                        <span class="badge bg-success m-1">Allemand</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 mt-3">
+                    <label for="certifications">Certifications :</label>
+                    <div class="">
+                      <span class="badge bg-danger m-1">Certification 1</span>
+                      <span class="badge bg-danger m-1">Certification 2</span>
+                    </div>
+                  </div>
+                </div>
+              </mat-tab>
+              <mat-tab label="Education & Past Jobs">
+                Education & Past Jobs Content
+              </mat-tab>
+              <mat-tab label="Manager & TLRHs">
+                Manager & TLRHs Content
+              </mat-tab>
+              <mat-tab label="Materiels"> Materiels Content </mat-tab>
+              <mat-tab label="Cv & Documents">
+                <app-download [collab]="collab"></app-download>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#upload"
+                >
+                  Upload a CV
+                </button>
+              </mat-tab>
+              <mat-tab label="HR Incidents"> HR Incidents Content </mat-tab>
+            </mat-tab-group>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </form>
+<app-upload
+  class="modal fade"
+  id="upload"
+  tabindex="-1"
+  aria-labelledby="uploadmodal"
+  aria-hidden="true"
+></app-upload>

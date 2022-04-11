@@ -1,13 +1,20 @@
 import { HttpClient, HttpEventType } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { UploadService } from '../services/upload.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FilesService } from '../services/files.service';
+import { concatMap, last, map, Subscription, switchMap } from 'rxjs';
+import { CollaboratorsService } from '../services/collaborators.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
   styleUrls: ['./upload.component.css'],
 })
-export class UploadComponent implements OnInit {
+export class UploadComponent implements OnInit, OnDestroy {
+  SubscriptionArray?: Subscription[];
+  subscription!: Subscription;
+  subscription2!: Subscription;
+  subscription3!: Subscription;
   error: string = '';
   files: File[] = [];
   isValid: boolean = true;
@@ -16,7 +23,20 @@ export class UploadComponent implements OnInit {
   accept = '.pdf,.doc,.docx';
   progress: number = 0;
   formData: FormData = new FormData();
-  constructor(private uploadService: UploadService, private http: HttpClient) {}
+  path: string = '';
+  constructor(
+    private filesService: FilesService,
+    private collabService: CollaboratorsService,
+    private router: ActivatedRoute
+  ) {}
+  ngOnDestroy(): void {
+    this.SubscriptionArray = [
+      this.subscription2,
+      this.subscription3,
+      this.subscription,
+    ];
+    this.SubscriptionArray.map((sub) => sub.unsubscribe());
+  }
 
   ngOnInit(): void {}
   public readFiles(files: any) {
@@ -31,7 +51,7 @@ export class UploadComponent implements OnInit {
       for (let fileToUpload of this.files) {
         this.formData.append('file', fileToUpload, fileToUpload.name);
       }
-      this.uploadService.upload(this.formData).subscribe({
+      this.subscription = this.filesService.upload(this.formData).subscribe({
         next: (event) => {
           if (event.type === HttpEventType.UploadProgress) {
             let total = event.total || 1;
@@ -40,14 +60,37 @@ export class UploadComponent implements OnInit {
             if (event.ok) {
               this.error = '';
             }
+            this.path = event.body[0];
           }
         },
         error: (err) => {
           this.error = err;
           this.isDone = true;
         },
-        complete: () => (this.isDone = true),
+        complete: () => {
+          this.isDone = true;
+        },
       });
+
+      this.subscription2 = this.router.params
+        .pipe(
+          concatMap(({ id }) =>
+            this.collabService.getCollaboratorByMatricule(id)
+          )
+        )
+        .subscribe((collab) => {
+          collab.files = collab.files.concat(this.path);
+          console.log(collab);
+          this.subscription3 = this.collabService
+            .updateCollaborator(collab.id, collab)
+            .subscribe();
+        });
+
+      // this.collabService.getCollaboratorByMatricule(87).subscribe((res) => {
+      //   console.log(res);
+      //   res.files = res.files.concat(this.path);
+      //   this.collabService.updateCollaborator(87, res).subscribe();
+      // });
     }
   }
 }

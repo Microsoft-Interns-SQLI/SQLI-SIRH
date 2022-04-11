@@ -43,6 +43,7 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { UploadComponent } from './upload/upload.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ImportCollabsComponent } from './collaborateurs/import-collabs/import-collabs.component';
+import { DownloadComponent } from './download/download.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { ImportCollabsComponent } from './collaborateurs/import-collabs/import-c
     SpinnerComponent,
     UploadComponent,
     ImportCollabsComponent,
+    DownloadComponent,
   ],
   imports: [
     CommonModule,

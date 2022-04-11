@@ -10,18 +10,26 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class UploadService {
+export class FilesService {
   URL = environment.URL;
 
   constructor(private http: HttpClient) {}
   public upload(file: any): Observable<any> {
     return this.http
-      .post(`${this.URL}api/upload`, file, {
+      .post(`${this.URL}api/files/upload`, file, {
         reportProgress: true,
         observe: 'events',
       })
       .pipe(catchError(this.handleError));
   }
+
+  public download(file: any): Observable<any> {
+    return this.http.get(`${this.URL}api/files/download?file=${file}`, {
+      responseType: 'blob',
+      observe: 'events',
+    });
+  }
+
   private handleError(error: HttpErrorResponse): Observable<never> {
     if (error.status === 0 || error.status === 500)
       return throwError(() => 'Something went wrong!');

@@ -1,15 +1,21 @@
 using System.Net.Http.Headers;
 using API_MySIRH.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace API_MySIRH.Services
 {
-    public class UploadService : IUploadService
+    public class FilesService : IFilesService
     {
         private readonly IWebHostEnvironment _env;
 
-        public UploadService(IWebHostEnvironment env)
+        public FilesService(IWebHostEnvironment env)
         {
             _env = env;
+        }
+
+        public Task<FileResult> Download(string path)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<ICollection<string>> UploadFile(IFormFileCollection files)
