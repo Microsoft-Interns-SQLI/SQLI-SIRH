@@ -456,5 +456,10 @@ bin
 obj
 packages
 
+<<<<<<< HEAD
+##File Upload Directory
+Upload
+=======
 appsettings.Development.json
 appsettings.json
+>>>>>>> develop

@@ -26,7 +26,7 @@ namespace API_MySIRH.Repositories
                 if (collaborateur.Civilite == "M")
                     dashboard.nbMale++;
                 else dashboard.nbFemale++;
-            }
+            } 
 
             await this._context.SaveChangesAsync();
             return collaborateur;
