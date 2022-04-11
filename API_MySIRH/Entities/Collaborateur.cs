@@ -45,5 +45,28 @@ namespace API_MySIRH.Entities
         public string Diplomes { get; set; } = String.Empty;
         public string Certifications { get; set; } = String.Empty;
         public bool HadAlreadyWorkedAtSQLI { get; set; }
+        public string Files { get; set; } = String.Empty;
+
+        /*
+        formations - diplômes ?
+        gestion des documents (table ?)*
+        note
+        
+        techno(s) maitrisé
+        email perso
+        telphone perso
+        telphone pro
+        a déja travaillé chez SQLI
+        compétence principale
+        adresse 1
+        certifications
+        langue
+        poste
+        expertise
+        nationnalité
+        Lieu naissance
+        num cin 
+        situation familiale
+        */
     }
 }
