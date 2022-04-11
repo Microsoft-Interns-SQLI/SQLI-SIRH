@@ -15,7 +15,7 @@ namespace API_MySIRH.Controllers
             _dashboardService = dashboardService;
         }
 
-        [HttpGet]
+        [HttpPut]
         public async Task<ActionResult<DashboardDto>> Get()
         {
             return await _dashboardService.getDashboard();
