@@ -16,7 +16,7 @@ export class ListCollaborateursComponent implements OnInit {
   pagination!: Pagination;
   pageNumber = 1;
   pageSize = 10;
-  isLoading = false
+  isLoading?:boolean;
 
   constructor(private service: CollaboratorsService) { }
 
@@ -25,11 +25,9 @@ export class ListCollaborateursComponent implements OnInit {
   }
 
   loadCollaborators() {
-    this.isLoading = true;
     this.service.getCollaboratorsList(this.pageSize, this.pageNumber).subscribe(resp => {
       this.collaboratorsArray = resp.result;
       this.pagination = resp.pagination;
-      this.isLoading = false;
     })
   }
 
