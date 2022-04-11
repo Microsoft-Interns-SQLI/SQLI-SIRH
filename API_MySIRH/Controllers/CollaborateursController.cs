@@ -7,6 +7,7 @@ using Syncfusion.XlsIO;
 using System.Collections;
 using AutoMapper;
 using API_MySIRH.Entities;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace API_MySIRH.Controllers
 {
@@ -64,6 +65,7 @@ namespace API_MySIRH.Controllers
 
             return NoContent();
         }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCollaborateur(int id)

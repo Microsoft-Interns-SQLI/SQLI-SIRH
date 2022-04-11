@@ -20,6 +20,7 @@ import { AddEditMemosComponent } from './memos/add-edit-memos/add-edit-memos.com
 import { MemoComponent } from './memos/memo/memo.component';
 import { ReportsComponent } from './reports/reports.component';
 import { ToDoComponent } from './to-do/list-todo/to-do.component';
+import { UploadComponent } from './upload/upload.component';
 
 export const routes: Routes = [
   { path: 'login', component: SigninComponent },
@@ -53,6 +54,7 @@ export const routes: Routes = [
       { path: 'errors', component: TestErrorsComponent },
       { path: 'not-found', component: NotFoundComponent },
       { path: 'server-error', component: ServerErrorComponent },
+      { path: 'upload', component: UploadComponent },
     ],
   },
 
