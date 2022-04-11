@@ -9,6 +9,10 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ModalComponent implements OnInit {
   @Input()
   message?:string;
+
+  @Input()
+  isTrue?:boolean;
+  
   constructor() { }
 
   ngOnInit(): void {

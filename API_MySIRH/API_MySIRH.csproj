@@ -32,6 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Data\Migrations\" />
     <Folder Include="Archives\" />
     <Folder Include="Errors\" />
     <Folder Include="Logger\" />

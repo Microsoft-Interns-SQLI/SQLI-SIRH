@@ -10,13 +10,13 @@ import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
   styleUrls: ['./list-collaborateurs.component.css']
 })
 export class ListCollaborateursComponent implements OnInit {
-  spinner:SpinnerComponent = new SpinnerComponent();
   collaboratorsArray: Collaborator[] = [];
   displayTable: boolean = true;
   collabToDelete?: Collaborator = new Collaborator();
   pagination!: Pagination;
   pageNumber = 1;
   pageSize = 10;
+  isLoading?:boolean;
 
   constructor(private service: CollaboratorsService) { }
 
@@ -25,11 +25,9 @@ export class ListCollaborateursComponent implements OnInit {
   }
 
   loadCollaborators() {
-    this.spinner.start();
     this.service.getCollaboratorsList(this.pageSize, this.pageNumber).subscribe(resp => {
       this.collaboratorsArray = resp.result;
       this.pagination = resp.pagination;
-      this.spinner.finish();
     })
   }
 
