@@ -34,6 +34,7 @@
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
     <Folder Include="Archives\" />
+    <Folder Include="Data\Migrations\" />
     <Folder Include="Errors\" />
     <Folder Include="Logger\" />
   </ItemGroup>

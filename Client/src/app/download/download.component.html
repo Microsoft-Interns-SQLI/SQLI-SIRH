@@ -3,7 +3,11 @@
   <p class="lead">
     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime, ipsa!
   </p>
-  <table class="table" style="width: 70%; margin: 20px auto">
+  <table
+    class="table"
+    style="width: 70%; margin: 20px auto"
+    *ngIf="collab?.files"
+  >
     <tbody>
       <tr class="shadow-sm p-3 mb-5 bg-body rounded align-baseline">
         <td class="text-start">1</td>
@@ -14,7 +18,7 @@
             <a
               class="btn btn-sm btn-primary me-2 mb-1"
               (click)="download()"
-              aria-label="edit"
+              aria-label="download"
             >
               <i class="bi bi-file-earmark-arrow-down"></i>
             </a>

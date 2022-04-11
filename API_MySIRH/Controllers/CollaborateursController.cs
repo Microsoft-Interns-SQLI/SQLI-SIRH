@@ -84,28 +84,27 @@ namespace API_MySIRH.Controllers
             ////Save Excel file into Archive folder
             //await ImportFeatures.UploadFileLocaly(file);
 
-            await AddOrUpdateInDB(file);
-
             
 
-            return Ok();
+            var result = await AddOrUpdateInDB(file);
+
+            return Ok(result);
         }
 
-        private async Task InvokeOperation(Collaborateur collaborateur)
+        private async Task<bool> InvokeOperation(Collaborateur collaborateur)
         {
+
             //if collab is not a freelancer
             if (collaborateur.Matricule != "0")
             {
                 if (await _collaborateurService.CollaborateurExistsByMatricule(collaborateur.Matricule))
                 {
-                    var collab = await _collaborateurService.GetCollaborateurByMatricule(collaborateur.Matricule);
-                    var collabDto = _mapper.Map<CollaborateurDTO>(collaborateur);
-                    collabDto.Id = collab.Id;
-                    await _collaborateurService.UpdateCollaborateur(collab.Id, collabDto);
+                    return true;
                 }
                 else
                 {
                     await _collaborateurService.AddCollaborateur(_mapper.Map<CollaborateurDTO>(collaborateur));
+                    return false;
                 }
             }
             //if collab ==> freelancer (freelancer doesn't have a matricule so we verify by email)
@@ -113,21 +112,20 @@ namespace API_MySIRH.Controllers
             {
                 if (await _collaborateurService.CollaborateurExistsByEmail(collaborateur.Email))
                 {
-                    var collab = await _collaborateurService.GetCollaborateurByEmail(collaborateur.Email);
-                    var collabDto = _mapper.Map<CollaborateurDTO>(collaborateur);
-                    collabDto.Id = collab.Id;
-
-                    await _collaborateurService.UpdateCollaborateur(collab.Id, collabDto);
+                    return true;
                 }
                 else
                 {
                     await _collaborateurService.AddCollaborateur(_mapper.Map<CollaborateurDTO>(collaborateur));
+                    return false;
                 }
             }
         }
 
-        private async Task AddOrUpdateInDB(IFormFile file)
+        private async Task<ImportResult> AddOrUpdateInDB(IFormFile file)
         {
+
+            ImportResult compteRendu = new ImportResult();
 
             ExcelEngine excelEngine = new ExcelEngine();
 
@@ -150,43 +148,54 @@ namespace API_MySIRH.Controllers
             {
                 for (int i = 1; i < worksheet.Rows.Count(); i++)
                 {
+                    if (!worksheet.Rows[i].IsBlank)
+                    {
+                        var nomComplet = worksheet.Rows[i].Cells[3].Value.Split(' ');
 
-                    var nomComplet = worksheet.Rows[i].Cells[3].Value.Split(' ');
+                        var Nom = nomComplet[1];
 
-                    var Nom = nomComplet[1];
+                        var Prenom = nomComplet[0];
 
-                    var Prenom = nomComplet[0];
+                        if (nomComplet.Length > 2)
+                            Nom += $"{string.Join(" ", nomComplet.Skip(2))}";
 
-                    if (nomComplet.Length > 2)
-                        Nom += $"{string.Join(" ", nomComplet.Skip(2))}";
+                        Collaborateur collaborateur = new Collaborateur();
+                        collaborateur.Matricule = worksheet.Rows[i].Cells[0].Value.ToString();
+                        collaborateur.Nom = Nom;
+                        collaborateur.Prenom = Prenom;
+                        collaborateur.Email = worksheet.Rows[i].Cells[2].Value.ToString();
+                        collaborateur.Civilite = worksheet.Rows[i].Cells[5].Value.ToString();
+                        collaborateur.Diplomes = worksheet.Rows[i].Cells[16].Value.ToString();
+                        collaborateur.ModeRecrutement = worksheet.Rows[i].Cells[11].Value.ToString();
 
-                    Collaborateur collaborateur = new Collaborateur();
-                    collaborateur.Matricule = worksheet.Rows[i].Cells[0].Value.ToString();
-                    collaborateur.Nom = Nom;
-                    collaborateur.Prenom = Prenom;
-                    collaborateur.Email = worksheet.Rows[i].Cells[2].Value.ToString();
-                    collaborateur.Civilite = worksheet.Rows[i].Cells[5].Value.ToString();
-                    collaborateur.Diplomes = worksheet.Rows[i].Cells[16].Value.ToString();
-                    collaborateur.ModeRecrutement = worksheet.Rows[i].Cells[11].Value.ToString();
+                        if (worksheet.Rows[i].Cells[6].Value != "")
+                            collaborateur.DateNaissance = Convert.ToDateTime(worksheet.Rows[i].Cells[6].Value);
+                        if (worksheet.Rows[i].Cells[12].Value != "")
+                            collaborateur.DatePremiereExperience = Convert.ToDateTime(worksheet.Rows[i].Cells[12].Value);
+                        if (worksheet.Rows[i].Cells[13].Value != "")
+                            collaborateur.DateEntreeSqli = Convert.ToDateTime(worksheet.Rows[i].Cells[13].Value);
+                        if (worksheet.Rows[i].Cells[14].Value != "")
+                            collaborateur.DateDebutStage = Convert.ToDateTime(worksheet.Rows[i].Cells[14].Value);
+                        if (worksheet.Rows[i].Cells[15].Value != "")
+                            collaborateur.DateSortieSqli = Convert.ToDateTime(worksheet.Rows[i].Cells[15].Value);
 
-                    if (worksheet.Rows[i].Cells[6].Value != "")
-                        collaborateur.DateNaissance = Convert.ToDateTime(worksheet.Rows[i].Cells[6].Value);
-                    if (worksheet.Rows[i].Cells[12].Value != "")
-                        collaborateur.DatePremiereExperience = Convert.ToDateTime(worksheet.Rows[i].Cells[12].Value);
-                    if (worksheet.Rows[i].Cells[13].Value != "")
-                        collaborateur.DateEntreeSqli = Convert.ToDateTime(worksheet.Rows[i].Cells[13].Value);
-                    if (worksheet.Rows[i].Cells[14].Value != "")
-                        collaborateur.DateDebutStage = Convert.ToDateTime(worksheet.Rows[i].Cells[14].Value);
-                    if (worksheet.Rows[i].Cells[15].Value != "")
-                        collaborateur.DateSortieSqli = Convert.ToDateTime(worksheet.Rows[i].Cells[15].Value);
-
-                    await InvokeOperation(collaborateur);
+                        if (await InvokeOperation(collaborateur))
+                        {
+                            compteRendu["ExistsCollab"]++;
+                        }
+                        else
+                        {
+                            compteRendu["AddingCollab"]++;
+                        }
+                    }
                 }
 
             }
             workbook.Close();
 
             excelEngine.Dispose();
+
+            return compteRendu;
         }
 
     }
