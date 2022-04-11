@@ -37,7 +37,7 @@
                   alt="Photo de Lena" class="border border-dark" />
               </div>
               <div class="col-md-12 text-center" *ngIf="collab_id">
-                <strong> Mme. {{ collab?.nom }} {{ collab?.prenom }} </strong>
+                <strong>{{collab.civilite == 'M' ? 'Mr' : 'Mme'}}. {{ collab?.nom }} {{ collab?.prenom }} </strong>
                 <br />
                 <small> #M-{{ collab?.matricule }} </small>
               </div>
