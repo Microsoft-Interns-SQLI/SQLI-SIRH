@@ -38,7 +38,6 @@ export class AddEditCollaborateurComponent implements OnInit {
     } else {
       this.sevice.addCollaborator(this.collab).subscribe(res => {
         let collaborator: any = res;
-        console.log('Add success');
         window.location.href = `/addEditcollaborateur/${collaborator.id}`;
       })
     }
