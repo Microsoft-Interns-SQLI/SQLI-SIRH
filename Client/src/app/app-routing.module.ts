@@ -20,20 +20,29 @@ import { AddEditMemosComponent } from './memos/add-edit-memos/add-edit-memos.com
 import { MemoComponent } from './memos/memo/memo.component';
 import { ReportsComponent } from './reports/reports.component';
 import { ToDoComponent } from './to-do/list-todo/to-do.component';
+import { UploadComponent } from './upload/upload.component';
 
 export const routes: Routes = [
   { path: 'login', component: SigninComponent },
   {
     // path: '', component: LayoutComponent,canActivateChild:[CanActivateGuardService], children: [
-    path: '', component: LayoutComponent, children: [
+    path: '',
+    component: LayoutComponent,
+    children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'candidats', component: ListCandidatsComponent },
       { path: 'addEditcandidats', component: AddEditCandidatComponent },
       { path: 'collaborateurs', component: ListCollaborateursComponent },
-      { path: 'addEditcollaborateur', component: AddEditCollaborateurComponent },
-      { path: 'addEditcollaborateur/:id', component: AddEditCollaborateurComponent },
+      {
+        path: 'addEditcollaborateur',
+        component: AddEditCollaborateurComponent,
+      },
+      {
+        path: 'addEditcollaborateur/:id',
+        component: AddEditCollaborateurComponent,
+      },
       { path: 'todo', component: ToDoComponent },
       { path: 'memo', component: MemoComponent },
       { path: 'addEdiMemos', component: AddEditMemosComponent },
@@ -45,7 +54,8 @@ export const routes: Routes = [
       { path: 'errors', component: TestErrorsComponent },
       { path: 'not-found', component: NotFoundComponent },
       { path: 'server-error', component: ServerErrorComponent },
-    ]
+      { path: 'upload', component: UploadComponent },
+    ],
   },
 
   // {
@@ -61,11 +71,10 @@ export const routes: Routes = [
   //     { path: 'admin', component: AdminPanelComponent, canActivate: [AdminGuard] },
   //   ],
   // },
-
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

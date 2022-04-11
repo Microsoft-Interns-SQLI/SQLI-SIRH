@@ -38,6 +38,24 @@ namespace API_MySIRH.Data
                     DateNaissance = collaborateurJson["Date Naissance"].ToString() != String.Empty ? DateTime.Parse(collaborateurJson["Date Naissance"].ToString()) : null,
                     DatePremiereExperience = collaborateurJson["Date 1ere expèrience"].ToString() != String.Empty ? DateTime.Parse(collaborateurJson["Date 1ere expèrience"].ToString()) : null,
                     DateSortieSqli = collaborateurJson["Date de sortie"].ToString() != String.Empty ? DateTime.Parse(collaborateurJson["Date de sortie"].ToString()) : null,
+                    PhonePersonnel = "+212 06 66 20 17 40",
+                    PhoneProfesionnel = "+212 06 12 34 56 78",
+                    AutreTechnos = "Dapper|NUnit|Angular|Bootstrap|TailWind|PostgreSQL",
+                    Adresse = "Hay Andalous, Rue les orangers, Nr 2",
+                    Certifications = "Certified .Net Developper|Angular Certification|Français avancé C1",
+                    EmailPersonnel = "email.personnel@gmail.com",
+                    HadAlreadyWorkedAtSQLI = false,
+                    Langues = "Français|Anglais",
+                    LieuNaissance = "Rabat",
+                    Nationnalite = "Marocaine",
+                    Niveau = collaborateurJson["Niveau"],
+                    NumCin = "F580877",
+                    Poste = collaborateurJson["Poste"],
+                    Site = collaborateurJson["Agence"],
+                    SituationFamiliale = "Célibataire",
+                    SkillCenter = collaborateurJson["Skills center"],
+                    TypeContrat = collaborateurJson["Type de Contrat"],
+                    Note = "ceci est une note et remarque concernant le collaborateur."
                 });
             }
             data.Add("Collaborateur", collaborateurs);

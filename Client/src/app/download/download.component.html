@@ -1,0 +1,26 @@
+<div class="container">
+  <p class="h5">CVs et Documents</p>
+  <p class="lead">
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime, ipsa!
+  </p>
+  <table class="table" style="width: 70%; margin: 20px auto">
+    <tbody>
+      <tr class="shadow-sm p-3 mb-5 bg-body rounded align-baseline">
+        <td class="text-start">1</td>
+        <td>{{ collab?.files }}</td>
+        <td>CV</td>
+        <td id="options" class="text-end">
+          <div class="container justify-content-end">
+            <a
+              class="btn btn-sm btn-primary me-2 mb-1"
+              (click)="download()"
+              aria-label="edit"
+            >
+              <i class="bi bi-file-earmark-arrow-down"></i>
+            </a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

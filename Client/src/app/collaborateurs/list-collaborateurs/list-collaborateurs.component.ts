@@ -11,7 +11,7 @@ import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
 })
 export class ListCollaborateursComponent implements OnInit {
   collaboratorsArray: Collaborator[] = [];
-  displayTable: boolean = false;
+  displayTable: boolean = true;
   collabToDelete?: Collaborator = new Collaborator();
   pagination!: Pagination;
   pageNumber = 1;
