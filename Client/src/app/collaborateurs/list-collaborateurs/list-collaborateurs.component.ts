@@ -26,11 +26,13 @@ export class ListCollaborateursComponent implements OnInit {
 
   loadCollaborators() {
     this.isLoading=true;
-    this.service.getCollaboratorsList(this.pageSize, this.pageNumber).subscribe(resp => {
+    this.service.getCollaboratorsList(this.pageSize, this.pageNumber).subscribe({next:resp => {
       this.collaboratorsArray = resp.result;
       this.pagination = resp.pagination;
-    })
-    this.isLoading=false;
+    },complete:()=>{
+      this.isLoading=false;
+    }})
+    
   }
 
   deleteCollab(id:any): void {

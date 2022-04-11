@@ -44,48 +44,88 @@
             </div>
           </div>
           <div class="col-md-9">
-            <div class="row">
-              <div class="col-md-6">
-                <p>
-                  {{ collab?.poste || "placeHolder Poste" }},
-                  {{ collab?.expertise || "placeHolder Expertise" }} ({{
-                  calculateYears(collab?.dateEntreeSqli)
-                  }}ans expérience)
-                  <br />
-                  Département {{ collab?.skillCenter }}
-                  <br />
-                  {{ collab?.modeRecrutement }}, il y'a
-                  <abbr title="aze">8 ans</abbr> mode de recrutement :
-                  {{ collab?.modeRecrutement }}
-                  <br />
-                  site d'{{ collab?.site }}
-                </p>
-              </div>
-              <div class="col-md-6">
-                <p>
-                  {{ collab?.emailPersonnel || "placeHolder mail" }}
-                  <br />
-                  {{ collab?.email || "placeHolder mail" }}
-                </p>
-                <p>
-                  <i class="bi bi-phone"></i>
-                  {{ collab?.phonePersonnel || "placeHolder phone" }}
-                  <br />
-                  <i class="bi bi-phone"></i>
-                  {{ collab?.phoneProfesionnel || "placeHolder phone" }}
-                </p>
-                <p>
-                  {{
-                  collab?.situationFamiliale ||
-                  "placeHolde situationFamiliale"
-                  }}
-                  <br />
-                  0 enfants
-                  <br />
-                  {{ collab?.adresse || "placeHolder adress" }}
-                </p>
-              </div>
-            </div>
+            <dl class="row">
+
+              <dt class="col-sm-2">
+                Poste :
+              </dt>
+              <dd class="col-sm-4">
+                {{ collab?.poste || "placeHolder Poste" }},
+              </dd>
+
+              <dt class="col-sm-2">
+                Site :
+              </dt>
+              <dd class="col-sm-4">
+                {{ collab?.site }}
+              </dd>
+
+              <dt class="col-sm-2">
+                Expertise :
+              </dt>
+              <dd class="col-sm-4">
+                {{ collab?.expertise || "placeHolder Expertise" }}
+                <br>
+                ({{calculateYears(collab?.dateEntreeSqli)}}ans expérience)
+              </dd>
+
+              <dt class="col-sm-2">Skill Center</dt>
+              <dd class="col-sm-4">
+                Département {{ collab?.skillCenter }}
+              </dd>
+
+              <dt class="col-sm-2">Email(s) :</dt>
+              <dd class="col-sm-4">
+                <div class="row">
+                  <div class="col-md-12">
+                    <i class="bi bi-inbox-fill"></i>
+                    {{ collab?.emailPersonnel || "placeHolder mail" }}
+                  </div>
+                  <div class="col-md-12">
+                    <i class="bi bi-inbox-fill"></i>
+                    {{ collab?.email || "placeHolder mail" }}
+                  </div>
+                </div>
+              </dd>
+
+              <dt class="col-sm-2">Phone(s) :</dt>
+              <dd class="col-sm-4">
+                <div class="row">
+                  <div class="col-md-12">
+                    <i class="bi bi-phone-fill"></i>
+                    {{ collab?.phonePersonnel || "placeHolder phone" }}
+                  </div>
+                  <div class="col-md-12">
+                    <i class="bi bi-phone-fill"></i>
+                    {{ collab?.phoneProfesionnel || "placeHolder phone" }}
+                  </div>
+                </div>
+              </dd>
+
+              <dt class="col-sm-2">Situation familiale :</dt>
+              <dd class="col-sm-4">
+                <div class="row">
+                  <div class="col-md-12">
+                    <i class="bi bi-people-fill"></i>
+                    {{ collab?.situationFamiliale || "placeHolde situationFamiliale" }}
+                  </div>
+                  <div class="col-md-12">
+                    0 enfants
+                  </div>
+                </div>
+              </dd>
+
+              <dt class="col-sm-2">Recrutement</dt>
+              <dd class="col-sm-4">
+                {{ collab?.modeRecrutement }}
+              </dd>
+
+              <dt class="col-sm-2">Adresse :</dt>
+              <dd class="col-sm-10">
+                <i class="bi bi-pin-map-fill"></i>
+                {{ collab?.adresse || "placeHolder adress" }}
+              </dd>
+            </dl>
           </div>
         </div>
       </div>
