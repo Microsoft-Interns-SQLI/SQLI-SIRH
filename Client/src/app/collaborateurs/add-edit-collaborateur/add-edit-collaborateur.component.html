@@ -54,35 +54,35 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <p>
-                                    Ingénieur Concepteur Développeur, Senior (6ans expérience)
+                                    {{collab?.poste || 'placeHolder Poste'}}, {{collab?.expertise || 'placeHolder Expertise'}} ({{calculateYears(collab?.dateEntreeSqli)}}ans expérience)
                                     <br>
-                                    Département Microsoft .Net
+                                    Département {{collab?.skillCenter}}
                                     <br>
-                                    CDI (Plein Temps) il y'a <abbr title="aze">8 ans</abbr>
-                                    mode de recrutement : e-challenge
+                                    {{collab?.modeRecrutement}}, il y'a <abbr title="aze">8 ans</abbr>
+                                    mode de recrutement : {{collab?.modeRecrutement}}
                                     <br>
-                                    Site D'Oujda
+                                    site d'{{collab?.site}}
                                 </p>
                             </div>
                             <div class="col-md-6">
                                 <p>
-                                    email.perso@mail.com
+                                    {{collab?.emailPersonnel || 'placeHolder mail'}}
                                     <br>
-                                    email.pro@mail.com
+                                    {{collab?.email || 'placeHolder mail'}}
                                 </p>
                                 <p>
                                     <i class="bi bi-phone"></i>
-                                    06 66 66 66 66
+                                    {{collab?.phonePerso || 'placeHolder phone'}}
                                     <br>
                                     <i class="bi bi-phone"></i>
-                                    06 66 66 66 66
+                                    {{collab?.phonePro || 'placeHolder phone'}}
                                 </p>
                                 <p>
-                                    Célibataire
+                                    {{collab?.situationFamiliale || 'placeHolde situationFamiliale'}}
                                     <br>
                                     0 enfants
                                     <br>
-                                    adresse maison
+                                    {{collab?.adresse || 'placeHolder adress'}}
                                 </p>
                             </div>
                         </div>
