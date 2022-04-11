@@ -45,7 +45,7 @@
                                 </strong>
                                 <br>
                                 <small>
-                                    #M-121245
+                                    #M-{{collab?.matricule}}
                                 </small>
                             </div>
                         </div>
@@ -72,10 +72,10 @@
                                 </p>
                                 <p>
                                     <i class="bi bi-phone"></i>
-                                    {{collab?.phonePerso || 'placeHolder phone'}}
+                                    {{collab?.phonePersonnel || 'placeHolder phone'}}
                                     <br>
                                     <i class="bi bi-phone"></i>
-                                    {{collab?.phonePro || 'placeHolder phone'}}
+                                    {{collab?.phoneProfesionnel || 'placeHolder phone'}}
                                 </p>
                                 <p>
                                     {{collab?.situationFamiliale || 'placeHolde situationFamiliale'}}
@@ -259,7 +259,7 @@
                                             <select name="poste" [(ngModel)]="collab.poste"
                                                 class="form-select form-select-sm" [required]="true">
                                                 <option value disabled selected>-Sélectionner-</option>
-                                                <option value="Ingénieur Concepteur Développeur">Ingénieur Concepteur
+                                                <option value="Ingénieur Concepteur développeur">Ingénieur Concepteur
                                                     Développeur
                                                 </option>
                                                 <option value="E-Technique">E-Technique</option>
