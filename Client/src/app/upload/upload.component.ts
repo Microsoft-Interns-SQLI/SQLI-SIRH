@@ -29,14 +29,7 @@ export class UploadComponent implements OnInit, OnDestroy {
     private collabService: CollaboratorsService,
     private router: ActivatedRoute
   ) {}
-  ngOnDestroy(): void {
-    this.SubscriptionArray = [
-      this.subscription2,
-      this.subscription3,
-      this.subscription,
-    ];
-    this.SubscriptionArray.map((sub) => sub.unsubscribe());
-  }
+  ngOnDestroy(): void {}
 
   ngOnInit(): void {}
   public readFiles(files: any) {
