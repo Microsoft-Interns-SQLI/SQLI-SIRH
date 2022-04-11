@@ -8,28 +8,9 @@ import { BehaviorSubject, delay, Observable, of, switchMap } from 'rxjs';
 })
 export class SpinnerComponent implements OnInit {
 
-  private _isLoading = new BehaviorSubject(false);
-  isLoading : Observable<boolean> = this._isLoading.pipe(
-    switchMap(loading =>{
-      if(!loading)
-      {
-        return of(false);
-      }
-      return of(true).pipe(delay(100));
-    })
-  );
-
   constructor() { }
 
   ngOnInit(): void {
-  }
-
-  start(){
-    this._isLoading.next(true);
-  }
-
-  finish() {
-    this._isLoading.next(false);
   }
 
 }

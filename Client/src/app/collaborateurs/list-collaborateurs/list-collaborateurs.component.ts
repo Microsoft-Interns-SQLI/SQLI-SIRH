@@ -16,6 +16,7 @@ export class ListCollaborateursComponent implements OnInit {
   pagination!: Pagination;
   pageNumber = 1;
   pageSize = 10;
+  isLoading?:boolean;
 
   constructor(private service: CollaboratorsService) { }
 

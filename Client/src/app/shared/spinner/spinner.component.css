@@ -11,8 +11,7 @@
     position: fixed;
     bottom: 0;
     right: 0;
-    left: 0;
-    margin-bottom: 1vh;
+    margin: 0 1vh 1vh 0;
 }
 
 @media screen and (min-width: 500px) and (min-height:600px)

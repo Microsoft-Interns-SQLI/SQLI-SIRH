@@ -20,6 +20,7 @@ export class AddEditCollaborateurComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
     if (this.collab_id) {
       this.sevice
         .getCollaboratorByMatricule(this.collab_id)
