@@ -21,7 +21,8 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.showBar('barChart');
     this.showDonut("donutChart");
-    this.showBar('barChart2');
+    this.showDonut("donutChart2");
+    this.showPie('pieChart2');
     this.showPie("pieChart");
     this.showLine("lineChart")
   }
