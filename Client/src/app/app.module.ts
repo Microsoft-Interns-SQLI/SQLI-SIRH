@@ -40,7 +40,6 @@ import { LayoutComponent } from './layout/layout.component';
 import { ModalComponent } from './shared/modal/modal.component';
 import { ToastComponent } from './shared/toast/toast.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
-import { NgxSpinnerModule } from 'ngx-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ImportCollabsComponent } from './collaborateurs/import-collabs/import-collabs.component';
 
@@ -92,7 +91,6 @@ import { ImportCollabsComponent } from './collaborateurs/import-collabs/import-c
     }),
     PaginationModule.forRoot(),
     BrowserAnimationsModule,
-    NgxSpinnerModule,
     ngfModule,
     MatTabsModule
   ],
