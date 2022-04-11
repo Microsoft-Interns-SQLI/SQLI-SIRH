@@ -43,6 +43,7 @@ namespace API_MySIRH.Controllers
         public async Task<ActionResult> AddCollaborateur(CollaborateurDTO collaborateurDTO)
         {
             var collaborateurToCreate = await this._collaborateurService.AddCollaborateur(collaborateurDTO);
+
             return CreatedAtAction(nameof(GetCollaborateurs), new { id = collaborateurToCreate.Id }, collaborateurToCreate);
         }
 
@@ -78,15 +79,12 @@ namespace API_MySIRH.Controllers
         [HttpPost("import")]
         public async Task<IActionResult> UploadFileCSV([FromForm] IFormFile file)
         {
+            ////Save Excel file into Archive folder
+            //await ImportFeatures.UploadFileLocaly(file);
 
             await AddOrUpdateInDB(file);
 
-            //Save Excel file into Archive folder
-            await ImportFeatures.UploadFileLocaly(file);
-
             
-
-
 
             return Ok();
         }
@@ -134,13 +132,16 @@ namespace API_MySIRH.Controllers
             //Instantiate the Excel application object
             IApplication application = excelEngine.Excel;
 
-            string path = Path.Combine(Directory.GetCurrentDirectory(), "Archives", file.FileName);
+            //string path = Path.Combine(Directory.GetCurrentDirectory(), "Archives", file.FileName);
 
-            FileStream fileStream = new FileStream(path, FileMode.Open);
+            //FileStream fileStream = new FileStream(path, FileMode.Open);
 
-            IWorkbook workbook = application.Workbooks.Open(fileStream);
+            //IWorkbook workbook = application.Workbooks.Open(fileStream);
 
-            fileStream.Close();
+            //fileStream.Close();
+
+            IWorkbook workbook = application.Workbooks.Open(file.OpenReadStream());
+
 
 
             foreach (IWorksheet worksheet in workbook.Worksheets)
