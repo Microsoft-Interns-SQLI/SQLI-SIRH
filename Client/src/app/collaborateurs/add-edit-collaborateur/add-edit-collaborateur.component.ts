@@ -43,5 +43,9 @@ export class AddEditCollaborateurComponent implements OnInit {
       })
     }
   }
-
+  calculateYears(year: any): any {
+    const date = new Date(year)
+    const now = new Date(Date.now())
+    return Math.abs(now.getFullYear() - date.getFullYear())
+  }
 }

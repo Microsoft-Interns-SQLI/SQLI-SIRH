@@ -24,8 +24,6 @@ export class Collaborator {
   skillCenter: string = "";
   emailPersonnel: string = "";
   email: string = "";
-  phonePerso: string = "";
-  phonePro: string = "";
   competencePrincipale: string = "";
   adresse: string = "";
   technos: string = "";
