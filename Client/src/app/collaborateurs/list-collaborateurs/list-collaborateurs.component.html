@@ -6,13 +6,15 @@
     </div>
 
     <div class="btn-group me-2">
-      <button type="button" (click)="changeDisplay('table')" [ngClass]="{'active': displayTable}" class="btn btn-sm btn-outline-secondary" aria-label="List">
+      <button type="button" (click)="changeDisplay('table')" [ngClass]="{'active': displayTable}"
+        class="btn btn-sm btn-outline-secondary" aria-label="List">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list"
           viewBox="0 0 16 16">
           <path fill-rule="evenodd"
             d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
         </svg></button>
-      <button type="button" (click)="changeDisplay('card')" class="btn btn-sm btn-outline-secondary" [ngClass]="{'active': !displayTable}" aria-label="card">
+      <button type="button" (click)="changeDisplay('card')" class="btn btn-sm btn-outline-secondary"
+        [ngClass]="{'active': !displayTable}" aria-label="card">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-list"
           viewBox="0 0 16 16">
           <path
@@ -24,11 +26,13 @@
     </div>
 
     <div class="btn-group me-2">
-      <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#importModal">import</button>
+      <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
+        data-bs-target="#importModal">import</button>
       <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
     </div>
 
-    <app-import-collabs class="modal fade" id="importModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"></app-import-collabs>
+    <app-import-collabs class="modal fade" id="importModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+      aria-hidden="true"></app-import-collabs>
 
     <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
       <span data-feather="calendar"></span>
@@ -49,14 +53,16 @@
       <th style="text-align:right">Options</th>
     </thead>
     <tbody>
-      <tr class="shadow-sm p-3 mb-5 bg-body rounded align-baseline" id="{{item.id}}" *ngFor="let item of collaboratorsArray">
+      <tr class="shadow-sm p-3 mb-5 bg-body rounded align-baseline" id="{{item.id}}"
+        *ngFor="let item of collaboratorsArray">
         <td class="text-start">{{item.matricule}}</td>
         <td>{{item.nom}}</td>
         <td>{{item.prenom }}</td>
         <td>{{calculateYears(item.dateEntreeSqli)}}</td>
         <td id="options" class="text-end">
           <div class="container justify-content-end">
-            <button [routerLink]="['/addEditcollaborateur', item.id]" class="btn btn-sm btn-primary me-2 mb-1" aria-label="edit">
+            <button [routerLink]="['/addEditcollaborateur', item.id]" class="btn btn-sm btn-primary me-2 mb-1"
+              aria-label="edit">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                 class="bi bi-pencil-square" viewBox="0 0 16 16">
                 <path
@@ -65,7 +71,8 @@
                   d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
               </svg>
             </button>
-            <button (click)="deleteCollab(item)" class="btn btn-sm btn-danger me-2 mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal" aria-label="delete">
+            <button (click)="deleteCollab(item)" class="btn btn-sm btn-danger me-2 mb-1" data-bs-toggle="modal"
+              data-bs-target="#deleteModal" aria-label="delete">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
                 viewBox="0 0 16 16">
                 <path
@@ -84,13 +91,15 @@
   <div class="row">
     <div class="col-md-3 p-3" *ngFor="let item of collaboratorsArray">
       <div class="card" style="width: 14rem;">
-        <img class="card-img-top" src="https://myfjamaica.org/wp-content/uploads/2015/08/provider_female_avatar.jpg" alt="Card image cap">
+        <img class="card-img-top" src="https://myfjamaica.org/wp-content/uploads/2015/08/provider_female_avatar.jpg"
+          alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">{{item.nom}} {{item.prenom }}</h5>
-          <p >Matricule: {{item.matricule}}</p>
+          <p>Matricule: {{item.matricule}}</p>
           <p>Annee Experence: {{ calculateYears(item.dateEntreeSqli) }}</p>
           <div class="row d-flex justify-content-evenly">
-            <button [routerLink]="['/addEditcollaborateur', item.id]" class="col-5 btn btn-sm btn-primary me-2 mb-1" aria-label="edit">
+            <button [routerLink]="['/addEditcollaborateur', item.id]" class="col-5 btn btn-sm btn-primary me-2 mb-1"
+              aria-label="edit">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                 class="bi bi-pencil-square" viewBox="0 0 16 16">
                 <path
@@ -99,7 +108,8 @@
                   d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
               </svg>
             </button>
-            <button (click)="deleteCollab(item)" class="col-5 btn btn-sm btn-danger me-2 mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal" aria-label="delete">
+            <button (click)="deleteCollab(item)" class="col-5 btn btn-sm btn-danger me-2 mb-1" data-bs-toggle="modal"
+              data-bs-target="#deleteModal" aria-label="delete">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
                 viewBox="0 0 16 16">
                 <path
@@ -115,17 +125,10 @@
   </div>
 </div>
 <div class="d-flex jsutify-content-center" *ngIf="pagination">
-   <pagination
-      [boundaryLinks]="true"
-      [totalItems]="pagination.totalCount"
-      [itemsPerPage]="pagination.pageSize"
-      [(ngModel)]="pagination.currentPage"
-      (pageChanged)="pageChanged($event)"
-      previousText="&lsaquo;"
-      nextText="&rsaquo;"
-      firstText="&laquo;"
-      lastText="&raquo;">
-   </pagination>
+  <pagination [boundaryLinks]="true" [totalItems]="pagination.totalCount" [itemsPerPage]="pagination.pageSize"
+    [(ngModel)]="pagination.currentPage" (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;"
+    firstText="&laquo;" lastText="&raquo;">
+  </pagination>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -140,15 +143,16 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" data-bs-dismiss="modal" (click)="confirmDelete(collabToDelete?.id)" class="btn btn-danger">Delete</button>
+        <button type="button" data-bs-dismiss="modal" (click)="confirmDelete(collabToDelete?.id)"
+          class="btn btn-danger">Delete</button>
       </div>
     </div>
   </div>
 </div>
 
-<app-spinner  *ngIf="isLoading"></app-spinner>
-
-    <!--
+<app-spinner *ngIf="isLoading"></app-spinner>
+<app-toast></app-toast>
+<!--
     <nav aria-label="Page navigation example" >
       <ul class="pagination pagination-sm d-flex align-items-end flex-column">
         <li class="page-item"><a class="page-link" href="#">#</a></li>

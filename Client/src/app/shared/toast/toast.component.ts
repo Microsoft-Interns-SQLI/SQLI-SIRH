@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { delay, Subscription } from 'rxjs';
+import { Toaster, ToastService } from './toast.service';
 
 @Component({
   selector: 'app-toast',
@@ -7,38 +9,29 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ToastComponent implements OnInit {
 
-  constructor() { }
+  constructor(private toastService: ToastService) { }
 
-  title?:string;
+  title?: string;
 
-  @Input()
-  typeMessage?:string= "warning" || "danger" || "success" ;
+  typeMessage?: string;
 
-  @Input()
-  message?:string;
+  message?: string;
 
+  sub!: Subscription;
   ngOnInit(): void {
+    this.sub = this.toastService.toast.subscribe((data: Toaster) => {
+      this.typeMessage = data.typeMessage;
+      this.message = data.message;
+      this.typeMessage == 'danger' ? this.title = "Danger" :
+        this.typeMessage == 'warning' ? this.title = "Warning" :
+          this.typeMessage == 'success' ? this.title = "Success" : this.title = "Information";
+      setTimeout(() => {
+        this.close();
+      }, 5000);
+    });
   }
-  
-  showToast()
-  {
-
-    var icoColor=""
-    var toastColor="bg-"+this.typeMessage;
-    if(this.typeMessage=="warning") {icoColor="#ffc107";this.title="Warning";}
-    else if(this.typeMessage=="danger") {icoColor="#dc3545";this.title="Danger";}
-    else if(this.typeMessage=="success") {icoColor="#198754";this.title="Success";}//#adb5bd
-    else {icoColor="#0d6efd"; this.title="Information"; toastColor="bg-primary"}//#adb5bd
-
-    var myToast:HTMLDivElement = document.getElementById("toast-div") as HTMLDivElement;
-    myToast.setAttribute("class","show "+toastColor);
-    
-    var myIco = document.getElementById("icone") as HTMLElement;
-    myIco.setAttribute("style","color : "+icoColor+";");
-  }
-  close()
-  {
-    var myToast:HTMLDivElement = document.getElementById("toast-div") as HTMLDivElement;
-    myToast.setAttribute("class","toast fade hide");
+  close() {
+    var myToast: HTMLElement = document.getElementById("toast-div") as HTMLElement;
+    myToast.setAttribute("class", "toast fade hide");
   }
 }

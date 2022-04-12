@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Collaborator } from 'src/app/Models/Collaborator';
 import { Pagination } from 'src/app/Models/pagination';
 import { CollaboratorsService } from 'src/app/services/collaborators.service';
-import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
+import { ToastComponent } from 'src/app/shared/toast/toast.component';
+import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Component({
   selector: 'app-list-collaborateurs',
@@ -11,34 +12,36 @@ import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
 })
 export class ListCollaborateursComponent implements OnInit {
   collaboratorsArray: Collaborator[] = [];
+  // toast:ToastComponent = new ToastComponent();
   displayTable: boolean = true;
   collabToDelete?: Collaborator = new Collaborator();
   pagination!: Pagination;
   pageNumber = 1;
   pageSize = 10;
-  isLoading?:boolean;
+  isLoading?: boolean;
 
-  constructor(private service: CollaboratorsService) { }
+  constructor(private service: CollaboratorsService, private toastService: ToastService) { }
 
   ngOnInit(): void {
     this.loadCollaborators();
   }
 
   loadCollaborators() {
-    this.isLoading=true;
-    this.service.getCollaboratorsList(this.pageSize, this.pageNumber).subscribe({next:resp => {
-      this.collaboratorsArray = resp.result;
-      this.pagination = resp.pagination;
-    },complete:()=>{
-      this.isLoading=false;
-    }})
-    
+    this.isLoading = true;
+    this.service.getCollaboratorsList(this.pageSize, this.pageNumber).subscribe({
+      next: resp => {
+        this.collaboratorsArray = resp.result;
+        this.pagination = resp.pagination;
+      }, complete: () => {
+        this.isLoading = false;
+      }
+    })
   }
 
-  deleteCollab(id:any): void {
+  deleteCollab(id: any): void {
     this.collabToDelete = id;
   }
-  confirmDelete(id:any): void {
+  confirmDelete(id: any): void {
     if (id) {
       this.service.deleteCollaborator(id).subscribe(res => {
         console.log("deletion success!");
