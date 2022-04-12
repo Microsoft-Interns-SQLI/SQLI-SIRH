@@ -1,5 +1,5 @@
 import { HttpClient, HttpEvent, HttpEventType, HttpRequest, HttpResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CollaboratorsService } from 'src/app/services/collaborators.service';
 
@@ -10,6 +10,7 @@ import { CollaboratorsService } from 'src/app/services/collaborators.service';
 })
 export class ImportCollabsComponent implements OnInit {
 
+  messages: string[] = [];
   error: string = "";
   files: File[] =[];
   isValid: boolean = true;
@@ -47,6 +48,8 @@ export class ImportCollabsComponent implements OnInit {
           }
           else if (event.type === HttpEventType.Response) {
             if (event.ok) {
+              this.messages.push(`${event.body.ExistsCollab} Collaborateurs existaient déjà dans la BD !`);
+              this.messages.push(`${event.body.AddingCollab} Collaborateurs ajoutés à la bd!`);
               this.error = "";
             }
           }

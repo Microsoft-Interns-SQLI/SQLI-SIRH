@@ -31,6 +31,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMemoryCache();
 
 //Add IoC Mapping 
+builder.Services.AddScoped<IFilesService, FilesService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IToDoItemsRepository, ToDoItemsRepository>();
 builder.Services.AddScoped<IToDoListRepository, ToDoListRepository>();
@@ -71,7 +72,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 builder.Services.AddSingleton<IFileProvider>(
         new PhysicalFileProvider(
-            Path.Combine(Directory.GetCurrentDirectory(),"Archives")    
+            Path.Combine(Directory.GetCurrentDirectory(), "Archives")
         )
 );
 

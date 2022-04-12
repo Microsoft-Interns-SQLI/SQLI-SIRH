@@ -56,5 +56,7 @@ namespace API_MySIRH.DTOs
         public string Diplomes { get; set; } = String.Empty;
         public string Certifications { get; set; } = String.Empty;
         public bool HadAlreadyWorkedAtSQLI { get; set; }
+        public string Files { get; set; } = String.Empty;
+
     }
 }

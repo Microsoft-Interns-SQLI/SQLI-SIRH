@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations"
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { NgxEditorModule } from 'ngx-editor';
-import { CommonModule } from "@angular/common";
+import { CommonModule } from '@angular/common';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ngfModule } from 'angular-file';
 
@@ -40,8 +40,12 @@ import { LayoutComponent } from './layout/layout.component';
 import { ModalComponent } from './shared/modal/modal.component';
 import { ToastComponent } from './shared/toast/toast.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { UploadComponent } from './upload/upload.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ImportCollabsComponent } from './collaborateurs/import-collabs/import-collabs.component';
+import { DownloadComponent } from './download/download.component';
+import { AddEditSummaryCardComponent } from './collaborateurs/add-edit-collaborateur/add-edit-summary-card/add-edit-summary-card.component';
+import { AddEditFormTableComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/add-edit-form-table.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +78,11 @@ import { ImportCollabsComponent } from './collaborateurs/import-collabs/import-c
     ModalComponent,
     ToastComponent,
     SpinnerComponent,
-    ImportCollabsComponent
+    UploadComponent,
+    ImportCollabsComponent,
+    DownloadComponent,
+    AddEditSummaryCardComponent,
+    AddEditFormTableComponent,
   ],
   imports: [
     CommonModule,
@@ -87,14 +95,14 @@ import { ImportCollabsComponent } from './collaborateurs/import-collabs/import-c
     ToastrModule.forRoot({
       positionClass: 'toast-top-right',
       timeOut: 2000,
-      closeButton: true
+      closeButton: true,
     }),
     PaginationModule.forRoot(),
     BrowserAnimationsModule,
     ngfModule,
-    MatTabsModule
+    MatTabsModule,
   ],
   providers: [DatePipe],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

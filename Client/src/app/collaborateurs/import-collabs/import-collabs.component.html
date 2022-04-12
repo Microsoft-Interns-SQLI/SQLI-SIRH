@@ -5,7 +5,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <div class="dragdrop" 
+            <div class="dragdrop"
                 ngfDrop
                 multiple="1" 
                 selectable="1" 
@@ -40,6 +40,9 @@
                   [ngClass]="{'bg-success': isDone, 'bg-warning': !isDone, 'bg-danger':error}"
                 >{{progress}} %</div> 
             </div>  
+            <div class="container p-2" *ngFor="let message of messages">
+                <span class="alert alert-success p-1" role="alert">{{message}}</span>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="init()" [disabled]="isLoading">Close</button>
                 <button type="button" class="btn btn-primary" (click)="uploadFile()" [disabled]="!files.length || isLoading || error || isDone">Send file</button>
