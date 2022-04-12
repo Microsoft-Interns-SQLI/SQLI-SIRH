@@ -45,6 +45,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { ImportCollabsComponent } from './collaborateurs/import-collabs/import-collabs.component';
 import { DownloadComponent } from './download/download.component';
 import { AddEditSummaryCardComponent } from './collaborateurs/add-edit-collaborateur/add-edit-summary-card/add-edit-summary-card.component';
+import { AddEditFormTableComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/add-edit-form-table.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { AddEditSummaryCardComponent } from './collaborateurs/add-edit-collabora
     ImportCollabsComponent,
     DownloadComponent,
     AddEditSummaryCardComponent,
+    AddEditFormTableComponent,
   ],
   imports: [
     CommonModule,
