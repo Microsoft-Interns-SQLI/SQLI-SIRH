@@ -44,6 +44,7 @@ import { UploadComponent } from './upload/upload.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ImportCollabsComponent } from './collaborateurs/import-collabs/import-collabs.component';
 import { DownloadComponent } from './download/download.component';
+import { AddEditSummaryCardComponent } from './collaborateurs/add-edit-collaborateur/add-edit-summary-card/add-edit-summary-card.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { DownloadComponent } from './download/download.component';
     UploadComponent,
     ImportCollabsComponent,
     DownloadComponent,
+    AddEditSummaryCardComponent,
   ],
   imports: [
     CommonModule,

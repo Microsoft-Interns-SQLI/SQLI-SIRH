@@ -1,141 +1,17 @@
-<!-- <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
-    aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="#">
-                Accueil
-            </a>
-        </li>
-        <li class="breadcrumb-item active" aria-current="page">
-            <a href="#">
-                Collaborateurs
-            </a>
-        </li>
-        <li class="breadcrumb-item active" aria-current="page">
-            Détail
-        </li>
-    </ol>
-</nav> -->
-
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
   <h2 class="h2" *ngIf="!collab_id">Ajouter Collaborateur</h2>
   <h2 class="h2" *ngIf="collab_id">Details Collaborateur</h2>
+  <div class="btn-group me-3">
+    <button type="button" class="btn btn-primary btn-sm" (click)="saveCollaborator()">Sauvegarder</button>
+  </div>
 </div>
 
 <form class="row">
-  <div class="col-md-12">
-    <div class="card">
-      <div class="card-body">
-        <div class="row">
-          <div class="col-md-12" *ngIf="!collab_id">
-            <h5>Add new collab</h5>
-          </div>
-          <div class="col-md-3">
-            <div class="row">
-              <div class="col-md-12 text-center">
-                <img src="https://myfjamaica.org/wp-content/uploads/2015/08/provider_female_avatar.jpg"
-                  alt="Photo de Lena" class="border border-dark" />
-              </div>
-              <div class="col-md-12 text-center" *ngIf="collab_id">
-                <strong>{{collab.civilite == 'M' ? 'Mr' : 'Mme'}}. {{ collab?.nom }} {{ collab?.prenom }} </strong>
-                <br />
-                <small> #M-{{ collab?.matricule }} </small>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-9">
-            <dl class="row">
-
-              <dt class="col-sm-2">
-                Poste :
-              </dt>
-              <dd class="col-sm-4">
-                {{ collab?.poste || "placeHolder Poste" }},
-              </dd>
-
-              <dt class="col-sm-2">
-                Site :
-              </dt>
-              <dd class="col-sm-4">
-                {{ collab?.site }}
-              </dd>
-
-              <dt class="col-sm-2">
-                Expertise :
-              </dt>
-              <dd class="col-sm-4">
-                {{ collab?.expertise || "placeHolder Expertise" }}
-                <br>
-                ({{calculateYears(collab?.dateEntreeSqli)}}ans expérience)
-              </dd>
-
-              <dt class="col-sm-2">Skill Center</dt>
-              <dd class="col-sm-4">
-                Département {{ collab?.skillCenter }}
-              </dd>
-
-              <dt class="col-sm-2">Email(s) :</dt>
-              <dd class="col-sm-4">
-                <div class="row">
-                  <div class="col-md-12">
-                    <i class="bi bi-inbox-fill"></i>
-                    {{ collab?.emailPersonnel || "placeHolder mail" }}
-                  </div>
-                  <div class="col-md-12">
-                    <i class="bi bi-inbox-fill"></i>
-                    {{ collab?.email || "placeHolder mail" }}
-                  </div>
-                </div>
-              </dd>
-
-              <dt class="col-sm-2">Phone(s) :</dt>
-              <dd class="col-sm-4">
-                <div class="row">
-                  <div class="col-md-12">
-                    <i class="bi bi-phone-fill"></i>
-                    {{ collab?.phonePersonnel || "placeHolder phone" }}
-                  </div>
-                  <div class="col-md-12">
-                    <i class="bi bi-phone-fill"></i>
-                    {{ collab?.phoneProfesionnel || "placeHolder phone" }}
-                  </div>
-                </div>
-              </dd>
-
-              <dt class="col-sm-2">Situation familiale :</dt>
-              <dd class="col-sm-4">
-                <div class="row">
-                  <div class="col-md-12">
-                    <i class="bi bi-people-fill"></i>
-                    {{ collab?.situationFamiliale || "placeHolde situationFamiliale" }}
-                  </div>
-                  <div class="col-md-12">
-                    0 enfants
-                  </div>
-                </div>
-              </dd>
-
-              <dt class="col-sm-2">Recrutement</dt>
-              <dd class="col-sm-4">
-                {{ collab?.modeRecrutement }}
-              </dd>
-
-              <dt class="col-sm-2">Adresse :</dt>
-              <dd class="col-sm-10">
-                <i class="bi bi-pin-map-fill"></i>
-                {{ collab?.adresse || "placeHolder adress" }}
-              </dd>
-            </dl>
-          </div>
-        </div>
-      </div>
-      <div class="card-footer bg-white d-flex justify-content-end">
-        <input type="submit" class="btn btn-primary" (click)="saveCollaborator()" value="Sauvegarder" />
-      </div>
-    </div>
+  <div class="col-md-3">
+    <app-add-edit-summary-card [collab]="collab"></app-add-edit-summary-card>
   </div>
 
-  <div class="col-md-12 mt-4">
+  <div class="col-md-9">
     <div class="card h-100">
       <div class="card-body">
         <div class="row">
