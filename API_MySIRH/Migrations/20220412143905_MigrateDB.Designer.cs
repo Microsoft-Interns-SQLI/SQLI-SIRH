@@ -9,16 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace API_MySIRH.Data.Migrations
+namespace API_MySIRH.Migrations
 {
     [DbContext(typeof(DataContext))]
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-    [Migration("20220410161446_new-dtos")]
-    partial class newdtos
-=======
-    [Migration("20220412135944_MigrateDB")]
+    [Migration("20220412143905_MigrateDB")]
     partial class MigrateDB
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -62,22 +57,14 @@ namespace API_MySIRH.Data.Migrations
                         new
                         {
                             Id = 2,
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ConcurrencyStamp = "d0499b83-ee03-443e-aca9-ce6c04bfa648",
-=======
-                            ConcurrencyStamp = "85fb5d17-fa67-4954-b1ba-889d335a5c24",
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ConcurrencyStamp = "93afea3e-1f9a-4ab2-87b4-db5b9b80cd17",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 3,
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ConcurrencyStamp = "97951d2a-a328-4cd9-a30b-0474e67e826e",
-=======
-                            ConcurrencyStamp = "4ee41ed9-3cf5-455b-bf38-a9cbcfefc28f",
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ConcurrencyStamp = "0955423a-80ea-4d76-9344-a29981d32cdc",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -155,21 +142,13 @@ namespace API_MySIRH.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ConcurrencyStamp = "c664c638-95aa-430e-88da-0750e56c203a",
-=======
-                            ConcurrencyStamp = "be2d33a5-019c-42fa-a7cb-4e6940f981f4",
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ConcurrencyStamp = "0fedf954-1dd8-4a94-9afa-6d61ee4eb401",
                             Email = "Admin@sqli.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@SQLI.COM",
                             NormalizedUserName = "ADMINUSER",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            PasswordHash = "AQAAAAEAACcQAAAAEFdFssSLW5Y4NFQm6K5G/jAsrq1NcNEtpoj8f2YnLkPIeWcBdjnkYaREvSucJ60OeQ==",
-=======
-                            PasswordHash = "AQAAAAEAACcQAAAAEF5Yuu+/5L6RDVz2rdOCYiULIQJhdjtdQKUdsSJ90UH9L2to85sUuQAXOfCaAmg87A==",
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            PasswordHash = "AQAAAAEAACcQAAAAEL4sl8iTv2xBbN+hglagezDLPx2icjp2BgBOxdZlxK+fZQwOxx60beO2haNor3b7kg==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "AdminUser"
@@ -249,6 +228,10 @@ namespace API_MySIRH.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EmailPersonnel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Files")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -346,16 +329,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "abaazzi@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "30783",
                             ModeRecrutement = "Autre",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(2712),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(4700),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 507, DateTimeKind.Local).AddTicks(9233),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "BAAZZI",
@@ -384,16 +364,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2009:Ingénieur d'état en génie informatique",
                             Email = "aeljai@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "30517",
                             ModeRecrutement = "Autre",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(2992),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(5240),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 507, DateTimeKind.Local).AddTicks(9758),
                             Nationnalite = "Marocaine",
                             NiveauId = 3,
                             Nom = "Afaf",
@@ -421,16 +398,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2010:Ingénieur d'Etat",
                             Email = "ynaimi@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "30595",
                             ModeRecrutement = "Autre",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3035),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(5331),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 507, DateTimeKind.Local).AddTicks(9812),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Naimi",
@@ -458,16 +432,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2012:Matser spécialisé en  Informatique|2010:Mastère en informatique|2010:Licence en physique informatique",
                             Email = "mlasmak@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "30903",
                             ModeRecrutement = "Autre",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3097),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(5370),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 507, DateTimeKind.Local).AddTicks(9849),
                             Nationnalite = "Marocaine",
                             NiveauId = 3,
                             Nom = "LASMAK",
@@ -495,16 +466,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2016:Diplôme d’ingénierie |2006:Diplôme universitaire de technologie",
                             Email = "mmajid@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "30376",
                             ModeRecrutement = "Autre",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3129),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(5444),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 507, DateTimeKind.Local).AddTicks(9888),
                             Nationnalite = "Marocaine",
                             NiveauId = 3,
                             Nom = "MAJID",
@@ -532,16 +500,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2004:MIAGE|2006:Master MBDS",
                             Email = "nbennai@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "30238",
                             ModeRecrutement = "Autre",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3157),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(5477),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 507, DateTimeKind.Local).AddTicks(9958),
                             Nationnalite = "Marocaine",
                             NiveauId = 3,
                             Nom = "BENNAI",
@@ -569,16 +534,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2014:MIAGE",
                             Email = "yazzi@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "30984",
                             ModeRecrutement = "Autre",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3184),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(5580),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 507, DateTimeKind.Local).AddTicks(9994),
                             Nationnalite = "Marocaine",
                             NiveauId = 3,
                             Nom = "AZZI",
@@ -607,16 +569,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2010:Ingenieur",
                             Email = "schouki@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "30622",
                             ModeRecrutement = "Autre",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3210),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(5615),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(26),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Siham",
@@ -645,16 +604,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2013:Master Ingénierie Informatique",
                             Email = "mboufaddi@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "30963",
                             ModeRecrutement = "Autre",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3238),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(5650),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(61),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "Mahmoud",
@@ -683,16 +639,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2012:Master spécialisé |2005:Maîtrise Sciences et Techniques (MST)",
                             Email = "okarouite@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "31012",
                             ModeRecrutement = "Autre",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3268),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(5699),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(102),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "KAROUITE",
@@ -720,16 +673,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2015:technicien spécialisé en développement m",
                             Email = "adidiomarelalaoui@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "31281",
                             ModeRecrutement = "Spontané",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3297),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(5769),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(141),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "DIDI",
@@ -758,16 +708,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2015:Diplôme d’ingénieur option MIAGE",
                             Email = "halaouiismaili@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "31317",
                             ModeRecrutement = "Autre",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3328),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(5813),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(209),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "ALAOUI",
@@ -796,16 +743,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2016:Ingénieur informatique|2012:Diplôme Universitaire de Technologie",
                             Email = "helhamdaoui@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "31334",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3356),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(5852),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(247),
                             Nationnalite = "Marocaine",
                             NiveauId = 3,
                             Nom = "EL",
@@ -833,16 +777,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2012:Ingénieur d'état|2009:Licence en génie informatique",
                             Email = "massayah@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "31361",
                             ModeRecrutement = "Autre",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3404),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(5891),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(288),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "ASSAYAH",
@@ -871,16 +812,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "abouhafer@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "31377",
                             ModeRecrutement = "Autre",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3432),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(5931),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(324),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "BOUHAFER",
@@ -908,16 +846,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "aelbouhafsi@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "31375",
                             ModeRecrutement = "Autre",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3465),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(5973),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(362),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "EL",
@@ -946,16 +881,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "ymaaiden@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "31447",
                             ModeRecrutement = "Autre",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3490),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(6048),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(396),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "MAAIDEN",
@@ -983,16 +915,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "zboukhris@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "31436",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3520),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(6086),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(468),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "BOUKHRIS",
@@ -1021,16 +950,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "iouazzi@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "31478",
                             ModeRecrutement = "Recommandation",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3548),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(6120),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(507),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "OUAZZI",
@@ -1058,16 +984,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "mbrahimi@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "31479",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3579),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(6160),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(549),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "BRAHIMI",
@@ -1095,16 +1018,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "maelakkel@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "31553",
                             ModeRecrutement = "E-Chalenge",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3608),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(6196),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(584),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "EL",
@@ -1132,16 +1052,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2015:Ingénierie des systèmes d’informatique|2017:Ingénierie des systèmes d’informations",
                             Email = "aeoubaid@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "31452",
                             ModeRecrutement = "E-Chalenge",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3633),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(6235),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(618),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "OUBAID",
@@ -1170,16 +1087,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "iechenafi@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "31394",
                             ModeRecrutement = "E-Chalenge",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3662),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(6304),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(652),
                             Nationnalite = "Marocaine",
                             NiveauId = 3,
                             Nom = "Echenafi",
@@ -1208,16 +1122,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "alahlou@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "31916",
                             ModeRecrutement = "Stage PFE",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3714),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(6342),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(721),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "Aadil",
@@ -1245,16 +1156,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "mtouiyek@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "31683",
                             ModeRecrutement = "E-Chalenge",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3742),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(6377),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(755),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "TOUIYEK",
@@ -1282,16 +1190,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "naelhachimi@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "31687",
                             ModeRecrutement = "E-Chalenge",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3766),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(6409),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(788),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "EL",
@@ -1320,16 +1225,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "mkouakou@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3791),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(6443),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(834),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Kouakou",
@@ -1357,16 +1259,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "atoumi@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "31824",
                             ModeRecrutement = "E-Chalenge",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3824),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(6492),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(880),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "TOUMI",
@@ -1394,16 +1293,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "aaitelhad@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "31835",
                             ModeRecrutement = "E-Chalenge",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3851),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(6547),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(915),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "AIT",
@@ -1432,16 +1328,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "nalboufarissi@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "31838",
                             ModeRecrutement = "E-Chalenge",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3879),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(6581),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(978),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "ALBOUFARISSI",
@@ -1469,16 +1362,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "nnaji@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "31840",
                             ModeRecrutement = "E-Chalenge",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3912),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(6613),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(1016),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "NAJI",
@@ -1506,16 +1396,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "folahmidi@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "31933",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3941),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(6645),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(1048),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "Lahmidi",
@@ -1544,16 +1431,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "atayebi@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "31939",
                             ModeRecrutement = "Cooptation",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(3965),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(6674),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(1082),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "TAYEBI",
@@ -1581,16 +1465,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "fsosseyalaoui@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "31954",
                             ModeRecrutement = "Stage PFE",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4016),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(6709),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(1124),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "SOSSEY",
@@ -1618,16 +1499,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2013:M2: Nouvelles technologies|2013:Ingénieur en informatique et réseau",
                             Email = "melhilali@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "31293",
                             ModeRecrutement = "Cooptation",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4046),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(6768),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(1165),
                             Nationnalite = "Marocaine",
                             NiveauId = 3,
                             Nom = "EL",
@@ -1655,16 +1533,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2016:Technicien Spécialisé en Développement|2017:Licence Universitaire Professionnelle|2014:Baccalauréat Science Physique|2020:Master Universitaire Professionnelle",
                             Email = "schafik@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "31970",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4076),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(6799),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(1232),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "CHAFIK",
@@ -1693,16 +1568,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "fzhamdi@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32027",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4100),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(6827),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(1268),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Hamdi",
@@ -1730,16 +1602,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "beberaich@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32000",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4130),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(6861),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(1305),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Beraich",
@@ -1767,16 +1636,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "emlagzouli@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32083",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4156),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(6891),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(1344),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Lagzouli",
@@ -1804,16 +1670,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2016:GÉNIE LOGICIEL|2019:LOGICIEL ET SYSTÈME INFORMATIQUE",
                             Email = "yelkaddouri@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32080",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4182),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(6922),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(1376),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "El",
@@ -1841,16 +1704,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "fzmaadane@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32021",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4206),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(6979),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(1409),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Maadane",
@@ -1878,16 +1738,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "aelidrissijallal@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32062",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4231),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7009),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(1479),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Adam",
@@ -1916,16 +1773,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "ndroussi@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4255),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7038),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(1512),
                             Nationnalite = "Marocaine",
                             NiveauId = 3,
                             Nom = "Droussi",
@@ -1954,16 +1808,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "nhaouari@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4304),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7073),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(1551),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Haouari",
@@ -1992,16 +1843,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "llaghoui@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4331),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7104),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(1584),
                             Nationnalite = "Marocaine",
                             NiveauId = 3,
                             Nom = "Laghoui",
@@ -2030,16 +1878,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "azouitni@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4357),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7138),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(1621),
                             Nationnalite = "Marocaine",
                             NiveauId = 3,
                             Nom = "Zouitni",
@@ -2067,16 +1912,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2009:Ingénierie Concepteur de Systèmes d’info|2004:BTS- Génie Informatique|2001:Baccalauréat",
                             Email = "aelyasni@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32134",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4385),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7200),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(1658),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "EL",
@@ -2104,16 +1946,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "mbounzaha@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4412),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7234),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(1693),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Bounzaha",
@@ -2141,16 +1980,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "cchemmam@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32227",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4435),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7263),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(1754),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Chaimaa",
@@ -2178,16 +2014,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "melboujbaoui@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32209",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4458),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7292),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(1784),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Mounib",
@@ -2215,16 +2048,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2018:T. S. en développement Informatique",
                             Email = "ahammeni@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32214",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4482),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7322),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(1817),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Alaa",
@@ -2253,16 +2083,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "yelmousaoui@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32194",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4509),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7361),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(1852),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Yassine",
@@ -2290,16 +2117,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "MROUDANI@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32248",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4536),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7396),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(1887),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Mohamed",
@@ -2327,16 +2151,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "MSIFANE@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32247",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4560),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7454),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(1917),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Mouad",
@@ -2364,16 +2185,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "MZIDANI@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32245",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4605),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7488),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(1977),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Mohamed",
@@ -2402,16 +2220,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "hfarraji@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32187",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4629),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7523),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(2008),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Hicham",
@@ -2440,16 +2255,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "ahjelti@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32188",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4656),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7553),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(2041),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Ahlam",
@@ -2478,16 +2290,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "momaghnouj@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32189",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4683),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7583),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(2073),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Mohamed",
@@ -2516,16 +2325,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "kmehdaoui@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32190",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4708),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7612),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(2105),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Kaoutar",
@@ -2553,16 +2359,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "adbib@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32239",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4734),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7663),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(2138),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Abdellah",
@@ -2590,16 +2393,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "amotmani@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4758),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7692),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(2168),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Otmani",
@@ -2627,16 +2427,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "lettout@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32287",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4781),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7719),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(2224),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "Lahcen",
@@ -2664,16 +2461,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "selalami@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32300",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4804),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7751),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(2258),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "Salim",
@@ -2701,16 +2495,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "mouelmrabet@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32304",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4828),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7783),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(2291),
                             Nationnalite = "Marocaine",
                             NiveauId = 3,
                             Nom = "Mourad",
@@ -2738,16 +2529,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "zlahmidi@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32315",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4856),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7812),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(2324),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "Zakaria",
@@ -2775,16 +2563,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "onfaoui@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32325",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4903),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7872),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(2357),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "Oussama",
@@ -2812,16 +2597,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "oassanouni@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32334",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4927),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7902),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(2414),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Omar",
@@ -2849,16 +2631,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "kbenchamekh@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32339",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4950),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7930),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(2448),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "Benchamekh",
@@ -2886,16 +2665,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2021:MASTER - 2ASI",
                             Email = "zmiloudi@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32337",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4973),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7960),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(2482),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Miloudi",
@@ -2923,16 +2699,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "mbouharrada@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32352",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(4997),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(7987),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(2512),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "Bouharrada",
@@ -2960,16 +2733,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "hkhazrouni@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(5020),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(8019),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(2544),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Khazrouni",
@@ -2997,16 +2767,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2017:Génie logiciel|2018:Sicences mathématiques et informatique|2021:Ingénierie logiciel",
                             Email = "maaribech@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32360",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(5043),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(8070),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(2575),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "aribech",
@@ -3034,16 +2801,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2018:Diplôme de Technicien Spécialisé|2011:Baccalauréat",
                             Email = "kakhardid@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32358",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(5067),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(8100),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(2604),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Akhardid",
@@ -3072,16 +2836,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2015:Master STRI",
                             Email = "zazoulay@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32363",
                             ModeRecrutement = "Autre",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(5091),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(8128),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(2659),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "Azoulay",
@@ -3109,16 +2870,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "mfliti@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32367",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(5142),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(8162),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(2697),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Fliti",
@@ -3146,16 +2904,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "bybahi@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32366",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(5167),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(8191),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(2727),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Bahi",
@@ -3183,16 +2938,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "wberehil@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32370",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(5191),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(8222),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(2757),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Berehil",
@@ -3220,16 +2972,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "knaimi@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32377",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(5214),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(8250),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(2786),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Naimi",
@@ -3257,16 +3006,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "slourhaoui@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32380",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(5237),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(8303),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(2816),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "Lourhaoui",
@@ -3294,16 +3040,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "hbenmachi@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32392",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(5261),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(8333),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(2942),
                             Nationnalite = "Marocaine",
                             NiveauId = 3,
                             Nom = "Benmachi",
@@ -3331,16 +3074,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2016:Licence en EEA|2019:Ingénieur Automatisme Info Industrielle",
                             Email = "aouahdi@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32402",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(5285),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(8363),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(2976),
                             Nationnalite = "Marocaine",
                             NiveauId = 3,
                             Nom = "Ouahdi",
@@ -3368,16 +3108,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "zerrafiqi@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(5308),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(8393),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(3008),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Zakaria",
@@ -3406,16 +3143,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2016:Ingénieur d’état en génie informatique",
                             Email = "aselhassani@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32463",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(5331),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(8421),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(3039),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "Asmae",
@@ -3444,16 +3178,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "2017:Diplome d'ingénieur informatique",
                             Email = "adyar@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "32524",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(5358),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(8455),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(3076),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "Abderrahmane",
@@ -3481,16 +3212,13 @@ namespace API_MySIRH.Data.Migrations
                             Diplomes = "",
                             Email = "afourtit@sqli.com",
                             EmailPersonnel = "email.personnel@gmail.com",
+                            Files = "",
                             HadAlreadyWorkedAtSQLI = false,
                             Langues = "Français|Anglais",
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(5384),
-=======
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(8513),
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(3113),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Fourtit",
@@ -3530,19 +3258,6 @@ namespace API_MySIRH.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Dashboards");
-<<<<<<< Updated upstream:API_MySIRH/Data/Migrations/20220410161446_new-dtos.Designer.cs
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ModificationDate = new DateTime(2022, 4, 10, 16, 14, 45, 625, DateTimeKind.Local).AddTicks(5557),
-                            nbFemale = 13,
-                            nbMale = 72
-                        });
-=======
->>>>>>> Stashed changes:API_MySIRH/Migrations/20220412135944_MigrateDB.Designer.cs
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.Memo", b =>
@@ -3599,28 +3314,28 @@ namespace API_MySIRH.Data.Migrations
                         {
                             Id = 1,
                             CreationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(8806),
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(3400),
                             Name = "Junior"
                         },
                         new
                         {
                             Id = 2,
                             CreationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(8807),
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(3401),
                             Name = "Opérationnel"
                         },
                         new
                         {
                             Id = 3,
                             CreationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(8808),
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(3401),
                             Name = "Confirmé"
                         },
                         new
                         {
                             Id = 4,
                             CreationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ModificationDate = new DateTime(2022, 4, 12, 13, 59, 44, 117, DateTimeKind.Local).AddTicks(8808),
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 39, 5, 508, DateTimeKind.Local).AddTicks(3402),
                             Name = "Sénior"
                         });
                 });
