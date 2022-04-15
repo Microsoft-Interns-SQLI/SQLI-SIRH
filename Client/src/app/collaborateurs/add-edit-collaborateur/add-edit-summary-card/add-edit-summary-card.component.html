@@ -1,68 +1,126 @@
-<div class="card h-100">
+<div class="card h-fit">
   <div class="card-body">
-    <div class="text-center mb-3">
-      <h2 class="card-title">
-        {{collab.civilite == 'M' ? 'Mr' : 'Mme'}}. {{ collab?.nom }} {{ collab?.prenom }}
-      </h2>
-      <img src="https://myfjamaica.org/wp-content/uploads/2015/08/provider_female_avatar.jpg" alt="Photo de Lena"
-        class="border border-dark mb-2" />
-      <div class="fw-bolder"> #M-{{ collab?.matricule }} </div>
-    </div>
-      <div>
-        <dl>
-          <dd>
-            {{ collab?.poste || "placeHolder Poste" }},
-          </dd>
-          <dd>
-            {{ collab?.site }}
-          </dd>
-          <dd>
-            {{ collab?.expertise || "placeHolder Expertise" }}
-            &nbsp;({{calculateYears(collab?.dateEntreeSqli)}}ans expérience)
-          </dd>
-          <dd>
-            Département {{ collab?.skillCenter }}
-          </dd>
-          <dd>
-            <div class="row">
-              <div class="col-md-12">
-                <i class="bi bi-inbox-fill"></i>
-                {{ collab?.emailPersonnel || "placeHolder mail" }}
-              </div>
-              <div class="col-md-12">
-                <i class="bi bi-inbox-fill"></i>
-                {{ collab?.email || "placeHolder mail" }}
-              </div>
-            </div>
-          </dd>
-          <dd>
-            <div class="row">
-              <div class="col-md-12">
-                <i class="bi bi-phone-fill"></i>
-                {{ collab?.phonePersonnel || "placeHolder phone" }}
-              </div>
-              <div class="col-md-12">
-                <i class="bi bi-phone-fill"></i>
-                {{ collab?.phoneProfesionnel || "placeHolder phone" }}
-              </div>
-            </div>
-          </dd>
-          <dd>
-            <div class="row">
-              <div class="col-md-12">
-                <i class="bi bi-people-fill"></i>
-                {{ collab?.situationFamiliale || "placeHolde situationFamiliale" }}
-              </div>
-            </div>
-          </dd>
-          <dd>
-            Recrute mode: {{ collab?.modeRecrutement }}
-          </dd>
-          <dd>
-            <i class="bi bi-pin-map-fill"></i>
-            {{ collab?.adresse || "placeHolder adress" }}
-          </dd>
-        </dl>
+    <div class="card title text-center mb-3 px-4 py-5">
+      <img
+        src="https://bootstrapious.com/i/snippets/sn-team/teacher-2.jpg"
+        alt=""
+        width="100"
+        class="img-fluid rounded-circle mb-3 mx-auto img-thumbnail shadow-sm"
+      />
+      <div class="fw-bold">
+        {{ collab.civilite == "M" ? "Mr" : "Mme" }}. {{ collab?.nom }}
+        {{ collab?.prenom }}
       </div>
+      <div>
+        {{ collab?.poste || "N/A" }}
+      </div>
+      <div class="d-flex justify-content-center align-items-center">
+        <span>Expertise </span
+        ><span class="badge bg-dark ms-1"
+          >{{ calculateYears(collab?.dateEntreeSqli) }} ans</span
+        >
+      </div>
+      <div class="text-uppercase text-muted">#M-{{ collab?.matricule }}</div>
+    </div>
+
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-3">
+          <i class="bi bi-building"></i>
+        </div>
+        <div class="col-sm-9 text-secondary">{{ collab?.site }}</div>
+      </div>
+      <hr />
+      <div class="row align-items-center">
+        <div class="col-sm-3">
+          <i class="bi bi-envelope-fill"></i>
+        </div>
+        <div class="col-sm-9 text-secondary">
+          {{ collab?.email }}
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-3">
+          <i class="bi bi-phone-fill"></i>
+        </div>
+        <div class="col-sm-9 text-secondary">
+          {{ collab?.phonePersonnel || "N/A" }}
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-3">
+          <i class="bi bi-telephone-fill"></i>
+        </div>
+        <div class="col-sm-9 text-secondary">
+          {{ collab?.phoneProfesionnel || "N/A" }}
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-3">
+          <i class="bi bi-pin-map-fill"></i>
+        </div>
+        <div class="col-sm-9 text-secondary">
+          {{ collab?.adresse || "N/A" }}
+        </div>
+      </div>
+      <hr />
+      <!-- </div>
+    <div>
+      <dl>
+        <dd>{{ collab?.poste || "placeHolder Poste" }},</dd>
+        <dd>
+          {{ collab?.site }}
+        </dd>
+        <dd>
+          {{ collab?.expertise || "placeHolder Expertise" }}
+          &nbsp;({{ calculateYears(collab?.dateEntreeSqli) }}ans expérience)
+        </dd>
+        <dd>Département {{ collab?.skillCenter }}</dd>
+        <dd>
+          <div class="row">
+            <div class="col-md-12">
+              <i class="bi bi-inbox-fill"></i>
+              {{ collab?.emailPersonnel || "placeHolder mail" }}
+            </div>
+            <div class="col-md-12">
+              <i class="bi bi-inbox-fill"></i>
+              {{ collab?.email || "placeHolder mail" }}
+            </div>
+          </div>
+        </dd>
+        <dd>
+          <div class="row">
+            <div class="col-md-12">
+              <i class="bi bi-phone-fill"></i>
+              {{ collab?.phonePersonnel || "placeHolder phone" }}
+            </div>
+            <div class="col-md-12">
+              <i class="bi bi-phone-fill"></i>
+              {{ collab?.phoneProfesionnel || "placeHolder phone" }}
+            </div>
+          </div>
+        </dd>
+        <dd>
+          <div class="row">
+            <div class="col-md-12">
+              <i class="bi bi-people-fill"></i>
+              {{
+                collab?.situationFamiliale || "placeHolde situationFamiliale"
+              }}
+            </div>
+          </div>
+        </dd>
+        <dd>Recrute mode: {{ collab?.modeRecrutement }}</dd>
+        <dd>
+          <i class="bi bi-pin-map-fill"></i>
+          {{ collab?.adresse || "placeHolder adress" }}
+        </dd>
+      </dl>
+    </div>
+  </div> -->
+    </div>
   </div>
 </div>
