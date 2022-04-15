@@ -24,7 +24,6 @@ namespace API_MySIRH.Entities
         public string Poste { get; set; } = String.Empty;
         public string SkillCenter { get; set; } = String.Empty;
         public string Site { get; set; } = String.Empty;
-        public string Niveau { get; set; } = String.Empty;
         public string TypeContrat { get; set; } = String.Empty;
         public string AutreTechnos { get; set; } = String.Empty;
         public string ModeRecrutement { get; set; } = String.Empty;
@@ -47,26 +46,11 @@ namespace API_MySIRH.Entities
         public bool HadAlreadyWorkedAtSQLI { get; set; }
         public string Files { get; set; } = String.Empty;
 
-        /*
-        formations - diplômes ?
-        gestion des documents (table ?)*
-        note
-        
-        techno(s) maitrisé
-        email perso
-        telphone perso
-        telphone pro
-        a déja travaillé chez SQLI
-        compétence principale
-        adresse 1
-        certifications
-        langue
-        poste
-        expertise
-        nationnalité
-        Lieu naissance
-        num cin 
-        situation familiale
-        */
+
+        // public string Niveau { get; set; } = String.Empty;
+
+        public virtual int? NiveauId { get; set; }
+        public virtual Niveau? Niveau { get; set; }
+
     }
 }
