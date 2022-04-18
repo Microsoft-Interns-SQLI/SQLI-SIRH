@@ -10,5 +10,9 @@ namespace API_MySIRH.Helpers
             get => _pageSize;
             set => _pageSize = (value > MaxPageSize) ? MaxPageSize : value;
         }
+
+        public string Search { get; set; } = String.Empty;
+        public string Site { get; set; } = String.Empty;
+        public string OrderBy { get; set; } = "nom_asc";
     }
 }

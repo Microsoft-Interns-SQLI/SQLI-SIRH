@@ -47,11 +47,26 @@ namespace API_MySIRH.Services
 
         public async Task<PagedList<CollaborateurDTO>> GetCollaborateurs(FilterParams filterParams)
         {
-            var query = this._collaborateurRepository.GetCollaborateurs().ProjectTo<CollaborateurDTO>(_mapper.ConfigurationProvider).AsNoTracking();
-            //var mapping = this._mapper.Map<PagedList<Collaborateur>, PagedList<CollaborateurDTO>>(collabs);
+            var query = this._collaborateurRepository.GetCollaborateurs().AsQueryable();
 
+            if (!string.IsNullOrEmpty(filterParams.Site))
+                query = query.Where(c => c.Site == filterParams.Site);
 
-            return await PagedList<CollaborateurDTO>.CreateAsync(query, filterParams.pageNumber, filterParams.pageSize);
+            if (!(!query.Any() || string.IsNullOrWhiteSpace(filterParams.Search)))
+                query = query.Where(c => c.Nom.Contains(filterParams.Search) || c.Prenom.Contains(filterParams.Search));
+
+            query = filterParams.OrderBy switch
+            {
+                "nom_desc" => query.OrderByDescending(c => c.Nom),
+                "prenom_asc" => query.OrderBy(c => c.Prenom),
+                "prenom_desc" => query.OrderByDescending(c => c.Prenom),
+                "matricule_asc" => query.OrderBy(c => c.Matricule),
+                "matricule_desc" => query.OrderByDescending(c => c.Matricule),
+                "exp_asc" => query.OrderBy(c => c.DateEntreeSqli),
+                "exp_desc" => query.OrderBy(c => c.DateEntreeSqli),
+                _ => query.OrderBy(c => c.Nom)
+            };
+            return await PagedList<CollaborateurDTO>.CreateAsync(query.ProjectTo<CollaborateurDTO>(_mapper.ConfigurationProvider).AsNoTracking(), filterParams.pageNumber, filterParams.pageSize);
         }
 
         public async Task UpdateCollaborateur(int id, CollaborateurDTO collaborateur)
@@ -74,6 +89,6 @@ namespace API_MySIRH.Services
             return _collaborateurRepository.CollaborateurExistsByEmail(email);
         }
 
-        
+
     }
 }
