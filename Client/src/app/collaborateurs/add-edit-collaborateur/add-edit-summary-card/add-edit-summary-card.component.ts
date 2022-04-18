@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Collaborator } from 'src/app/Models/Collaborator';
 
 @Component({
   selector: 'app-add-edit-summary-card',
@@ -6,8 +8,8 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./add-edit-summary-card.component.css']
 })
 export class AddEditSummaryCardComponent implements OnInit {
-  @Input()
-  collab: any;
+  @Input() collab!: Collaborator;
+  @Input() formGroup!: FormGroup;
 
   constructor() { }
 

@@ -6,125 +6,56 @@
           <mat-tab label="Info">
             <div class="row p-4">
               <div class="col-md-2 mt-3">
-                <div class="form-group">
-                  <label for="civilite">Civilité :</label>
-                  <select name="civilite" [(ngModel)]="collab.civilite" class="form-select form-select-sm"
-                    [required]="true">
-                    <option value disabled selected>-Sélectionner-</option>
-                    <option value="M">Mr.</option>
-                    <option value="F">Mme.</option>
-                  </select>
-                </div>
+                <app-select-input [formControl]="$any(formGroup.controls?.['civilite'])" [label]="'civilite'"></app-select-input>
               </div>
               <div class="col-md-3 mt-3">
-                <div class="form-group">
-                  <label for="nom">Nom :</label>
-                  <input type="text" name="nom" [(ngModel)]="collab.nom" class="form-control form-control-sm"
-                    required />
-                </div>
+                <app-text-input [formControl]="$any(formGroup.controls?.['nom'])" [label]="'nom'"></app-text-input>
               </div>
               <div class="col-md-3 mt-3">
-                <div class="form-group">
-                  <label for="prenom">Prenom :</label>
-                  <input type="text" name="prenom" [(ngModel)]="collab.prenom" class="form-control form-control-sm"
-                    [required]="true" />
-                </div>
+                <app-text-input [formControl]="$any(formGroup.controls?.['prenom'])" [label]="'prenom'"></app-text-input>
               </div>
               <div class="col-md-2 mt-3">
                 <div class="form-group">
                   <label for="username">Username :</label>
-                  <input type="text" name="username" class="form-control form-control-sm" />
+                  <input type="text" formControlName="username" name="username" class="form-control form-control-sm" />
                 </div>
               </div>
               <div class="col-md-2 mt-3">
-                <div class="form-group">
-                  <label for="matricule">Matricule :</label>
-                  <input type="input" name="matricule" [(ngModel)]="collab.matricule"
-                    class="form-control form-control-sm" [required]="true" />
-                </div>
+                <app-text-input [formControl]="$any(formGroup.controls?.['matricule'])" [label]="'matricule'"></app-text-input>
               </div>
               <div class="col-md-6 mt-3">
-                <div class="form-group">
-                  <label for="email_perso">Email personnel :</label>
-                  <input type="email" name="email_perso" [(ngModel)]="collab.emailPersonnel"
-                    class="form-control form-control-sm" [required]="true" />
-                </div>
+                <app-text-input [formControl]="$any(formGroup.controls?.['emailPersonnel'])" [label]="'emailPersonnel'" [type]="'email'"></app-text-input>
               </div>
               <div class="col-md-6 mt-3">
-                <div class="form-group">
-                  <label for="email_pro">Email Profesionnel :</label>
-                  <input type="email" name="email_pro" [(ngModel)]="collab.email"
-                    class="form-control form-control-sm" [required]="true" />
-                </div>
+                <app-text-input [formControl]="$any(formGroup.controls?.['email'])" [label]="'email'" [type]="'email'"></app-text-input>
               </div>
               <div class="col-md-6 mt-3">
-                <div class="form-group">
-                  <label for="phone_perso">Phone personnel :</label>
-                  <input type="tel" name="phone_perso" [(ngModel)]="collab.phonePersonnel"
-                    class="form-control form-control-sm" [required]="true" />
-                </div>
+                <app-text-input [formControl]="$any(formGroup.controls?.['phonePersonnel'])" [label]="'phone Personnel'"></app-text-input>
               </div>
               <div class="col-md-6 mt-3">
-                <div class="form-group">
-                  <label for="phone_pro">Phone Profesionnel :</label>
-                  <input type="tel" name="phone_pro" [(ngModel)]="collab.phoneProfesionnel"
-                    class="form-control form-control-sm" [required]="true" />
-                </div>
+                <app-text-input [formControl]="$any(formGroup.controls?.['phoneProfesionnel'])" [label]="'phone Profesionnel'"></app-text-input>
               </div>
 
               <div class="col-md-3 mt-3">
-                <div class="form-group">
-                  <label for="dateNaissance">Date de naissance :</label>
-                  <input type="date" name="dateNaissance" [ngModel]="collab.dateNaissance | date: 'yyyy-MM-dd'"
-                    (ngModelChange)="collab.dateNaissance = $event" class="form-control form-control-sm"
-                    [required]="true">
-                </div>
+                <app-text-input [formControl]="$any(formGroup.controls?.['dateNaissance'])" [label]="'date Naissance'" [type]="'date'"></app-text-input>
               </div>
               <div class="col-md-3 mt-3">
-                <div class="form-group">
-                  <label for="lieuNaissance">Lieu de naissance :</label>
-                  <input type="text" name="lieuNaissance" [(ngModel)]="collab.lieuNaissance"
-                    class=" form-control form-control-sm" [required]="true">
-                </div>
+                <app-text-input [formControl]="$any(formGroup.controls?.['lieuNaissance'])" [label]="'lieu Naissance'"></app-text-input>
               </div>
               <div class="col-md-3 mt-3">
-                <div class="form-group">
-                  <label for="nationnalite">Nationnalité :</label>
-                  <input type="text" name="nationnalite" [(ngModel)]="collab.nationnalite"
-                    class=" form-control form-control-sm" [required]="true">
-                </div>
+                <app-text-input [formControl]="$any(formGroup.controls?.['nationalite'])" [label]="'nationalite'"></app-text-input>
               </div>
               <div class="col-md-3 mt-3">
-                <div class="form-group">
-                  <label for="numCin">N&deg; Cin :</label>
-                  <input type="text" name="numCin" [(ngModel)]="collab.numCin" class=" form-control form-control-sm"
-                    [required]="true">
-                </div>
+                <app-text-input [formControl]="$any(formGroup.controls?.['numCin'])" [label]="'num Cin'"></app-text-input>
               </div>
               <div class="col-md-12 mt-3">
-                <div class="form-group">
-                  <label for="adresse">Adresse :</label>
-                  <textarea name="adresse" rows="4" class="form-control form-control-sm"
-                    [(ngModel)]="collab.adresse"></textarea>
-                </div>
-              </div>
-
-
-              <div class="col-md-6 mt-3">
-                <div class="form-group">
-                  <label for="dateEntreeSqli">Entrée SQLI :</label>
-                  <input type="date" name="dateEntreeSqli" [ngModel]="collab.dateEntreeSqli | date: 'yyyy-MM-dd'"
-                    (ngModelChange)="collab.dateEntreeSqli = $event" class="form-control form-control-sm"
-                    [required]="true" />
-                </div>
+                <app-textarea-input [formControl]="$any(formGroup.controls?.['adresse'])" [label]="'adresse'" [rows]="4"></app-textarea-input>
               </div>
               <div class="col-md-6 mt-3">
-                <div class="form-group">
-                  <label for="dateSortieSqli">Sortie de SQLI :</label>
-                  <input type="date" name="dateSortieSqli" [ngModel]="collab.dateSortieSqli | date: 'yyyy-MM-dd'"
-                    (ngModelChange)="collab.dateSortieSqli = $event" class="form-control form-control-sm"
-                    [required]="true" />
-                </div>
+                <app-text-input [formControl]="$any(formGroup.controls?.['dateEntreeSqli'])" [label]="'Entree SQLI'" [type]="'date'"></app-text-input>
+              </div>
+              <div class="col-md-6 mt-3">
+                <app-text-input [formControl]="$any(formGroup.controls?.['dateSortieSqli'])" [label]="'Sortie SQLI'" [type]="'date'"></app-text-input>
               </div>
               <div class="col-md-2 mt-3">
                 <div class="form-group">
@@ -186,28 +117,13 @@
               </div>
 
               <div class="col-md-6 mt-3">
-                <div class="form-group">
-                  <label for="dateDebutStage">Début du stage :</label>
-                  <input type="date" name="dateDebutStage" [ngModel]="collab.dateDebutStage | date: 'yyyy-MM-dd'"
-                    (ngModelChange)="collab.dateDebutStage = $event" class="form-control form-control-sm"
-                    [required]="true" />
-                </div>
+                <app-text-input [formControl]="$any(formGroup.controls?.['dateDebutStage'])" [label]="'Debut de Stage'" [type]="'date'"></app-text-input>
               </div>
               <div class="col-md-6 mt-3">
-                <div class="form-group">
-                  <label for="datePremiereExperience">Premiere expérience :</label>
-                  <input type="date" name="datePremiereExperience" [ngModel]="
-                      collab.datePremiereExperience | date: 'yyyy-MM-dd'
-                    " (ngModelChange)="collab.datePremiereExperience = $event" class="form-control form-control-sm"
-                    [required]="true" />
-                </div>
+                <app-text-input [formControl]="$any(formGroup.controls?.['datePremiereExperience'])" [label]="'Premier Experience'" [type]="'date'"></app-text-input>
               </div>
               <div class="col-md-12 mt-3">
-                <div class="form-group">
-                  <label for="diplomes">Diplômes :</label>
-                  <textarea name="diplomes" [(ngModel)]="collab.diplomes" rows="4"
-                    class="form-control form-control-sm"></textarea>
-                </div>
+                <app-textarea-input [formControl]="$any(formGroup.controls?.['diplomes'])" [label]="'diplomes'" [rows]="4"></app-textarea-input>
               </div>
             </div>
           </mat-tab>

@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Collaborator } from 'src/app/Models/Collaborator';
 
 @Component({
   selector: 'app-add-edit-form-table',
@@ -6,10 +8,12 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./add-edit-form-table.component.css']
 })
 export class AddEditFormTableComponent implements OnInit {
-  @Input()
-  collab: any;
+  @Input() collab!: Collaborator;
+  @Input() formGroup!: FormGroup;
 
-  constructor() { }
+  constructor() {
+
+  }
 
   ngOnInit(): void {
   }
