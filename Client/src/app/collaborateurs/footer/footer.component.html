@@ -1,0 +1,14 @@
+<div class="d-flex flex-row-reverse bd-highlight justify-content-between">
+    <div *ngIf="pagination">
+        <pagination [boundaryLinks]="true" [totalItems]="pagination.totalCount" [itemsPerPage]="pagination.pageSize"
+            [(ngModel)]="pagination.currentPage" (pageChanged)="pageChanged($event)" previousText="&lsaquo;"
+            nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+        </pagination>
+    </div>
+    <div class="p-2">
+        Showing <strong>1</strong>
+        to <strong>{{pagination.pageSize}}</strong> collaborators
+        from page <strong>{{pagination.currentPage}}</strong>
+        of <strong>{{pagination.totalPages}}</strong>
+    </div>
+</div>

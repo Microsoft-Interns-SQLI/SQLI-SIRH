@@ -70,11 +70,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ClockSkew = TimeSpan.Zero
         };
     });
-builder.Services.AddSingleton<IFileProvider>(
-        new PhysicalFileProvider(
-            Path.Combine(Directory.GetCurrentDirectory(), "Archives")
-        )
-);
 
 //enable CORS
 builder.Services.AddCors(options =>
