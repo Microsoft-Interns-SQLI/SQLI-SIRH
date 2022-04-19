@@ -11,8 +11,7 @@ namespace API_MySIRH.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<ToDoItem, ToDoItemDTO>().ReverseMap();
-            CreateMap<ToDoListDTO, ToDoList>()
-                .ForMember(s => s.ToDoItemList, c => c.MapFrom(m => m.ToDoItemList)).ReverseMap();
+            CreateMap<ToDoListDTO, ToDoList>().ForMember(s => s.ToDoItemList, c => c.MapFrom(m => m.ToDoItemList)).ReverseMap();
             CreateMap<Memo, MemoDTO>().ReverseMap();
             CreateMap<Niveau, NiveauDTO>().ReverseMap();
             CreateMap<Post, PostDTO>().ReverseMap();
@@ -22,10 +21,9 @@ namespace API_MySIRH.Helpers
             CreateMap<TypeContrat, TypeContratDTO>().ReverseMap();
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<Dashboard, DashboardDto>().ReverseMap();
-
+            CreateMap<ModeRecrutement, ModeRecrutementDTO>().ReverseMap();
 
             CreateMap<EntityBase, DtoBase>().ReverseMap();
-
         }
     }
 }

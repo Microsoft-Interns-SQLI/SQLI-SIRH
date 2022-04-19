@@ -55,14 +55,22 @@ namespace API_MySIRH.Migrations
                         new
                         {
                             Id = 2,
+<<<<<<< HEAD
                             ConcurrencyStamp = "f0445ca6-a7dd-40cc-a44e-b342cde64393",
+=======
+                            ConcurrencyStamp = "e4a79ec9-0791-4c0a-9885-d434eb45326c",
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 3,
+<<<<<<< HEAD
                             ConcurrencyStamp = "52ae0fcc-4ac6-4d94-be05-5f9160cbf914",
+=======
+                            ConcurrencyStamp = "cf72b962-51ec-4e45-a8a2-f9ab4902d37c",
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -140,13 +148,21 @@ namespace API_MySIRH.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
+<<<<<<< HEAD
                             ConcurrencyStamp = "fbf861b2-af73-4f0b-81f4-adb3ec457557",
+=======
+                            ConcurrencyStamp = "de32b6b8-faaa-489b-ae5c-c6bfda5a3583",
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Email = "Admin@sqli.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@SQLI.COM",
                             NormalizedUserName = "ADMINUSER",
+<<<<<<< HEAD
                             PasswordHash = "AQAAAAEAACcQAAAAEEKvqMh8eLgQSXB4/cSezJMBCmN90YgdJrStKQgD22uZIT0VoCAFnoFEuE4N0VNAvg==",
+=======
+                            PasswordHash = "AQAAAAEAACcQAAAAEMgmhWgrFSXx8NSBO45k712gzYpGuTczBYUte7hkpoMlyLQIgrjMwZ5ufyhRcUJMaQ==",
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "AdminUser"
@@ -259,9 +275,14 @@ namespace API_MySIRH.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+<<<<<<< HEAD
                     b.Property<string>("Niveau")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+=======
+                    b.Property<int?>("NiveauId")
+                        .HasColumnType("int");
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
 
                     b.Property<string>("Nom")
                         .IsRequired()
@@ -309,6 +330,11 @@ namespace API_MySIRH.Migrations
 
                     b.HasKey("Id");
 
+<<<<<<< HEAD
+=======
+                    b.HasIndex("NiveauId");
+
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                     b.ToTable("Collaborateurs");
 
                     b.HasData(
@@ -332,9 +358,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "30783",
                             ModeRecrutement = "Autre",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(5579),
                             Nationnalite = "Marocaine",
                             Niveau = "Sénior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(2937),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 4,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "BAAZZI",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -367,9 +399,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "30517",
                             ModeRecrutement = "Autre",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(6156),
                             Nationnalite = "Marocaine",
                             Niveau = "Confirmé",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(3497),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 3,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Afaf",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -401,9 +439,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "30595",
                             ModeRecrutement = "Autre",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(6217),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(3551),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Naimi",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -435,9 +479,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "30903",
                             ModeRecrutement = "Autre",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(6250),
                             Nationnalite = "Marocaine",
                             Niveau = "Confirmé",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(3588),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 3,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "LASMAK",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -469,9 +519,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "30376",
                             ModeRecrutement = "Autre",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(6281),
                             Nationnalite = "Marocaine",
                             Niveau = "Confirmé",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(3624),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 3,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "MAJID",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -503,9 +559,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "30238",
                             ModeRecrutement = "Autre",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(6478),
                             Nationnalite = "Marocaine",
                             Niveau = "Confirmé",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(3659),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 3,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "BENNAI",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -537,9 +599,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "30984",
                             ModeRecrutement = "Autre",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(6539),
                             Nationnalite = "Marocaine",
                             Niveau = "Confirmé",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(3762),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 3,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "AZZI",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -572,9 +640,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "30622",
                             ModeRecrutement = "Autre",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(6570),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(3797),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Siham",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -607,9 +681,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "30963",
                             ModeRecrutement = "Autre",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(6600),
                             Nationnalite = "Marocaine",
                             Niveau = "Sénior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(3833),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 4,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Mahmoud",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -642,9 +722,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31012",
                             ModeRecrutement = "Autre",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(6638),
                             Nationnalite = "Marocaine",
                             Niveau = "Opérationnel",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(3876),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 2,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "KAROUITE",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -676,9 +762,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31281",
                             ModeRecrutement = "Spontané",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(6671),
                             Nationnalite = "Marocaine",
                             Niveau = "Sénior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(3915),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 4,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "DIDI",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -711,9 +803,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31317",
                             ModeRecrutement = "Autre",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(6707),
                             Nationnalite = "Marocaine",
                             Niveau = "Sénior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(3952),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 4,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "ALAOUI",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -746,9 +844,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31334",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(6741),
                             Nationnalite = "Marocaine",
                             Niveau = "Confirmé",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4023),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 3,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "EL",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -780,9 +884,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31361",
                             ModeRecrutement = "Autre",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(6776),
                             Nationnalite = "Marocaine",
                             Niveau = "Sénior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4064),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 4,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "ASSAYAH",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -815,9 +925,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31377",
                             ModeRecrutement = "Autre",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(6824),
                             Nationnalite = "Marocaine",
                             Niveau = "Sénior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4103),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 4,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "BOUHAFER",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -849,9 +965,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31375",
                             ModeRecrutement = "Autre",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(6859),
                             Nationnalite = "Marocaine",
                             Niveau = "Sénior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4139),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 4,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "EL",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -884,9 +1006,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31447",
                             ModeRecrutement = "Autre",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(6913),
                             Nationnalite = "Marocaine",
                             Niveau = "Sénior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4171),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 4,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "MAAIDEN",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -918,9 +1046,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31436",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(6946),
                             Nationnalite = "Marocaine",
                             Niveau = "Sénior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4213),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 4,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "BOUKHRIS",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -953,9 +1087,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31478",
                             ModeRecrutement = "Recommandation",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(6974),
                             Nationnalite = "Marocaine",
                             Niveau = "Sénior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4287),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 4,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "OUAZZI",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -987,9 +1127,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31479",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7003),
                             Nationnalite = "Marocaine",
                             Niveau = "Opérationnel",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4331),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 2,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "BRAHIMI",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1021,9 +1167,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31553",
                             ModeRecrutement = "E-Chalenge",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7031),
                             Nationnalite = "Marocaine",
                             Niveau = "Sénior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4361),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 4,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "EL",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1055,9 +1207,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31452",
                             ModeRecrutement = "E-Chalenge",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7061),
                             Nationnalite = "Marocaine",
                             Niveau = "Opérationnel",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4394),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 2,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "OUBAID",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1090,9 +1248,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31394",
                             ModeRecrutement = "E-Chalenge",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7089),
                             Nationnalite = "Marocaine",
                             Niveau = "Confirmé",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4429),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 3,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Echenafi",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1125,9 +1289,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31916",
                             ModeRecrutement = "Stage PFE",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7127),
                             Nationnalite = "Marocaine",
                             Niveau = "Opérationnel",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4464),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 2,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Aadil",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1159,9 +1329,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31683",
                             ModeRecrutement = "E-Chalenge",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7159),
                             Nationnalite = "Marocaine",
                             Niveau = "Opérationnel",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4521),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 2,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "TOUIYEK",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1193,9 +1369,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31687",
                             ModeRecrutement = "E-Chalenge",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7187),
                             Nationnalite = "Marocaine",
                             Niveau = "Opérationnel",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4554),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 2,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "EL",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1228,9 +1410,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7262),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4595),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Kouakou",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1262,9 +1450,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31824",
                             ModeRecrutement = "E-Chalenge",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7294),
                             Nationnalite = "Marocaine",
                             Niveau = "Opérationnel",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4644),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 2,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "TOUMI",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1296,9 +1490,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31835",
                             ModeRecrutement = "E-Chalenge",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7324),
                             Nationnalite = "Marocaine",
                             Niveau = "Opérationnel",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4676),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 2,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "AIT",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1331,9 +1531,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31838",
                             ModeRecrutement = "E-Chalenge",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7351),
                             Nationnalite = "Marocaine",
                             Niveau = "Opérationnel",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4708),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 2,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "ALBOUFARISSI",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1365,9 +1571,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31840",
                             ModeRecrutement = "E-Chalenge",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7380),
                             Nationnalite = "Marocaine",
                             Niveau = "Opérationnel",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4769),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 2,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "NAJI",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1399,9 +1611,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31933",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7405),
                             Nationnalite = "Marocaine",
                             Niveau = "Opérationnel",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4802),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 2,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Lahmidi",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1434,9 +1652,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31939",
                             ModeRecrutement = "Cooptation",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7435),
                             Nationnalite = "Marocaine",
                             Niveau = "Sénior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4832),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 4,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "TAYEBI",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1468,9 +1692,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31954",
                             ModeRecrutement = "Stage PFE",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7463),
                             Nationnalite = "Marocaine",
                             Niveau = "Opérationnel",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4872),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 2,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "SOSSEY",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1502,9 +1732,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31293",
                             ModeRecrutement = "Cooptation",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7495),
                             Nationnalite = "Marocaine",
                             Niveau = "Confirmé",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4903),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 3,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "EL",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1536,9 +1772,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31970",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7521),
                             Nationnalite = "Marocaine",
                             Niveau = "Opérationnel",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4936),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 2,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "CHAFIK",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1571,9 +1813,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32027",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7568),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4990),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Hamdi",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1605,9 +1853,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32000",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7600),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5024),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Beraich",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1639,9 +1893,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32083",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7629),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5072),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Lagzouli",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1673,9 +1933,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32080",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7664),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5102),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "El",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1707,9 +1973,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32021",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7693),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5149),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Maadane",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1741,9 +2013,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32062",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7727),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5181),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Adam",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1776,9 +2054,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7754),
                             Nationnalite = "Marocaine",
                             Niveau = "Confirmé",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5248),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 3,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Droussi",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1811,9 +2095,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7783),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5289),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Haouari",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1846,9 +2136,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7814),
                             Nationnalite = "Marocaine",
                             Niveau = "Confirmé",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5320),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 3,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Laghoui",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1881,9 +2177,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7847),
                             Nationnalite = "Marocaine",
                             Niveau = "Confirmé",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5354),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 3,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Zouitni",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1915,9 +2217,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32134",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7898),
                             Nationnalite = "Marocaine",
                             Niveau = "Sénior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5390),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 4,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "EL",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1949,9 +2257,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7928),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5422),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Bounzaha",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -1983,9 +2297,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32227",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7953),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5450),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Chaimaa",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2017,9 +2337,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32209",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(7986),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5506),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Mounib",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2051,9 +2377,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32214",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8014),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5536),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Alaa",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2086,9 +2418,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32194",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8043),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5569),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Yassine",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2120,9 +2458,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32248",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8071),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5605),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Mohamed",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2154,9 +2498,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32247",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8097),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5634),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Mouad",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2188,9 +2538,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32245",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8122),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5663),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Mohamed",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2223,9 +2579,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32187",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8145),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5724),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Hicham",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2258,9 +2620,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32188",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8195),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5758),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Ahlam",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2293,9 +2661,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32189",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8223),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5790),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Mohamed",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2328,9 +2702,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32190",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8254),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5823),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Kaoutar",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2362,9 +2742,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32239",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8282),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5854),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Abdellah",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2396,9 +2782,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8310),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5884),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Otmani",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2430,9 +2822,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32287",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8336),
                             Nationnalite = "Marocaine",
                             Niveau = "Sénior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5912),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 4,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Lahcen",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2464,9 +2862,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32300",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8363),
                             Nationnalite = "Marocaine",
                             Niveau = "Sénior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5978),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 4,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Salim",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2498,9 +2902,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32304",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8393),
                             Nationnalite = "Marocaine",
                             Niveau = "Confirmé",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6015),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 3,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Mourad",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2532,9 +2942,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32315",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8417),
                             Nationnalite = "Marocaine",
                             Niveau = "Sénior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6045),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 4,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Zakaria",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2566,9 +2982,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32325",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8448),
                             Nationnalite = "Marocaine",
                             Niveau = "Opérationnel",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6077),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 2,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Oussama",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2600,9 +3022,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32334",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8493),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6109),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Omar",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2634,9 +3062,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32339",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8516),
                             Nationnalite = "Marocaine",
                             Niveau = "Sénior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6174),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 4,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Benchamekh",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2668,9 +3102,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32337",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8541),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6207),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Miloudi",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2702,9 +3142,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32352",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8565),
                             Nationnalite = "Marocaine",
                             Niveau = "Opérationnel",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6235),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 2,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Bouharrada",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2736,9 +3182,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8588),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6264),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Khazrouni",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2770,9 +3222,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32360",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8611),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6292),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "aribech",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2804,9 +3262,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32358",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8634),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6321),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Akhardid",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2839,9 +3303,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32363",
                             ModeRecrutement = "Autre",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8659),
                             Nationnalite = "Marocaine",
                             Niveau = "Sénior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6350),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 4,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Azoulay",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2873,9 +3343,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32367",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8691),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6408),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Fliti",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2907,9 +3383,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32366",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8716),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6438),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Bahi",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2941,9 +3423,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32370",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8766),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6472),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Berehil",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -2975,9 +3463,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32377",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8789),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6500),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Naimi",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -3009,9 +3503,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32380",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8812),
                             Nationnalite = "Marocaine",
                             Niveau = "Opérationnel",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6528),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 2,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Lourhaoui",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -3043,9 +3543,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32392",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8835),
                             Nationnalite = "Marocaine",
                             Niveau = "Confirmé",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6557),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 3,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Benmachi",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -3077,9 +3583,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32402",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8858),
                             Nationnalite = "Marocaine",
                             Niveau = "Confirmé",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6681),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 3,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Ouahdi",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -3111,9 +3623,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8881),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6712),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Zakaria",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -3146,9 +3664,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32463",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8905),
                             Nationnalite = "Marocaine",
                             Niveau = "Sénior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6740),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 4,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Asmae",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -3181,9 +3705,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32524",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8932),
                             Nationnalite = "Marocaine",
                             Niveau = "Sénior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6775),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 4,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Abderrahmane",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -3215,9 +3745,15 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
+<<<<<<< HEAD
                             ModificationDate = new DateTime(2022, 4, 12, 14, 22, 29, 955, DateTimeKind.Local).AddTicks(8958),
                             Nationnalite = "Marocaine",
                             Niveau = "Junior",
+=======
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6808),
+                            Nationnalite = "Marocaine",
+                            NiveauId = 1,
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                             Nom = "Fourtit",
                             Note = "ceci est une note et remarque concernant le collaborateur.",
                             NumCin = "F580877",
@@ -3255,6 +3791,7 @@ namespace API_MySIRH.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Dashboards");
+<<<<<<< HEAD
 
                     b.HasData(
                         new
@@ -3265,6 +3802,8 @@ namespace API_MySIRH.Migrations
                             nbFemale = 13,
                             nbMale = 72
                         });
+=======
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.Memo", b =>
@@ -3315,6 +3854,39 @@ namespace API_MySIRH.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Niveaux");
+<<<<<<< HEAD
+=======
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(7131),
+                            Name = "Junior"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(7132),
+                            Name = "Opérationnel"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(7132),
+                            Name = "Confirmé"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(7133),
+                            Name = "Sénior"
+                        });
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.Post", b =>
@@ -3584,6 +4156,18 @@ namespace API_MySIRH.Migrations
                     b.Navigation("User");
                 });
 
+<<<<<<< HEAD
+=======
+            modelBuilder.Entity("API_MySIRH.Entities.Collaborateur", b =>
+                {
+                    b.HasOne("API_MySIRH.Entities.Niveau", "Niveau")
+                        .WithMany("Collaborateurs")
+                        .HasForeignKey("NiveauId");
+
+                    b.Navigation("Niveau");
+                });
+
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
             modelBuilder.Entity("API_MySIRH.Entities.ToDoItem", b =>
                 {
                     b.HasOne("API_MySIRH.Entities.ToDoList", "ToDoList")
@@ -3641,6 +4225,14 @@ namespace API_MySIRH.Migrations
                     b.Navigation("UserRoles");
                 });
 
+<<<<<<< HEAD
+=======
+            modelBuilder.Entity("API_MySIRH.Entities.Niveau", b =>
+                {
+                    b.Navigation("Collaborateurs");
+                });
+
+>>>>>>> 3e5c3dee89db231e385f01de699379efe700c154
             modelBuilder.Entity("API_MySIRH.Entities.ToDoList", b =>
                 {
                     b.Navigation("ToDoItemList");

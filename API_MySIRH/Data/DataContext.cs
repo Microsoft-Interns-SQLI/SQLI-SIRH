@@ -6,22 +6,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API_MySIRH.Data
 {
-    public class DataContext : IdentityDbContext<
-        User,
-        Role,
-        int,
-        IdentityUserClaim<int>,
-        UserRole,
-        IdentityUserLogin<int>,
-        IdentityRoleClaim<int>,
-        IdentityUserToken<int>>
+    public class DataContext : IdentityDbContext
+        <
+            User,
+            Role,
+            int,
+            IdentityUserClaim<int>,
+            UserRole,
+            IdentityUserLogin<int>,
+            IdentityRoleClaim<int>,
+            IdentityUserToken<int>
+        >
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
         public DbSet<ToDoItem> ToDoItems { get; set; }
-
         public DbSet<ToDoList> ToDoLists { get; set; }
-
         public DbSet<Memo> Memos { get; set; }
         public DbSet<Niveau> Niveaux { get; set; }
         public DbSet<Site> Sites { get; set; }
@@ -30,7 +30,7 @@ namespace API_MySIRH.Data
         public DbSet<Collaborateur> Collaborateurs { get; set; }
         public DbSet<SkillCenter> SkillCenters { get; set; }
         public DbSet<Dashboard> Dashboards { get; set; }
-
+        public DbSet<ModeRecrutement> ModesRecrutements { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -69,35 +69,27 @@ namespace API_MySIRH.Data
             );
 
             //Get init collaborateurs and add it to db
-            DataInitializer.SeedData().TryGetValue("Collaborateur", out Object collaborateurs); 
+            DataInitializer.SeedData().TryGetValue("Collaborateurs", out Object collaborateurs);
             modelBuilder.Entity<Collaborateur>().HasData(
-                 //DataInitializer.SeedData().ToList<Collaborateur>()
                  (List<Collaborateur>)collaborateurs
              );
 
-            //Get init dashboard and add it to db
-            DataInitializer.SeedData().TryGetValue("Dashboard", out Object dashboard);
-            Dashboard _dashboard = (Dashboard)dashboard;
-            _dashboard.Id = 1;
-            
-            modelBuilder.Entity<Dashboard>().HasData(
-                 _dashboard
+            DataInitializer.SeedData().TryGetValue("Niveaux", out Object niveaux);
+            modelBuilder.Entity<Niveau>().HasData(
+                (List<Niveau>)niveaux
             );
 
             modelBuilder.Entity<User>()
-                .HasMany(u=>u.UserRoles)
+                .HasMany(u => u.UserRoles)
                 .WithOne(ur => ur.User)
                 .HasForeignKey(u => u.UserId)
                 .IsRequired();
 
             modelBuilder.Entity<Role>()
-                .HasMany(r=>r.UserRoles)
-                .WithOne(ur=>ur.Role)
+                .HasMany(r => r.UserRoles)
+                .WithOne(ur => ur.Role)
                 .HasForeignKey(r => r.RoleId)
                 .IsRequired();
-
-
-
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

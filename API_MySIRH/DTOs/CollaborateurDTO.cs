@@ -35,7 +35,7 @@ namespace API_MySIRH.DTOs
         public string Poste { get; set; } = String.Empty;
         public string SkillCenter { get; set; } = String.Empty;
         public string Site { get; set; } = String.Empty;
-        public string Niveau { get; set; } = String.Empty;
+        public string NiveauName { get; set; } = String.Empty;
         public string TypeContrat { get; set; } = String.Empty;
         public string AutreTechnos { get; set; } = String.Empty;
         public string ModeRecrutement { get; set; } = String.Empty;
