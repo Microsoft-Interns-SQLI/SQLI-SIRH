@@ -16,9 +16,10 @@ namespace API_MySIRH.Controllers
         private readonly IMdmService<Post, PostDTO> _mdmServicePoste;
         private readonly IMdmService<TypeContrat, TypeContratDTO> _mdmServiceTypeContrat;
         private readonly IMdmService<SkillCenter, SkillCenterDTO> _mdmServiceSkillCenter;
+        private readonly IMdmService<ModeRecrutement, ModeRecrutementDTO> _mdmServiceModeRecrutement;
         private readonly string niveauxKey = "niveauxKey";
 
-        public MdmController(IMemoryCache memoryCache, IMdmService<Niveau, NiveauDTO> mdmServiceNiveau, IMdmService<Site, SiteDTO> mdmServiceSite, IMdmService<Post, PostDTO> mdmServicePoste, IMdmService<TypeContrat, TypeContratDTO> mdmServiceTypeContrat, IMdmService<SkillCenter, SkillCenterDTO> mdmServiceSkillCenter)
+        public MdmController(IMemoryCache memoryCache, IMdmService<Niveau, NiveauDTO> mdmServiceNiveau, IMdmService<Site, SiteDTO> mdmServiceSite, IMdmService<Post, PostDTO> mdmServicePoste, IMdmService<TypeContrat, TypeContratDTO> mdmServiceTypeContrat, IMdmService<SkillCenter, SkillCenterDTO> mdmServiceSkillCenter, IMdmService<ModeRecrutement, ModeRecrutementDTO> mdmServiceModeRecrutement)
         {
             _memoryCache = memoryCache;
             _mdmServiceNiveau = mdmServiceNiveau;
@@ -26,6 +27,7 @@ namespace API_MySIRH.Controllers
             _mdmServicePoste = mdmServicePoste;
             _mdmServiceTypeContrat = mdmServiceTypeContrat;
             _mdmServiceSkillCenter = mdmServiceSkillCenter;
+            _mdmServiceModeRecrutement = mdmServiceModeRecrutement;
         }
 
         [HttpGet("niveaux")]
@@ -275,7 +277,7 @@ namespace API_MySIRH.Controllers
         }
 
         [HttpGet("contrats/{id}")]
-        public async Task<ActionResult<TypeContratDTO>> get(int id)
+        public async Task<ActionResult<TypeContratDTO>> GetContrat(int id)
         {
             var type = await _mdmServiceTypeContrat.GetById(id);
             if (type != null)
@@ -287,7 +289,7 @@ namespace API_MySIRH.Controllers
         }
 
         [HttpGet("contrats")]
-        public async Task<ActionResult<IEnumerable<TypeContratDTO>>> get()
+        public async Task<ActionResult<IEnumerable<TypeContratDTO>>> GetContrats()
         {
             var type = await _mdmServiceTypeContrat.GetAll();
             if (type != null)
@@ -299,7 +301,7 @@ namespace API_MySIRH.Controllers
         }
 
         [HttpPost("contrats")]
-        public async Task<ActionResult<TypeContratDTO>> post([FromBody] TypeContratDTO type)
+        public async Task<ActionResult<TypeContratDTO>> AddContrat([FromBody] TypeContratDTO type)
         {
             if (ModelState.IsValid)
             {
@@ -320,7 +322,7 @@ namespace API_MySIRH.Controllers
         }
 
         [HttpPut("contrats/{id}")]
-        public async Task<IActionResult> update(int id, [FromBody] TypeContratDTO type)
+        public async Task<IActionResult> UpdateContrat(int id, [FromBody] TypeContratDTO type)
         {
             if (ModelState.IsValid)
             {
@@ -341,7 +343,7 @@ namespace API_MySIRH.Controllers
         }
 
         [HttpDelete("contrats/{id}")]
-        public async Task<IActionResult> delete(int id)
+        public async Task<IActionResult> DeleteContrat(int id)
         {
             try
             {
@@ -353,6 +355,87 @@ namespace API_MySIRH.Controllers
             }
 
             return Ok($"Type of contract with id : {id} deleted successfully!");
+        }
+
+        [HttpGet("modes/{id}")]
+        public async Task<ActionResult<ModeRecrutementDTO>> GetMode(int id)
+        {
+            var mode = await _mdmServiceModeRecrutement.GetById(id);
+            if (mode != null)
+                return Ok(mode);
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpGet("modes")]
+        public async Task<ActionResult<IEnumerable<ModeRecrutementDTO>>> GetModes()
+        {
+            var mode = await _mdmServiceModeRecrutement.GetAll();
+            if (mode != null)
+                return Ok(mode);
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpPost("modes")]
+        public async Task<ActionResult<ModeRecrutementDTO>> AddMode([FromBody] ModeRecrutementDTO mode)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await _mdmServiceModeRecrutement.Add(mode);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+                return Ok($"Mode de Recrutement : {mode.Mode} added successfully !");
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPut("modes/{id}")]
+        public async Task<IActionResult> UpdateMode(int id, [FromBody] ModeRecrutementDTO mode)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await _mdmServiceModeRecrutement.Update(id, mode);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+                return Ok($"Mode de Recrutement with id : {id} updated successfully!");
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpDelete("modes/{id}")]
+        public async Task<IActionResult> DeleteMode(int id)
+        {
+            try
+            {
+                await _mdmServiceModeRecrutement.Delete(id);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+
+            return Ok($"Mode de Recrutement with id : {id} deleted successfully!");
         }
     }
 }
