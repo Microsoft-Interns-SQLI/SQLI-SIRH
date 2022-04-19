@@ -6,12 +6,12 @@
   </div>
 </div>
 
-<form class="row">
-  <div class="col-md-3">
-    <app-add-edit-summary-card [collab]="collab"></app-add-edit-summary-card>
+<form [formGroup]="formGroup" class="row">
+  <div class="col-lg-3">
+    <app-add-edit-summary-card [formGroup]="formGroup" [collab]="collab"></app-add-edit-summary-card>
   </div>
 
-  <div class="col-md-9">
-    <app-add-edit-form-table [collab]="collab"></app-add-edit-form-table>
+  <div class="col-lg-9">
+    <app-add-edit-form-table [formGroup]="formGroup" [collab]="collab"></app-add-edit-form-table>
   </div>
 </form>
