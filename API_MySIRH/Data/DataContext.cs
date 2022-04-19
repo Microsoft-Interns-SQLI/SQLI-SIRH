@@ -30,7 +30,7 @@ namespace API_MySIRH.Data
         public DbSet<Collaborateur> Collaborateurs { get; set; }
         public DbSet<SkillCenter> SkillCenters { get; set; }
         public DbSet<Dashboard> Dashboards { get; set; }
-
+        public DbSet<ModeRecrutement> ModesRecrutements { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
