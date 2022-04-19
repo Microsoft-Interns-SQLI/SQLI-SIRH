@@ -17,7 +17,7 @@
               <div class="col-md-2 mt-3">
                 <div class="form-group">
                   <label for="username">Username :</label>
-                  <input type="text" formControlName="username" name="username" class="form-control form-control-sm" />
+                  <input type="text" name="username" class="form-control form-control-sm" />
                 </div>
               </div>
               <div class="col-md-2 mt-3">
@@ -58,7 +58,8 @@
                 <app-text-input [formControl]="$any(formGroup.controls?.['dateSortieSqli'])" [label]="'Sortie SQLI'" [type]="'date'"></app-text-input>
               </div>
               <div class="col-md-2 mt-3">
-                <div class="form-group">
+                <app-select-input [formControl]="$any(formGroup.controls?.['modeRecrutement'])" [data]="recruteModeData" [label]="'Recrutement'"></app-select-input>
+                <!-- <div class="form-group">
                   <label for="modeRecrutement">Recrutement :</label>
                   <select name="modeRecrutement" [(ngModel)]="collab.modeRecrutement"
                     class="form-select form-select-sm" [required]="true">
@@ -69,27 +70,29 @@
                     <option value="Spontané">Spontané</option>
                     <option value="Autre">Autre</option>
                   </select>
-                </div>
+                  </div> -->
               </div>
               <div class="col-md-4 mt-3">
-                <app-select-input [formControl]="$any(formGroup.controls?.['expertise'])" [data]="niveauxData" [label]="'expertise'"></app-select-input>
+                <app-select-input [formControl]="$any(formGroup.controls?.['niveau'])" [data]="niveauxData" [label]="'expertise'"></app-select-input>
               </div>
               <div class="col-md-4 mt-3">
                 <app-select-input [formControl]="$any(formGroup.controls?.['poste'])" [data]="postesData" [label]="'poste'"></app-select-input>
+                <!-- <div class="form-group">
+                <label for="poste">Poste :</label>
+                <select name="poste" [(ngModel)]="collab.poste" class="form-select form-select-sm"
+                  [required]="true">
+                  <option value disabled selected>-Sélectionner-</option>
+                  <option value="Ingénieur Concepteur développeur">
+                    Ingénieur Concepteur Développeur
+                  </option>
+                  <option value="E-Technique">E-Technique</option>
+                  <option value="Chef de projet">Chef de projet</option>
+                  <option value="Manager">Manager</option>
+                </select>
+                </div> -->
               </div>
               <div class="col-md-12 mt-3">
-                <div class="form-group">
-                  <label for="situationFamiliale">Situation familiale :</label>
-                  <select name="situationFamiliale" [(ngModel)]="collab.situationFamiliale"
-                    class="form-select form-select-sm" [required]="true">
-                    <option value disabled selected>-Sélectionner-</option>
-                    <option value="Manager">Manager</option>
-                    <option value="Célibataire">Célibataire</option>
-                    <option value="Marié">Marié</option>
-                    <option value="Divorcé">Divorcé</option>
-                    <option value="veuf">Veuf/Veuve</option>
-                  </select>
-                </div>
+                <app-select-input [formControl]="$any(formGroup.controls?.['situationFamiliale'])" [data]="situationFamilialeData" [label]="'situation Familiale'"></app-select-input>
               </div>
 
               <div class="col-md-6 mt-3">

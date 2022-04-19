@@ -56,7 +56,7 @@ export class AddEditCollaborateurComponent implements OnInit {
       dateEntreeSqli: [this.datepipe.transform(this.collab.dateEntreeSqli, 'yyyy-MM-dd')],
       dateSortieSqli: [this.datepipe.transform(this.collab.dateSortieSqli, 'yyyy-MM-dd')],
       modeRecrutement: [this.collab.modeRecrutement],
-      expertise: [this.collab.expertise],
+      niveau: [this.collab.niveauName],
       poste: [this.collab.poste],
       situationFamiliale: [this.collab.situationFamiliale],
       dateDebutStage: [this.datepipe.transform(this.collab.dateDebutStage, 'yyyy-MM-dd')],
@@ -79,6 +79,7 @@ export class AddEditCollaborateurComponent implements OnInit {
     //   });
     // }
     console.log(this.formGroup.value);
+    console.log(this.collab);
   }
 
   calculateYears(year: any): any {
