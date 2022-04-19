@@ -5,9 +5,8 @@
     [class.is-invalid]="ngControl.touched && ngControl.invalid"
     class="form-select form-select-sm"
     [formControl]="$any(ngControl).control">
-    <option value disabled selected>-Sélectionner-</option>
-    <option value="M">Mr.</option>
-    <option value="F">Mme.</option>
+    <option *ngIf="hasDefault" value disabled selected>-Sélectionner-</option>
+    <option *ngFor="let item of data.data" value="{{item.value}}">{{item.display}}</option>
   </select>
   <div *ngIf="ngControl.control?.errors?.['required']" class="invalid-feedback"> {{label}} is required</div>
 </div>

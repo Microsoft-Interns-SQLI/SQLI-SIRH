@@ -310,7 +310,7 @@ namespace API_MySIRH.Migrations
 
                     b.HasIndex("NiveauId");
 
-                    b.ToTable("Collaborateurs");
+                    b.ToTable("Collaborateurs", (string)null);
 
                     b.HasData(
                         new
@@ -3255,7 +3255,7 @@ namespace API_MySIRH.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Dashboards");
+                    b.ToTable("Dashboards", (string)null);
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.Memo", b =>
@@ -3282,7 +3282,7 @@ namespace API_MySIRH.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Memos");
+                    b.ToTable("Memos", (string)null);
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.Niveau", b =>
@@ -3305,7 +3305,7 @@ namespace API_MySIRH.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Niveaux");
+                    b.ToTable("Niveaux", (string)null);
 
                     b.HasData(
                         new
@@ -3358,7 +3358,7 @@ namespace API_MySIRH.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Posts", (string)null);
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.Site", b =>
@@ -3381,7 +3381,7 @@ namespace API_MySIRH.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sites");
+                    b.ToTable("Sites", (string)null);
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.SkillCenter", b =>
@@ -3404,7 +3404,7 @@ namespace API_MySIRH.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SkillCenters");
+                    b.ToTable("SkillCenters", (string)null);
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.ToDoItem", b =>
@@ -3442,7 +3442,7 @@ namespace API_MySIRH.Migrations
 
                     b.HasIndex("ToDoListId");
 
-                    b.ToTable("ToDoItems");
+                    b.ToTable("ToDoItems", (string)null);
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.ToDoList", b =>
@@ -3472,7 +3472,7 @@ namespace API_MySIRH.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ToDoLists");
+                    b.ToTable("ToDoLists", (string)null);
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.TypeContrat", b =>
@@ -3495,7 +3495,7 @@ namespace API_MySIRH.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TypeContrats");
+                    b.ToTable("TypeContrats", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

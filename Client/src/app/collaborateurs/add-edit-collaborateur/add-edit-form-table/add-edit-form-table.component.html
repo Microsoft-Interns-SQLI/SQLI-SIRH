@@ -6,7 +6,7 @@
           <mat-tab label="Info">
             <div class="row p-4">
               <div class="col-md-2 mt-3">
-                <app-select-input [formControl]="$any(formGroup.controls?.['civilite'])" [label]="'civilite'"></app-select-input>
+                <app-select-input [formControl]="$any(formGroup.controls?.['civilite'])" [data]="civiliteData" [label]="'civilite'"></app-select-input>
               </div>
               <div class="col-md-3 mt-3">
                 <app-text-input [formControl]="$any(formGroup.controls?.['nom'])" [label]="'nom'"></app-text-input>
@@ -72,34 +72,10 @@
                 </div>
               </div>
               <div class="col-md-4 mt-3">
-                <div class="form-group">
-                  <label for="expertise">Expertise :</label>
-                  <select name="expertise" [(ngModel)]="collab.expertise" class="form-select form-select-sm"
-                    [required]="true">
-                    <option value disabled selected>-Sélectionner-</option>
-                    <option value="Junior">Junior (1an)</option>
-                    <option value="Opérationnel">
-                      Opérationnel (2ans)
-                    </option>
-                    <option value="Confirmé">Confirmé (3ans)</option>
-                    <option value="Senior">Senior (4ans)</option>
-                  </select>
-                </div>
+                <app-select-input [formControl]="$any(formGroup.controls?.['expertise'])" [data]="niveauxData" [label]="'expertise'"></app-select-input>
               </div>
               <div class="col-md-4 mt-3">
-                <div class="form-group">
-                  <label for="poste">Poste :</label>
-                  <select name="poste" [(ngModel)]="collab.poste" class="form-select form-select-sm"
-                    [required]="true">
-                    <option value disabled selected>-Sélectionner-</option>
-                    <option value="Ingénieur Concepteur développeur">
-                      Ingénieur Concepteur Développeur
-                    </option>
-                    <option value="E-Technique">E-Technique</option>
-                    <option value="Chef de projet">Chef de projet</option>
-                    <option value="Manager">Manager</option>
-                  </select>
-                </div>
+                <app-select-input [formControl]="$any(formGroup.controls?.['poste'])" [data]="postesData" [label]="'poste'"></app-select-input>
               </div>
               <div class="col-md-12 mt-3">
                 <div class="form-group">

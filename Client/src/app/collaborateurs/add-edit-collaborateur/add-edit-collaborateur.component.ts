@@ -51,7 +51,7 @@ export class AddEditCollaborateurComponent implements OnInit {
       dateNaissance: [this.datepipe.transform(this.collab.dateNaissance, 'yyyy-MM-dd') , Validators.required],
       lieuNaissance: [this.collab.lieuNaissance],
       nationalite: [this.collab.nationnalite],
-      numCin: [this.collab.lieuNaissance],
+      numCin: [this.collab.numCin],
       adresse: [this.collab.adresse],
       dateEntreeSqli: [this.datepipe.transform(this.collab.dateEntreeSqli, 'yyyy-MM-dd')],
       dateSortieSqli: [this.datepipe.transform(this.collab.dateSortieSqli, 'yyyy-MM-dd')],
