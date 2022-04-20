@@ -9,7 +9,6 @@ import { Collaborator } from 'src/app/Models/Collaborator';
 })
 export class AddEditSummaryCardComponent implements OnInit {
   @Input() collab!: Collaborator;
-  @Input() formGroup!: FormGroup;
 
   constructor() { }
 

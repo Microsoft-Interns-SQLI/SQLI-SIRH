@@ -68,10 +68,7 @@ export class AddEditCollaborateurComponent implements OnInit {
 
   saveCollaborator(): void {
     if (!this.formGroup.valid) {
-      Object.keys(this.formGroup.controls).forEach(field => { // {1}
-        const control = this.formGroup.get(field);            // {2}
-        control?.markAsTouched({ onlySelf: true });       // {3}
-      });
+      this.formGroup.markAllAsTouched();
       return ;
     }
     this.updateCollab();

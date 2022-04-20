@@ -11,7 +11,7 @@ import { SelectInputData, SelectInputObject } from './_form_inputs/select-input/
 })
 export class AddEditFormTableComponent implements OnInit {
   @Input() collab!: Collaborator;
-  @Input() formGroup!: FormGroup;
+  @Input() myFormGroup!: FormGroup;
 
   civiliteData: any = new SelectInputData();
   recruteModeData: any = new SelectInputData();
