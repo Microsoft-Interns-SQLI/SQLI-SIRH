@@ -1,11 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, pipe } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { SelectInputObject } from '../collaborateurs/add-edit-collaborateur/add-edit-form-table/_form_inputs/select-input/select-input';
-import { Niveaux } from '../Models/nivaux';
-import { Poste } from '../Models/Postes';
-
+import { Niveau, Poste, RecruteMode } from '../Models/MdmModel';
 @Injectable({
   providedIn: 'root'
 })
@@ -19,7 +15,11 @@ export class MdmService {
   }
 
   getNiveaux() {
-    return this.http.get<Niveaux[]>(this.myUrl + "niveaux");
+    return this.http.get<Niveau[]>(this.myUrl + "niveaux");
   }
 
+  getRecrutementMode() {
+    return this.http.get<RecruteMode[]>(this.myUrl + "modes");
+  }
 }
+

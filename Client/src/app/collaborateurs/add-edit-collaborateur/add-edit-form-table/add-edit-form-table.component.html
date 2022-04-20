@@ -1,178 +1,184 @@
-<div class="card h-100">
-  <div class="card-body">
-    <div class="row">
-      <div class="col-md-12">
-        <mat-tab-group>
-          <mat-tab label="Info">
-            <div class="row p-4">
-              <div class="col-md-2 mt-3">
-                <app-select-input [formControl]="$any(formGroup.controls?.['civilite'])" [data]="civiliteData" [label]="'civilite'"></app-select-input>
-              </div>
-              <div class="col-md-3 mt-3">
-                <app-text-input [formControl]="$any(formGroup.controls?.['nom'])" [label]="'nom'"></app-text-input>
-              </div>
-              <div class="col-md-3 mt-3">
-                <app-text-input [formControl]="$any(formGroup.controls?.['prenom'])" [label]="'prenom'"></app-text-input>
-              </div>
-              <div class="col-md-2 mt-3">
-                <div class="form-group">
-                  <label for="username">Username :</label>
-                  <input type="text" formControlName="username" name="username" class="form-control form-control-sm" />
+<form [formGroup]="myFormGroup" *ngIf="myFormGroup">
+  <div class="card h-100">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-12">
+          <mat-tab-group>
+            <mat-tab label="Info">
+              <div class="row p-4">
+                <div class="col-md-2 mt-3">
+                  <app-select-input [formControl]="$any(myFormGroup.controls?.['civilite'])" [data]="civiliteData" [label]="'civilite'"></app-select-input>
                 </div>
-              </div>
-              <div class="col-md-2 mt-3">
-                <app-text-input [formControl]="$any(formGroup.controls?.['matricule'])" [label]="'matricule'"></app-text-input>
-              </div>
-              <div class="col-md-6 mt-3">
-                <app-text-input [formControl]="$any(formGroup.controls?.['emailPersonnel'])" [label]="'emailPersonnel'" [type]="'email'"></app-text-input>
-              </div>
-              <div class="col-md-6 mt-3">
-                <app-text-input [formControl]="$any(formGroup.controls?.['email'])" [label]="'email'" [type]="'email'"></app-text-input>
-              </div>
-              <div class="col-md-6 mt-3">
-                <app-text-input [formControl]="$any(formGroup.controls?.['phonePersonnel'])" [label]="'phone Personnel'"></app-text-input>
-              </div>
-              <div class="col-md-6 mt-3">
-                <app-text-input [formControl]="$any(formGroup.controls?.['phoneProfesionnel'])" [label]="'phone Profesionnel'"></app-text-input>
-              </div>
+                <div class="col-md-3 mt-3">
+                  <app-text-input [formControl]="$any(myFormGroup.controls?.['nom'])" [label]="'nom'"></app-text-input>
+                </div>
+                <div class="col-md-3 mt-3">
+                  <app-text-input [formControl]="$any(myFormGroup.controls?.['prenom'])" [label]="'prenom'"></app-text-input>
+                </div>
+                <div class="col-md-2 mt-3">
+                  <div class="form-group">
+                    <label for="username">Username :</label>
+                    <input type="text" name="username" class="form-control form-control-sm" />
+                  </div>
+                </div>
+                <div class="col-md-2 mt-3">
+                  <app-text-input [formControl]="$any(myFormGroup.controls?.['matricule'])" [label]="'matricule'"></app-text-input>
+                </div>
+                <div class="col-md-6 mt-3">
+                  <app-text-input [formControl]="$any(myFormGroup.controls?.['emailPersonnel'])" [label]="'emailPersonnel'" [type]="'email'"></app-text-input>
+                </div>
+                <div class="col-md-6 mt-3">
+                  <app-text-input [formControl]="$any(myFormGroup.controls?.['email'])" [label]="'email'" [type]="'email'"></app-text-input>
+                </div>
+                <div class="col-md-6 mt-3">
+                  <app-text-input [formControl]="$any(myFormGroup.controls?.['phonePersonnel'])" [label]="'phone Personnel'"></app-text-input>
+                </div>
+                <div class="col-md-6 mt-3">
+                  <app-text-input [formControl]="$any(myFormGroup.controls?.['phoneProfesionnel'])" [label]="'phone Profesionnel'"></app-text-input>
+                </div>
 
-              <div class="col-md-3 mt-3">
-                <app-text-input [formControl]="$any(formGroup.controls?.['dateNaissance'])" [label]="'date Naissance'" [type]="'date'"></app-text-input>
-              </div>
-              <div class="col-md-3 mt-3">
-                <app-text-input [formControl]="$any(formGroup.controls?.['lieuNaissance'])" [label]="'lieu Naissance'"></app-text-input>
-              </div>
-              <div class="col-md-3 mt-3">
-                <app-text-input [formControl]="$any(formGroup.controls?.['nationalite'])" [label]="'nationalite'"></app-text-input>
-              </div>
-              <div class="col-md-3 mt-3">
-                <app-text-input [formControl]="$any(formGroup.controls?.['numCin'])" [label]="'num Cin'"></app-text-input>
-              </div>
-              <div class="col-md-12 mt-3">
-                <app-textarea-input [formControl]="$any(formGroup.controls?.['adresse'])" [label]="'adresse'" [rows]="4"></app-textarea-input>
-              </div>
-              <div class="col-md-6 mt-3">
-                <app-text-input [formControl]="$any(formGroup.controls?.['dateEntreeSqli'])" [label]="'Entree SQLI'" [type]="'date'"></app-text-input>
-              </div>
-              <div class="col-md-6 mt-3">
-                <app-text-input [formControl]="$any(formGroup.controls?.['dateSortieSqli'])" [label]="'Sortie SQLI'" [type]="'date'"></app-text-input>
-              </div>
-              <div class="col-md-2 mt-3">
-                <div class="form-group">
-                  <label for="modeRecrutement">Recrutement :</label>
-                  <select name="modeRecrutement" [(ngModel)]="collab.modeRecrutement"
-                    class="form-select form-select-sm" [required]="true">
-                    <option value disabled selected>-Sélectionner-</option>
-                    <option value="E-Chalenge">E-Chalenge</option>
-                    <option value="Stage PFE">Stage PFE</option>
-                    <option value="Recommandation">Recommandation</option>
-                    <option value="Spontané">Spontané</option>
-                    <option value="Autre">Autre</option>
-                  </select>
+                <div class="col-md-3 mt-3">
+                  <app-text-input [formControl]="$any(myFormGroup.controls?.['dateNaissance'])" [label]="'date Naissance'" [type]="'date'"></app-text-input>
                 </div>
-              </div>
-              <div class="col-md-4 mt-3">
-                <app-select-input [formControl]="$any(formGroup.controls?.['expertise'])" [data]="niveauxData" [label]="'expertise'"></app-select-input>
-              </div>
-              <div class="col-md-4 mt-3">
-                <app-select-input [formControl]="$any(formGroup.controls?.['poste'])" [data]="postesData" [label]="'poste'"></app-select-input>
-              </div>
-              <div class="col-md-12 mt-3">
-                <div class="form-group">
-                  <label for="situationFamiliale">Situation familiale :</label>
-                  <select name="situationFamiliale" [(ngModel)]="collab.situationFamiliale"
-                    class="form-select form-select-sm" [required]="true">
+                <div class="col-md-3 mt-3">
+                  <app-text-input [formControl]="$any(myFormGroup.controls?.['lieuNaissance'])" [label]="'lieu Naissance'"></app-text-input>
+                </div>
+                <div class="col-md-3 mt-3">
+                  <app-text-input [formControl]="$any(myFormGroup.controls?.['nationnalite'])" [label]="'nationalite'"></app-text-input>
+                </div>
+                <div class="col-md-3 mt-3">
+                  <app-text-input [formControl]="$any(myFormGroup.controls?.['numCin'])" [label]="'num Cin'"></app-text-input>
+                </div>
+                <div class="col-md-12 mt-3">
+                  <app-textarea-input [formControl]="$any(myFormGroup.controls?.['adresse'])" [label]="'adresse'" [rows]="4"></app-textarea-input>
+                </div>
+                <div class="col-md-6 mt-3">
+                  <app-text-input [formControl]="$any(myFormGroup.controls?.['dateEntreeSqli'])" [label]="'Entree SQLI'" [type]="'date'"></app-text-input>
+                </div>
+                <div class="col-md-6 mt-3">
+                  <app-text-input [formControl]="$any(myFormGroup.controls?.['dateSortieSqli'])" [label]="'Sortie SQLI'" [type]="'date'"></app-text-input>
+                </div>
+                <div class="col-md-2 mt-3">
+                  <app-select-input [formControl]="$any(myFormGroup.controls?.['modeRecrutement'])" [data]="recruteModeData" [label]="'Recrutement'"></app-select-input>
+                  <!-- <div class="form-group">
+                    <label for="modeRecrutement">Recrutement :</label>
+                    <select name="modeRecrutement" [(ngModel)]="collab.modeRecrutement"
+                      class="form-select form-select-sm" [required]="true">
+                      <option value disabled selected>-Sélectionner-</option>
+                      <option value="E-Chalenge">E-Chalenge</option>
+                      <option value="Stage PFE">Stage PFE</option>
+                      <option value="Recommandation">Recommandation</option>
+                      <option value="Spontané">Spontané</option>
+                      <option value="Autre">Autre</option>
+                    </select>
+                    </div> -->
+                </div>
+                <div class="col-md-4 mt-3">
+                  <app-select-input [formControl]="$any(myFormGroup.controls?.['niveauName'])" [data]="niveauxData" [label]="'expertise'"></app-select-input>
+                </div>
+                <div class="col-md-4 mt-3">
+                  <app-select-input [formControl]="$any(myFormGroup.controls?.['poste'])" [data]="postesData" [label]="'poste'"></app-select-input>
+                  <!-- <div class="form-group">
+                  <label for="poste">Poste :</label>
+                  <select name="poste" [(ngModel)]="collab.poste" class="form-select form-select-sm"
+                    [required]="true">
                     <option value disabled selected>-Sélectionner-</option>
+                    <option value="Ingénieur Concepteur développeur">
+                      Ingénieur Concepteur Développeur
+                    </option>
+                    <option value="E-Technique">E-Technique</option>
+                    <option value="Chef de projet">Chef de projet</option>
                     <option value="Manager">Manager</option>
-                    <option value="Célibataire">Célibataire</option>
-                    <option value="Marié">Marié</option>
-                    <option value="Divorcé">Divorcé</option>
-                    <option value="veuf">Veuf/Veuve</option>
                   </select>
+                  </div> -->
                 </div>
-              </div>
+                <div class="col-md-12 mt-3">
+                  <app-select-input [formControl]="$any(myFormGroup.controls?.['situationFamiliale'])" [data]="situationFamilialeData" [label]="'situation Familiale'"></app-select-input>
+                </div>
 
-              <div class="col-md-6 mt-3">
-                <app-text-input [formControl]="$any(formGroup.controls?.['dateDebutStage'])" [label]="'Debut de Stage'" [type]="'date'"></app-text-input>
-              </div>
-              <div class="col-md-6 mt-3">
-                <app-text-input [formControl]="$any(formGroup.controls?.['datePremiereExperience'])" [label]="'Premier Experience'" [type]="'date'"></app-text-input>
-              </div>
-              <div class="col-md-12 mt-3">
-                <app-textarea-input [formControl]="$any(formGroup.controls?.['diplomes'])" [label]="'diplomes'" [rows]="4"></app-textarea-input>
-              </div>
-            </div>
-          </mat-tab>
-          <!-- <mat-tab label="Contrat & Statut">
-            <div class="row">
-              <div class="col-md-12 mt-3">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="hadAlreadyWorkedAtSQLI" checked />
-                  <label class="form-check-label" for="hadAlreadyWorkedAtSQLI">
-                    a déja travaillé à SQLI
-                  </label>
+                <div class="col-md-6 mt-3">
+                  <app-text-input [formControl]="$any(myFormGroup.controls?.['dateDebutStage'])" [label]="'Debut de Stage'" [type]="'date'"></app-text-input>
+                </div>
+                <div class="col-md-6 mt-3">
+                  <app-text-input [formControl]="$any(myFormGroup.controls?.['datePremiereExperience'])" [label]="'Premier Experience'" [type]="'date'"></app-text-input>
+                </div>
+                <div class="col-md-12 mt-3">
+                  <app-textarea-input [formControl]="$any(myFormGroup.controls?.['diplomes'])" [label]="'diplomes'" [rows]="4"></app-textarea-input>
                 </div>
               </div>
-            </div>
-          </mat-tab>
-          <mat-tab label="Skills">
-            <div class="row">
-              <div class="col-md-12 mt-3">
-                <div class="form-group">
-                  <label for="competence_principale">Compétence principale :</label>
-                  <select name="competence_principale" [(ngModel)]="collab.competencePrincipale"
-                    class="form-select form-select-sm" [required]="true">
-                    <option value disabled selected>-Sélectionner-</option>
-                    <option value="dotNet">dotNet</option>
-                    <option value="Java">Java</option>
-                    <option value="PHP">PHP</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-4 mt-3">
-                <div class="form-group">
-                  <label for="technos">Technos :</label>
-                  <div class="">
-                    <span class="badge bg-primary m-1">Asp.Net</span>
-                    <span class="badge bg-primary m-1">Angular</span>
-                    <span class="badge bg-primary m-1">MAUI</span>
-                    <span class="badge bg-primary m-1">Blazor</span>
+            </mat-tab>
+            <!-- <mat-tab label="Contrat & Statut">
+              <div class="row">
+                <div class="col-md-12 mt-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="hadAlreadyWorkedAtSQLI" checked />
+                    <label class="form-check-label" for="hadAlreadyWorkedAtSQLI">
+                      a déja travaillé à SQLI
+                    </label>
                   </div>
                 </div>
               </div>
-              <div class="col-md-4 mt-3">
-                <div class="form-group">
-                  <label for="technos">Langues :</label>
+            </mat-tab>
+            <mat-tab label="Skills">
+              <div class="row">
+                <div class="col-md-12 mt-3">
+                  <div class="form-group">
+                    <label for="competence_principale">Compétence principale :</label>
+                    <select name="competence_principale" [(ngModel)]="collab.competencePrincipale"
+                      class="form-select form-select-sm" [required]="true">
+                      <option value disabled selected>-Sélectionner-</option>
+                      <option value="dotNet">dotNet</option>
+                      <option value="Java">Java</option>
+                      <option value="PHP">PHP</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4 mt-3">
+                  <div class="form-group">
+                    <label for="technos">Technos :</label>
+                    <div class="">
+                      <span class="badge bg-primary m-1">Asp.Net</span>
+                      <span class="badge bg-primary m-1">Angular</span>
+                      <span class="badge bg-primary m-1">MAUI</span>
+                      <span class="badge bg-primary m-1">Blazor</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 mt-3">
+                  <div class="form-group">
+                    <label for="technos">Langues :</label>
+                    <div class="">
+                      <span class="badge bg-success m-1">Français</span>
+                      <span class="badge bg-success m-1">Anglais</span>
+                      <span class="badge bg-success m-1">Allemand</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 mt-3">
+                  <label for="certifications">Certifications :</label>
                   <div class="">
-                    <span class="badge bg-success m-1">Français</span>
-                    <span class="badge bg-success m-1">Anglais</span>
-                    <span class="badge bg-success m-1">Allemand</span>
+                    <span class="badge bg-danger m-1">Certification 1</span>
+                    <span class="badge bg-danger m-1">Certification 2</span>
                   </div>
                 </div>
               </div>
-              <div class="col-md-4 mt-3">
-                <label for="certifications">Certifications :</label>
-                <div class="">
-                  <span class="badge bg-danger m-1">Certification 1</span>
-                  <span class="badge bg-danger m-1">Certification 2</span>
-                </div>
-              </div>
-            </div>
-          </mat-tab>
-          <mat-tab label="Education & Past Jobs">
-            Education & Past Jobs Content
-          </mat-tab>
-          <mat-tab label="Manager & TLRHs">
-            Manager & TLRHs Content
-          </mat-tab>
-          <mat-tab label="Materiels"> Materiels Content </mat-tab>
-          <mat-tab label="Cv & Documents"> Cv & Documents Content </mat-tab>
-          <mat-tab label="HR Incidents"> HR Incidents Content </mat-tab> -->
-        </mat-tab-group>
+            </mat-tab>
+            <mat-tab label="Education & Past Jobs">
+              Education & Past Jobs Content
+            </mat-tab>
+            <mat-tab label="Manager & TLRHs">
+              Manager & TLRHs Content
+            </mat-tab>
+            <mat-tab label="Materiels"> Materiels Content </mat-tab>
+            <mat-tab label="Cv & Documents"> Cv & Documents Content </mat-tab>
+            <mat-tab label="HR Incidents"> HR Incidents Content </mat-tab> -->
+          </mat-tab-group>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- <app-upload class="modal fade" id="upload" tabindex="-1" aria-labelledby="uploadmodal" aria-hidden="true">
-</app-upload> -->
+  <!-- <app-upload class="modal fade" id="upload" tabindex="-1" aria-labelledby="uploadmodal" aria-hidden="true">
+  </app-upload> -->
+
+</form>
