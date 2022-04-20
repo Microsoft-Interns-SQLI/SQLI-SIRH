@@ -49,6 +49,10 @@ import { AddEditFormTableComponent } from './collaborateurs/add-edit-collaborate
 import { TextInputComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/_form_inputs/text-input/text-input.component';
 import { TextareaInputComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/_form_inputs/textarea-input/textarea-input.component';
 import { SelectInputComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/_form_inputs/select-input/select-input.component';
+import { HeaderComponent } from './collaborateurs/header/header.component';
+import { FooterComponent } from './collaborateurs/footer/footer.component';
+import { CustomReuseStrategyService } from './services/custom-reuse-strategy.service';
+import { RouteReuseStrategy } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -89,6 +93,8 @@ import { SelectInputComponent } from './collaborateurs/add-edit-collaborateur/ad
     TextInputComponent,
     TextareaInputComponent,
     SelectInputComponent,
+    HeaderComponent,
+    FooterComponent,
   ],
   imports: [
     CommonModule,
@@ -108,7 +114,10 @@ import { SelectInputComponent } from './collaborateurs/add-edit-collaborateur/ad
     ngfModule,
     MatTabsModule,
   ],
-  providers: [DatePipe],
+  providers: [
+    DatePipe,
+    { provide: RouteReuseStrategy, useClass: CustomReuseStrategyService },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
