@@ -1,66 +1,143 @@
 <form [formGroup]="myFormGroup" *ngIf="myFormGroup">
-  <div class="card h-100">
+  <div class="card h-fit">
     <div class="card-body">
       <div class="row">
         <div class="col-md-12">
           <mat-tab-group>
             <mat-tab label="Info">
-              <div class="row p-4">
-                <div class="col-md-2 mt-3">
-                  <app-select-input [formControl]="$any(myFormGroup.controls?.['civilite'])" [data]="civiliteData" [label]="'civilite'"></app-select-input>
-                </div>
-                <div class="col-md-3 mt-3">
-                  <app-text-input [formControl]="$any(myFormGroup.controls?.['nom'])" [label]="'nom'"></app-text-input>
-                </div>
-                <div class="col-md-3 mt-3">
-                  <app-text-input [formControl]="$any(myFormGroup.controls?.['prenom'])" [label]="'prenom'"></app-text-input>
-                </div>
-                <div class="col-md-2 mt-3">
-                  <div class="form-group">
-                    <label for="username">Username :</label>
-                    <input type="text" name="username" class="form-control form-control-sm" />
+              <div class="row p-4 m-auto" style="width: 90%">
+                <h2>Informations Personnelles</h2>
+                <hr />
+                <div class="info-perso my-3">
+                  <div class="row">
+                    <div class="col mt-3">
+                      <app-text-input
+                        [formControl]="$any(myFormGroup.controls?.['nom'])"
+                        [label]="'nom'"
+                      ></app-text-input>
+                    </div>
+                    <div class="col mt-3">
+                      <app-text-input
+                        [formControl]="$any(myFormGroup.controls?.['prenom'])"
+                        [label]="'prenom'"
+                      ></app-text-input>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6 mt-3">
+                      <app-text-input
+                        [formControl]="$any(myFormGroup.controls?.['emailPersonnel'])"
+                        [label]="'emailPersonnel'"
+                        [type]="'email'"
+                      ></app-text-input>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                      <app-text-input
+                        [formControl]="$any(myFormGroup.controls?.['email'])"
+                        [label]="'email'"
+                        [type]="'email'"
+                      ></app-text-input>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col mt-3">
+                      <app-text-input
+                        [formControl]="$any(myFormGroup.controls?.['phonePersonnel'])"
+                        [label]="'phone Personnel'"
+                      ></app-text-input>
+                    </div>
+                    <div class="col mt-3">
+                      <app-text-input
+                        [formControl]="$any(myFormGroup.controls?.['phoneProfesionnel'])"
+                        [label]="'phone Profesionnel'"
+                      ></app-text-input>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col mt-3">
+                      <app-text-input
+                        [formControl]="$any(myFormGroup.controls?.['dateNaissance'])"
+                        [label]="'date Naissance'"
+                        [type]="'date'"
+                      ></app-text-input>
+                    </div>
+                    <div class="col mt-3">
+                      <app-text-input
+                        [formControl]="$any(myFormGroup.controls?.['lieuNaissance'])"
+                        [label]="'lieu Naissance'"
+                      ></app-text-input>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col mt-3">
+                      <app-text-input
+                        [formControl]="$any(myFormGroup.controls?.['nationnalite'])"
+                        [label]="'nationalite'"
+                      ></app-text-input>
+                    </div>
+                    <div class="col mt-3">
+                      <app-select-input
+                        [formControl]="$any(myFormGroup.controls?.['civilite'])"
+                        [data]="civiliteData"
+                        [label]="'civilite'"
+                      ></app-select-input>
+                    </div>
+                  </div>
+                  <div class="col mt-3">
+                    <app-select-input
+                      [formControl]="$any(myFormGroup.controls?.['situationFamiliale'])"
+                      [data]="situationFamilialeData"
+                      [label]="'situation Familiale'"
+                    ></app-select-input>
+                  </div>
+                  <div class="row">
+                    <div class="col mt-3">
+                      <app-text-input
+                        [formControl]="$any(myFormGroup.controls?.['numCin'])"
+                        [label]="'num Cin'"
+                      ></app-text-input>
+                    </div>
+                    <div class="col mt-3">
+                      <app-text-input
+                        [formControl]="$any(myFormGroup.controls?.['matricule'])"
+                        [label]="'matricule'"
+                      ></app-text-input>
+                    </div>
+                  </div>
+                  <div class="col-md-12 mt-3">
+                    <app-text-input
+                      [formControl]="$any(myFormGroup.controls?.['adresse'])"
+                      [label]="'adresse'"
+                    ></app-text-input>
                   </div>
                 </div>
-                <div class="col-md-2 mt-3">
-                  <app-text-input [formControl]="$any(myFormGroup.controls?.['matricule'])" [label]="'matricule'"></app-text-input>
-                </div>
-                <div class="col-md-6 mt-3">
-                  <app-text-input [formControl]="$any(myFormGroup.controls?.['emailPersonnel'])" [label]="'emailPersonnel'" [type]="'email'"></app-text-input>
-                </div>
-                <div class="col-md-6 mt-3">
-                  <app-text-input [formControl]="$any(myFormGroup.controls?.['email'])" [label]="'email'" [type]="'email'"></app-text-input>
-                </div>
-                <div class="col-md-6 mt-3">
-                  <app-text-input [formControl]="$any(myFormGroup.controls?.['phonePersonnel'])" [label]="'phone Personnel'"></app-text-input>
-                </div>
-                <div class="col-md-6 mt-3">
-                  <app-text-input [formControl]="$any(myFormGroup.controls?.['phoneProfesionnel'])" [label]="'phone Profesionnel'"></app-text-input>
-                </div>
-
-                <div class="col-md-3 mt-3">
-                  <app-text-input [formControl]="$any(myFormGroup.controls?.['dateNaissance'])" [label]="'date Naissance'" [type]="'date'"></app-text-input>
-                </div>
-                <div class="col-md-3 mt-3">
-                  <app-text-input [formControl]="$any(myFormGroup.controls?.['lieuNaissance'])" [label]="'lieu Naissance'"></app-text-input>
-                </div>
-                <div class="col-md-3 mt-3">
-                  <app-text-input [formControl]="$any(myFormGroup.controls?.['nationnalite'])" [label]="'nationalite'"></app-text-input>
-                </div>
-                <div class="col-md-3 mt-3">
-                  <app-text-input [formControl]="$any(myFormGroup.controls?.['numCin'])" [label]="'num Cin'"></app-text-input>
-                </div>
-                <div class="col-md-12 mt-3">
-                  <app-textarea-input [formControl]="$any(myFormGroup.controls?.['adresse'])" [label]="'adresse'" [rows]="4"></app-textarea-input>
-                </div>
-                <div class="col-md-6 mt-3">
-                  <app-text-input [formControl]="$any(myFormGroup.controls?.['dateEntreeSqli'])" [label]="'Entree SQLI'" [type]="'date'"></app-text-input>
-                </div>
-                <div class="col-md-6 mt-3">
-                  <app-text-input [formControl]="$any(myFormGroup.controls?.['dateSortieSqli'])" [label]="'Sortie SQLI'" [type]="'date'"></app-text-input>
-                </div>
-                <div class="col-md-2 mt-3">
-                  <app-select-input [formControl]="$any(myFormGroup.controls?.['modeRecrutement'])" [data]="recruteModeData" [label]="'Recrutement'"></app-select-input>
-                  <!-- <div class="form-group">
+                <h2>Informations Professionnelles</h2>
+                <hr />
+                <div class="infos-pro px-10">
+                  <div class="row">
+                    <div class="col mt-3">
+                      <app-text-input
+                        [formControl]="$any(myFormGroup.controls?.['dateEntreeSqli'])"
+                        [label]="'Entree SQLI'"
+                        [type]="'date'"
+                      ></app-text-input>
+                    </div>
+                    <div class="col mt-3">
+                      <app-text-input
+                        [formControl]="$any(myFormGroup.controls?.['dateSortieSqli'])"
+                        [label]="'Sortie SQLI'"
+                        [type]="'date'"
+                      ></app-text-input>
+                    </div>
+                  </div>
+                  <div class="col mt-3">
+                    <app-select-input
+                      [formControl]="$any(myFormGroup.controls?.['modeRecrutement'])"
+                      [data]="recruteModeData"
+                      [label]="'Recrutement'"
+                    ></app-select-input>
+                    <!-- <div class="form-group">
                     <label for="modeRecrutement">Recrutement :</label>
                     <select name="modeRecrutement" [(ngModel)]="collab.modeRecrutement"
                       class="form-select form-select-sm" [required]="true">
@@ -72,13 +149,22 @@
                       <option value="Autre">Autre</option>
                     </select>
                     </div> -->
-                </div>
-                <div class="col-md-4 mt-3">
-                  <app-select-input [formControl]="$any(myFormGroup.controls?.['niveauName'])" [data]="niveauxData" [label]="'expertise'"></app-select-input>
-                </div>
-                <div class="col-md-4 mt-3">
-                  <app-select-input [formControl]="$any(myFormGroup.controls?.['poste'])" [data]="postesData" [label]="'poste'"></app-select-input>
-                  <!-- <div class="form-group">
+                  </div>
+                  <div class="row">
+                    <div class="col mt-3">
+                      <app-select-input
+                        [formControl]="$any(myFormGroup.controls?.['niveauName'])"
+                        [data]="niveauxData"
+                        [label]="'expertise'"
+                      ></app-select-input>
+                    </div>
+                    <div class="col mt-3">
+                      <app-select-input
+                        [formControl]="$any(myFormGroup.controls?.['poste'])"
+                        [data]="postesData"
+                        [label]="'poste'"
+                      ></app-select-input>
+                      <!-- <div class="form-group">
                   <label for="poste">Poste :</label>
                   <select name="poste" [(ngModel)]="collab.poste" class="form-select form-select-sm"
                     [required]="true">
@@ -91,19 +177,31 @@
                     <option value="Manager">Manager</option>
                   </select>
                   </div> -->
-                </div>
-                <div class="col-md-12 mt-3">
-                  <app-select-input [formControl]="$any(myFormGroup.controls?.['situationFamiliale'])" [data]="situationFamilialeData" [label]="'situation Familiale'"></app-select-input>
-                </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col mt-3">
+                      <app-text-input
+                        [formControl]="$any(myFormGroup.controls?.['dateDebutStage'])"
+                        [label]="'Debut de Stage'"
+                        [type]="'date'"
+                      ></app-text-input>
+                    </div>
+                    <div class="col mt-3">
+                      <app-text-input
+                        [formControl]="$any(myFormGroup.controls?.['datePremiereExperience'])"
+                        [label]="'Premier Experience'"
+                        [type]="'date'"
+                      ></app-text-input>
+                    </div>
+                  </div>
 
-                <div class="col-md-6 mt-3">
-                  <app-text-input [formControl]="$any(myFormGroup.controls?.['dateDebutStage'])" [label]="'Debut de Stage'" [type]="'date'"></app-text-input>
-                </div>
-                <div class="col-md-6 mt-3">
-                  <app-text-input [formControl]="$any(myFormGroup.controls?.['datePremiereExperience'])" [label]="'Premier Experience'" [type]="'date'"></app-text-input>
-                </div>
-                <div class="col-md-12 mt-3">
-                  <app-textarea-input [formControl]="$any(myFormGroup.controls?.['diplomes'])" [label]="'diplomes'" [rows]="4"></app-textarea-input>
+                  <div class="col mt-3">
+                    <app-text-input
+                      [formControl]="$any(myFormGroup.controls?.['diplomes'])"
+                      [label]="'diplomes'"
+                    ></app-text-input>
+                  </div>
                 </div>
               </div>
             </mat-tab>
@@ -180,5 +278,4 @@
 
   <!-- <app-upload class="modal fade" id="upload" tabindex="-1" aria-labelledby="uploadmodal" aria-hidden="true">
   </app-upload> -->
-
 </form>
