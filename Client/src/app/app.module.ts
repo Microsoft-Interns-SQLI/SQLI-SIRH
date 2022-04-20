@@ -46,6 +46,8 @@ import { ImportCollabsComponent } from './collaborateurs/import-collabs/import-c
 import { DownloadComponent } from './download/download.component';
 import { AddEditSummaryCardComponent } from './collaborateurs/add-edit-collaborateur/add-edit-summary-card/add-edit-summary-card.component';
 import { AddEditFormTableComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/add-edit-form-table.component';
+import { CustomReuseStrategyService } from './services/custom-reuse-strategy.service';
+import { RouteReuseStrategy } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -102,7 +104,10 @@ import { AddEditFormTableComponent } from './collaborateurs/add-edit-collaborate
     ngfModule,
     MatTabsModule,
   ],
-  providers: [DatePipe],
+  providers: [
+    DatePipe,
+    { provide: RouteReuseStrategy, useClass: CustomReuseStrategyService },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

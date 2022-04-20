@@ -34,7 +34,13 @@ export const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'candidats', component: ListCandidatsComponent },
       { path: 'addEditcandidats', component: AddEditCandidatComponent },
-      { path: 'collaborateurs', component: ListCollaborateursComponent },
+      {
+        path: 'collaborateurs',
+        component: ListCollaborateursComponent,
+        data: {
+          saveComponent: true,
+        },
+      },
       {
         path: 'addEditcollaborateur',
         component: AddEditCollaborateurComponent,
