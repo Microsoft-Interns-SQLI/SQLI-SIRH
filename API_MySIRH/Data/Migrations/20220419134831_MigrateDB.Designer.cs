@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace API_MySIRH.Migrations
+namespace API_MySIRH.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220412145538_MigrateDB")]
+    [Migration("20220419134831_MigrateDB")]
     partial class MigrateDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,14 +57,14 @@ namespace API_MySIRH.Migrations
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "e4a79ec9-0791-4c0a-9885-d434eb45326c",
+                            ConcurrencyStamp = "72f2e79d-e434-4ad9-8300-1a32f69ae8e9",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "cf72b962-51ec-4e45-a8a2-f9ab4902d37c",
+                            ConcurrencyStamp = "a65aac7b-a271-4f6b-aba3-0c25df3177ad",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -142,13 +142,13 @@ namespace API_MySIRH.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "de32b6b8-faaa-489b-ae5c-c6bfda5a3583",
+                            ConcurrencyStamp = "046bcdb8-748d-41a3-b355-84131b996b34",
                             Email = "Admin@sqli.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@SQLI.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMgmhWgrFSXx8NSBO45k712gzYpGuTczBYUte7hkpoMlyLQIgrjMwZ5ufyhRcUJMaQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFP3hvfaeqocKjisB/k5uku/uJ5zBffhhYVlDdtVY/u2AiQFy96V7W8WylpJnQaf2g==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "AdminUser"
@@ -284,9 +284,8 @@ namespace API_MySIRH.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Poste")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("PosteId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Prenom")
                         .IsRequired()
@@ -300,17 +299,21 @@ namespace API_MySIRH.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SkillCenter")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("SkillCenterId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("TypeContrat")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("TypeContratId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NiveauId");
+
+                    b.HasIndex("PosteId");
+
+                    b.HasIndex("SkillCenterId");
+
+                    b.HasIndex("TypeContratId");
 
                     b.ToTable("Collaborateurs");
 
@@ -335,7 +338,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "30783",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(2937),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 963, DateTimeKind.Local).AddTicks(9714),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "BAAZZI",
@@ -343,12 +346,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Expert technique",
+                            PosteId = 2,
                             Prenom = "Abdellah",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "Freelance"
+                            SkillCenterId = 1,
+                            TypeContratId = 3
                         },
                         new
                         {
@@ -370,7 +373,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "30517",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(3497),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 963, DateTimeKind.Local).AddTicks(9946),
                             Nationnalite = "Marocaine",
                             NiveauId = 3,
                             Nom = "Afaf",
@@ -378,12 +381,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Chef de projet technique",
+                            PosteId = 3,
                             Prenom = "El",
                             Site = "Oujda",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -404,7 +407,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "30595",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(3551),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(5),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Naimi",
@@ -412,12 +415,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Manager",
+                            PosteId = 4,
                             Prenom = "Youssef",
                             Site = "Oujda",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -438,7 +441,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "30903",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(3588),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(54),
                             Nationnalite = "Marocaine",
                             NiveauId = 3,
                             Nom = "LASMAK",
@@ -446,12 +449,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Expert technique",
+                            PosteId = 2,
                             Prenom = "Marouane",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -472,7 +475,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "30376",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(3624),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(121),
                             Nationnalite = "Marocaine",
                             NiveauId = 3,
                             Nom = "MAJID",
@@ -480,12 +483,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Expert technique",
+                            PosteId = 2,
                             Prenom = "Mostafa",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "Freelance"
+                            SkillCenterId = 1,
+                            TypeContratId = 3
                         },
                         new
                         {
@@ -506,7 +509,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "30238",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(3659),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(172),
                             Nationnalite = "Marocaine",
                             NiveauId = 3,
                             Nom = "BENNAI",
@@ -514,12 +517,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Expert technique",
+                            PosteId = 2,
                             Prenom = "Naoufal",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -540,7 +543,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "30984",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(3762),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(215),
                             Nationnalite = "Marocaine",
                             NiveauId = 3,
                             Nom = "AZZI",
@@ -548,12 +551,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Expert technique",
+                            PosteId = 2,
                             Prenom = "Younesse",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -575,7 +578,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "30622",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(3797),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(278),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Siham",
@@ -583,12 +586,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Chef de projet technique",
+                            PosteId = 3,
                             Prenom = "Chouki",
                             Site = "Oujda",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -610,7 +613,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "30963",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(3833),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(328),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "Mahmoud",
@@ -618,12 +621,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Expert technique",
+                            PosteId = 2,
                             Prenom = "Boufaddi",
                             Site = "Oujda",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -645,7 +648,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31012",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(3876),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(374),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "KAROUITE",
@@ -653,12 +656,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Expert technique",
+                            PosteId = 2,
                             Prenom = "Ouadii",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -679,7 +682,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31281",
                             ModeRecrutement = "Spontané",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(3915),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(446),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "DIDI",
@@ -687,12 +690,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Expert technique",
+                            PosteId = 2,
                             Prenom = "OMAR",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -714,7 +717,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31317",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(3952),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(495),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "ALAOUI",
@@ -722,12 +725,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "ISMAILI",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -749,7 +752,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31334",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4023),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(544),
                             Nationnalite = "Marocaine",
                             NiveauId = 3,
                             Nom = "EL",
@@ -757,12 +760,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "HAMDAOUI",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -783,7 +786,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31361",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4064),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(617),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "ASSAYAH",
@@ -791,12 +794,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Expert technique",
+                            PosteId = 2,
                             Prenom = "Mimoun",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -818,7 +821,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31377",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4103),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(666),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "BOUHAFER",
@@ -826,12 +829,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Expert technique",
+                            PosteId = 2,
                             Prenom = "Anass",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -852,7 +855,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31375",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4139),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(719),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "EL",
@@ -860,12 +863,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "BOUHAFSI",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -887,7 +890,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31447",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4171),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(788),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "MAAIDEN",
@@ -895,12 +898,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Expert technique",
+                            PosteId = 2,
                             Prenom = "Yassine",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -921,7 +924,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31436",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4213),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(837),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "BOUKHRIS",
@@ -929,12 +932,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Expert technique",
+                            PosteId = 2,
                             Prenom = "Zakaria",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -956,7 +959,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31478",
                             ModeRecrutement = "Recommandation",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4287),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(882),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "OUAZZI",
@@ -964,12 +967,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Expert technique",
+                            PosteId = 2,
                             Prenom = "Ilyas",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -990,7 +993,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31479",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4331),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(952),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "BRAHIMI",
@@ -998,12 +1001,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Mouad",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -1024,7 +1027,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31553",
                             ModeRecrutement = "E-Chalenge",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4361),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(1039),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "EL",
@@ -1032,12 +1035,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "AKKEL",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -1058,7 +1061,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31452",
                             ModeRecrutement = "E-Chalenge",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4394),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(1085),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "OUBAID",
@@ -1066,12 +1069,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Abd",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -1093,7 +1096,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31394",
                             ModeRecrutement = "E-Chalenge",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4429),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(1155),
                             Nationnalite = "Marocaine",
                             NiveauId = 3,
                             Nom = "Echenafi",
@@ -1101,12 +1104,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Imane",
                             Site = "Oujda",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -1128,7 +1131,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31916",
                             ModeRecrutement = "Stage PFE",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4464),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(1204),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "Aadil",
@@ -1136,12 +1139,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "LAHLOU",
                             Site = "Oujda",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -1162,7 +1165,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31683",
                             ModeRecrutement = "E-Chalenge",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4521),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(1250),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "TOUIYEK",
@@ -1170,12 +1173,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Mehdi",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -1196,7 +1199,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31687",
                             ModeRecrutement = "E-Chalenge",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4554),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(1316),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "EL",
@@ -1204,12 +1207,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "HACHIMI",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -1231,7 +1234,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4595),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(1360),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Kouakou",
@@ -1239,12 +1242,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Expert technique",
+                            PosteId = 2,
                             Prenom = "Miguel",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "Freelance"
+                            SkillCenterId = 1,
+                            TypeContratId = 3
                         },
                         new
                         {
@@ -1265,7 +1268,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31824",
                             ModeRecrutement = "E-Chalenge",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4644),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(1413),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "TOUMI",
@@ -1273,12 +1276,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Achraf",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -1299,7 +1302,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31835",
                             ModeRecrutement = "E-Chalenge",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4676),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(1479),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "AIT",
@@ -1307,12 +1310,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "EL",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -1334,7 +1337,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31838",
                             ModeRecrutement = "E-Chalenge",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4708),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(1524),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "ALBOUFARISSI",
@@ -1342,12 +1345,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Nidal",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -1368,7 +1371,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31840",
                             ModeRecrutement = "E-Chalenge",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4769),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(1570),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "NAJI",
@@ -1376,12 +1379,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Naji",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -1402,7 +1405,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31933",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4802),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(1635),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "Lahmidi",
@@ -1410,12 +1413,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Fouad",
                             Site = "Oujda",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -1437,7 +1440,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31939",
                             ModeRecrutement = "Cooptation",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4832),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(1676),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "TAYEBI",
@@ -1445,12 +1448,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Aziz",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -1471,7 +1474,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31954",
                             ModeRecrutement = "Stage PFE",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4872),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(1725),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "SOSSEY",
@@ -1479,12 +1482,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "ALAOUI",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -1505,7 +1508,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31293",
                             ModeRecrutement = "Cooptation",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4903),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(1791),
                             Nationnalite = "Marocaine",
                             NiveauId = 3,
                             Nom = "EL",
@@ -1513,12 +1516,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Chef de projet technique",
+                            PosteId = 3,
                             Prenom = "HILALI",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -1539,7 +1542,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "31970",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4936),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(1836),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "CHAFIK",
@@ -1547,12 +1550,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Soufiane",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -1574,7 +1577,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32027",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(4990),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(1878),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Hamdi",
@@ -1582,12 +1585,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Fatima",
                             Site = "Oujda",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -1608,7 +1611,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32000",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5024),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(1944),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Beraich",
@@ -1616,12 +1619,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Badre",
                             Site = "Oujda",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -1642,7 +1645,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32083",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5072),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(1986),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Lagzouli",
@@ -1650,12 +1653,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "El",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -1676,7 +1679,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32080",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5102),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(2027),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "El",
@@ -1684,12 +1687,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Kaddouri",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -1710,7 +1713,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32021",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5149),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(2090),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Maadane",
@@ -1718,12 +1721,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Fatima",
                             Site = "Oujda",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -1744,7 +1747,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32062",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5181),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(2132),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Adam",
@@ -1752,12 +1755,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "El",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -1779,7 +1782,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5248),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(2174),
                             Nationnalite = "Marocaine",
                             NiveauId = 3,
                             Nom = "Droussi",
@@ -1787,12 +1790,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Expert technique",
+                            PosteId = 2,
                             Prenom = "Nabil",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "Freelance"
+                            SkillCenterId = 1,
+                            TypeContratId = 3
                         },
                         new
                         {
@@ -1814,7 +1817,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5289),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(2242),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Haouari",
@@ -1822,12 +1825,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Expert technique",
+                            PosteId = 2,
                             Prenom = "Nadir",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "Freelance"
+                            SkillCenterId = 1,
+                            TypeContratId = 3
                         },
                         new
                         {
@@ -1849,7 +1852,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5320),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(2289),
                             Nationnalite = "Marocaine",
                             NiveauId = 3,
                             Nom = "Laghoui",
@@ -1857,12 +1860,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Expert technique",
+                            PosteId = 2,
                             Prenom = "Lhoucine",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "Freelance"
+                            SkillCenterId = 1,
+                            TypeContratId = 3
                         },
                         new
                         {
@@ -1884,7 +1887,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5354),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(2339),
                             Nationnalite = "Marocaine",
                             NiveauId = 3,
                             Nom = "Zouitni",
@@ -1892,12 +1895,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Expert technique",
+                            PosteId = 2,
                             Prenom = "Abdelkrim",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "Freelance"
+                            SkillCenterId = 1,
+                            TypeContratId = 3
                         },
                         new
                         {
@@ -1918,7 +1921,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32134",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5390),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(2419),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "EL",
@@ -1926,12 +1929,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Expert technique",
+                            PosteId = 2,
                             Prenom = "YASNI",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -1952,7 +1955,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5422),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(2465),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Bounzaha",
@@ -1960,12 +1963,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Mohamed",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "Freelance"
+                            SkillCenterId = 1,
+                            TypeContratId = 3
                         },
                         new
                         {
@@ -1986,7 +1989,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32227",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5450),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(2508),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Chaimaa",
@@ -1994,12 +1997,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Chemmam",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -2020,7 +2023,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32209",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5506),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(2571),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Mounib",
@@ -2028,12 +2031,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "El",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -2054,7 +2057,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32214",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5536),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(2614),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Alaa",
@@ -2062,12 +2065,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Hammeni",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -2089,7 +2092,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32194",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5569),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(2655),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Yassine",
@@ -2097,12 +2100,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Elmousaoui",
                             Site = "Oujda",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -2123,7 +2126,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32248",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5605),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(2722),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Mohamed",
@@ -2131,12 +2134,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Roudani",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -2157,7 +2160,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32247",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5634),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(2765),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Mouad",
@@ -2165,12 +2168,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Sifane",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -2191,7 +2194,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32245",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5663),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(2805),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Mohamed",
@@ -2199,12 +2202,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Zidani",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -2226,7 +2229,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32187",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5724),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(2869),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Hicham",
@@ -2234,12 +2237,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Farraji",
                             Site = "Oujda",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -2261,7 +2264,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32188",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5758),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(2912),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Ahlam",
@@ -2269,12 +2272,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Jelti",
                             Site = "Oujda",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -2296,7 +2299,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32189",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5790),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(2956),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Mohamed",
@@ -2304,12 +2307,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Maghnouj",
                             Site = "Oujda",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -2331,7 +2334,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32190",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5823),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(3023),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Kaoutar",
@@ -2339,12 +2342,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Mehdaoui",
                             Site = "Oujda",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -2365,7 +2368,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32239",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5854),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(3066),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Abdellah",
@@ -2373,12 +2376,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Dbib",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -2399,7 +2402,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5884),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(3106),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Otmani",
@@ -2407,12 +2410,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Expert technique",
+                            PosteId = 2,
                             Prenom = "Amine",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "Freelance"
+                            SkillCenterId = 1,
+                            TypeContratId = 3
                         },
                         new
                         {
@@ -2433,7 +2436,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32287",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5912),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(3170),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "Lahcen",
@@ -2441,12 +2444,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Ettout",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -2467,7 +2470,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32300",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(5978),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(3214),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "Salim",
@@ -2475,12 +2478,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "El",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -2501,7 +2504,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32304",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6015),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(3256),
                             Nationnalite = "Marocaine",
                             NiveauId = 3,
                             Nom = "Mourad",
@@ -2509,12 +2512,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "El",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -2535,7 +2538,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32315",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6045),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(3318),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "Zakaria",
@@ -2543,12 +2546,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Lahmidi",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -2569,7 +2572,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32325",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6077),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(3362),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "Oussama",
@@ -2577,12 +2580,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Nfaoui",
                             Site = "Oujda",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -2603,7 +2606,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32334",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6109),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(3402),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Omar",
@@ -2611,12 +2614,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Expert technique",
+                            PosteId = 2,
                             Prenom = "Assanouni",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -2637,7 +2640,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32339",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6174),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(3464),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "Benchamekh",
@@ -2645,12 +2648,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Khalil",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -2671,7 +2674,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32337",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6207),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(3507),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Miloudi",
@@ -2679,12 +2682,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Zakaria",
                             Site = "Oujda",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -2705,7 +2708,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32352",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6235),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(3546),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "Bouharrada",
@@ -2713,12 +2716,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Mohammed",
                             Site = "Oujda",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -2739,7 +2742,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6264),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(3615),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Khazrouni",
@@ -2747,12 +2750,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Expert technique",
+                            PosteId = 2,
                             Prenom = "Hassan",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "Freelance"
+                            SkillCenterId = 1,
+                            TypeContratId = 3
                         },
                         new
                         {
@@ -2773,7 +2776,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32360",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6292),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(3659),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "aribech",
@@ -2781,12 +2784,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "mohamed",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -2807,7 +2810,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32358",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6321),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(3699),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Akhardid",
@@ -2815,12 +2818,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Khadija",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -2842,7 +2845,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32363",
                             ModeRecrutement = "Autre",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6350),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(3759),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "Azoulay",
@@ -2850,12 +2853,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Zakaria",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -2876,7 +2879,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32367",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6408),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(3805),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Fliti",
@@ -2884,12 +2887,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Mouad",
                             Site = "Oujda",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -2910,7 +2913,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32366",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6438),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(3845),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Bahi",
@@ -2918,12 +2921,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "ben",
                             Site = "Oujda",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -2944,7 +2947,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32370",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6472),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(3905),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Berehil",
@@ -2952,12 +2955,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Walid",
                             Site = "Oujda",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -2978,7 +2981,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32377",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6500),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(3946),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Naimi",
@@ -2986,12 +2989,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Khalil",
                             Site = "Oujda",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -3012,7 +3015,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32380",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6528),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(4028),
                             Nationnalite = "Marocaine",
                             NiveauId = 2,
                             Nom = "Lourhaoui",
@@ -3020,12 +3023,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Expert technique",
+                            PosteId = 2,
                             Prenom = "Soukaina",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -3046,7 +3049,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32392",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6557),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(4095),
                             Nationnalite = "Marocaine",
                             NiveauId = 3,
                             Nom = "Benmachi",
@@ -3054,12 +3057,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Hamza",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -3080,7 +3083,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32402",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6681),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(4137),
                             Nationnalite = "Marocaine",
                             NiveauId = 3,
                             Nom = "Ouahdi",
@@ -3088,12 +3091,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Abdachahid",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -3114,7 +3117,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6712),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(4179),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Zakaria",
@@ -3122,12 +3125,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Errafiqi",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "Freelance"
+                            SkillCenterId = 1,
+                            TypeContratId = 3
                         },
                         new
                         {
@@ -3149,7 +3152,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32463",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6740),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(4240),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "Asmae",
@@ -3157,12 +3160,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "El",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -3184,7 +3187,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "32524",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6775),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(4288),
                             Nationnalite = "Marocaine",
                             NiveauId = 4,
                             Nom = "Abderrahmane",
@@ -3192,12 +3195,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Ingénieur Concepteur développeur",
+                            PosteId = 1,
                             Prenom = "Dyar",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "CDI"
+                            SkillCenterId = 1,
+                            TypeContratId = 1
                         },
                         new
                         {
@@ -3218,7 +3221,7 @@ namespace API_MySIRH.Migrations
                             LieuNaissance = "Rabat",
                             Matricule = "0",
                             ModeRecrutement = "",
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(6808),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 964, DateTimeKind.Local).AddTicks(4333),
                             Nationnalite = "Marocaine",
                             NiveauId = 1,
                             Nom = "Fourtit",
@@ -3226,12 +3229,12 @@ namespace API_MySIRH.Migrations
                             NumCin = "F580877",
                             PhonePersonnel = "+212 06 66 20 17 40",
                             PhoneProfesionnel = "+212 06 12 34 56 78",
-                            Poste = "Expert technique",
+                            PosteId = 2,
                             Prenom = "Abdelaziz",
                             Site = "Rabat",
                             SituationFamiliale = "Célibataire",
-                            SkillCenter = "Skill Microsoft",
-                            TypeContrat = "Freelance"
+                            SkillCenterId = 1,
+                            TypeContratId = 3
                         });
                 });
 
@@ -3287,6 +3290,29 @@ namespace API_MySIRH.Migrations
                     b.ToTable("Memos");
                 });
 
+            modelBuilder.Entity("API_MySIRH.Entities.ModeRecrutement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Mode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ModificationDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ModesRecrutements");
+                });
+
             modelBuilder.Entity("API_MySIRH.Entities.Niveau", b =>
                 {
                     b.Property<int>("Id")
@@ -3314,28 +3340,28 @@ namespace API_MySIRH.Migrations
                         {
                             Id = 1,
                             CreationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(7131),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 959, DateTimeKind.Local).AddTicks(357),
                             Name = "Junior"
                         },
                         new
                         {
                             Id = 2,
                             CreationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(7132),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 959, DateTimeKind.Local).AddTicks(358),
                             Name = "Opérationnel"
                         },
                         new
                         {
                             Id = 3,
                             CreationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(7132),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 959, DateTimeKind.Local).AddTicks(359),
                             Name = "Confirmé"
                         },
                         new
                         {
                             Id = 4,
                             CreationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ModificationDate = new DateTime(2022, 4, 12, 14, 55, 38, 723, DateTimeKind.Local).AddTicks(7133),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 959, DateTimeKind.Local).AddTicks(359),
                             Name = "Sénior"
                         });
                 });
@@ -3361,6 +3387,36 @@ namespace API_MySIRH.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Posts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 960, DateTimeKind.Local).AddTicks(9827),
+                            Name = "Ingénieur Concepteur développeur"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 960, DateTimeKind.Local).AddTicks(9827),
+                            Name = "Expert technique"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 960, DateTimeKind.Local).AddTicks(9828),
+                            Name = "Chef de projet technique"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 960, DateTimeKind.Local).AddTicks(9828),
+                            Name = "Manager"
+                        });
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.Site", b =>
@@ -3407,6 +3463,43 @@ namespace API_MySIRH.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SkillCenters");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 955, DateTimeKind.Local).AddTicks(825),
+                            Name = "Skill Microsoft"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 955, DateTimeKind.Local).AddTicks(828),
+                            Name = "Skill Java"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 955, DateTimeKind.Local).AddTicks(828),
+                            Name = "Skill PHP"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 955, DateTimeKind.Local).AddTicks(829),
+                            Name = "Skill Front & Mobile"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 955, DateTimeKind.Local).AddTicks(830),
+                            Name = "Skill DevOps"
+                        });
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.ToDoItem", b =>
@@ -3498,6 +3591,29 @@ namespace API_MySIRH.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TypeContrats");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 957, DateTimeKind.Local).AddTicks(1844),
+                            Name = "CDI"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 957, DateTimeKind.Local).AddTicks(1845),
+                            Name = "CDD"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModificationDate = new DateTime(2022, 4, 19, 13, 48, 30, 957, DateTimeKind.Local).AddTicks(1845),
+                            Name = "Freelance"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -3610,10 +3726,28 @@ namespace API_MySIRH.Migrations
             modelBuilder.Entity("API_MySIRH.Entities.Collaborateur", b =>
                 {
                     b.HasOne("API_MySIRH.Entities.Niveau", "Niveau")
-                        .WithMany("Collaborateurs")
+                        .WithMany()
                         .HasForeignKey("NiveauId");
 
+                    b.HasOne("API_MySIRH.Entities.Post", "Poste")
+                        .WithMany()
+                        .HasForeignKey("PosteId");
+
+                    b.HasOne("API_MySIRH.Entities.SkillCenter", "SkillCenter")
+                        .WithMany()
+                        .HasForeignKey("SkillCenterId");
+
+                    b.HasOne("API_MySIRH.Entities.TypeContrat", "TypeContrat")
+                        .WithMany()
+                        .HasForeignKey("TypeContratId");
+
                     b.Navigation("Niveau");
+
+                    b.Navigation("Poste");
+
+                    b.Navigation("SkillCenter");
+
+                    b.Navigation("TypeContrat");
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.ToDoItem", b =>
@@ -3671,11 +3805,6 @@ namespace API_MySIRH.Migrations
             modelBuilder.Entity("API_MySIRH.Entities.Auth.User", b =>
                 {
                     b.Navigation("UserRoles");
-                });
-
-            modelBuilder.Entity("API_MySIRH.Entities.Niveau", b =>
-                {
-                    b.Navigation("Collaborateurs");
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.ToDoList", b =>

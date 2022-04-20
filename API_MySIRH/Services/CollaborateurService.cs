@@ -50,7 +50,7 @@ namespace API_MySIRH.Services
             var query = this._collaborateurRepository.GetCollaborateurs().AsQueryable();
 
             if (!string.IsNullOrEmpty(filterParams.Site))
-                query = query.Where(c => c.Site == filterParams.Site);
+                query = query.Where(c => c.Site.Name == filterParams.Site);
 
             if (!(!query.Any() || string.IsNullOrWhiteSpace(filterParams.Search)))
                 query = query.Where(c => c.Nom.Contains(filterParams.Search) || c.Prenom.Contains(filterParams.Search));
