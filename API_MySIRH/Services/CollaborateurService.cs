@@ -53,7 +53,7 @@ namespace API_MySIRH.Services
                 // I added '.Name' : see if that's good or not ...
                 query = query.Where(c => c.Site.Name == filterParams.Site); // todo-review : relation 'Site' may be nullable .. if so, (I think) that may be risky
 
-            if (!(!query.Any() || string.IsNullOrWhiteSpace(filterParams.Search)))
+            if (!(string.IsNullOrWhiteSpace(filterParams.Search)))
                 query = query.Where(c => c.Nom.Contains(filterParams.Search) || c.Prenom.Contains(filterParams.Search));
 
             query = filterParams.OrderBy switch
@@ -64,7 +64,11 @@ namespace API_MySIRH.Services
                 "matricule_asc" => query.OrderBy(c => c.Matricule),
                 "matricule_desc" => query.OrderByDescending(c => c.Matricule),
                 "exp_asc" => query.OrderBy(c => c.DateEntreeSqli),
-                "exp_desc" => query.OrderBy(c => c.DateEntreeSqli),
+                "exp_desc" => query.OrderByDescending(c => c.DateEntreeSqli),
+                "poste_asc" => query.OrderBy(c => c.Poste),
+                "poste_desc" => query.OrderByDescending(c => c.Poste),
+                "niveau_asc" => query.OrderBy(c => c.Niveau),
+                "niveau_desc" => query.OrderByDescending(c => c.Niveau),
                 _ => query.OrderBy(c => c.Nom)
             };
             return await PagedList<CollaborateurDTO>.CreateAsync(query.ProjectTo<CollaborateurDTO>(_mapper.ConfigurationProvider).AsNoTracking(), filterParams.pageNumber, filterParams.pageSize);

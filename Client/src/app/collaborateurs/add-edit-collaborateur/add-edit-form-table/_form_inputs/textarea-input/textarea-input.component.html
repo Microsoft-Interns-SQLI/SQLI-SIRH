@@ -1,0 +1,12 @@
+<div class="form-group">
+  <label for={{label}}>{{label | titlecase}}:</label>
+  <textarea
+      name="adresse"
+      rows={{rows}}
+      [class.is-invalid]="ngControl.touched && ngControl.invalid"
+      class="form-control form-control-sm"
+      [formControl]="$any(ngControl).control"></textarea>
+    <div *ngIf="ngControl.control?.errors?.['required']" class="invalid-feedback"> {{label}} is required</div>
+    <div *ngIf="ngControl.control?.errors?.['minlength']" class="invalid-feedback"> {{label}} has a min length of x</div>
+    <div *ngIf="ngControl.control?.errors?.['maxlength']" class="invalid-feedback"> {{label}} has a max length of x</div>
+</div>

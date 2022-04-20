@@ -2,11 +2,10 @@ import {
   HttpClient,
   HttpErrorResponse,
   HttpEvent,
-  HttpEventType,
   HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, tap, throwError, delay } from 'rxjs';
+import { catchError, Observable, throwError, delay } from 'rxjs';
 import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Collaborator } from '../Models/Collaborator';
@@ -21,15 +20,25 @@ export class CollaboratorsService {
     Collaborator[]
   >();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getCollaboratorsList(itemsPerPage?: number, page?: number) {
-    delay(50000);
+  getCollaboratorsList(itemsPerPage?: number, page?: number, filtrerPar?: string, search?: string, orderby?: string) {
+    //delay(50000);
     let params = new HttpParams();
-    if (page != null && itemsPerPage != null) {
+    if (page != undefined && itemsPerPage != undefined) {
       params = params.append('pageNumber', page.toString());
       params = params.append('pageSize', itemsPerPage.toString());
     }
+    if (filtrerPar != undefined) {
+      params = params.append("Site", filtrerPar)
+    }
+    if (orderby != undefined)
+      params = params.append('OrderBy', orderby.toString());
+
+    if(search !=undefined){
+      params = params.append("Search", search);
+    }
+
     return this.http.get<any>(this.myUrl, { observe: 'response', params }).pipe(
       map((response) => {
         this.paginatedResult.result = response.body;

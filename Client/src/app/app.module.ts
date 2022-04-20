@@ -46,6 +46,13 @@ import { ImportCollabsComponent } from './collaborateurs/import-collabs/import-c
 import { DownloadComponent } from './download/download.component';
 import { AddEditSummaryCardComponent } from './collaborateurs/add-edit-collaborateur/add-edit-summary-card/add-edit-summary-card.component';
 import { AddEditFormTableComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/add-edit-form-table.component';
+import { TextInputComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/_form_inputs/text-input/text-input.component';
+import { TextareaInputComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/_form_inputs/textarea-input/textarea-input.component';
+import { SelectInputComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/_form_inputs/select-input/select-input.component';
+import { HeaderComponent } from './collaborateurs/header/header.component';
+import { FooterComponent } from './collaborateurs/footer/footer.component';
+import { CustomReuseStrategyService } from './services/custom-reuse-strategy.service';
+import { RouteReuseStrategy } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -83,6 +90,11 @@ import { AddEditFormTableComponent } from './collaborateurs/add-edit-collaborate
     DownloadComponent,
     AddEditSummaryCardComponent,
     AddEditFormTableComponent,
+    TextInputComponent,
+    TextareaInputComponent,
+    SelectInputComponent,
+    HeaderComponent,
+    FooterComponent,
   ],
   imports: [
     CommonModule,
@@ -102,7 +114,10 @@ import { AddEditFormTableComponent } from './collaborateurs/add-edit-collaborate
     ngfModule,
     MatTabsModule,
   ],
-  providers: [DatePipe],
+  providers: [
+    DatePipe,
+    { provide: RouteReuseStrategy, useClass: CustomReuseStrategyService },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
