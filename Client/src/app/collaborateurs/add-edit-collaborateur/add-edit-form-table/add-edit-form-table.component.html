@@ -43,7 +43,7 @@
                 <app-text-input [formControl]="$any(formGroup.controls?.['lieuNaissance'])" [label]="'lieu Naissance'"></app-text-input>
               </div>
               <div class="col-md-3 mt-3">
-                <app-text-input [formControl]="$any(formGroup.controls?.['nationalite'])" [label]="'nationalite'"></app-text-input>
+                <app-text-input [formControl]="$any(formGroup.controls?.['nationnalite'])" [label]="'nationalite'"></app-text-input>
               </div>
               <div class="col-md-3 mt-3">
                 <app-text-input [formControl]="$any(formGroup.controls?.['numCin'])" [label]="'num Cin'"></app-text-input>
@@ -73,7 +73,7 @@
                   </div> -->
               </div>
               <div class="col-md-4 mt-3">
-                <app-select-input [formControl]="$any(formGroup.controls?.['niveau'])" [data]="niveauxData" [label]="'expertise'"></app-select-input>
+                <app-select-input [formControl]="$any(formGroup.controls?.['niveauName'])" [data]="niveauxData" [label]="'expertise'"></app-select-input>
               </div>
               <div class="col-md-4 mt-3">
                 <app-select-input [formControl]="$any(formGroup.controls?.['poste'])" [data]="postesData" [label]="'poste'"></app-select-input>

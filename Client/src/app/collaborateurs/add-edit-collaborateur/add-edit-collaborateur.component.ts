@@ -34,6 +34,7 @@ export class AddEditCollaborateurComponent implements OnInit {
         });
     } else {
       this.collab = new Collaborator();
+      this.initForm();
     }
   }
 
@@ -50,13 +51,13 @@ export class AddEditCollaborateurComponent implements OnInit {
       phoneProfesionnel: [this.collab.phoneProfesionnel],
       dateNaissance: [this.datepipe.transform(this.collab.dateNaissance, 'yyyy-MM-dd') , Validators.required],
       lieuNaissance: [this.collab.lieuNaissance],
-      nationalite: [this.collab.nationnalite],
+      nationnalite: [this.collab.nationnalite],
       numCin: [this.collab.numCin],
       adresse: [this.collab.adresse],
       dateEntreeSqli: [this.datepipe.transform(this.collab.dateEntreeSqli, 'yyyy-MM-dd')],
       dateSortieSqli: [this.datepipe.transform(this.collab.dateSortieSqli, 'yyyy-MM-dd')],
       modeRecrutement: [this.collab.modeRecrutement],
-      niveau: [this.collab.niveauName],
+      niveauName: [this.collab.niveauName],
       poste: [this.collab.poste],
       situationFamiliale: [this.collab.situationFamiliale],
       dateDebutStage: [this.datepipe.transform(this.collab.dateDebutStage, 'yyyy-MM-dd')],
@@ -66,20 +67,55 @@ export class AddEditCollaborateurComponent implements OnInit {
   }
 
   saveCollaborator(): void {
-    // if (this.collab_id) {
-    //   this.sevice
-    //     .updateCollaborator(this.collab_id, this.collab)
-    //     .subscribe((res) => {
-    //       console.log('Update Success');
-    //     });
-    // } else {
-    //   this.sevice.addCollaborator(this.collab).subscribe((res) => {
-    //     let collaborator: any = res;
-    //     window.location.href = `/addEditcollaborateur/${collaborator.id}`;
-    //   });
-    // }
-    console.log(this.formGroup.value);
-    console.log(this.collab);
+    if (!this.formGroup.valid) {
+      Object.keys(this.formGroup.controls).forEach(field => { // {1}
+        const control = this.formGroup.get(field);            // {2}
+        control?.markAsTouched({ onlySelf: true });       // {3}
+      });
+      return ;
+    }
+    this.updateCollab();
+    if (this.collab_id) {
+      this.sevice
+        .updateCollaborator(this.collab_id, this.collab)
+        .subscribe((res) => {
+        });
+    } else {
+      this.sevice.addCollaborator(this.collab).subscribe((res) => {
+        let collaborator: any = res;
+        window.location.href = `/addEditcollaborateur/${collaborator.id}`;
+      });
+    }
+  }
+
+  updateCollab() {
+    // Object.keys(this.formGroup.value)
+    // .forEach(obj => {
+    //   this.collab[obj as keyof Collaborator] = this.formGroup.value[obj];
+    // })
+    this.collab.civilite = this.formGroup.value.civilite;
+    this.collab.nom = this.formGroup.value.nom;
+    this.collab.prenom = this.formGroup.value.prenom;
+    // this.collab.username = this.formGroup.value.username;
+    this.collab.matricule = this.formGroup.value.matricule;
+    this.collab.emailPersonnel = this.formGroup.value.emailPersonnel;
+    this.collab.email = this.formGroup.value.email;
+    this.collab.phonePersonnel = this.formGroup.value.phonePersonnel;
+    this.collab.phoneProfesionnel = this.formGroup.value.phoneProfesionnel;
+    this.collab.dateNaissance = this.formGroup.value.dateNaissance;
+    this.collab.lieuNaissance = this.formGroup.value.lieuNaissance;
+    this.collab.nationnalite = this.formGroup.value.nationnalite;
+    this.collab.numCin = this.formGroup.value.numCin;
+    this.collab.adresse = this.formGroup.value.adresse;
+    this.collab.dateEntreeSqli = this.formGroup.value.dateEntreeSqli;
+    this.collab.dateSortieSqli = this.formGroup.value.dateSortieSqli;
+    this.collab.modeRecrutement = this.formGroup.value.modeRecrutement;
+    this.collab.niveauName = this.formGroup.value.niveauName;
+    this.collab.poste = this.formGroup.value.poste;
+    this.collab.situationFamiliale = this.formGroup.value.situationFamiliale;
+    this.collab.dateDebutStage = this.formGroup.value.dateDebutStage;
+    this.collab.datePremiereExperience = this.formGroup.value.datePremiereExperience;
+    this.collab.diplomes = this.formGroup.value.diplomes;
   }
 
   calculateYears(year: any): any {
