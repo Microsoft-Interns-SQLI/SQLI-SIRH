@@ -50,7 +50,8 @@ namespace API_MySIRH.Services
             var query = this._collaborateurRepository.GetCollaborateurs().AsQueryable();
 
             if (!string.IsNullOrEmpty(filterParams.Site))
-                query = query.Where(c => c.Site.Name == filterParams.Site);
+                // I added '.Name' : see if that's good or not ...
+                query = query.Where(c => c.Site.Name == filterParams.Site); // todo-review : relation 'Site' may be nullable .. if so, (I think) that may be risky
 
             if (!(!query.Any() || string.IsNullOrWhiteSpace(filterParams.Search)))
                 query = query.Where(c => c.Nom.Contains(filterParams.Search) || c.Prenom.Contains(filterParams.Search));
