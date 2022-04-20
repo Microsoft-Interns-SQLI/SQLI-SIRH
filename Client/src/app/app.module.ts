@@ -48,6 +48,8 @@ import { AddEditSummaryCardComponent } from './collaborateurs/add-edit-collabora
 import { AddEditFormTableComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/add-edit-form-table.component';
 import { HeaderComponent } from './collaborateurs/header/header.component';
 import { FooterComponent } from './collaborateurs/footer/footer.component';
+import { CustomReuseStrategyService } from './services/custom-reuse-strategy.service';
+import { RouteReuseStrategy } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -106,7 +108,10 @@ import { FooterComponent } from './collaborateurs/footer/footer.component';
     ngfModule,
     MatTabsModule,
   ],
-  providers: [DatePipe],
+  providers: [
+    DatePipe,
+    { provide: RouteReuseStrategy, useClass: CustomReuseStrategyService },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
