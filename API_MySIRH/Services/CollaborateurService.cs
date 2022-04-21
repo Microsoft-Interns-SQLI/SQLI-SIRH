@@ -65,10 +65,10 @@ namespace API_MySIRH.Services
                 "matricule_desc" => query.OrderByDescending(c => c.Matricule),
                 "exp_asc" => query.OrderBy(c => c.DateEntreeSqli),
                 "exp_desc" => query.OrderByDescending(c => c.DateEntreeSqli),
-                "poste_asc" => query.OrderBy(c => c.Poste),
-                "poste_desc" => query.OrderByDescending(c => c.Poste),
-                "niveau_asc" => query.OrderBy(c => c.Niveau),
-                "niveau_desc" => query.OrderByDescending(c => c.Niveau),
+                "poste_asc" => query.OrderBy(c => c.Poste.Name),
+                "poste_desc" => query.OrderByDescending(c => c.Poste.Name),
+                "niveau_asc" => query.OrderBy(c => c.Niveau.Name),
+                "niveau_desc" => query.OrderByDescending(c => c.Niveau.Name),
                 _ => query.OrderBy(c => c.Nom)
             };
             return await PagedList<CollaborateurDTO>.CreateAsync(query.ProjectTo<CollaborateurDTO>(_mapper.ConfigurationProvider).AsNoTracking(), filterParams.pageNumber, filterParams.pageSize);
