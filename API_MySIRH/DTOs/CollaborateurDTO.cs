@@ -40,7 +40,6 @@ namespace API_MySIRH.DTOs
         public string Diplomes { get; set; } = String.Empty;
         public string Certifications { get; set; } = String.Empty;
         public bool HadAlreadyWorkedAtSQLI { get; set; }
-        public string Files { get; set; } = String.Empty;
 
         // Relations
         public string PostName { get; set; } = String.Empty;
@@ -49,5 +48,6 @@ namespace API_MySIRH.DTOs
         public string NiveauName { get; set; } = String.Empty;
         public string TypeContratName { get; set; } = String.Empty;
         public string ModeRecrutementMode { get; set; } = String.Empty;
+        public ICollection<FileDTO>? Documents { get; set; }
     }
 }

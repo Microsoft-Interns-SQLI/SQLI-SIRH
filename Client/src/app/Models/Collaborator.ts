@@ -1,3 +1,4 @@
+import { CollabFile } from './collabFile';
 export class Collaborator {
   id: number = 0;
   creationDate: Date = new Date();
@@ -34,7 +35,7 @@ export class Collaborator {
   nationnalite: string = '';
   lieuNaissance: string = '';
   numCin: string = '';
-  files: string = '';
+  documents?: CollabFile[];
   situationFamiliale: string = '';
   hadAlreadyWorkedAtSQLI: boolean = false;
 }

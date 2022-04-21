@@ -31,6 +31,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMemoryCache();
 
 //Add IoC Mapping 
+builder.Services.AddScoped<IFileRepository, FileRepository>();
 builder.Services.AddScoped<IFilesService, FilesService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IToDoItemsRepository, ToDoItemsRepository>();
@@ -45,6 +46,7 @@ builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped(typeof(IMdmRepository<>), typeof(MdmRepository<>));
 builder.Services.AddScoped(typeof(IMdmService<,>), typeof(MdmService<,>));
+
 
 
 //DBContext Config 
