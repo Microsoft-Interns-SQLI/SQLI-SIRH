@@ -23,9 +23,8 @@ export class ToastService {
     this.toast.next(this.myToast);
   }
 
-  closeToast()
-  {
-    this.toast.next({typeMessage: ""} as Toaster);
+  closeToast() {
+    this.toast.next({ typeMessage: "" } as Toaster);
   }
 
 }

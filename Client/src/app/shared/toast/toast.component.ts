@@ -30,7 +30,7 @@ export class ToastComponent implements OnInit {
       }, 2000);
     });
   }
-  
+
   close() {
     this.toastService.closeToast();
   }
