@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { delay, Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Toaster, ToastService } from './toast.service';
 
 @Component({
@@ -27,11 +27,11 @@ export class ToastComponent implements OnInit {
           this.typeMessage == 'success' ? this.title = "Success" : this.title = "Information";
       setTimeout(() => {
         this.close();
-      }, 5000);
+      }, 2000);
     });
   }
+  
   close() {
-    var myToast: HTMLElement = document.getElementById("toast-div") as HTMLElement;
-    myToast.setAttribute("class", "toast fade hide");
+    this.toastService.closeToast();
   }
 }

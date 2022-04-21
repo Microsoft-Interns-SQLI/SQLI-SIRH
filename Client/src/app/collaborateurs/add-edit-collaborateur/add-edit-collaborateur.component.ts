@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { delay } from 'rxjs';
 import { Collaborator } from 'src/app/Models/Collaborator';
 import { CollaboratorsService } from 'src/app/services/collaborators.service';
 
@@ -35,15 +36,19 @@ export class AddEditCollaborateurComponent implements OnInit {
 
   saveCollaborator(): void {
     console.log(this.collab);
+    let message="";
     if (this.collab_id) {
       this.sevice
         .updateCollaborator(this.collab_id, this.collab)
         .subscribe((res) => {
           console.log('Update Success');
         });
+        message=this.collab.prenom+" "+this.collab.nom+" a été modifier avec success";
     } else {
       this.sevice.addCollaborator(this.collab).subscribe((res) => {
         let collaborator: any = res;
+        message=this.collab.prenom+" "+this.collab.nom+" a été modifier avec success";
+        delay(3000);
         window.location.href = `/addEditcollaborateur/${collaborator.id}`;
       });
     }

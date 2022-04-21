@@ -37,12 +37,14 @@ export class ListCollaborateursComponent implements OnInit {
     this.collabToDelete = id;
   }
   confirmDelete(id: any): void {
+    let message = "Collaborateur "+this.collabToDelete?.prenom+" "+this.collabToDelete?.nom+" a été supprimer avec success";
     if (id) {
       this.service.deleteCollaborator(id).subscribe(res => {
         console.log("deletion success!");
         this.loadCollaborators();
       });
     }
+    this.toastService.showToast("success",message);
   }
   pageChanged(even: any) {
     this.pageNumber = even.page;

@@ -21,10 +21,11 @@ export class ToastService {
       message: message
     }
     this.toast.next(this.myToast);
-    setTimeout(()=>{
+  }
 
-    },2000);
-    
+  closeToast()
+  {
+    this.toast.next({typeMessage: ""} as Toaster);
   }
 
 }
