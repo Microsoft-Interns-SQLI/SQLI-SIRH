@@ -20,6 +20,7 @@ export class Collaborator {
   autreTechnos: string = '';
   typeContrat: string = '';
   niveau: string = '';
+  niveauName: string = ''; // TODO: To be Changed ==> the API doesn't return this value at all and it should be an ID
   site: string = '';
   skillCenter: string = '';
   emailPersonnel: string = '';
@@ -30,7 +31,6 @@ export class Collaborator {
   certifications: string = '';
   langues: string = '';
   poste: string = '';
-  expertise: string = '';
   nationnalite: string = '';
   lieuNaissance: string = '';
   numCin: string = '';

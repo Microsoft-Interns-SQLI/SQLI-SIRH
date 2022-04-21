@@ -459,3 +459,5 @@ packages
 ##File Upload Directory
 Upload
 appsettings.Development.json
+
+Data/Migrations

@@ -50,7 +50,8 @@ namespace API_MySIRH.Services
             var query = this._collaborateurRepository.GetCollaborateurs().AsQueryable();
 
             if (!string.IsNullOrEmpty(filterParams.Site))
-                query = query.Where(c => c.Site == filterParams.Site);
+                // I added '.Name' : see if that's good or not ...
+                query = query.Where(c => c.Site.Name == filterParams.Site); // todo-review : relation 'Site' may be nullable .. if so, (I think) that may be risky
 
             if (!(string.IsNullOrWhiteSpace(filterParams.Search)))
                 query = query.Where(c => c.Nom.Contains(filterParams.Search) || c.Prenom.Contains(filterParams.Search));
@@ -64,10 +65,10 @@ namespace API_MySIRH.Services
                 "matricule_desc" => query.OrderByDescending(c => c.Matricule),
                 "exp_asc" => query.OrderBy(c => c.DateEntreeSqli),
                 "exp_desc" => query.OrderByDescending(c => c.DateEntreeSqli),
-                "poste_asc" => query.OrderBy(c => c.Poste),
-                "poste_desc" => query.OrderByDescending(c => c.Poste),
-                "niveau_asc" => query.OrderBy(c => c.Niveau),
-                "niveau_desc" => query.OrderByDescending(c => c.Niveau),
+                "poste_asc" => query.OrderBy(c => c.Poste.Name),
+                "poste_desc" => query.OrderByDescending(c => c.Poste.Name),
+                "niveau_asc" => query.OrderBy(c => c.Niveau.Name),
+                "niveau_desc" => query.OrderByDescending(c => c.Niveau.Name),
                 _ => query.OrderBy(c => c.Nom)
             };
             return await PagedList<CollaborateurDTO>.CreateAsync(query.ProjectTo<CollaborateurDTO>(_mapper.ConfigurationProvider).AsNoTracking(), filterParams.pageNumber, filterParams.pageSize);

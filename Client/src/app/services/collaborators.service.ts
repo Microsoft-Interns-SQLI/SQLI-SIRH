@@ -2,11 +2,10 @@ import {
   HttpClient,
   HttpErrorResponse,
   HttpEvent,
-  HttpEventType,
   HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, tap, throwError, delay } from 'rxjs';
+import { catchError, Observable, throwError, delay } from 'rxjs';
 import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Collaborator } from '../Models/Collaborator';
