@@ -4,16 +4,6 @@ namespace API_MySIRH.DTOs
 {
     public class CollaborateurDTO : DtoBase
     {
-        /**
-        / TODO : Foreign key & navigabilité
-        *----------------------------------------------------
-        *    public Post Poste { get; set; } 
-        *    public SkillCenter SkillCenter { get; set; } 
-        *    public Site Site { get; set; } 
-        *    public Niveau Niveau { get; set; } 
-        *    public TypeContrat TypeContrat { get; set; } 
-        */
-
         [Required(ErrorMessage = "le nom est obligatoire")]
         public string Nom { get; set; } = String.Empty;
 
@@ -32,13 +22,7 @@ namespace API_MySIRH.DTOs
         [Required(ErrorMessage = "la civilité est obligatoire")]
         [StringLength(1, ErrorMessage = "Civilité doit être soit 'H'~Homme soit 'F'~Femme.")]
         public string Civilite { get; set; } = String.Empty;
-        public string Poste { get; set; } = String.Empty;
-        public string SkillCenter { get; set; } = String.Empty;
-        public string Site { get; set; } = String.Empty;
-        public string NiveauName { get; set; } = String.Empty;
-        public string TypeContrat { get; set; } = String.Empty;
         public string AutreTechnos { get; set; } = String.Empty;
-        public string ModeRecrutement { get; set; } = String.Empty;
         public string SituationFamiliale { get; set; } = String.Empty;
         public string NumCin { get; set; } = String.Empty;
         public string Nationnalite { get; set; } = String.Empty;
@@ -58,5 +42,12 @@ namespace API_MySIRH.DTOs
         public bool HadAlreadyWorkedAtSQLI { get; set; }
         public string Files { get; set; } = String.Empty;
 
+        // Relations
+        public string PostName { get; set; } = String.Empty;
+        public string SkillCenterName { get; set; } = String.Empty;
+        public string SiteName { get; set; } = String.Empty;
+        public string NiveauName { get; set; } = String.Empty;
+        public string TypeContratName { get; set; } = String.Empty;
+        public string ModeRecrutementMode { get; set; } = String.Empty;
     }
 }

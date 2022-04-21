@@ -1,0 +1,12 @@
+<div class="form-group">
+  <label for={{label}}>{{label | titlecase}}:</label>
+  <select
+    name={{label}}
+    [class.is-invalid]="ngControl.touched && ngControl.invalid"
+    class="form-select form-select-sm"
+    [formControl]="$any(ngControl).control">
+    <option *ngIf="hasDefault" value disabled selected>-Sélectionner-</option>
+    <option *ngFor="let item of data.data" value="{{item.value}}">{{item.display}}</option>
+  </select>
+  <div *ngIf="ngControl.control?.errors?.['required']" class="invalid-feedback"> {{label}} is required</div>
+</div>

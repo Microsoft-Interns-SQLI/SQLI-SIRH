@@ -1,5 +1,6 @@
 import { HttpClient, HttpEvent, HttpEventType, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CollaboratorsService } from 'src/app/services/collaborators.service';
 
@@ -22,7 +23,7 @@ export class ImportCollabsComponent implements OnInit {
   formData: FormData = new FormData();
 
 
-  constructor(private collabService: CollaboratorsService, private http: HttpClient) { }
+  constructor(private collabService: CollaboratorsService) { }
 
   ngOnInit(): void {
   }
@@ -63,6 +64,12 @@ export class ImportCollabsComponent implements OnInit {
           }
       })
   }
+  close(){
+    if(this.isDone){
+      this.init();
+    }
+  }
+
 
   init(){
     this.files.splice(0,1);
@@ -70,6 +77,7 @@ export class ImportCollabsComponent implements OnInit {
     this.progress = 0;
     this.isDone = false;
     this.error = "";
+    this.messages = [];
   }
 
 }

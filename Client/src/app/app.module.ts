@@ -48,6 +48,13 @@ import { AddEditSummaryCardComponent } from './collaborateurs/add-edit-collabora
 import { AddEditFormTableComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/add-edit-form-table.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
+import { TextInputComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/_form_inputs/text-input/text-input.component';
+import { TextareaInputComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/_form_inputs/textarea-input/textarea-input.component';
+import { SelectInputComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/_form_inputs/select-input/select-input.component';
+import { HeaderComponent } from './collaborateurs/header/header.component';
+import { FooterComponent } from './collaborateurs/footer/footer.component';
+import { CustomReuseStrategyService } from './services/custom-reuse-strategy.service';
+import { RouteReuseStrategy } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -85,6 +92,11 @@ import { LoadingInterceptor } from './interceptors/loading.interceptor';
     DownloadComponent,
     AddEditSummaryCardComponent,
     AddEditFormTableComponent,
+    TextInputComponent,
+    TextareaInputComponent,
+    SelectInputComponent,
+    HeaderComponent,
+    FooterComponent,
   ],
   imports: [
     CommonModule,
@@ -106,7 +118,8 @@ import { LoadingInterceptor } from './interceptors/loading.interceptor';
     NgxSpinnerModule
   ],
   providers: [DatePipe,
-    {provide : HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}
+    {provide : HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},
+    { provide: RouteReuseStrategy, useClass: CustomReuseStrategyService }
   ],
   bootstrap: [AppComponent],
 })

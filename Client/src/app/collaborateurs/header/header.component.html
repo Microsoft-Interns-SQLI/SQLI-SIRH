@@ -1,0 +1,14 @@
+<div class="d-flex flex-row bd-highlight justify-content-between">
+    <div>
+        Show
+        <select class="custom-select px-2 py-1" [(ngModel)]="selected" (ngModelChange)="onSelect()">
+            <option [ngValue]="5">5</option>
+            <option [ngValue]="10">10</option>
+            <option [ngValue]="20">20</option>
+            <option [ngValue]="30">30</option>
+        </select>
+    </div>
+    <div>
+        <input type="search" class="form-control p-1" placeholder="Search..." (keyup)="onSearchChange()" [(ngModel)]="value">
+    </div>
+</div>

@@ -44,7 +44,7 @@
                 <span class="alert alert-success p-1" role="alert">{{message}}</span>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="init()" [disabled]="isLoading">Close</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="close()" [disabled]="isLoading">Close</button>
                 <button type="button" class="btn btn-primary" (click)="uploadFile()" [disabled]="!files.length || isLoading || error || isDone">Send file</button>
             </div>
         </div>
