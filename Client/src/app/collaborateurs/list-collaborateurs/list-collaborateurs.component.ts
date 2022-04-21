@@ -50,7 +50,6 @@ export class ListCollaborateursComponent implements OnInit {
     search?: string,
     orderby?: string
   ) {
-    this.isLoading = true;
     this.service
       .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby)
       .subscribe({
@@ -59,7 +58,6 @@ export class ListCollaborateursComponent implements OnInit {
           this.pagination = resp.pagination;
         },
         complete: () => {
-          this.isLoading = false;
         },
       });
   }
