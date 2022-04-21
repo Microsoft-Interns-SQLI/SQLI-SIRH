@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Collaborator } from 'src/app/Models/Collaborator';
 import { Pagination } from 'src/app/Models/pagination';
 import { CollaboratorsService } from 'src/app/services/collaborators.service';
-import { ToastComponent } from 'src/app/shared/toast/toast.component';
 import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Component({
@@ -12,13 +11,11 @@ import { ToastService } from 'src/app/shared/toast/toast.service';
 })
 export class ListCollaborateursComponent implements OnInit {
   collaboratorsArray: Collaborator[] = [];
-  // toast:ToastComponent = new ToastComponent();
   displayTable: boolean = true;
   collabToDelete?: Collaborator = new Collaborator();
   pagination!: Pagination;
   pageNumber = 1;
   pageSize = 10;
-  isLoading?: boolean;
 
   constructor(private service: CollaboratorsService, private toastService: ToastService) { }
 
@@ -27,13 +24,11 @@ export class ListCollaborateursComponent implements OnInit {
   }
 
   loadCollaborators() {
-    this.isLoading = true;
     this.service.getCollaboratorsList(this.pageSize, this.pageNumber).subscribe({
       next: resp => {
         this.collaboratorsArray = resp.result;
         this.pagination = resp.pagination;
       }, complete: () => {
-        this.isLoading = false;
       }
     })
   }

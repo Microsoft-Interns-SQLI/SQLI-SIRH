@@ -13,9 +13,9 @@ export class SpinnerService {
   loading() {
     this.loadingRequestCount++;
     this.ngxSpinnerService.show(undefined, {
-      type: 'ball-scale-multiple',
       bdColor: 'rgba(255,255,255,0)',
-      color: '#333333'
+      color: '#333333',
+      
     });
   }
 
@@ -24,8 +24,8 @@ export class SpinnerService {
     if (this.loadingRequestCount <= 0) {
       this.loadingRequestCount = 0;
       this.ngxSpinnerService.hide();
-    
-      }
+
+    }
   }
 
 }
