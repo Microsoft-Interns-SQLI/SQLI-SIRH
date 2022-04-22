@@ -26,8 +26,8 @@ export class AddEditFormTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.civiliteData.data = [
-      new SelectInputObject('1', 'Mr.'),
-      new SelectInputObject('2', 'Mme.'),
+      new SelectInputObject('M', 'Mr.'),
+      new SelectInputObject('F', 'Mme.'),
     ];
     this.service.getRecrutementMode().subscribe((res) => {
       this.recruteModeData.data = res.map(
@@ -46,7 +46,7 @@ export class AddEditFormTableComponent implements OnInit {
     });
     this.situationFamilialeData.data = [
       new SelectInputObject('1', 'Manager'),
-      new SelectInputObject('2', 'Celibataire'),
+      new SelectInputObject('Célibataire', 'Célibataire'),
       new SelectInputObject('3', 'Marie'),
       new SelectInputObject('4', 'Divorce'),
       new SelectInputObject('5', 'Veuf/Veuve'),

@@ -267,9 +267,9 @@ export class ListCollaborateursComponent implements OnInit {
         if (asc) {
           this.collaboratorsArray = this.collaboratorsArray
             .sort((x, y) => {
-              return x.poste.toUpperCase() > y.poste.toUpperCase()
+              return x.poste.name.toUpperCase() > y.poste.name.toUpperCase()
                 ? 1
-                : x.poste.toUpperCase() < y.poste.toUpperCase()
+                : x.poste.name.toUpperCase() < y.poste.name.toUpperCase()
                 ? -1
                 : 0;
             })
@@ -277,9 +277,9 @@ export class ListCollaborateursComponent implements OnInit {
         } else {
           this.collaboratorsArray = this.collaboratorsArray
             .sort((x, y) => {
-              return x.poste.toUpperCase() > y.poste.toUpperCase()
+              return x.poste.name.toUpperCase() > y.poste.name.toUpperCase()
                 ? -1
-                : x.poste.toUpperCase() < y.poste.toUpperCase()
+                : x.poste.name.toUpperCase() < y.poste.name.toUpperCase()
                 ? 1
                 : 0;
             })
@@ -291,9 +291,9 @@ export class ListCollaborateursComponent implements OnInit {
         if (asc) {
           this.collaboratorsArray = this.collaboratorsArray
             .sort((x, y) => {
-              return x.niveau.toUpperCase() > y.niveau.toUpperCase()
+              return x.niveau.name.toUpperCase() > y.niveau.name.toUpperCase()
                 ? 1
-                : x.niveau.toUpperCase() < y.niveau.toUpperCase()
+                : x.niveau.name.toUpperCase() < y.niveau.name.toUpperCase()
                 ? -1
                 : 0;
             })
@@ -301,9 +301,9 @@ export class ListCollaborateursComponent implements OnInit {
         } else {
           this.collaboratorsArray = this.collaboratorsArray
             .sort((x, y) => {
-              return x.niveau.toUpperCase() > y.niveau.toUpperCase()
+              return x.niveau.name.toUpperCase() > y.niveau.name.toUpperCase()
                 ? -1
-                : x.niveau.toUpperCase() < y.niveau.toUpperCase()
+                : x.niveau.name.toUpperCase() < y.niveau.name.toUpperCase()
                 ? 1
                 : 0;
             })
