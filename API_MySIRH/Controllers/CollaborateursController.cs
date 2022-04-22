@@ -164,7 +164,7 @@ namespace API_MySIRH.Controllers
                         collaborateur.Prenom = Prenom;
                         collaborateur.Email = worksheet.Rows[i].Cells[2].Value.ToString();
                         collaborateur.Civilite = worksheet.Rows[i].Cells[5].Value.ToString();
-                        collaborateur.Diplomes = worksheet.Rows[i].Cells[16].Value.ToString();
+                        // collaborateur.Diplomes = worksheet.Rows[i].Cells[16].Value.ToString();  // todo-review : added relation between 'Diplome' and 'collaborateur'
                         // collaborateur.ModeRecrutement = worksheet.Rows[i].Cells[11].Value.ToString(); // todo-review : added relation between 'ModeRecrutement' and 'collaborateur'
 
                         if (worksheet.Rows[i].Cells[6].Value != "")

@@ -16,3 +16,8 @@ export class RecruteMode extends BaseMDM {
   mode: string = "";
 }
 
+export class Diplome extends BaseMDM {
+  id: number = 0;
+
+}
+
