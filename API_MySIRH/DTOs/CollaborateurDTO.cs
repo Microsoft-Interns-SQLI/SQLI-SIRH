@@ -44,7 +44,7 @@ namespace API_MySIRH.DTOs
         public string Files { get; set; } = String.Empty;
 
         // Relations
-        // public ICollection<DiplomeDTO> DiplomesList { get; set; }
+        public ICollection<DiplomeDTO> DiplomesList { get; set; }
 
         public PostDTO? Post { get; set; }
         public SkillCenterDTO? SkillCenter { get; set; }
@@ -53,9 +53,9 @@ namespace API_MySIRH.DTOs
         public TypeContratDTO? TypeContrat { get; set; }
         public ModeRecrutementDTO? ModeRecrutement { get; set; }
 
-        // public CollaborateurDTO()
-        // {
-        //     this.DiplomesList = new List<DiplomeDTO>();
-        // }
+        public CollaborateurDTO()
+        {
+            this.DiplomesList = new List<DiplomeDTO>();
+        }
     }
 }
