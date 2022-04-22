@@ -34,6 +34,8 @@ namespace API_MySIRH.Entities
         */
         public string SituationFamiliale { get; set; } = String.Empty; //todo : table relation
 
+        public virtual ICollection<Diplome> DiplomesList { get; set; }
+
         public virtual int? ModeRecrutementId { get; set; }
         public virtual ModeRecrutement? ModeRecrutement { get; set; }
         public virtual int? SiteId { get; set; }
@@ -47,5 +49,9 @@ namespace API_MySIRH.Entities
         public virtual int? NiveauId { get; set; }
         public virtual Niveau? Niveau { get; set; }
 
+        public Collaborateur()
+        {
+            this.DiplomesList = new List<Diplome>();
+        }
     }
 }

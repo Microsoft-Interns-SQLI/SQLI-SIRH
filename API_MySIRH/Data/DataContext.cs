@@ -31,6 +31,7 @@ namespace API_MySIRH.Data
         public DbSet<SkillCenter> SkillCenters { get; set; }
         public DbSet<Dashboard> Dashboards { get; set; }
         public DbSet<ModeRecrutement> ModesRecrutements { get; set; }
+        public DbSet<Diplome> Diplomes { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -58,7 +59,6 @@ namespace API_MySIRH.Data
                 }
             );
 
-
             //Seeding the relation between our user and role to AspNetUserRoles table
             modelBuilder.Entity<UserRole>().HasData(
                 new UserRole
@@ -67,42 +67,6 @@ namespace API_MySIRH.Data
                     UserId = 1
                 }
             );
-
-            DataInitializer.SeedData().TryGetValue("ModesRecrutement", out Object modesRecrutement);
-            modelBuilder.Entity<ModeRecrutement>().HasData(
-                (List<ModeRecrutement>)modesRecrutement
-            );
-
-            DataInitializer.SeedData().TryGetValue("Sites", out Object sites);
-            modelBuilder.Entity<Site>().HasData(
-                (List<Site>)sites
-            );
-
-            DataInitializer.SeedData().TryGetValue("SkillCenters", out Object skillCenters);
-            modelBuilder.Entity<SkillCenter>().HasData(
-                (List<SkillCenter>)skillCenters
-            );
-
-            DataInitializer.SeedData().TryGetValue("TypesContrat", out Object typesContrat);
-            modelBuilder.Entity<TypeContrat>().HasData(
-                (List<TypeContrat>)typesContrat
-            );
-
-            DataInitializer.SeedData().TryGetValue("Niveaux", out Object niveaux);
-            modelBuilder.Entity<Niveau>().HasData(
-                (List<Niveau>)niveaux
-            );
-
-            DataInitializer.SeedData().TryGetValue("Postes", out Object postes);
-            modelBuilder.Entity<Post>().HasData(
-                (List<Post>)postes
-            );
-
-            //Get init collaborateurs and add it to db
-            DataInitializer.SeedData().TryGetValue("Collaborateurs", out Object collaborateurs);
-            modelBuilder.Entity<Collaborateur>().HasData(
-                 (List<Collaborateur>)collaborateurs
-             );
 
             modelBuilder.Entity<User>()
                 .HasMany(u => u.UserRoles)

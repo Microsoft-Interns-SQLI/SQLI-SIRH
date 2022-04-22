@@ -7,5 +7,9 @@
         public string Description { get; set; } = string.Empty;
         public ICollection<ToDoItem> ToDoItemList { get; set; }
 
+        public ToDoList()
+        {
+            this.ToDoItemList = new List<ToDoItem>();
+        }
     }
 }

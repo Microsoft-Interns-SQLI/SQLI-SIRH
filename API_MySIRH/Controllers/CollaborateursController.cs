@@ -19,7 +19,6 @@ namespace API_MySIRH.Controllers
         private readonly ICollaborateurService _collaborateurService;
         private readonly IMapper _mapper;
 
-
         public CollaborateursController(ICollaborateurService collaborateurService, IMapper mapper)
         {
             _collaborateurService = collaborateurService;
@@ -197,6 +196,5 @@ namespace API_MySIRH.Controllers
 
             return compteRendu;
         }
-
     }
 }
