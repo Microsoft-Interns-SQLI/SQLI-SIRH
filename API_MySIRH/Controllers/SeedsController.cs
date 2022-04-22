@@ -23,7 +23,7 @@ namespace API_MySIRH.Controllers
             this._dataContext = dataContext;
         }
 
-        [HttpGet("Collaborateurs")]
+        [HttpGet("Data-And-Collaborateurs")]
         public async Task<IActionResult> Collaborateurs()
         {
             // clearing tables
@@ -65,7 +65,7 @@ namespace API_MySIRH.Controllers
             );
         }
 
-
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<List<Collaborateur>> SeedCollaborateurs()
         {
             List<Collaborateur> collaborateurs = new List<Collaborateur>();
@@ -122,6 +122,7 @@ namespace API_MySIRH.Controllers
             return collaborateurs;
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         public List<Niveau> SeedNiveaux()
         {
             return new List<Niveau>
@@ -133,6 +134,7 @@ namespace API_MySIRH.Controllers
             };
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         public List<Post> SeedPostes()
         {
             return new List<Post>
@@ -144,6 +146,7 @@ namespace API_MySIRH.Controllers
             };
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         public List<TypeContrat> SeedTypesContrat()
         {
             return new List<TypeContrat>
@@ -154,6 +157,7 @@ namespace API_MySIRH.Controllers
             };
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         public List<SkillCenter> SeedSkillCenters()
         {
             return new List<SkillCenter>
@@ -166,6 +170,7 @@ namespace API_MySIRH.Controllers
             };
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         public List<Site> SeedSites()
         {
             return new List<Site>
@@ -176,6 +181,7 @@ namespace API_MySIRH.Controllers
             };
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         public List<ModeRecrutement> SeedModeRecrutement()
         {
             return new List<ModeRecrutement>
@@ -188,6 +194,7 @@ namespace API_MySIRH.Controllers
             };
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task DiplomesTraitement(Collaborateur collaborateur, string diplomes)
         {
             if (diplomes.Length != 0)
