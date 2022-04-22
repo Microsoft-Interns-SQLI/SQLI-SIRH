@@ -14,9 +14,9 @@ export class FilesService {
   URL = environment.URL;
 
   constructor(private http: HttpClient) {}
-  public upload(file: any): Observable<any> {
+  public upload(file: any, id: number): Observable<any> {
     return this.http
-      .post(`${this.URL}api/files/upload`, file, {
+      .post(`${this.URL}api/files/upload/${id}`, file, {
         reportProgress: true,
         observe: 'events',
       })

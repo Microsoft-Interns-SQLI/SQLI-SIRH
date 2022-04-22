@@ -26,7 +26,7 @@ namespace API_MySIRH.Repositories
                 if (collaborateur.Civilite == "M")
                     dashboard.nbMale++;
                 else dashboard.nbFemale++;
-            } 
+            }
 
             await this._context.SaveChangesAsync();
             return collaborateur;
@@ -62,17 +62,26 @@ namespace API_MySIRH.Repositories
             return query;
         }
 
-        public async Task<Collaborateur> GetCollaborateurById(int id)
+        public async Task<Collaborateur?> GetCollaborateurById(int id)
         {
-            return await this._context.Collaborateurs.FindAsync(id);
+            return await this._context.Collaborateurs
+            .Include(c => c.SkillCenter)
+            .Include(c => c.Site)
+            .Include(c => c.Niveau)
+            .Include(c => c.TypeContrat)
+            .Include(c => c.ModeRecrutement)
+            .Include(c => c.Documents)
+            .Include(c => c.DiplomesList)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task<Collaborateur> GetCollaborateurByMatricule(string matricule)
+        public async Task<Collaborateur?> GetCollaborateurByMatricule(string matricule)
         {
             return await this._context.Collaborateurs.Where(c => c.Matricule == matricule).AsNoTracking().FirstOrDefaultAsync();
         }
 
-        public async Task<Collaborateur> GetCollaborateurByEmail(string email)
+        public async Task<Collaborateur?> GetCollaborateurByEmail(string email)
         {
             return await this._context.Collaborateurs.Where(c => c.Email == email).AsNoTracking().FirstOrDefaultAsync();
         }

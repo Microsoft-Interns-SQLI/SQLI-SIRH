@@ -6,9 +6,9 @@ namespace API_MySIRH.Interfaces
     public interface ICollaborateurRepository
     {
         IQueryable<Collaborateur> GetCollaborateurs();
-        Task<Collaborateur> GetCollaborateurById(int id);
-        Task<Collaborateur> GetCollaborateurByMatricule(string matricule);
-        Task<Collaborateur> GetCollaborateurByEmail(string email);
+        Task<Collaborateur?> GetCollaborateurById(int id);
+        Task<Collaborateur?> GetCollaborateurByMatricule(string matricule);
+        Task<Collaborateur?> GetCollaborateurByEmail(string email);
         Task UpdateCollaborateur(int id, Collaborateur collaborateur);
         Task<Collaborateur> AddCollaborateur(Collaborateur collaborateur);
         Task DeleteCollaborateur(int id);

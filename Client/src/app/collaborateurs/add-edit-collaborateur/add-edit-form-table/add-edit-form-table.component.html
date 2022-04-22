@@ -153,7 +153,7 @@
                   <div class="row">
                     <div class="col mt-3">
                       <app-select-input
-                        [formControl]="$any(myFormGroup.controls?.['niveauName'])"
+                        [formControl]="$any(myFormGroup.controls?.['niveau'])"
                         [data]="niveauxData"
                         [label]="'expertise'"
                       ></app-select-input>
@@ -270,12 +270,29 @@
             <mat-tab label="Materiels"> Materiels Content </mat-tab>
             <mat-tab label="Cv & Documents"> Cv & Documents Content </mat-tab>
             <mat-tab label="HR Incidents"> HR Incidents Content </mat-tab> -->
+            <mat-tab label="Cv & Documents">
+              <app-download [collab]="collab"></app-download>
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-secondary"
+                data-bs-toggle="modal"
+                data-bs-target="#upload"
+              >
+                Upload Document
+              </button></mat-tab
+            >
           </mat-tab-group>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- <app-upload class="modal fade" id="upload" tabindex="-1" aria-labelledby="uploadmodal" aria-hidden="true">
-  </app-upload> -->
+  <app-upload
+    class="modal fade"
+    id="upload"
+    tabindex="-1"
+    aria-labelledby="uploadmodal"
+    aria-hidden="true"
+  >
+  </app-upload>
 </form>

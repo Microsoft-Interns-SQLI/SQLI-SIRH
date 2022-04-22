@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using API_MySIRH.Entities;
 
 namespace API_MySIRH.DTOs
 {
@@ -37,17 +38,22 @@ namespace API_MySIRH.DTOs
         public DateTime? DateEntreeSqli { get; set; }
         public DateTime? DateSortieSqli { get; set; }
         public DateTime? DateDebutStage { get; set; }
-        public string Diplomes { get; set; } = String.Empty;
         public string Certifications { get; set; } = String.Empty;
         public bool HadAlreadyWorkedAtSQLI { get; set; }
-        public string Files { get; set; } = String.Empty;
 
         // Relations
-        public string PostName { get; set; } = String.Empty;
-        public string SkillCenterName { get; set; } = String.Empty;
-        public string SiteName { get; set; } = String.Empty;
-        public string NiveauName { get; set; } = String.Empty;
-        public string TypeContratName { get; set; } = String.Empty;
-        public string ModeRecrutementMode { get; set; } = String.Empty;
+
+        public PostDTO? Poste { get; set; }
+        public SkillCenterDTO? SkillCenter { get; set; }
+        public SiteDTO? Site { get; set; }
+        public NiveauDTO? Niveau { get; set; }
+        public TypeContratDTO? TypeContrat { get; set; }
+        public ModeRecrutementDTO? ModeRecrutement { get; set; }
+        public ICollection<DiplomeDTO> DiplomesList { get; set; }
+        public ICollection<FileDTO>? Documents { get; set; }
+        public CollaborateurDTO()
+        {
+            this.DiplomesList = new List<DiplomeDTO>();
+        }
     }
 }

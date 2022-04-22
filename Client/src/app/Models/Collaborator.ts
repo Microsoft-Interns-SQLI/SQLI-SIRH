@@ -1,3 +1,6 @@
+import { CollabFile } from './collabFile';
+import { Diplome } from './MdmModel';
+import { Niveau, Poste, RecruteMode } from './MdmModel';
 export class Collaborator {
   id: number = 0;
   creationDate: Date = new Date();
@@ -7,20 +10,19 @@ export class Collaborator {
   dateNaissance: Date = new Date();
   matricule: string = '';
   civilite: string = '';
-  modeRecrutement: string = '';
+  modeRecrutement: RecruteMode = new RecruteMode();
   datePremiereExperience: Date = new Date();
   dateEntreeSqli: Date = new Date();
   dateSortieSqli: Date = new Date();
   dateDebutStage: Date = new Date();
-  diplomes: string = '';
+  diplomesList: Diplome[] = [];
 
   note: string = '';
   phonePersonnel: string = '';
   phoneProfesionnel: string = '';
   autreTechnos: string = '';
   typeContrat: string = '';
-  niveau: string = '';
-  niveauName: string = ''; // TODO: To be Changed ==> the API doesn't return this value at all and it should be an ID
+  niveau: Niveau = new Niveau();
   site: string = '';
   skillCenter: string = '';
   emailPersonnel: string = '';
@@ -30,11 +32,11 @@ export class Collaborator {
   technos: string = '';
   certifications: string = '';
   langues: string = '';
-  poste: string = '';
+  poste: Poste = new Poste();
   nationnalite: string = '';
   lieuNaissance: string = '';
   numCin: string = '';
-  files: string = '';
+  documents?: CollabFile[];
   situationFamiliale: string = '';
   hadAlreadyWorkedAtSQLI: boolean = false;
 }

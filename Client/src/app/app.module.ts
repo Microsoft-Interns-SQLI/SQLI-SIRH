@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { NgxEditorModule } from 'ngx-editor';
 import { CommonModule } from '@angular/common';
@@ -46,6 +46,8 @@ import { ImportCollabsComponent } from './collaborateurs/import-collabs/import-c
 import { DownloadComponent } from './download/download.component';
 import { AddEditSummaryCardComponent } from './collaborateurs/add-edit-collaborateur/add-edit-summary-card/add-edit-summary-card.component';
 import { AddEditFormTableComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/add-edit-form-table.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { LoadingInterceptor } from './interceptors/loading.interceptor';
 import { TextInputComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/_form_inputs/text-input/text-input.component';
 import { TextareaInputComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/_form_inputs/textarea-input/textarea-input.component';
 import { SelectInputComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/_form_inputs/select-input/select-input.component';
@@ -113,10 +115,11 @@ import { RouteReuseStrategy } from '@angular/router';
     BrowserAnimationsModule,
     ngfModule,
     MatTabsModule,
+    NgxSpinnerModule
   ],
-  providers: [
-    DatePipe,
-    { provide: RouteReuseStrategy, useClass: CustomReuseStrategyService },
+  providers: [DatePipe,
+    {provide : HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},
+    { provide: RouteReuseStrategy, useClass: CustomReuseStrategyService }
   ],
   bootstrap: [AppComponent],
 })

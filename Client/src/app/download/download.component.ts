@@ -20,24 +20,25 @@ export class DownloadComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {}
-  download() {
+  download(document: any) {
+    console.log(document);
     this.subscription = this.filesService
-      .download(this.collab?.files)
+      .download(document.url)
       .subscribe((event) => {
         if (event.type === HttpEventType.UploadProgress)
           this.progress = Math.round((100 * event.loaded) / event.total);
         else if (event.type === HttpEventType.Response) {
           this.message = 'Download success.';
-          this.downloadFile(event);
+          this.downloadFile(event, document.url);
         }
       });
   }
-  private downloadFile(data: HttpResponse<Blob>) {
+  private downloadFile(data: HttpResponse<Blob>, docURL: any) {
     const downloadedFile = new Blob([data.body!], { type: data.body!.type });
     const a = document.createElement('a');
     a.setAttribute('style', 'display:none;');
     document.body.appendChild(a);
-    a.download = this.collab?.files ? this.collab?.files : '';
+    a.download = docURL ? docURL : '';
     a.href = URL.createObjectURL(downloadedFile);
     a.target = '_blank';
     a.click();

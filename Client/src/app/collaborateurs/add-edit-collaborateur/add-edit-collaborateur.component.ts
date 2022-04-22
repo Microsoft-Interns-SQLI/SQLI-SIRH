@@ -2,8 +2,10 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { delay } from 'rxjs';
 import { Collaborator } from 'src/app/Models/Collaborator';
 import { CollaboratorsService } from 'src/app/services/collaborators.service';
+import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Component({
   selector: 'app-add-edit-collaborateur',
@@ -19,7 +21,8 @@ export class AddEditCollaborateurComponent implements OnInit {
   constructor(
     private actRoute: ActivatedRoute,
     private sevice: CollaboratorsService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private toastServise: ToastService
   ) {
     this.collab_id = this.actRoute.snapshot.params['id'];
   }
@@ -39,6 +42,7 @@ export class AddEditCollaborateurComponent implements OnInit {
   }
 
   initForm(): void {
+    console.log(this.collab);
     this.formGroup = this.fb.group({
       civilite: [this.collab.civilite, [Validators.required, Validators.minLength(1), Validators.maxLength(1)]],
       nom: [this.collab.nom, Validators.required],
@@ -49,16 +53,16 @@ export class AddEditCollaborateurComponent implements OnInit {
       email: [this.collab.email, Validators.email],
       phonePersonnel: [this.collab.phonePersonnel],
       phoneProfesionnel: [this.collab.phoneProfesionnel],
-      dateNaissance: [this.datepipe.transform(this.collab.dateNaissance, 'yyyy-MM-dd') , Validators.required],
+      dateNaissance: [this.datepipe.transform(this.collab.dateNaissance, 'yyyy-MM-dd'), Validators.required],
       lieuNaissance: [this.collab.lieuNaissance],
       nationnalite: [this.collab.nationnalite],
       numCin: [this.collab.numCin],
       adresse: [this.collab.adresse],
       dateEntreeSqli: [this.datepipe.transform(this.collab.dateEntreeSqli, 'yyyy-MM-dd')],
       dateSortieSqli: [this.datepipe.transform(this.collab.dateSortieSqli, 'yyyy-MM-dd')],
-      modeRecrutement: [this.collab.modeRecrutement],
-      niveauName: [this.collab.niveauName],
-      poste: [this.collab.poste],
+      modeRecrutement: [this.collab.modeRecrutement ? this.collab.modeRecrutement.id : ''],
+      niveau: [this.collab.niveau ? this.collab.niveau.id : ''],
+      poste: [this.collab.poste ? this.collab.poste.id : ''],
       situationFamiliale: [this.collab.situationFamiliale],
       dateDebutStage: [this.datepipe.transform(this.collab.dateDebutStage, 'yyyy-MM-dd')],
       datePremiereExperience: [this.datepipe.transform(this.collab.datePremiereExperience, 'yyyy-MM-dd')],
@@ -67,9 +71,10 @@ export class AddEditCollaborateurComponent implements OnInit {
   }
 
   saveCollaborator(): void {
+    let message = "";
     if (!this.formGroup.valid) {
       this.formGroup.markAllAsTouched();
-      return ;
+      return;
     }
     this.updateCollab();
     if (this.collab_id) {
@@ -77,10 +82,16 @@ export class AddEditCollaborateurComponent implements OnInit {
         .updateCollaborator(this.collab_id, this.collab)
         .subscribe((res) => {
         });
+      message = this.collab.prenom + " " + this.collab.nom + " a été modifier avec success";
+      this.toastServise.showToast("success", message);
     } else {
       this.sevice.addCollaborator(this.collab).subscribe((res) => {
         let collaborator: any = res;
-        window.location.href = `/addEditcollaborateur/${collaborator.id}`;
+        message = this.collab.prenom + " " + this.collab.nom + " a été ajouter avec success";
+        this.toastServise.showToast("success", message);
+        setTimeout(() => {
+          window.location.href = `/addEditcollaborateur/${collaborator.id}`;
+        }, 2000)
       });
     }
   }
@@ -106,9 +117,9 @@ export class AddEditCollaborateurComponent implements OnInit {
     this.collab.adresse = this.formGroup.value.adresse;
     this.collab.dateEntreeSqli = this.formGroup.value.dateEntreeSqli;
     this.collab.dateSortieSqli = this.formGroup.value.dateSortieSqli;
-    this.collab.modeRecrutement = this.formGroup.value.modeRecrutement;
-    this.collab.niveauName = this.formGroup.value.niveauName;
-    this.collab.poste = this.formGroup.value.poste;
+    this.collab.modeRecrutement.id = this.formGroup.value.modeRecrutement;
+    this.collab.niveau.id = this.formGroup.value.niveau;
+    this.collab.poste.id = this.formGroup.value.poste;
     this.collab.situationFamiliale = this.formGroup.value.situationFamiliale;
     this.collab.dateDebutStage = this.formGroup.value.dateDebutStage;
     this.collab.datePremiereExperience = this.formGroup.value.datePremiereExperience;

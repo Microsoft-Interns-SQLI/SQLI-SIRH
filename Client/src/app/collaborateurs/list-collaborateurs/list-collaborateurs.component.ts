@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Collaborator } from 'src/app/Models/Collaborator';
 import { Pagination } from 'src/app/Models/pagination';
 import { CollaboratorsService } from 'src/app/services/collaborators.service';
+import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Component({
   selector: 'app-list-collaborateurs',
@@ -15,7 +16,6 @@ export class ListCollaborateursComponent implements OnInit {
 
   pageNumber = 1;
   pageSize = 10;
-
   //Initalize pagination to avert undefined error value in the child component
   pagination: Pagination = {
     pageSize: this.pageSize,
@@ -37,7 +37,7 @@ export class ListCollaborateursComponent implements OnInit {
   trierParMatricule: boolean = false;
   trierParAnnee: boolean = false;
 
-  constructor(private service: CollaboratorsService) {}
+  constructor(private service: CollaboratorsService, private toastService: ToastService) {}
 
   ngOnInit(): void {
     this.loadCollaborators(this.pageSize, this.pageNumber);
@@ -50,7 +50,6 @@ export class ListCollaborateursComponent implements OnInit {
     search?: string,
     orderby?: string
   ) {
-    this.isLoading = true;
     this.service
       .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby)
       .subscribe({
@@ -59,7 +58,6 @@ export class ListCollaborateursComponent implements OnInit {
           this.pagination = resp.pagination;
         },
         complete: () => {
-          this.isLoading = false;
         },
       });
   }
@@ -118,12 +116,14 @@ export class ListCollaborateursComponent implements OnInit {
     this.collabToDelete = id;
   }
   confirmDelete(id: any): void {
+    let message = "Collaborateur "+this.collabToDelete?.prenom+" "+this.collabToDelete?.nom+" a été supprimer avec success";
     if (id) {
       this.service.deleteCollaborator(id).subscribe((res) => {
         console.log('deletion success!');
         this.loadCollaborators();
       });
     }
+    this.toastService.showToast("success",message);
   }
   changeDisplay(event: any): void {
     if (event == 'table') {
@@ -267,9 +267,9 @@ export class ListCollaborateursComponent implements OnInit {
         if (asc) {
           this.collaboratorsArray = this.collaboratorsArray
             .sort((x, y) => {
-              return x.poste.toUpperCase() > y.poste.toUpperCase()
+              return x.poste.name.toUpperCase() > y.poste.name.toUpperCase()
                 ? 1
-                : x.poste.toUpperCase() < y.poste.toUpperCase()
+                : x.poste.name.toUpperCase() < y.poste.name.toUpperCase()
                 ? -1
                 : 0;
             })
@@ -277,9 +277,9 @@ export class ListCollaborateursComponent implements OnInit {
         } else {
           this.collaboratorsArray = this.collaboratorsArray
             .sort((x, y) => {
-              return x.poste.toUpperCase() > y.poste.toUpperCase()
+              return x.poste.name.toUpperCase() > y.poste.name.toUpperCase()
                 ? -1
-                : x.poste.toUpperCase() < y.poste.toUpperCase()
+                : x.poste.name.toUpperCase() < y.poste.name.toUpperCase()
                 ? 1
                 : 0;
             })
@@ -291,9 +291,9 @@ export class ListCollaborateursComponent implements OnInit {
         if (asc) {
           this.collaboratorsArray = this.collaboratorsArray
             .sort((x, y) => {
-              return x.niveau.toUpperCase() > y.niveau.toUpperCase()
+              return x.niveau.name.toUpperCase() > y.niveau.name.toUpperCase()
                 ? 1
-                : x.niveau.toUpperCase() < y.niveau.toUpperCase()
+                : x.niveau.name.toUpperCase() < y.niveau.name.toUpperCase()
                 ? -1
                 : 0;
             })
@@ -301,9 +301,9 @@ export class ListCollaborateursComponent implements OnInit {
         } else {
           this.collaboratorsArray = this.collaboratorsArray
             .sort((x, y) => {
-              return x.niveau.toUpperCase() > y.niveau.toUpperCase()
+              return x.niveau.name.toUpperCase() > y.niveau.name.toUpperCase()
                 ? -1
-                : x.niveau.toUpperCase() < y.niveau.toUpperCase()
+                : x.niveau.name.toUpperCase() < y.niveau.name.toUpperCase()
                 ? 1
                 : 0;
             })
