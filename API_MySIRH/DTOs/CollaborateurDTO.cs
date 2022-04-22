@@ -43,7 +43,7 @@ namespace API_MySIRH.DTOs
 
         // Relations
 
-        public PostDTO? Post { get; set; }
+        public PostDTO? Poste { get; set; }
         public SkillCenterDTO? SkillCenter { get; set; }
         public SiteDTO? Site { get; set; }
         public NiveauDTO? Niveau { get; set; }

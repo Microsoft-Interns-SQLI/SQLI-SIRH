@@ -18,6 +18,9 @@ export class RecruteMode extends BaseMDM {
 
 export class Diplome extends BaseMDM {
   id: number = 0;
-
+  annee?: number;
+  label?: string;
+  detail?: string;
+  description?: string;
 }
 

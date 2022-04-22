@@ -1,4 +1,5 @@
 import { CollabFile } from './collabFile';
+import { Diplome } from './MdmModel';
 export class Collaborator {
   id: number = 0;
   creationDate: Date = new Date();
@@ -13,7 +14,7 @@ export class Collaborator {
   dateEntreeSqli: Date = new Date();
   dateSortieSqli: Date = new Date();
   dateDebutStage: Date = new Date();
-  diplomes: string = '';
+  diplomesList: Diplome[] = [];
 
   note: string = '';
   phonePersonnel: string = '';
