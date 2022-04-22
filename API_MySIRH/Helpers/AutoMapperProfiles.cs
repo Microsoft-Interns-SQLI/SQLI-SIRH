@@ -24,6 +24,7 @@ namespace API_MySIRH.Helpers
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<Dashboard, DashboardDto>().ReverseMap();
             CreateMap<ModeRecrutement, ModeRecrutementDTO>().ReverseMap();
+            CreateMap<Document, FileDTO>().ReverseMap();
 
             CreateMap<CollaborateurDTO, Collaborateur>()
             //.ForMember(c => c.DiplomesList, cc => cc.MapFrom(col => col.DiplomesList))
