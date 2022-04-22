@@ -38,16 +38,17 @@ namespace API_MySIRH.Services
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
                 if (file.Length > 0)
                 {
+                    var fileId = Guid.NewGuid();
                     var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName?.Trim('"');
-                    var fullPath = Path.Combine(pathToSave, fileName);
-                    var dbPath = Path.Combine(folderName, fileName);
+                    var fullPath = Path.Combine(pathToSave, fileId + "_" + fileName);
                     using (var stream = new FileStream(fullPath, FileMode.Create))
                     {
                         await file.CopyToAsync(stream);
                     }
                     var fileToAdd = new FileDTO();
-                    fileToAdd.URL = dbPath;
+                    fileToAdd.URL = fullPath;
                     fileToAdd.FileName = fileName;
+                    fileToAdd.FileId = fileId;
                     fileToAdd.CollaborateurId = collabId;
                     await _fileRepository.Upload(_mapper.Map<Document>(fileToAdd));
                     Paths.Add(fileToAdd);

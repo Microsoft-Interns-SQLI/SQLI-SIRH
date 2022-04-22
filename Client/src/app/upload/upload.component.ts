@@ -28,7 +28,6 @@ export class UploadComponent implements OnInit, OnDestroy {
   path: string = '';
   constructor(
     private filesService: FilesService,
-    private collabService: CollaboratorsService,
     private route: ActivatedRoute
   ) {}
   ngOnDestroy(): void {}
