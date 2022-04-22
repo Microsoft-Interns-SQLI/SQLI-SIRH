@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Collaborator } from 'src/app/Models/Collaborator';
 import { Pagination } from 'src/app/Models/pagination';
 import { CollaboratorsService } from 'src/app/services/collaborators.service';
+import { SpinnerService } from 'src/app/services/spinner.service';
 import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Component({
@@ -37,7 +38,7 @@ export class ListCollaborateursComponent implements OnInit {
   trierParMatricule: boolean = false;
   trierParAnnee: boolean = false;
 
-  constructor(private service: CollaboratorsService, private toastService: ToastService) {}
+  constructor(private service: CollaboratorsService, private toastService: ToastService, private spinnerService: SpinnerService) { }
 
   ngOnInit(): void {
     this.loadCollaborators(this.pageSize, this.pageNumber);
@@ -50,6 +51,11 @@ export class ListCollaborateursComponent implements OnInit {
     search?: string,
     orderby?: string
   ) {
+    if (search != undefined) {
+      this.spinnerService.isSearch.next(true);
+    } else {
+      this.spinnerService.isSearch.next(false);
+    }
     this.service
       .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby)
       .subscribe({
@@ -116,14 +122,14 @@ export class ListCollaborateursComponent implements OnInit {
     this.collabToDelete = id;
   }
   confirmDelete(id: any): void {
-    let message = "Collaborateur "+this.collabToDelete?.prenom+" "+this.collabToDelete?.nom+" a été supprimer avec success";
+    let message = "Collaborateur " + this.collabToDelete?.prenom + " " + this.collabToDelete?.nom + " a été supprimer avec success";
     if (id) {
       this.service.deleteCollaborator(id).subscribe((res) => {
         console.log('deletion success!');
         this.loadCollaborators();
       });
     }
-    this.toastService.showToast("success",message);
+    this.toastService.showToast("success", message);
   }
   changeDisplay(event: any): void {
     if (event == 'table') {
@@ -200,8 +206,8 @@ export class ListCollaborateursComponent implements OnInit {
               return x.nom.toUpperCase() > y.nom.toUpperCase()
                 ? 1
                 : x.nom.toUpperCase() < y.nom.toUpperCase()
-                ? -1
-                : 0;
+                  ? -1
+                  : 0;
             })
             .slice();
         } else {
@@ -210,8 +216,8 @@ export class ListCollaborateursComponent implements OnInit {
               return x.nom.toUpperCase() > y.nom.toUpperCase()
                 ? -1
                 : x.nom.toUpperCase() < y.nom.toUpperCase()
-                ? 1
-                : 0;
+                  ? 1
+                  : 0;
             })
             .slice();
         }
@@ -224,8 +230,8 @@ export class ListCollaborateursComponent implements OnInit {
               return x.prenom.toUpperCase() > y.prenom.toUpperCase()
                 ? 1
                 : x.prenom.toUpperCase() < y.prenom.toUpperCase()
-                ? -1
-                : 0;
+                  ? -1
+                  : 0;
             })
             .slice();
         } else {
@@ -234,8 +240,8 @@ export class ListCollaborateursComponent implements OnInit {
               return x.prenom.toUpperCase() > y.prenom.toUpperCase()
                 ? -1
                 : x.prenom.toUpperCase() < y.prenom.toUpperCase()
-                ? 1
-                : 0;
+                  ? 1
+                  : 0;
             })
             .slice();
         }
@@ -270,8 +276,8 @@ export class ListCollaborateursComponent implements OnInit {
               return x.poste.name.toUpperCase() > y.poste.name.toUpperCase()
                 ? 1
                 : x.poste.name.toUpperCase() < y.poste.name.toUpperCase()
-                ? -1
-                : 0;
+                  ? -1
+                  : 0;
             })
             .slice();
         } else {
@@ -280,8 +286,8 @@ export class ListCollaborateursComponent implements OnInit {
               return x.poste.name.toUpperCase() > y.poste.name.toUpperCase()
                 ? -1
                 : x.poste.name.toUpperCase() < y.poste.name.toUpperCase()
-                ? 1
-                : 0;
+                  ? 1
+                  : 0;
             })
             .slice();
         }
@@ -294,8 +300,8 @@ export class ListCollaborateursComponent implements OnInit {
               return x.niveau.name.toUpperCase() > y.niveau.name.toUpperCase()
                 ? 1
                 : x.niveau.name.toUpperCase() < y.niveau.name.toUpperCase()
-                ? -1
-                : 0;
+                  ? -1
+                  : 0;
             })
             .slice();
         } else {
@@ -304,8 +310,8 @@ export class ListCollaborateursComponent implements OnInit {
               return x.niveau.name.toUpperCase() > y.niveau.name.toUpperCase()
                 ? -1
                 : x.niveau.name.toUpperCase() < y.niveau.name.toUpperCase()
-                ? 1
-                : 0;
+                  ? 1
+                  : 0;
             })
             .slice();
         }

@@ -245,19 +245,19 @@ namespace API_MySIRH.Controllers
                 worksheet[$"C{i}"].Value = collab.Email;
                 worksheet[$"D{i}"].Value = collab.Nom;
                 worksheet[$"E{i}"].Value = collab.Prenom;
-                worksheet[$"F{i}"].Value = collab.Site;
+                //worksheet[$"F{i}"].Value = collab.Site;
                 worksheet[$"G{i}"].Value = collab.Civilite;
                 worksheet[$"H{i}"].Value = collab.DateNaissance.ToString("dd/MM/yyyy");
-                worksheet[$"I{i}"].Value = collab.SkillCenter;
-                worksheet[$"J{i}"].Value = collab.Poste;
-                worksheet[$"K{i}"].Value = collab.NiveauName;
-                worksheet[$"L{i}"].Value = collab.TypeContrat;
-                worksheet[$"M{i}"].Value = collab.ModeRecrutement;
+                //worksheet[$"I{i}"].Value = collab.SkillCenter;
+                //worksheet[$"J{i}"].Value = collab.Poste;
+                //worksheet[$"K{i}"].Value = collab.NiveauName;
+                //worksheet[$"L{i}"].Value = collab.TypeContrat;
+                //worksheet[$"M{i}"].Value = collab.ModeRecrutement;
                 worksheet[$"N{i}"].Value = collab.DatePremiereExperience == null ? "" : collab.DatePremiereExperience?.ToString("dd/MM/yyyy");
                 worksheet[$"O{i}"].Value = collab.DateEntreeSqli == null ? "" : collab.DateEntreeSqli?.ToString("dd/MM/yyyy");
                 worksheet[$"P{i}"].Value = collab.DateDebutStage == null ? "" : collab.DateDebutStage?.ToString("dd/MM/yyyy");
                 worksheet[$"Q{i}"].Value = collab.DateSortieSqli == null ? "" : collab.DateSortieSqli?.ToString("dd/MM/yyyy");
-                worksheet[$"R{i}"].Value = collab.Diplomes;
+                //worksheet[$"R{i}"].Value = collab.Diplomes;
 
                 worksheet[$"H{i}"].CellStyle.ShrinkToFit = true;
                 worksheet[$"N{i}"].CellStyle.ShrinkToFit = true;

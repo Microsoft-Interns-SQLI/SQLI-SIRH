@@ -39,4 +39,5 @@ export class Collaborator {
   documents?: CollabFile[];
   situationFamiliale: string = '';
   hadAlreadyWorkedAtSQLI: boolean = false;
+  diplomes:string = '';
 }
