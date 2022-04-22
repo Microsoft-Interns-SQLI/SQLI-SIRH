@@ -46,16 +46,12 @@ namespace API_MySIRH.DTOs
         // Relations
         // public ICollection<DiplomeDTO> DiplomesList { get; set; }
 
-        public string PostName { get; set; } = String.Empty;
-        public string SkillCenterName { get; set; } = String.Empty;
-        // public string SiteName { get; set; } = String.Empty;
-
-        public SiteDTO Site { get; set; }
-        public NiveauDTO Niveau { get; set; }
-
-        // public string NiveauName { get; set; } = String.Empty;
-        public string TypeContratName { get; set; } = String.Empty;
-        public string ModeRecrutementMode { get; set; } = String.Empty;
+        public PostDTO? Post { get; set; }
+        public SkillCenterDTO? SkillCenter { get; set; }
+        public SiteDTO? Site { get; set; }
+        public NiveauDTO? Niveau { get; set; }
+        public TypeContratDTO? TypeContrat { get; set; }
+        public ModeRecrutementDTO? ModeRecrutement { get; set; }
 
         // public CollaborateurDTO()
         // {
