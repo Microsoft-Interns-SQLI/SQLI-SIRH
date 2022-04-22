@@ -55,14 +55,14 @@ namespace API_MySIRH.Data.Migrations
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "34c3addb-49af-4bc4-b08e-45e6863d69e8",
+                            ConcurrencyStamp = "aec71801-9608-46f0-aa04-6f788a3acbe7",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "198eaa7d-e031-4c17-ba15-4b2bbd777b01",
+                            ConcurrencyStamp = "e24abdab-4421-414c-82e5-d938720e79e7",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -140,13 +140,13 @@ namespace API_MySIRH.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3e93c8a1-3d63-448d-9a95-e66d32c23793",
+                            ConcurrencyStamp = "b114b785-8512-497a-b0f3-7a7cd5b82ba5",
                             Email = "Admin@sqli.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@SQLI.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAECFgsN0eN9SuTS43cQ2ZPbuwxlGfO5zwLqwmqrbb0919y5VM5MNr1XLNiv2BgOiplQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEi0c7rUqmQlxeFK9j/EgnGXuqe3q7myNaUm8yiWk/CMYgCRl3QU/+n14gqVKVgyoQ==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "AdminUser"
@@ -226,10 +226,6 @@ namespace API_MySIRH.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EmailPersonnel")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Files")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -377,6 +373,45 @@ namespace API_MySIRH.Data.Migrations
                     b.HasIndex("CollaborateurId");
 
                     b.ToTable("Diplomes");
+                });
+
+            modelBuilder.Entity("API_MySIRH.Entities.Document", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CollaborateurId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("FileId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ModificationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("URL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CollaborateurId");
+
+                    b.ToTable("Documents");
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.Memo", b =>
@@ -765,6 +800,17 @@ namespace API_MySIRH.Data.Migrations
                         .HasForeignKey("CollaborateurId");
                 });
 
+            modelBuilder.Entity("API_MySIRH.Entities.Document", b =>
+                {
+                    b.HasOne("API_MySIRH.Entities.Collaborateur", "Collaborateur")
+                        .WithMany("Documents")
+                        .HasForeignKey("CollaborateurId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Collaborateur");
+                });
+
             modelBuilder.Entity("API_MySIRH.Entities.ToDoItem", b =>
                 {
                     b.HasOne("API_MySIRH.Entities.ToDoList", "ToDoList")
@@ -825,6 +871,8 @@ namespace API_MySIRH.Data.Migrations
             modelBuilder.Entity("API_MySIRH.Entities.Collaborateur", b =>
                 {
                     b.Navigation("DiplomesList");
+
+                    b.Navigation("Documents");
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.ToDoList", b =>

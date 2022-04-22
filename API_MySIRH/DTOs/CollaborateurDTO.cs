@@ -43,7 +43,6 @@ namespace API_MySIRH.DTOs
         public bool HadAlreadyWorkedAtSQLI { get; set; }
 
         // Relations
-        public ICollection<DiplomeDTO> DiplomesList { get; set; }
 
         public PostDTO? Post { get; set; }
         public SkillCenterDTO? SkillCenter { get; set; }
@@ -51,8 +50,8 @@ namespace API_MySIRH.DTOs
         public NiveauDTO? Niveau { get; set; }
         public TypeContratDTO? TypeContrat { get; set; }
         public ModeRecrutementDTO? ModeRecrutement { get; set; }
+        public ICollection<DiplomeDTO> DiplomesList { get; set; }
         public ICollection<FileDTO>? Documents { get; set; }
-
         public CollaborateurDTO()
         {
             this.DiplomesList = new List<DiplomeDTO>();
