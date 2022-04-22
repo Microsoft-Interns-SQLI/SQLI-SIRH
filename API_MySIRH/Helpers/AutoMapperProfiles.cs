@@ -27,6 +27,7 @@ namespace API_MySIRH.Helpers
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<Dashboard, DashboardDto>().ReverseMap();
             CreateMap<ModeRecrutement, ModeRecrutementDTO>().ReverseMap();
+            CreateMap<Document, FileDTO>().ReverseMap();
 
             CreateMap<EntityBase, DtoBase>().ReverseMap();
         }

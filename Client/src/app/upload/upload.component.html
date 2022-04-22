@@ -85,10 +85,10 @@
           <button
             type="button"
             class="btn btn-primary"
-            [disabled]="!files.length"
+            [disabled]="!files.length || isLoading || error || isDone"
             (click)="uploadFile()"
           >
-            Send file
+            Upload files
           </button>
         </div>
       </div>

@@ -26,7 +26,7 @@ namespace API_MySIRH.Repositories
                 if (collaborateur.Civilite == "M")
                     dashboard.nbMale++;
                 else dashboard.nbFemale++;
-            } 
+            }
 
             await this._context.SaveChangesAsync();
             return collaborateur;
@@ -64,7 +64,7 @@ namespace API_MySIRH.Repositories
 
         public async Task<Collaborateur> GetCollaborateurById(int id)
         {
-            return await this._context.Collaborateurs.FindAsync(id);
+            return await this._context.Collaborateurs.Include(c => c.Documents).AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<Collaborateur> GetCollaborateurByMatricule(string matricule)

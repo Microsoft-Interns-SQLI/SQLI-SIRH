@@ -6,18 +6,19 @@
   <table
     class="table"
     style="width: 70%; margin: 20px auto"
-    *ngIf="collab?.files"
+    *ngIf="collab?.documents?.length !== 0"
   >
     <tbody>
-      <tr class="shadow-sm p-3 mb-5 bg-body rounded align-baseline">
-        <td class="text-start">1</td>
-        <td>{{ collab?.files }}</td>
-        <td>CV</td>
+      <tr
+        class="shadow-sm p-3 mb-5 bg-body rounded align-baseline"
+        *ngFor="let document of collab?.documents"
+      >
+        <td>{{ document?.fileName }}</td>
         <td id="options" class="text-end">
           <div class="container justify-content-end">
             <a
               class="btn btn-sm btn-primary me-2 mb-1"
-              (click)="download()"
+              (click)="download(document)"
               aria-label="download"
             >
               <i class="bi bi-file-earmark-arrow-down"></i>

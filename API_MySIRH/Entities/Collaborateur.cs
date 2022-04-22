@@ -27,8 +27,6 @@ namespace API_MySIRH.Entities
         public string Diplomes { get; set; } = String.Empty; //todo : table relation one-to-many
         public string Certifications { get; set; } = String.Empty; //todo : table relation one-to-many
         public bool HadAlreadyWorkedAtSQLI { get; set; }
-        public string Files { get; set; } = String.Empty; //todo : table relation one-to-many
-
         /**
         *  Foreign key & navigabilité
         */
@@ -48,6 +46,7 @@ namespace API_MySIRH.Entities
         public virtual Post? Poste { get; set; }
         public virtual int? NiveauId { get; set; }
         public virtual Niveau? Niveau { get; set; }
+        public virtual ICollection<Document>? Documents { get; set; }
 
         public Collaborateur()
         {

@@ -41,7 +41,6 @@ namespace API_MySIRH.DTOs
         public string Diplomes { get; set; } = String.Empty;
         public string Certifications { get; set; } = String.Empty;
         public bool HadAlreadyWorkedAtSQLI { get; set; }
-        public string Files { get; set; } = String.Empty;
 
         // Relations
         // public ICollection<DiplomeDTO> DiplomesList { get; set; }
@@ -52,6 +51,7 @@ namespace API_MySIRH.DTOs
         public NiveauDTO? Niveau { get; set; }
         public TypeContratDTO? TypeContrat { get; set; }
         public ModeRecrutementDTO? ModeRecrutement { get; set; }
+        public ICollection<FileDTO>? Documents { get; set; }
 
         // public CollaborateurDTO()
         // {
