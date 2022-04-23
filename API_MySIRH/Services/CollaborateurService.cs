@@ -1,4 +1,4 @@
-using API_MySIRH.DTOs;
+using API_MySIRH.DTOs.Collaborateur;
 using API_MySIRH.Entities;
 using API_MySIRH.Helpers;
 using API_MySIRH.Interfaces;
@@ -19,7 +19,7 @@ namespace API_MySIRH.Services
             this._mapper = mapper;
         }
 
-        public async Task<CollaborateurDTO> AddCollaborateur(CollaborateurDTO collaborateur)
+        public async Task<CollaborateurDTO> AddCollaborateur(CollaborateurInsertDTO collaborateur)
         {
             var returnedCollaborateur = await this._collaborateurRepository.AddCollaborateur(this._mapper.Map<Collaborateur>(collaborateur));
             return this._mapper.Map<CollaborateurDTO>(returnedCollaborateur);
@@ -74,7 +74,7 @@ namespace API_MySIRH.Services
             return await PagedList<CollaborateurDTO>.CreateAsync(query.ProjectTo<CollaborateurDTO>(_mapper.ConfigurationProvider).AsNoTracking(), filterParams.pageNumber, filterParams.pageSize);
         }
 
-        public async Task UpdateCollaborateur(int id, CollaborateurDTO collaborateur)
+        public async Task UpdateCollaborateur(int id, CollaborateurInsertDTO collaborateur)
         {
             await this._collaborateurRepository.UpdateCollaborateur(id, this._mapper.Map<Collaborateur>(collaborateur));
         }

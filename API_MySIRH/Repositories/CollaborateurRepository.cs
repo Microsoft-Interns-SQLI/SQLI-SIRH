@@ -20,14 +20,6 @@ namespace API_MySIRH.Repositories
         {
             await this._context.Collaborateurs.AddAsync(collaborateur);
 
-            var dashboard = await _context.Dashboards.SingleOrDefaultAsync();
-            if (dashboard is not null)
-            {
-                if (collaborateur.Civilite == "M")
-                    dashboard.nbMale++;
-                else dashboard.nbFemale++;
-            }
-
             await this._context.SaveChangesAsync();
             return collaborateur;
         }

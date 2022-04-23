@@ -8,6 +8,7 @@ using System.Collections;
 using AutoMapper;
 using API_MySIRH.Entities;
 using Microsoft.AspNetCore.JsonPatch;
+using API_MySIRH.DTOs.Collaborateur;
 
 namespace API_MySIRH.Controllers
 {
@@ -40,23 +41,23 @@ namespace API_MySIRH.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddCollaborateur(CollaborateurDTO collaborateurDTO)
+        public async Task<ActionResult> AddCollaborateur(CollaborateurInsertDTO collaborateurInsertDTO)
         {
-            var collaborateurToCreate = await this._collaborateurService.AddCollaborateur(collaborateurDTO);
+            var collaborateurToCreate = await this._collaborateurService.AddCollaborateur(collaborateurInsertDTO);
 
             return CreatedAtAction(nameof(GetCollaborateurs), new { id = collaborateurToCreate.Id }, collaborateurToCreate);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<CollaborateurDTO>> UpdateCollaborateur(int id, CollaborateurDTO collaborateurDTO)
+        public async Task<ActionResult<CollaborateurDTO>> UpdateCollaborateur(int id, CollaborateurInsertDTO collaborateurInsertDTO)
         {
-            if (id != collaborateurDTO.Id)
+            if (id != collaborateurInsertDTO.Id)
             {
                 return BadRequest();
             }
             try
             {
-                await this._collaborateurService.UpdateCollaborateur(id, collaborateurDTO);
+                await this._collaborateurService.UpdateCollaborateur(id, collaborateurInsertDTO);
             }
             catch
             {
@@ -102,7 +103,7 @@ namespace API_MySIRH.Controllers
                 }
                 else
                 {
-                    await _collaborateurService.AddCollaborateur(_mapper.Map<CollaborateurDTO>(collaborateur));
+                    await _collaborateurService.AddCollaborateur(_mapper.Map<CollaborateurInsertDTO>(collaborateur));
                     return false;
                 }
             }
@@ -115,7 +116,7 @@ namespace API_MySIRH.Controllers
                 }
                 else
                 {
-                    await _collaborateurService.AddCollaborateur(_mapper.Map<CollaborateurDTO>(collaborateur));
+                    await _collaborateurService.AddCollaborateur(_mapper.Map<CollaborateurInsertDTO>(collaborateur));
                     return false;
                 }
             }
