@@ -150,7 +150,7 @@
         <td class="text-start">{{item.matricule}}</td>
         <td>{{item.nom}} <br> {{item.prenom }}</td>
         <td>{{calculateYears(item.dateEntreeSqli)}}</td>
-        <td>{{item.poste}}<br>{{item.niveau}}</td>
+        <td>{{item.poste?.name}}<br>{{item.niveau?.name}}</td>
         <td><button class="btn btn-sm btn-info"><i class="bi bi-file-earmark-medical"></i></button></td>
         <td id="options" class="text-end">
           <div class="container justify-content-end">

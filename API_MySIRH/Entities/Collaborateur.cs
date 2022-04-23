@@ -24,7 +24,6 @@ namespace API_MySIRH.Entities
         public DateTime? DateEntreeSqli { get; set; } // cas exception
         public DateTime? DateSortieSqli { get; set; } // cas exception
         public DateTime? DateDebutStage { get; set; } // cas exception
-        public string Diplomes { get; set; } = String.Empty; //todo : table relation one-to-many
         public string Certifications { get; set; } = String.Empty; //todo : table relation one-to-many
         public bool HadAlreadyWorkedAtSQLI { get; set; }
         /**

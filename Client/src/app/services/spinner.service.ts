@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpinnerService {
 
+  isSearch:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   loadingRequestCount = 0;
 
   constructor(private ngxSpinnerService: NgxSpinnerService) { }

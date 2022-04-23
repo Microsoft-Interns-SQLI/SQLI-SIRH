@@ -6,6 +6,7 @@ namespace API_MySIRH.Interfaces
     public interface ICollaborateurService
     {
         Task<PagedList<CollaborateurDTO>> GetCollaborateurs(FilterParams filterParams);
+        IEnumerable<CollaborateurDTO> GetCollaborateurs();
         Task<CollaborateurDTO> GetCollaborateurById(int id);
         Task<CollaborateurDTO> GetCollaborateurByMatricule(string matricule);
         Task<CollaborateurDTO> GetCollaborateurByEmail(string email);

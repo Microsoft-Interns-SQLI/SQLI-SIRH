@@ -86,9 +86,16 @@ namespace API_MySIRH.Controllers
 
 
 
-            var result = await AddOrUpdateInDB(file);
+            var result = await ImportFile(file);
 
             return Ok(result);
+        }
+
+        [HttpGet("export")]
+        public IActionResult Export()
+        {
+            var exportfile = export();
+            return exportfile;
         }
 
         private async Task<bool> InvokeOperation(Collaborateur collaborateur)
@@ -122,7 +129,7 @@ namespace API_MySIRH.Controllers
             }
         }
 
-        private async Task<ImportResult> AddOrUpdateInDB(IFormFile file)
+        private async Task<ImportResult> ImportFile(IFormFile file)
         {
 
             ImportResult compteRendu = new ImportResult();
@@ -131,14 +138,6 @@ namespace API_MySIRH.Controllers
 
             //Instantiate the Excel application object
             IApplication application = excelEngine.Excel;
-
-            //string path = Path.Combine(Directory.GetCurrentDirectory(), "Archives", file.FileName);
-
-            //FileStream fileStream = new FileStream(path, FileMode.Open);
-
-            //IWorkbook workbook = application.Workbooks.Open(fileStream);
-
-            //fileStream.Close();
 
             IWorkbook workbook = application.Workbooks.Open(file.OpenReadStream());
 
@@ -165,7 +164,7 @@ namespace API_MySIRH.Controllers
                         collaborateur.Prenom = Prenom;
                         collaborateur.Email = worksheet.Rows[i].Cells[2].Value.ToString();
                         collaborateur.Civilite = worksheet.Rows[i].Cells[5].Value.ToString();
-                        collaborateur.Diplomes = worksheet.Rows[i].Cells[16].Value.ToString();
+                        // collaborateur.Diplomes = worksheet.Rows[i].Cells[16].Value.ToString();  // todo-review : added relation between 'Diplome' and 'collaborateur'
                         // collaborateur.ModeRecrutement = worksheet.Rows[i].Cells[11].Value.ToString(); // todo-review : added relation between 'ModeRecrutement' and 'collaborateur'
 
                         if (worksheet.Rows[i].Cells[6].Value != "")
@@ -197,5 +196,97 @@ namespace API_MySIRH.Controllers
 
             return compteRendu;
         }
+
+        private FileContentResult export()
+        {
+
+            var collabs = _collaborateurService.GetCollaborateurs();
+
+            ExcelEngine excelEngine = new ExcelEngine();
+
+            IApplication application = excelEngine.Excel;
+
+            application.DefaultVersion = ExcelVersion.Excel2016;
+
+            IWorkbook workbook = application.Workbooks.Create(1);
+            IWorksheet worksheet = workbook.Worksheets[0];
+
+            //worksheet.ImportData(collabs, 1, 1, true);
+
+            //worksheet.UsedRange.CellStyle.ShrinkToFit = true;
+
+            worksheet.Name = "collabs";
+
+
+
+            worksheet["A1"].Value = "Matricule";
+            worksheet["B1"].Value = "Login";
+            worksheet["C1"].Value = "Email";
+            worksheet["D1"].Value = "Nom";
+            worksheet["E1"].Value = "Prenom";
+            worksheet["F1"].Value = "Agence";
+            worksheet["G1"].Value = "Civilité";
+            worksheet["H1"].Value = "Date Naissance";
+            worksheet["I1"].Value = "Skill Center";
+            worksheet["J1"].Value = "Poste";
+            worksheet["K1"].Value = "Niveau";
+            worksheet["L1"].Value = "Type de Contrat";
+            worksheet["M1"].Value = "Recrutement Mode";
+            worksheet["N1"].Value = "Date 1ere expèrience";
+            worksheet["O1"].Value = "Date d'entrée";
+            worksheet["P1"].Value = "Date de début de stage";
+            worksheet["Q1"].Value = "Date de sortie";
+            worksheet["R1"].Value = "Diplômes";
+
+            int i = 2;
+            foreach (var collab in collabs)
+            {
+                worksheet[$"A{i}"].Value = collab.Matricule;
+                worksheet[$"B{i}"].Value = collab.Prenom.Substring(0, 1) + collab.Nom;
+                worksheet[$"C{i}"].Value = collab.Email;
+                worksheet[$"D{i}"].Value = collab.Nom;
+                worksheet[$"E{i}"].Value = collab.Prenom;
+                //worksheet[$"F{i}"].Value = collab.Site;
+                worksheet[$"G{i}"].Value = collab.Civilite;
+                worksheet[$"H{i}"].Value = collab.DateNaissance.ToString("dd/MM/yyyy");
+                //worksheet[$"I{i}"].Value = collab.SkillCenter;
+                //worksheet[$"J{i}"].Value = collab.Poste;
+                //worksheet[$"K{i}"].Value = collab.NiveauName;
+                //worksheet[$"L{i}"].Value = collab.TypeContrat;
+                //worksheet[$"M{i}"].Value = collab.ModeRecrutement;
+                worksheet[$"N{i}"].Value = collab.DatePremiereExperience == null ? "" : collab.DatePremiereExperience?.ToString("dd/MM/yyyy");
+                worksheet[$"O{i}"].Value = collab.DateEntreeSqli == null ? "" : collab.DateEntreeSqli?.ToString("dd/MM/yyyy");
+                worksheet[$"P{i}"].Value = collab.DateDebutStage == null ? "" : collab.DateDebutStage?.ToString("dd/MM/yyyy");
+                worksheet[$"Q{i}"].Value = collab.DateSortieSqli == null ? "" : collab.DateSortieSqli?.ToString("dd/MM/yyyy");
+                //worksheet[$"R{i}"].Value = collab.Diplomes;
+
+                worksheet[$"H{i}"].CellStyle.ShrinkToFit = true;
+                worksheet[$"N{i}"].CellStyle.ShrinkToFit = true;
+                worksheet[$"O{i}"].CellStyle.ShrinkToFit = true;
+                worksheet[$"P{i}"].CellStyle.ShrinkToFit = true;
+                worksheet[$"Q{i}"].CellStyle.ShrinkToFit = true;
+                i++;
+            }
+
+            var stream = new MemoryStream();
+            
+                
+            workbook.SaveAs(stream);
+
+            stream.Position = 0;
+
+
+
+            var content = stream.ToArray();
+            workbook.Close();
+            excelEngine.Dispose();
+            return File(
+                content,
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                "collaborateurs.xlsx"
+                );
+
+        }
+
     }
 }
