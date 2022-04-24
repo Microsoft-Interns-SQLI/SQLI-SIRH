@@ -17,7 +17,7 @@ namespace API_MySIRH.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.2")
+                .HasAnnotation("ProductVersion", "6.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -55,14 +55,14 @@ namespace API_MySIRH.Data.Migrations
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "7ff2f2e6-ecc8-4702-8ea7-a605f5956795",
+                            ConcurrencyStamp = "551efd1f-d572-42d8-8f91-ddcbfe122d57",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "c65fa6be-96ea-4f87-86c4-ed1326097ebf",
+                            ConcurrencyStamp = "d85b06b9-be51-40f5-8ef7-c9815c8c2e48",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -140,13 +140,13 @@ namespace API_MySIRH.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "30f3437c-e0ca-4261-af44-6f111a2d9905",
+                            ConcurrencyStamp = "fc70bfbd-9892-4e37-a1fd-67f8dc083da0",
                             Email = "Admin@sqli.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@SQLI.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAECOxMjlk2kF0jweN9er8FcQSWOOFgZMR8M3/b7+hjNon4p/zLeM0XQNec55QsrYlmA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELh00zHyYsn3gc8nn2kaP7PO045eAvXnfQdfmD3xqfSPGrxbsIt36Xbv6zyzJ3Bhaw==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "AdminUser"
