@@ -15,9 +15,8 @@ export class SpinnerService {
   loading() {
     this.loadingRequestCount++;
     this.ngxSpinnerService.show(undefined, {
-      bdColor: 'rgba(255,255,255,0)',
-      color: '#333333',
-      
+      bdColor: 'rgba(206,206,206,0.45)',
+      color: '#808080', 
     });
   }
 
