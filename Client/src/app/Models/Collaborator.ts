@@ -40,3 +40,38 @@ export class Collaborator {
   situationFamiliale: string = '';
   hadAlreadyWorkedAtSQLI: boolean = false;
 }
+
+export class CollabAddUpdate {
+  id?: number
+  creationDate?: Date
+  modificationDate?: Date
+  nom?: string
+  prenom?: string
+  email?: string
+  dateNaissance?: string
+  matricule?: string
+  civilite?: string
+  autreTechnos?: string
+  situationFamiliale?: string
+  numCin?: string
+  nationnalite?: string
+  lieuNaissance?: string
+  phoneProfesionnel?: string
+  phonePersonnel?: string
+  emailPersonnel?: string
+  adresse?: string
+  langues?: string
+  note?: string
+  datePremiereExperience?: Date
+  dateEntreeSqli?: Date
+  dateSortieSqli?: Date
+  dateDebutStage?: Date
+  certifications?: string
+  hadAlreadyWorkedAtSQLI?: boolean
+  posteId?: number
+  skillCenterId?: number
+  siteId?: number
+  niveauId?: number
+  typeContratId?: number
+  modeRecrutementId?: number
+}

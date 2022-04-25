@@ -63,7 +63,7 @@ namespace API_MySIRH.Repositories
             .Include(c => c.Niveau)
             .Include(c => c.TypeContrat)
             .Include(c => c.ModeRecrutement)
-            .Include(c => c.DocumentsList)
+            .Include(c => c.Documents)
             .Include(c => c.DiplomesList)
             .AsNoTracking()
             .FirstOrDefaultAsync(c => c.Id == id);
