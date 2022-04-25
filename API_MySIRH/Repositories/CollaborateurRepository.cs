@@ -56,16 +56,19 @@ namespace API_MySIRH.Repositories
 
         public async Task<Collaborateur?> GetCollaborateurById(int id)
         {
-            return await this._context.Collaborateurs
+            var col = await this._context.Collaborateurs
+            .Include(c => c.Poste)
             .Include(c => c.SkillCenter)
             .Include(c => c.Site)
             .Include(c => c.Niveau)
             .Include(c => c.TypeContrat)
             .Include(c => c.ModeRecrutement)
-            .Include(c => c.Documents)
+            .Include(c => c.DocumentsList)
             .Include(c => c.DiplomesList)
             .AsNoTracking()
             .FirstOrDefaultAsync(c => c.Id == id);
+
+            return col;
         }
 
         public async Task<Collaborateur?> GetCollaborateurByMatricule(string matricule)

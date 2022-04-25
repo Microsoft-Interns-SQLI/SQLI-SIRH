@@ -1,5 +1,5 @@
 import { CollabFile } from './collabFile';
-import { Diplome } from './MdmModel';
+import { Diplome, Site } from './MdmModel';
 import { Niveau, Poste, RecruteMode } from './MdmModel';
 export class Collaborator {
   id: number = 0;
@@ -23,7 +23,7 @@ export class Collaborator {
   autreTechnos: string = '';
   typeContrat: string = '';
   niveau: Niveau = new Niveau();
-  site: string = '';
+  site: Site = new Site();
   skillCenter: string = '';
   emailPersonnel: string = '';
   email: string = '';
@@ -39,5 +39,4 @@ export class Collaborator {
   documents?: CollabFile[];
   situationFamiliale: string = '';
   hadAlreadyWorkedAtSQLI: boolean = false;
-  diplomes:string = '';
 }
