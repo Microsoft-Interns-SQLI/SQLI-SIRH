@@ -66,7 +66,7 @@ export class AddEditCollaborateurComponent implements OnInit {
       situationFamiliale: [this.collab.situationFamiliale],
       dateDebutStage: [this.datepipe.transform(this.collab.dateDebutStage, 'yyyy-MM-dd')],
       datePremiereExperience: [this.datepipe.transform(this.collab.datePremiereExperience, 'yyyy-MM-dd')],
-      diplomes: [this.collab.diplomes]
+      // diplomesList: [this.collab.diplomesList]
     })
   }
 
@@ -123,7 +123,7 @@ export class AddEditCollaborateurComponent implements OnInit {
     this.collab.situationFamiliale = this.formGroup.value.situationFamiliale;
     this.collab.dateDebutStage = this.formGroup.value.dateDebutStage;
     this.collab.datePremiereExperience = this.formGroup.value.datePremiereExperience;
-    this.collab.diplomes = this.formGroup.value.diplomes;
+    // this.collab.diplomesList = this.formGroup.value.diplomesList;
   }
 
   calculateYears(year: any): any {

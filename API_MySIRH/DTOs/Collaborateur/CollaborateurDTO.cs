@@ -36,6 +36,6 @@ namespace API_MySIRH.DTOs.Collaborateur
         public TypeContratDTO? TypeContrat { get; set; }
         public ModeRecrutementDTO? ModeRecrutement { get; set; }
         public ICollection<DiplomeDTO>? DiplomesList { get; set; }
-        public ICollection<FileDTO>? Documents { get; set; }
+        public ICollection<FileDTO>? DocumentsList { get; set; }
     }
 }

@@ -82,6 +82,7 @@ namespace API_MySIRH.Controllers
 
                 Collaborateur collaborateur = new Collaborateur
                 {
+                    // available data on collaborateurs.json
                     Nom = collaborateurJson["Nom Complet"].ToString().Split(" ")[0],
                     Prenom = collaborateurJson["Nom Complet"].ToString().Split(" ")[1],
                     Email = collaborateurJson["Email"].ToString(),
@@ -101,19 +102,19 @@ namespace API_MySIRH.Controllers
                     Site = this._dataContext.Sites.Where(s => s.Name == site).FirstOrDefault(),
 
                     // because of no data in the collaborateurs.json ...
-                    PhonePersonnel = "+212 06 66 20 17 40",
-                    PhoneProfesionnel = "+212 06 12 34 56 78",
-                    AutreTechnos = "Dapper|NUnit|Angular|Bootstrap|TailWind|PostgreSQL",
-                    Adresse = "Hay Andalous, Rue les orangers, Nr 2",
-                    Certifications = "Certified .Net Developper|Angular Certification|Français avancé C1",
-                    EmailPersonnel = "email.personnel@gmail.com",
-                    HadAlreadyWorkedAtSQLI = false,
-                    Langues = "Français|Anglais",
-                    LieuNaissance = "Rabat",
-                    Nationnalite = "Marocaine",
-                    NumCin = "F580877",
-                    SituationFamiliale = "Célibataire",
-                    Note = "ceci est une note et remarque concernant le collaborateur."
+                        PhonePersonnel = "+212 06 66 20 17 40",
+                        PhoneProfesionnel = "+212 06 12 34 56 78",
+                        AutreTechnos = "Dapper|NUnit|Angular|Bootstrap|TailWind|PostgreSQL",
+                        Adresse = "Oujda, Hay Andalous, Rue les orangers, Nr 2",
+                        Certifications = "Certified .Net Developper|Angular Certification|Français avancé C1",
+                        EmailPersonnel = "email.personnel@gmail.com",
+                        HadAlreadyWorkedAtSQLI = false,
+                        Langues = "Français|Anglais",
+                        LieuNaissance = "Rabat",
+                        Nationnalite = "Marocaine",
+                        NumCin = "F580877",
+                        SituationFamiliale = "Célibataire",
+                        Note = "ceci est une note et remarque concernant le collaborateur."
                 };
 
                 collaborateurs.Add(collaborateur);
