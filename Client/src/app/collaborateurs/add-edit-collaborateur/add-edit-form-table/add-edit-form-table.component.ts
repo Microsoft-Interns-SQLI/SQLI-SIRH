@@ -44,11 +44,10 @@ export class AddEditFormTableComponent implements OnInit {
       );
     });
     this.situationFamilialeData.data = [
-      new SelectInputObject('1', 'Manager'),
       new SelectInputObject('Célibataire', 'Célibataire'),
-      new SelectInputObject('3', 'Marie'),
-      new SelectInputObject('4', 'Divorce'),
-      new SelectInputObject('5', 'Veuf/Veuve'),
+      new SelectInputObject('Marie', 'Marie'),
+      new SelectInputObject('Divorce', 'Divorce'),
+      new SelectInputObject('Veuf/Veuve', 'Veuf/Veuve'),
     ];
   }
 }

@@ -60,8 +60,8 @@ export class CollaboratorsService {
     return this.http.post(this.myUrl, collabToAdd);
   }
 
-  updateCollaborator(id: number | string, data: any) {
-    return this.http.put(this.myUrl + `/${id}`, data);
+  updateCollaborator(id: number | string, data: any) : Observable<Collaborator>  {
+    return this.http.put<any>(this.myUrl + `/${id}`, data);
   }
 
   deleteCollaborator(id: number | string) {
