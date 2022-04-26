@@ -55,6 +55,12 @@ import { HeaderComponent } from './collaborateurs/header/header.component';
 import { FooterComponent } from './collaborateurs/footer/footer.component';
 import { CustomReuseStrategyService } from './services/custom-reuse-strategy.service';
 import { RouteReuseStrategy } from '@angular/router';
+import { MdmPanelComponent } from './mdm-panel/mdm-panel.component';
+import { SiteComponent } from './mdm-panel/site/site.component';
+import { SkillCenterComponent } from './mdm-panel/skill-center/skill-center.component';
+import { PosteComponent } from './mdm-panel/poste/poste.component';
+import { NiveauComponent } from './mdm-panel/niveau/niveau.component';
+import { ModeComponent } from './mdm-panel/mode/mode.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +103,12 @@ import { RouteReuseStrategy } from '@angular/router';
     SelectInputComponent,
     HeaderComponent,
     FooterComponent,
+    MdmPanelComponent,
+    SiteComponent,
+    SkillCenterComponent,
+    PosteComponent,
+    NiveauComponent,
+    ModeComponent,
   ],
   imports: [
     CommonModule,
