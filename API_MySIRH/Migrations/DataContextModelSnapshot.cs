@@ -55,14 +55,14 @@ namespace API_MySIRH.Migrations
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "9f8fbff8-a5a2-4946-a254-8113c395583e",
+                            ConcurrencyStamp = "6f374676-a267-4850-8617-aef74c92190a",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "93a40128-7ea7-46f4-b78e-f76bda1258dc",
+                            ConcurrencyStamp = "d0e49066-33f5-41cf-af86-fec86005b382",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -140,13 +140,13 @@ namespace API_MySIRH.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "877957d3-0943-408f-9db2-22e5c0480881",
+                            ConcurrencyStamp = "076fc6ed-8cca-4c04-a6de-bdc420bee497",
                             Email = "Admin@sqli.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@SQLI.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAENoRZh+16tyVhuNiGU8GaggpS22gmt2SXNB45bw/YsEFcLmz7TE09Ve0vGMV3iu3tA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMvjMtOf6WNfCFXZapQQggX0pC2nBoOGXxknzMd8jiJGZFbpw7nvt0dOBCc/B7KEdQ==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "AdminUser"
@@ -799,7 +799,7 @@ namespace API_MySIRH.Migrations
             modelBuilder.Entity("API_MySIRH.Entities.Document", b =>
                 {
                     b.HasOne("API_MySIRH.Entities.Collaborateur", "Collaborateur")
-                        .WithMany("DocumentsList")
+                        .WithMany("Documents")
                         .HasForeignKey("CollaborateurId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -868,7 +868,7 @@ namespace API_MySIRH.Migrations
                 {
                     b.Navigation("DiplomesList");
 
-                    b.Navigation("DocumentsList");
+                    b.Navigation("Documents");
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.ToDoList", b =>

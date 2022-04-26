@@ -2,6 +2,8 @@ import { transition } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { environment } from 'src/environments/environment';
+import { Dashboard } from '../Models/Dashboard';
+import { DashboardService } from '../services/dashboard.service';
 
 import { SpinnerComponent } from '../shared/spinner/spinner.component';
 
@@ -13,18 +15,23 @@ import { SpinnerComponent } from '../shared/spinner/spinner.component';
 })
 export class DashboardComponent implements OnInit {
 
-  private url: string = environment.URL;
-  spinner : SpinnerComponent = new SpinnerComponent();
+  dashboard!:Dashboard;
 
-  constructor() { }
+  constructor(private dahsboardService:DashboardService) { }
 
   ngOnInit() {
-    this.showBar('barChart');
+   /* this.showBar('barChart');
     this.showDonut("donutChart");
     this.showDonut("donutChart2");
     this.showPie('pieChart2');
     this.showPie("pieChart");
-    this.showLine("lineChart")
+    this.showLine("lineChart")*/
+    this.dahsboardService.getDashboard().subscribe((data:Dashboard)=>{
+      this.dashboard=data;
+      console.log(this.dashboard);
+      console.log(data.MaleCount+"-"+data.FemaleCount)
+    this.showBar('barChart',data.MaleCount,data.FemaleCount);
+    });
   }
 
   showDonut(elementId: string) {
@@ -103,7 +110,7 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
-  showBar(elementId: string) {
+  showBar(elementId: string,male:number,female:number) {
     Chart.register(...registerables);
     const ctx = document.getElementById(elementId) as HTMLCanvasElement
     const myChart = new Chart(ctx, {
@@ -112,7 +119,7 @@ export class DashboardComponent implements OnInit {
         labels: ['Female', 'Male'],
         datasets: [{
           label: '# of Votes',
-          data: [39, 61],
+          data: [female, male],
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)'
