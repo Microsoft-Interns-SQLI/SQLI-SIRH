@@ -55,6 +55,7 @@ import { HeaderComponent } from './collaborateurs/header/header.component';
 import { FooterComponent } from './collaborateurs/footer/footer.component';
 import { CustomReuseStrategyService } from './services/custom-reuse-strategy.service';
 import { RouteReuseStrategy } from '@angular/router';
+import { TableComponent } from './formations/table/table.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +98,7 @@ import { RouteReuseStrategy } from '@angular/router';
     SelectInputComponent,
     HeaderComponent,
     FooterComponent,
+    TableComponent,
   ],
   imports: [
     CommonModule,

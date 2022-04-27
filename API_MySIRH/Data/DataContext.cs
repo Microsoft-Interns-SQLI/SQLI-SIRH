@@ -33,6 +33,9 @@ namespace API_MySIRH.Data
         public DbSet<ModeRecrutement> ModesRecrutements { get; set; }
         public DbSet<Diplome> Diplomes { get; set; }
         public DbSet<Document> Documents { get; set; }
+
+        public DbSet<Certification> Certifications { get; set; }
+        public DbSet<CollaborateurCertification> CollaborateurCertifications { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -80,6 +83,25 @@ namespace API_MySIRH.Data
                 .WithOne(ur => ur.Role)
                 .HasForeignKey(r => r.RoleId)
                 .IsRequired();
+
+            modelBuilder.Entity<Collaborateur>()
+                .HasMany(c => c.Certifications)
+                .WithMany(cf => cf.Collaborateurs)
+                .UsingEntity<CollaborateurCertification>
+                (
+                    j => j
+                        .HasOne(cc => cc.Certification)
+                        .WithMany(c => c.CollaborateurCertifications)
+                        .HasForeignKey(cc => cc.CertificationId),
+                    j => j
+                        .HasOne(cc=>cc.Collaborateur)
+                        .WithMany(cf=>cf.CollaborateurCertifications)
+                        .HasForeignKey(cc=>cc.CollaborateurId),
+                    j =>
+                    {
+                        j.HasKey(cc => new { cc.CollaborateurId, cc.CertificationId });
+                    }
+                );
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

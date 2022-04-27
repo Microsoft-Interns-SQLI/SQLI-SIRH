@@ -19,7 +19,7 @@ namespace API_MySIRH.Services
             this._mapper = mapper;
         }
 
-        public async Task<CollaborateurDTO> AddCollaborateur(CollaborateurInsertDTO collaborateur)
+        public async Task<CollaborateurDTO> AddCollaborateur(CollaborateurDTO collaborateur)
         {
             var returnedCollaborateur = await this._collaborateurRepository.AddCollaborateur(this._mapper.Map<Collaborateur>(collaborateur));
             return this._mapper.Map<CollaborateurDTO>(returnedCollaborateur);

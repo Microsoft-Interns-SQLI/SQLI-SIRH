@@ -12,7 +12,7 @@ namespace API_MySIRH.Interfaces
         Task<CollaborateurDTO> GetCollaborateurByEmail(string email);
 
         Task UpdateCollaborateur(int id, CollaborateurInsertDTO collaborateur);
-        Task<CollaborateurDTO> AddCollaborateur(CollaborateurInsertDTO collaborateur);
+        Task<CollaborateurDTO> AddCollaborateur(CollaborateurDTO collaborateur);
         Task DeleteCollaborateur(int id);
 
         Task<bool> CollaborateurExistsById(int id);

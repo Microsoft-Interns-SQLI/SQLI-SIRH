@@ -41,7 +41,7 @@ namespace API_MySIRH.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddCollaborateur(CollaborateurInsertDTO collaborateurInsertDTO)
+        public async Task<ActionResult> AddCollaborateur(CollaborateurDTO collaborateurInsertDTO)
         {
             var collaborateurToCreate = await this._collaborateurService.AddCollaborateur(collaborateurInsertDTO);
 
@@ -98,36 +98,36 @@ namespace API_MySIRH.Controllers
             return exportfile;
         }
 
-        private async Task<bool> InvokeOperation(Collaborateur collaborateur)
-        {
+        //private async Task<bool> InvokeOperation(Collaborateur collaborateur)
+        //{
 
-            //if collab is not a freelancer
-            if (collaborateur.Matricule != "0")
-            {
-                if (await _collaborateurService.CollaborateurExistsByMatricule(collaborateur.Matricule))
-                {
-                    return true;
-                }
-                else
-                {
-                    await _collaborateurService.AddCollaborateur(_mapper.Map<CollaborateurInsertDTO>(collaborateur));
-                    return false;
-                }
-            }
-            //if collab ==> freelancer (freelancer doesn't have a matricule so we verify by email)
-            else
-            {
-                if (await _collaborateurService.CollaborateurExistsByEmail(collaborateur.Email))
-                {
-                    return true;
-                }
-                else
-                {
-                    await _collaborateurService.AddCollaborateur(_mapper.Map<CollaborateurInsertDTO>(collaborateur));
-                    return false;
-                }
-            }
-        }
+        //    //if collab is not a freelancer
+        //    if (collaborateur.Matricule != "0")
+        //    {
+        //        if (await _collaborateurService.CollaborateurExistsByMatricule(collaborateur.Matricule))
+        //        {
+        //            return true;
+        //        }
+        //        else
+        //        {
+        //            await _collaborateurService.AddCollaborateur(_mapper.Map<CollaborateurInsertDTO>(collaborateur));
+        //            return false;
+        //        }
+        //    }
+        //    //if collab ==> freelancer (freelancer doesn't have a matricule so we verify by email)
+        //    else
+        //    {
+        //        if (await _collaborateurService.CollaborateurExistsByEmail(collaborateur.Email))
+        //        {
+        //            return true;
+        //        }
+        //        else
+        //        {
+        //            await _collaborateurService.AddCollaborateur(_mapper.Map<CollaborateurInsertDTO>(collaborateur));
+        //            return false;
+        //        }
+        //    }
+        //}
 
         private async Task<ImportResult> ImportFile(IFormFile file)
         {
@@ -166,7 +166,7 @@ namespace API_MySIRH.Controllers
                         collaborateur.Civilite = worksheet.Rows[i].Cells[5].Value.ToString();
                         // collaborateur.Diplomes = worksheet.Rows[i].Cells[16].Value.ToString();  // todo-review : added relation between 'Diplome' and 'collaborateur'
                         // collaborateur.ModeRecrutement = worksheet.Rows[i].Cells[11].Value.ToString(); // todo-review : added relation between 'ModeRecrutement' and 'collaborateur'
-
+                        collaborateur.PosteId = 7;
                         if (worksheet.Rows[i].Cells[6].Value != "")
                             collaborateur.DateNaissance = Convert.ToDateTime(worksheet.Rows[i].Cells[6].Value);
                         if (worksheet.Rows[i].Cells[12].Value != "")
@@ -178,14 +178,14 @@ namespace API_MySIRH.Controllers
                         if (worksheet.Rows[i].Cells[15].Value != "")
                             collaborateur.DateSortieSqli = Convert.ToDateTime(worksheet.Rows[i].Cells[15].Value);
 
-                        if (await InvokeOperation(collaborateur))
-                        {
-                            compteRendu["ExistsCollab"]++;
-                        }
-                        else
-                        {
-                            compteRendu["AddingCollab"]++;
-                        }
+                        //if (await InvokeOperation(collaborateur))
+                        //{
+                        //    compteRendu["ExistsCollab"]++;
+                        //}
+                        //else
+                        //{
+                        //    compteRendu["AddingCollab"]++;
+                        //}
                     }
                 }
 
