@@ -118,7 +118,7 @@
                       </div>
 
                       <!-- <div class="col-md-12 mt-3">
-                        <app-text-input [formControl]="$any(myFormGroup.controls?.['diplomesList'])" [label]="'diplomes'">
+                        <app-text-input [formControl]="$any(myFormGroup.controls?.['diplomes'])" [label]="'diplomes'">
                         </app-text-input>
                       </div> -->
 
@@ -177,7 +177,7 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr *ngFor="let diplome of collab.diplomesList">
+                            <tr *ngFor="let diplome of collab.diplomes">
                               <td>{{ diplome.annee }}</td>
                               <td>{{ diplome.label }}</td>
                               <td>{{ diplome.detail }}</td>

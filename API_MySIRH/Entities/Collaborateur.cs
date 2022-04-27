@@ -37,18 +37,16 @@ namespace API_MySIRH.Entities
         public virtual Site? Site { get; set; }
         public virtual int? SkillCenterId { get; set; }
         public virtual SkillCenter? SkillCenter { get; set; }
-        public virtual int? TypeContratId { get; set; }
-        public virtual TypeContrat? TypeContrat { get; set; }
         public virtual int? PosteId { get; set; }
         public virtual Post? Poste { get; set; }
         public virtual int? NiveauId { get; set; }
         public virtual Niveau? Niveau { get; set; }
-        public virtual ICollection<Diplome>? DiplomesList { get; set; }
+        public virtual ICollection<Diplome>? Diplomes { get; set; }
         public virtual ICollection<Document>? Documents { get; set; }
 
         public Collaborateur()
         {
-            this.DiplomesList = new List<Diplome>();
+            this.Diplomes = new List<Diplome>();
         }
     }
 }

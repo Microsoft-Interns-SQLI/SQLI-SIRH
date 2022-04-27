@@ -33,6 +33,7 @@ namespace API_MySIRH.Data
         public DbSet<ModeRecrutement> ModesRecrutements { get; set; }
         public DbSet<Diplome> Diplomes { get; set; }
         public DbSet<Document> Documents { get; set; }
+        public DbSet<CollaborateurTypeContrat> CollaborateurTypeContrats { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

@@ -41,23 +41,23 @@ namespace API_MySIRH.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddCollaborateur(CollaborateurInsertDTO collaborateurInsertDTO)
+        public async Task<ActionResult> AddCollaborateur(CollaborateurDTO collaborateurDTO)
         {
-            var collaborateurToCreate = await this._collaborateurService.AddCollaborateur(collaborateurInsertDTO);
+            var collaborateurToCreate = await this._collaborateurService.AddCollaborateur(collaborateurDTO);
 
             return CreatedAtAction(nameof(GetCollaborateurs), new { id = collaborateurToCreate.Id }, collaborateurToCreate);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<CollaborateurDTO>> UpdateCollaborateur(int id, CollaborateurInsertDTO collaborateurInsertDTO)
+        public async Task<ActionResult<CollaborateurDTO>> UpdateCollaborateur(int id, CollaborateurDTO collaborateurDTO)
         {
-            if (id != collaborateurInsertDTO.Id)
+            if (id != collaborateurDTO.Id)
             {
                 return BadRequest();
             }
             try
             {
-                await this._collaborateurService.UpdateCollaborateur(id, collaborateurInsertDTO);
+                await this._collaborateurService.UpdateCollaborateur(id, collaborateurDTO);
             }
             catch
             {
@@ -110,7 +110,7 @@ namespace API_MySIRH.Controllers
                 }
                 else
                 {
-                    await _collaborateurService.AddCollaborateur(_mapper.Map<CollaborateurInsertDTO>(collaborateur));
+                    await _collaborateurService.AddCollaborateur(_mapper.Map<CollaborateurDTO>(collaborateur));
                     return false;
                 }
             }
@@ -123,7 +123,7 @@ namespace API_MySIRH.Controllers
                 }
                 else
                 {
-                    await _collaborateurService.AddCollaborateur(_mapper.Map<CollaborateurInsertDTO>(collaborateur));
+                    await _collaborateurService.AddCollaborateur(_mapper.Map<CollaborateurDTO>(collaborateur));
                     return false;
                 }
             }
@@ -225,18 +225,18 @@ namespace API_MySIRH.Controllers
             worksheet["D1"].Value = "Nom";
             worksheet["E1"].Value = "Prenom";
             worksheet["F1"].Value = "Agence";
-            worksheet["G1"].Value = "Civilité";
+            worksheet["G1"].Value = "Civilitï¿½";
             worksheet["H1"].Value = "Date Naissance";
             worksheet["I1"].Value = "Skill Center";
             worksheet["J1"].Value = "Poste";
             worksheet["K1"].Value = "Niveau";
             worksheet["L1"].Value = "Type de Contrat";
             worksheet["M1"].Value = "Recrutement Mode";
-            worksheet["N1"].Value = "Date 1ere expèrience";
-            worksheet["O1"].Value = "Date d'entrée";
-            worksheet["P1"].Value = "Date de début de stage";
+            worksheet["N1"].Value = "Date 1ere expï¿½rience";
+            worksheet["O1"].Value = "Date d'entrï¿½e";
+            worksheet["P1"].Value = "Date de dï¿½but de stage";
             worksheet["Q1"].Value = "Date de sortie";
-            worksheet["R1"].Value = "Diplômes";
+            worksheet["R1"].Value = "Diplï¿½mes";
 
             int i = 2;
             foreach (var collab in collabs)
