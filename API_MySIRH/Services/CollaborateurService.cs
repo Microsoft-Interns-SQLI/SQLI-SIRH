@@ -73,7 +73,7 @@ namespace API_MySIRH.Services
             };
             return await PagedList<CollaborateurDTO>.CreateAsync(query.ProjectTo<CollaborateurDTO>(_mapper.ConfigurationProvider).AsNoTracking(), filterParams.pageNumber, filterParams.pageSize);
         }
-        
+
         public IEnumerable<CollaborateurDTO> GetCollaborateurs()
         {
             return _mapper.Map<IEnumerable<CollaborateurDTO>>(_collaborateurRepository.GetCollaborateurs());

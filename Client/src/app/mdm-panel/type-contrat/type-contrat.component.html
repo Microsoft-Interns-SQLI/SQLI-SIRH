@@ -1,5 +1,5 @@
 <div class="w-75 m-auto">
-  <p class="h2">Sites</p>
+  <p class="h2">Type de contrats</p>
   <table class="table m-auto">
     <thead>
       <tr>
@@ -9,16 +9,16 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let site of sites">
-        <th scope="row">{{ site.id }}</th>
-        <td>{{ site.name }}</td>
+      <tr *ngFor="let contrat of contrats">
+        <th scope="row">{{ contrat.id }}</th>
+        <td>{{ contrat.name }}</td>
         <td>
           <button
             class="col btn btn-sm btn-danger me-2 mb-1"
             data-bs-toggle="modal"
-            data-bs-target="#deleteSiteModal"
+            data-bs-target="#deletecontratModal"
             aria-label="delete"
-            (click)="onDelete(site.id)"
+            (click)="onDelete(contrat.id)"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@
       </tr>
       <tr [ngClass]="isAdding ? '' : 'isHidden'">
         <td></td>
-        <td><input type="text" [(ngModel)]="site" /></td>
+        <td><input type="text" [(ngModel)]="contrat" /></td>
         <td>
           <button
             class="col btn btn-sm btn-success me-2 mb-1"
@@ -66,7 +66,7 @@
 <!--Modal-->
 <div
   class="modal fade center"
-  id="deleteSiteModal"
+  id="deletecontratModal"
   tabindex="-1"
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
