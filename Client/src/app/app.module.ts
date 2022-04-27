@@ -57,6 +57,7 @@ import { CustomReuseStrategyService } from './services/custom-reuse-strategy.ser
 import { RouteReuseStrategy } from '@angular/router';
 import { DiplomesComponent } from './diplomes/diplomes.component';
 import { ContratsComponent } from './contrats/contrats.component';
+import { TableComponent } from './formations/table/table.component';
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import { ContratsComponent } from './contrats/contrats.component';
     FooterComponent,
     DiplomesComponent,
     ContratsComponent,
+    TableComponent,
   ],
   imports: [
     CommonModule,

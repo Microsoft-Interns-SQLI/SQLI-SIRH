@@ -33,7 +33,6 @@ namespace API_MySIRH.DTOs.Collaborateur
         public DateTime? DateEntreeSqli { get; set; }
         public DateTime? DateSortieSqli { get; set; }
         public DateTime? DateDebutStage { get; set; }
-        public string Certifications { get; set; } = String.Empty;
 
         // Relations
         public int? PosteId { get; set; }
@@ -48,5 +47,7 @@ namespace API_MySIRH.DTOs.Collaborateur
         public ModeRecrutementDTO? ModeRecrutement { get; set; }
         public ICollection<DiplomeDTO>? Diplomes { get; set; }
         public ICollection<FileDTO>? Documents { get; set; }
+
+        //public ICollection<CertificationDTO>? Certifications { get; set; }
     }
 }

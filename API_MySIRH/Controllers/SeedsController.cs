@@ -48,22 +48,21 @@ namespace API_MySIRH.Controllers
             await this._dataContext.SaveChangesAsync();
 
             // filling tables
-            await this._dataContext
-                .Niveaux.AddRangeAsync(this.SeedNiveaux());
-            await this._dataContext
-                .Posts.AddRangeAsync(this.SeedPostes());
-            await this._dataContext
-                .TypeContrats.AddRangeAsync(this.SeedTypesContrat());
-            await this._dataContext
-                .SkillCenters.AddRangeAsync(this.SeedSkillCenters());
-            await this._dataContext
-                .Sites.AddRangeAsync(this.SeedSites());
-            await this._dataContext
-                .ModesRecrutements.AddRangeAsync(this.SeedModeRecrutement());
+            await this._dataContext.Niveaux.AddRangeAsync(this.SeedNiveaux());
+            await this._dataContext.Posts.AddRangeAsync(this.SeedPostes());
+            await this._dataContext.TypeContrats.AddRangeAsync(this.SeedTypesContrat());
+            await this._dataContext.SkillCenters.AddRangeAsync(this.SeedSkillCenters());
+            await this._dataContext.Sites.AddRangeAsync(this.SeedSites());
+            await this._dataContext.ModesRecrutements.AddRangeAsync(this.SeedModeRecrutement());
+            await this._dataContext.Certifications.AddRangeAsync(this.SeedCertifications());
             this._dataContext.SaveChanges();
 
             this._dataContext
                 .Collaborateurs.AddRange(await this.SeedCollaborateurs());
+            this._dataContext.SaveChanges();
+
+
+            await this._dataContext.CollaborateurCertifications.AddRangeAsync(this.SeedCollabCertification());
             this._dataContext.SaveChanges();
 
             // return count of each dbSet
@@ -79,6 +78,8 @@ namespace API_MySIRH.Controllers
                     typesContrat = this._dataContext.TypeContrats.Count(),
                     collaborateurTypeContrat = this._dataContext.CollaborateurTypeContrats.Count(),
                     diplomes = this._dataContext.Diplomes.Count(),
+                    certifications = _dataContext.Certifications.Count(),
+                    certificationCollab = _dataContext.CollaborateurCertifications.Count()
                 }
             );
         }
@@ -124,6 +125,7 @@ namespace API_MySIRH.Controllers
                     Adresse = "Oujda, Hay Andalous, Rue les orangers, Nr 2",
                     Certifications = "Certified .Net Developper|Angular Certification|Français avancé C1",
                     EmailPersonnel = "email.personnel@gmail.com",
+                    HadAlreadyWorkedAtSQLI = false,
                     Langues = "Français|Anglais",
                     LieuNaissance = "Rabat",
                     Nationnalite = "Marocaine",
@@ -137,6 +139,45 @@ namespace API_MySIRH.Controllers
                 await ContratsTraitement(collaborateur, collaborateurJson["Type de Contrat"].ToString());
             }
             return collaborateurs;
+        }
+
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public List<Certification> SeedCertifications()
+        {
+            return new List<Certification>
+            {
+                new Certification{ Libelle="AZ-104"},
+                new Certification{ Libelle="AZ-900"},
+                new Certification{ Libelle="AZ-204"},
+                new Certification{ Libelle="AZ-400"},
+                new Certification{ Libelle="AZ-300"},
+                new Certification{ Libelle="AZ-301"},
+                new Certification{ Libelle="DA-100"},
+                new Certification{ Libelle="DP-900"},
+                new Certification{ Libelle="DP-100"},
+                new Certification{ Libelle="DP-200"},
+                new Certification{ Libelle="DP-201"},
+                new Certification{ Libelle="AI-900"},
+                new Certification{ Libelle="AI-900"},
+                new Certification{ Libelle="MS-900"},
+                new Certification{ Libelle="MS100"},
+                new Certification{ Libelle="MS101"},
+                new Certification{ Libelle="MS300"},
+                new Certification{ Libelle="MS301"},
+                new Certification{ Libelle="MS600"},
+            };
+        }
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public List<CollaborateurCertification> SeedCollabCertification()
+        {
+            return new List<CollaborateurCertification>
+            {
+                new CollaborateurCertification{ CollaborateurId=1, CertificationId=1},
+                new CollaborateurCertification{ CollaborateurId=1, CertificationId=2},
+                new CollaborateurCertification{ CollaborateurId=1, CertificationId=3},
+                new CollaborateurCertification{ CollaborateurId=24, CertificationId=2},
+                new CollaborateurCertification{ CollaborateurId=24, CertificationId=5},
+            };
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]

@@ -55,14 +55,14 @@ namespace API_MySIRH.Data.Migrations
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "551efd1f-d572-42d8-8f91-ddcbfe122d57",
+                            ConcurrencyStamp = "68a17e9c-50c2-4746-ac9c-036ec23251a5",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "d85b06b9-be51-40f5-8ef7-c9815c8c2e48",
+                            ConcurrencyStamp = "80f646e4-e7fa-4bb4-ab77-05449a817e0d",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -140,13 +140,13 @@ namespace API_MySIRH.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fc70bfbd-9892-4e37-a1fd-67f8dc083da0",
+                            ConcurrencyStamp = "d13620a1-8500-4b5a-b088-cb70e667f260",
                             Email = "Admin@sqli.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@SQLI.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAELh00zHyYsn3gc8nn2kaP7PO045eAvXnfQdfmD3xqfSPGrxbsIt36Xbv6zyzJ3Bhaw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKOP2m7k2/NBD6h5AZLZmvHDYgA71i9zPOzU8u3Xlo3pYXM+yoln4+mkuWZt0Y/sqw==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "AdminUser"
@@ -175,6 +175,29 @@ namespace API_MySIRH.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("API_MySIRH.Entities.Certification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Libelle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ModificationDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Certifications");
+                });
+
             modelBuilder.Entity("API_MySIRH.Entities.Collaborateur", b =>
                 {
                     b.Property<int>("Id")
@@ -188,10 +211,6 @@ namespace API_MySIRH.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AutreTechnos")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Certifications")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -308,6 +327,30 @@ namespace API_MySIRH.Data.Migrations
                     b.HasIndex("TypeContratId");
 
                     b.ToTable("Collaborateurs");
+                });
+
+            modelBuilder.Entity("API_MySIRH.Entities.CollaborateurCertification", b =>
+                {
+                    b.Property<int>("CollaborateurId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CertificationId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DateDebut")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateFin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CollaborateurId", "CertificationId");
+
+                    b.HasIndex("CertificationId");
+
+                    b.ToTable("CollaborateurCertifications");
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.Dashboard", b =>
@@ -789,6 +832,25 @@ namespace API_MySIRH.Data.Migrations
                     b.Navigation("TypeContrat");
                 });
 
+            modelBuilder.Entity("API_MySIRH.Entities.CollaborateurCertification", b =>
+                {
+                    b.HasOne("API_MySIRH.Entities.Certification", "Certification")
+                        .WithMany("CollaborateurCertifications")
+                        .HasForeignKey("CertificationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API_MySIRH.Entities.Collaborateur", "Collaborateur")
+                        .WithMany("CollaborateurCertifications")
+                        .HasForeignKey("CollaborateurId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Certification");
+
+                    b.Navigation("Collaborateur");
+                });
+
             modelBuilder.Entity("API_MySIRH.Entities.Diplome", b =>
                 {
                     b.HasOne("API_MySIRH.Entities.Collaborateur", null)
@@ -864,8 +926,15 @@ namespace API_MySIRH.Data.Migrations
                     b.Navigation("UserRoles");
                 });
 
+            modelBuilder.Entity("API_MySIRH.Entities.Certification", b =>
+                {
+                    b.Navigation("CollaborateurCertifications");
+                });
+
             modelBuilder.Entity("API_MySIRH.Entities.Collaborateur", b =>
                 {
+                    b.Navigation("CollaborateurCertifications");
+
                     b.Navigation("DiplomesList");
 
                     b.Navigation("Documents");
