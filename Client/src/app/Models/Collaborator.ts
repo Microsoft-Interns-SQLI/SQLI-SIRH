@@ -15,7 +15,7 @@ export class Collaborator {
   dateEntreeSqli: Date = new Date();
   dateSortieSqli: Date = new Date();
   dateDebutStage: Date = new Date();
-  diplomesList: Diplome[] = [];
+  diplomes: Diplome[] = [];
 
   note: string = '';
   phonePersonnel: string = '';
