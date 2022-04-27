@@ -1,5 +1,5 @@
 import { CollabFile } from './collabFile';
-import { Diplome } from './MdmModel';
+import { Diplome, Site } from './MdmModel';
 import { Niveau, Poste, RecruteMode } from './MdmModel';
 export class Collaborator {
   id: number = 0;
@@ -15,7 +15,7 @@ export class Collaborator {
   dateEntreeSqli: Date = new Date();
   dateSortieSqli: Date = new Date();
   dateDebutStage: Date = new Date();
-  diplomesList: Diplome[] = [];
+  diplomes: Diplome[] = [];
 
   note: string = '';
   phonePersonnel: string = '';
@@ -23,7 +23,7 @@ export class Collaborator {
   autreTechnos: string = '';
   typeContrat: string = '';
   niveau: Niveau = new Niveau();
-  site: string = '';
+  site: Site = new Site();
   skillCenter: string = '';
   emailPersonnel: string = '';
   email: string = '';
@@ -39,5 +39,39 @@ export class Collaborator {
   documents?: CollabFile[];
   situationFamiliale: string = '';
   hadAlreadyWorkedAtSQLI: boolean = false;
-  diplomes:string = '';
+}
+
+export class CollabAddUpdate {
+  id?: number
+  creationDate?: Date
+  modificationDate?: Date
+  nom?: string
+  prenom?: string
+  email?: string
+  dateNaissance?: string
+  matricule?: string
+  civilite?: string
+  autreTechnos?: string
+  situationFamiliale?: string
+  numCin?: string
+  nationnalite?: string
+  lieuNaissance?: string
+  phoneProfesionnel?: string
+  phonePersonnel?: string
+  emailPersonnel?: string
+  adresse?: string
+  langues?: string
+  note?: string
+  datePremiereExperience?: Date
+  dateEntreeSqli?: Date
+  dateSortieSqli?: Date
+  dateDebutStage?: Date
+  certifications?: string
+  hadAlreadyWorkedAtSQLI?: boolean
+  posteId?: number
+  skillCenterId?: number
+  siteId?: number
+  niveauId?: number
+  typeContratId?: number
+  modeRecrutementId?: number
 }

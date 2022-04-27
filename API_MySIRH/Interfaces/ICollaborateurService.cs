@@ -11,7 +11,7 @@ namespace API_MySIRH.Interfaces
         Task<CollaborateurDTO> GetCollaborateurByMatricule(string matricule);
         Task<CollaborateurDTO> GetCollaborateurByEmail(string email);
 
-        Task UpdateCollaborateur(int id, CollaborateurInsertDTO collaborateur);
+        Task UpdateCollaborateur(int id, CollaborateurDTO collaborateur);
         Task<CollaborateurDTO> AddCollaborateur(CollaborateurDTO collaborateur);
         Task DeleteCollaborateur(int id);
 

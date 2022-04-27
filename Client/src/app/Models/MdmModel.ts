@@ -5,15 +5,32 @@ class BaseMDM {
 
 export class Poste extends BaseMDM {
   id: number = 0;
-  name: string = "";
+  name: string = '';
 }
+
 export class Niveau extends BaseMDM {
   id: number = 0;
-  name: string = "";
+  name: string = '';
 }
+
+export class Site extends BaseMDM {
+  id: number = 0;
+  name: string = '';
+}
+
 export class RecruteMode extends BaseMDM {
   id: number = 0;
-  mode: string = "";
+  mode: string = '';
+}
+
+export class SkillCenter extends BaseMDM {
+  id: number = 0;
+  name: string = '';
+}
+
+export class Contrat extends BaseMDM {
+  id: number = 0;
+  name: string = '';
 }
 
 export class Diplome extends BaseMDM {
@@ -23,4 +40,3 @@ export class Diplome extends BaseMDM {
   detail?: string;
   description?: string;
 }
-

@@ -19,8 +19,9 @@ namespace API_MySIRH.Repositories
         public async Task<Collaborateur> AddCollaborateur(Collaborateur collaborateur)
         {
             await this._context.Collaborateurs.AddAsync(collaborateur);
-
             await this._context.SaveChangesAsync();
+
+            collaborateur = await this.GetCollaborateurById(collaborateur.Id); // todo-review : is it necessary to fetch by id after insert ?
             return collaborateur;
         }
 
@@ -56,16 +57,18 @@ namespace API_MySIRH.Repositories
 
         public async Task<Collaborateur?> GetCollaborateurById(int id)
         {
-            return await this._context.Collaborateurs
-            .Include(c => c.SkillCenter)
-            .Include(c => c.Site)
-            .Include(c => c.Niveau)
-            .Include(c => c.TypeContrat)
-            .Include(c => c.ModeRecrutement)
-            .Include(c => c.Documents)
-            .Include(c => c.DiplomesList)
-            .AsNoTracking()
-            .FirstOrDefaultAsync(c => c.Id == id);
+            return await
+                    this._context.Collaborateurs
+                        .Include(c => c.Poste)
+                        .Include(c => c.SkillCenter)
+                        .Include(c => c.Site)
+                        .Include(c => c.Niveau)
+                        // .Include(c => c.TypeContrat) // todo : config entity to get all it's typeContrat
+                        .Include(c => c.ModeRecrutement)
+                        .Include(c => c.Documents)
+                        .Include(c => c.Diplomes)
+                        .AsNoTracking()
+                        .FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<Collaborateur?> GetCollaborateurByMatricule(string matricule)

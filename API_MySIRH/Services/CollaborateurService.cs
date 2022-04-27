@@ -50,8 +50,7 @@ namespace API_MySIRH.Services
             var query = this._collaborateurRepository.GetCollaborateurs().AsQueryable();
 
             if (!string.IsNullOrEmpty(filterParams.Site))
-                // I added '.Name' : see if that's good or not ...
-                query = query.Where(c => c.Site.Name == filterParams.Site); // todo-review : relation 'Site' may be nullable .. if so, (I think) that may be risky
+                query = query.Where(c => c.Site.Name == filterParams.Site);
 
             if (!(string.IsNullOrWhiteSpace(filterParams.Search)))
                 query = query.Where(c => c.Nom.Contains(filterParams.Search) || c.Prenom.Contains(filterParams.Search));
@@ -73,13 +72,13 @@ namespace API_MySIRH.Services
             };
             return await PagedList<CollaborateurDTO>.CreateAsync(query.ProjectTo<CollaborateurDTO>(_mapper.ConfigurationProvider).AsNoTracking(), filterParams.pageNumber, filterParams.pageSize);
         }
-        
+
         public IEnumerable<CollaborateurDTO> GetCollaborateurs()
         {
             return _mapper.Map<IEnumerable<CollaborateurDTO>>(_collaborateurRepository.GetCollaborateurs());
         }
 
-        public async Task UpdateCollaborateur(int id, CollaborateurInsertDTO collaborateur)
+        public async Task UpdateCollaborateur(int id, CollaborateurDTO collaborateur)
         {
             await this._collaborateurRepository.UpdateCollaborateur(id, this._mapper.Map<Collaborateur>(collaborateur));
         }

@@ -5,10 +5,10 @@
         <div class="col-md-12">
           <mat-tab-group>
             <mat-tab label="Info">
-              <div class="info-perso my-3">
+              <div class="my-3">
                 <div class="card">
                   <div class="card-header">
-                    <h2>Informations Personnelles</h2>
+                    <strong>Informations Personnelles</strong>
                   </div>
                   <div class="card-body">
                     <div class="row">
@@ -70,16 +70,13 @@
                 </div>
               </div>
 
-              <hr />
-
-              <div class="infos-pro px-10">
+              <div class="my-3">
                 <div class="card">
                   <div class="card-header">
-                    <h2>Informations Professionnelles</h2>
+                    <strong>Informations Professionnelles</strong>
                   </div>
                   <div class="card-body">
                     <div class="row">
-
                       <div class="col-md-6 mt-3">
                         <app-text-input [formControl]="$any(myFormGroup.controls?.['phoneProfesionnel'])"
                           [label]="'phone Profesionnel'"></app-text-input>
@@ -120,87 +117,79 @@
                           [label]="'poste'"></app-select-input>
                       </div>
 
-                    </div>
+                      <!-- <div class="col-md-12 mt-3">
+                        <app-text-input [formControl]="$any(myFormGroup.controls?.['diplomes'])" [label]="'diplomes'">
+                        </app-text-input>
+                      </div> -->
 
-                    <div class="col mt-3">
-                      <app-text-input [formControl]="$any(myFormGroup.controls?.['diplomes'])" [label]="'diplomes'">
-                      </app-text-input>
                     </div>
                   </div>
                 </div>
               </div>
             </mat-tab>
-            <!-- <mat-tab label="Contrat & Statut">
-              <div class="row">
-                <div class="col-md-12 mt-3">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="hadAlreadyWorkedAtSQLI" checked />
-                    <label class="form-check-label" for="hadAlreadyWorkedAtSQLI">
-                      a déja travaillé à SQLI
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </mat-tab>
-            <mat-tab label="Skills">
-              <div class="row">
-                <div class="col-md-12 mt-3">
-                  <div class="form-group">
-                    <label for="competence_principale">Compétence principale :</label>
-                    <select name="competence_principale" [(ngModel)]="collab.competencePrincipale"
-                      class="form-select form-select-sm" [required]="true">
-                      <option value disabled selected>-Sélectionner-</option>
-                      <option value="dotNet">dotNet</option>
-                      <option value="Java">Java</option>
-                      <option value="PHP">PHP</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="col-md-4 mt-3">
-                  <div class="form-group">
-                    <label for="technos">Technos :</label>
-                    <div class="">
-                      <span class="badge bg-primary m-1">Asp.Net</span>
-                      <span class="badge bg-primary m-1">Angular</span>
-                      <span class="badge bg-primary m-1">MAUI</span>
-                      <span class="badge bg-primary m-1">Blazor</span>
+            <!--
+              <mat-tab label="Contrat & Statut">
+                <div class="row">
+                  <div class="col-md-12 mt-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="hadAlreadyWorkedAtSQLI" checked />
+                      <label class="form-check-label" for="hadAlreadyWorkedAtSQLI">
+                        a déja travaillé à SQLI
+                      </label>
                     </div>
                   </div>
                 </div>
-                <div class="col-md-4 mt-3">
-                  <div class="form-group">
-                    <label for="technos">Langues :</label>
-                    <div class="">
-                      <span class="badge bg-success m-1">Français</span>
-                      <span class="badge bg-success m-1">Anglais</span>
-                      <span class="badge bg-success m-1">Allemand</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4 mt-3">
-                  <label for="certifications">Certifications :</label>
-                  <div class="">
-                    <span class="badge bg-danger m-1">Certification 1</span>
-                    <span class="badge bg-danger m-1">Certification 2</span>
-                  </div>
-                </div>
-              </div>
-            </mat-tab>
-            <mat-tab label="Education & Past Jobs">
-              Education & Past Jobs Content
-            </mat-tab>
-            <mat-tab label="Manager & TLRHs">
-              Manager & TLRHs Content
-            </mat-tab>
-            <mat-tab label="Materiels"> Materiels Content </mat-tab>
-            <mat-tab label="Cv & Documents"> Cv & Documents Content </mat-tab>
-            <mat-tab label="HR Incidents"> HR Incidents Content </mat-tab> -->
+              </mat-tab>
+              <mat-tab label="Education & Past Jobs">
+                Education & Past Jobs Content
+              </mat-tab>
+              <mat-tab label="Manager & TLRHs">
+                Manager & TLRHs Content
+              </mat-tab>
+              <mat-tab label="Materiels"> Materiels Content </mat-tab>
+              <mat-tab label="HR Incidents"> HR Incidents Content </mat-tab> 
+            -->
             <mat-tab label="Cv & Documents">
               <app-download [collab]="collab"></app-download>
               <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
                 data-bs-target="#upload">
                 Upload Document
               </button>
+            </mat-tab>
+            <mat-tab label="Skills">
+              <div class="card mt-2">
+                <div class="card-header">
+                  <strong>
+                    Diplômes
+                  </strong>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="table-responsive">
+                        <table class="table w-100">
+                          <thead>
+                            <tr>
+                              <th>Année</th>
+                              <th>Libellé</th>
+                              <th>Détail</th>
+                              <th>Description</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let diplome of collab.diplomes">
+                              <td>{{ diplome.annee }}</td>
+                              <td>{{ diplome.label }}</td>
+                              <td>{{ diplome.detail }}</td>
+                              <td>{{ diplome.description }}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </mat-tab>
           </mat-tab-group>
         </div>

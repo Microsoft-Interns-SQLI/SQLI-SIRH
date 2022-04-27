@@ -27,14 +27,24 @@ namespace API_MySIRH.Controllers
         public async Task<IActionResult> Collaborateurs()
         {
             // clearing tables
-            this._dataContext.Diplomes.RemoveRange(this._dataContext.Diplomes.ToList());
-            this._dataContext.Collaborateurs.RemoveRange(this._dataContext.Collaborateurs.ToList());
-            this._dataContext.Niveaux.RemoveRange(this._dataContext.Niveaux.ToList());
-            this._dataContext.Posts.RemoveRange(this._dataContext.Posts.ToList());
-            this._dataContext.TypeContrats.RemoveRange(this._dataContext.TypeContrats.ToList());
-            this._dataContext.SkillCenters.RemoveRange(this._dataContext.SkillCenters.ToList());
-            this._dataContext.Sites.RemoveRange(this._dataContext.Sites.ToList());
-            this._dataContext.ModesRecrutements.RemoveRange(this._dataContext.ModesRecrutements.ToList());
+            this._dataContext
+                .Diplomes.RemoveRange(this._dataContext.Diplomes.ToList());
+            this._dataContext
+                .Collaborateurs.RemoveRange(this._dataContext.Collaborateurs.ToList());
+            this._dataContext
+                .Niveaux.RemoveRange(this._dataContext.Niveaux.ToList());
+            this._dataContext
+                .Posts.RemoveRange(this._dataContext.Posts.ToList());
+            this._dataContext
+                .TypeContrats.RemoveRange(this._dataContext.TypeContrats.ToList());
+            this._dataContext
+                .SkillCenters.RemoveRange(this._dataContext.SkillCenters.ToList());
+            this._dataContext
+                .Sites.RemoveRange(this._dataContext.Sites.ToList());
+            this._dataContext
+                .ModesRecrutements.RemoveRange(this._dataContext.ModesRecrutements.ToList());
+            this._dataContext
+                .CollaborateurTypeContrats.RemoveRange(this._dataContext.CollaborateurTypeContrats.ToList());
             await this._dataContext.SaveChangesAsync();
 
             // filling tables
@@ -47,7 +57,8 @@ namespace API_MySIRH.Controllers
             await this._dataContext.Certifications.AddRangeAsync(this.SeedCertifications());
             this._dataContext.SaveChanges();
 
-            this._dataContext.Collaborateurs.AddRange(await this.SeedCollaborateurs());
+            this._dataContext
+                .Collaborateurs.AddRange(await this.SeedCollaborateurs());
             this._dataContext.SaveChanges();
 
 
@@ -60,11 +71,12 @@ namespace API_MySIRH.Controllers
                 {
                     niveaux = this._dataContext.Niveaux.Count(),
                     posts = this._dataContext.Posts.Count(),
-                    typesContrat = this._dataContext.TypeContrats.Count(),
                     skillCenters = this._dataContext.SkillCenters.Count(),
                     sites = this._dataContext.Sites.Count(),
                     modesRecrutements = this._dataContext.ModesRecrutements.Count(),
                     collaborateurs = this._dataContext.Collaborateurs.Count(),
+                    typesContrat = this._dataContext.TypeContrats.Count(),
+                    collaborateurTypeContrat = this._dataContext.CollaborateurTypeContrats.Count(),
                     diplomes = this._dataContext.Diplomes.Count(),
                     certifications = _dataContext.Certifications.Count(),
                     certificationCollab = _dataContext.CollaborateurCertifications.Count()
@@ -84,7 +96,6 @@ namespace API_MySIRH.Controllers
                 string niveau = collaborateurJson["Niveau"].ToString();
                 string post = collaborateurJson["Poste"].ToString();
                 string skillCenter = collaborateurJson["Skills center"].ToString();
-                string typeContrat = collaborateurJson["Type de Contrat"].ToString();
                 string site = collaborateurJson["Agence"].ToString();
 
                 Collaborateur collaborateur = new Collaborateur
@@ -105,7 +116,6 @@ namespace API_MySIRH.Controllers
                     Niveau = this._dataContext.Niveaux.Where(n => n.Name == niveau).FirstOrDefault(),
                     Poste = this._dataContext.Posts.Where(p => p.Name == post).FirstOrDefault(),
                     SkillCenter = this._dataContext.SkillCenters.Where(sc => sc.Name == skillCenter).FirstOrDefault(),
-                    TypeContrat = this._dataContext.TypeContrats.Where(tc => tc.Name == typeContrat).FirstOrDefault(),
                     Site = this._dataContext.Sites.Where(s => s.Name == site).FirstOrDefault(),
 
                     // because of no data in the collaborateurs.json ...
@@ -113,6 +123,7 @@ namespace API_MySIRH.Controllers
                         PhoneProfesionnel = "+212 06 12 34 56 78",
                         AutreTechnos = "Dapper|NUnit|Angular|Bootstrap|TailWind|PostgreSQL",
                         Adresse = "Oujda, Hay Andalous, Rue les orangers, Nr 2",
+                        Certifications = "Certified .Net Developper|Angular Certification|Français avancé C1",
                         EmailPersonnel = "email.personnel@gmail.com",
                         HadAlreadyWorkedAtSQLI = false,
                         Langues = "Français|Anglais",
@@ -125,6 +136,7 @@ namespace API_MySIRH.Controllers
 
                 collaborateurs.Add(collaborateur);
                 await DiplomesTraitement(collaborateur, collaborateurJson["Diplômes"].ToString());
+                await ContratsTraitement(collaborateur, collaborateurJson["Type de Contrat"].ToString());
             }
             return collaborateurs;
         }
@@ -253,10 +265,23 @@ namespace API_MySIRH.Controllers
                             Annee = int.Parse(diplome.Split(':')[0]),
                             Detail = diplome.Split(':')[1]
                         };
-                        collaborateur.DiplomesList.Add(diplomeObj);
+                        collaborateur.Diplomes.Add(diplomeObj);
                         this._dataContext.Diplomes.Add(diplomeObj);
                     }
-                await this._dataContext.SaveChangesAsync();
+            }
+        }
+
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public async Task ContratsTraitement(Collaborateur collaborateur, string typeContrat)
+        {
+            if (typeContrat != String.Empty)
+            {
+                this._dataContext.CollaborateurTypeContrats.Add(new CollaborateurTypeContrat
+                {
+                    Collaborateur = collaborateur,
+                    TypeContrat = this._dataContext.TypeContrats.Where(tc => tc.Name == typeContrat).FirstOrDefault(),
+                    IsInSQLI = true
+                });
             }
         }
     }

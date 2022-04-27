@@ -10,7 +10,6 @@ import {
 @Component({
   selector: 'app-add-edit-form-table',
   templateUrl: './add-edit-form-table.component.html',
-  styleUrls: ['./add-edit-form-table.component.css'],
 })
 export class AddEditFormTableComponent implements OnInit {
   @Input() collab!: Collaborator;
@@ -22,7 +21,7 @@ export class AddEditFormTableComponent implements OnInit {
   postesData: any = new SelectInputData();
   situationFamilialeData: any = new SelectInputData();
 
-  constructor(private service: MdmService) {}
+  constructor(private service: MdmService) { }
 
   ngOnInit(): void {
     this.civiliteData.data = [
@@ -45,11 +44,10 @@ export class AddEditFormTableComponent implements OnInit {
       );
     });
     this.situationFamilialeData.data = [
-      new SelectInputObject('1', 'Manager'),
       new SelectInputObject('Célibataire', 'Célibataire'),
-      new SelectInputObject('3', 'Marie'),
-      new SelectInputObject('4', 'Divorce'),
-      new SelectInputObject('5', 'Veuf/Veuve'),
+      new SelectInputObject('Marie', 'Marie'),
+      new SelectInputObject('Divorce', 'Divorce'),
+      new SelectInputObject('Veuf/Veuve', 'Veuf/Veuve'),
     ];
   }
 }
