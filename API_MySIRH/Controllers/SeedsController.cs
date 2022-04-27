@@ -44,6 +44,8 @@ namespace API_MySIRH.Controllers
             this._dataContext
                 .ModesRecrutements.RemoveRange(this._dataContext.ModesRecrutements.ToList());
             this._dataContext
+                .Certifications.RemoveRange(this._dataContext.Certifications.ToList());
+            this._dataContext
                 .CollaborateurTypeContrats.RemoveRange(this._dataContext.CollaborateurTypeContrats.ToList());
             await this._dataContext.SaveChangesAsync();
 
@@ -57,8 +59,7 @@ namespace API_MySIRH.Controllers
             await this._dataContext.Certifications.AddRangeAsync(this.SeedCertifications());
             this._dataContext.SaveChanges();
 
-            this._dataContext
-                .Collaborateurs.AddRange(await this.SeedCollaborateurs());
+            this._dataContext.Collaborateurs.AddRange(await this.SeedCollaborateurs());
             this._dataContext.SaveChanges();
 
 
@@ -123,9 +124,7 @@ namespace API_MySIRH.Controllers
                     PhoneProfesionnel = "+212 06 12 34 56 78",
                     AutreTechnos = "Dapper|NUnit|Angular|Bootstrap|TailWind|PostgreSQL",
                     Adresse = "Oujda, Hay Andalous, Rue les orangers, Nr 2",
-                    Certifications = "Certified .Net Developper|Angular Certification|Français avancé C1",
                     EmailPersonnel = "email.personnel@gmail.com",
-                    HadAlreadyWorkedAtSQLI = false,
                     Langues = "Français|Anglais",
                     LieuNaissance = "Rabat",
                     Nationnalite = "Marocaine",
@@ -167,6 +166,7 @@ namespace API_MySIRH.Controllers
                 new Certification{ Libelle="MS600"},
             };
         }
+
         [ApiExplorerSettings(IgnoreApi = true)]
         public List<CollaborateurCertification> SeedCollabCertification()
         {

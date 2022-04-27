@@ -55,14 +55,14 @@ namespace API_MySIRH.Data.Migrations
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "68a17e9c-50c2-4746-ac9c-036ec23251a5",
+                            ConcurrencyStamp = "69a1dda6-c6fb-4b77-a165-507a38364e5d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "80f646e4-e7fa-4bb4-ab77-05449a817e0d",
+                            ConcurrencyStamp = "2a26d107-89d4-462e-8b08-9bf9f70486a4",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -140,13 +140,13 @@ namespace API_MySIRH.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d13620a1-8500-4b5a-b088-cb70e667f260",
+                            ConcurrencyStamp = "5b3239bc-a987-41c1-b0fe-252677346aef",
                             Email = "Admin@sqli.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@SQLI.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKOP2m7k2/NBD6h5AZLZmvHDYgA71i9zPOzU8u3Xlo3pYXM+yoln4+mkuWZt0Y/sqw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMVSTRDAbv9hhe7WjgO871CHDob/87mTyug2I2M1JQEfZMjXpYtw4A+YdvDp2Hm9jw==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "AdminUser"
@@ -244,9 +244,6 @@ namespace API_MySIRH.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("HadAlreadyWorkedAtSQLI")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Langues")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -309,9 +306,6 @@ namespace API_MySIRH.Data.Migrations
                     b.Property<int?>("SkillCenterId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TypeContratId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ModeRecrutementId");
@@ -323,8 +317,6 @@ namespace API_MySIRH.Data.Migrations
                     b.HasIndex("SiteId");
 
                     b.HasIndex("SkillCenterId");
-
-                    b.HasIndex("TypeContratId");
 
                     b.ToTable("Collaborateurs");
                 });
@@ -351,6 +343,44 @@ namespace API_MySIRH.Data.Migrations
                     b.HasIndex("CertificationId");
 
                     b.ToTable("CollaborateurCertifications");
+                });
+
+            modelBuilder.Entity("API_MySIRH.Entities.CollaborateurTypeContrat", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("CollaborateurId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateDebut")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateFin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsInSQLI")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModificationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("TypeContratId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CollaborateurId");
+
+                    b.HasIndex("TypeContratId");
+
+                    b.ToTable("CollaborateurTypeContrats");
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.Dashboard", b =>
@@ -815,10 +845,6 @@ namespace API_MySIRH.Data.Migrations
                         .WithMany()
                         .HasForeignKey("SkillCenterId");
 
-                    b.HasOne("API_MySIRH.Entities.TypeContrat", "TypeContrat")
-                        .WithMany()
-                        .HasForeignKey("TypeContratId");
-
                     b.Navigation("ModeRecrutement");
 
                     b.Navigation("Niveau");
@@ -828,8 +854,6 @@ namespace API_MySIRH.Data.Migrations
                     b.Navigation("Site");
 
                     b.Navigation("SkillCenter");
-
-                    b.Navigation("TypeContrat");
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.CollaborateurCertification", b =>
@@ -851,10 +875,25 @@ namespace API_MySIRH.Data.Migrations
                     b.Navigation("Collaborateur");
                 });
 
+            modelBuilder.Entity("API_MySIRH.Entities.CollaborateurTypeContrat", b =>
+                {
+                    b.HasOne("API_MySIRH.Entities.Collaborateur", "Collaborateur")
+                        .WithMany()
+                        .HasForeignKey("CollaborateurId");
+
+                    b.HasOne("API_MySIRH.Entities.TypeContrat", "TypeContrat")
+                        .WithMany()
+                        .HasForeignKey("TypeContratId");
+
+                    b.Navigation("Collaborateur");
+
+                    b.Navigation("TypeContrat");
+                });
+
             modelBuilder.Entity("API_MySIRH.Entities.Diplome", b =>
                 {
                     b.HasOne("API_MySIRH.Entities.Collaborateur", null)
-                        .WithMany("DiplomesList")
+                        .WithMany("Diplomes")
                         .HasForeignKey("CollaborateurId");
                 });
 
@@ -935,7 +974,7 @@ namespace API_MySIRH.Data.Migrations
                 {
                     b.Navigation("CollaborateurCertifications");
 
-                    b.Navigation("DiplomesList");
+                    b.Navigation("Diplomes");
 
                     b.Navigation("Documents");
                 });

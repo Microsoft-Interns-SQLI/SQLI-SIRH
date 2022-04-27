@@ -98,8 +98,8 @@ namespace API_MySIRH.Controllers
             return exportfile;
         }
 
-        //private async Task<bool> InvokeOperation(Collaborateur collaborateur)
-        //{
+        private async Task<bool> InvokeOperation(Collaborateur collaborateur)
+        {
 
             //if collab is not a freelancer
             if (collaborateur.Matricule != "0")
@@ -110,7 +110,7 @@ namespace API_MySIRH.Controllers
                 }
                 else
                 {
-                    await _collaborateurService.AddCollaborateur(_mapper.Map<CollaborateurInsertDTO>(collaborateur));
+                    await _collaborateurService.AddCollaborateur(_mapper.Map<CollaborateurDTO>(collaborateur));
                     return false;
                 }
             }
@@ -123,7 +123,7 @@ namespace API_MySIRH.Controllers
                 }
                 else
                 {
-                    await _collaborateurService.AddCollaborateur(_mapper.Map<CollaborateurInsertDTO>(collaborateur));
+                    await _collaborateurService.AddCollaborateur(_mapper.Map<CollaborateurDTO>(collaborateur));
                     return false;
                 }
             }
