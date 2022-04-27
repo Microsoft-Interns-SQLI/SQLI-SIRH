@@ -124,7 +124,6 @@ namespace API_MySIRH.Controllers
                     Adresse = "Oujda, Hay Andalous, Rue les orangers, Nr 2",
                     Certifications = "Certified .Net Developper|Angular Certification|Français avancé C1",
                     EmailPersonnel = "email.personnel@gmail.com",
-                    HadAlreadyWorkedAtSQLI = false,
                     Langues = "Français|Anglais",
                     LieuNaissance = "Rabat",
                     Nationnalite = "Marocaine",

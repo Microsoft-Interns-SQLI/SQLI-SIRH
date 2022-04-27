@@ -38,7 +38,6 @@ export class Collaborator {
   numCin: string = '';
   documents?: CollabFile[];
   situationFamiliale: string = '';
-  hadAlreadyWorkedAtSQLI: boolean = false;
 }
 
 export class CollabAddUpdate {
@@ -67,7 +66,6 @@ export class CollabAddUpdate {
   dateSortieSqli?: Date
   dateDebutStage?: Date
   certifications?: string
-  hadAlreadyWorkedAtSQLI?: boolean
   posteId?: number
   skillCenterId?: number
   siteId?: number

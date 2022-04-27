@@ -55,6 +55,8 @@ import { HeaderComponent } from './collaborateurs/header/header.component';
 import { FooterComponent } from './collaborateurs/footer/footer.component';
 import { CustomReuseStrategyService } from './services/custom-reuse-strategy.service';
 import { RouteReuseStrategy } from '@angular/router';
+import { DiplomesComponent } from './diplomes/diplomes.component';
+import { ContratsComponent } from './contrats/contrats.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +99,8 @@ import { RouteReuseStrategy } from '@angular/router';
     SelectInputComponent,
     HeaderComponent,
     FooterComponent,
+    DiplomesComponent,
+    ContratsComponent,
   ],
   imports: [
     CommonModule,

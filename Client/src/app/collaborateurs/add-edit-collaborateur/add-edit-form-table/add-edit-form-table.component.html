@@ -8,7 +8,11 @@
               <div class="my-3">
                 <div class="card">
                   <div class="card-header">
-                    <strong>Informations Personnelles</strong>
+                    <strong>
+                      <u>
+                        Informations Personnelles
+                      </u>
+                    </strong>
                   </div>
                   <div class="card-body">
                     <div class="row">
@@ -73,7 +77,11 @@
               <div class="my-3">
                 <div class="card">
                   <div class="card-header">
-                    <strong>Informations Professionnelles</strong>
+                    <strong>
+                      <u>
+                        Informations Professionnelles
+                      </u>
+                    </strong>
                   </div>
                   <div class="card-body">
                     <div class="row">
@@ -128,18 +136,6 @@
               </div>
             </mat-tab>
             <!--
-              <mat-tab label="Contrat & Statut">
-                <div class="row">
-                  <div class="col-md-12 mt-3">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="hadAlreadyWorkedAtSQLI" checked />
-                      <label class="form-check-label" for="hadAlreadyWorkedAtSQLI">
-                        a déja travaillé à SQLI
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </mat-tab>
               <mat-tab label="Education & Past Jobs">
                 Education & Past Jobs Content
               </mat-tab>
@@ -149,47 +145,14 @@
               <mat-tab label="Materiels"> Materiels Content </mat-tab>
               <mat-tab label="HR Incidents"> HR Incidents Content </mat-tab> 
             -->
+            <mat-tab label="Contrat & Statut">
+              <app-contrats [collab]="collab"></app-contrats>
+            </mat-tab>
             <mat-tab label="Cv & Documents">
               <app-download [collab]="collab"></app-download>
-              <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
-                data-bs-target="#upload">
-                Upload Document
-              </button>
             </mat-tab>
             <mat-tab label="Skills">
-              <div class="card mt-2">
-                <div class="card-header">
-                  <strong>
-                    Diplômes
-                  </strong>
-                </div>
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="table-responsive">
-                        <table class="table w-100">
-                          <thead>
-                            <tr>
-                              <th>Année</th>
-                              <th>Libellé</th>
-                              <th>Détail</th>
-                              <th>Description</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr *ngFor="let diplome of collab.diplomes">
-                              <td>{{ diplome.annee }}</td>
-                              <td>{{ diplome.label }}</td>
-                              <td>{{ diplome.detail }}</td>
-                              <td>{{ diplome.description }}</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <app-diplomes [collab]="collab"></app-diplomes>
             </mat-tab>
           </mat-tab-group>
         </div>

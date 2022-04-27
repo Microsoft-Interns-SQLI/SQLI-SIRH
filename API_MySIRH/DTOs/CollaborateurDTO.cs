@@ -34,7 +34,6 @@ namespace API_MySIRH.DTOs.Collaborateur
         public DateTime? DateSortieSqli { get; set; }
         public DateTime? DateDebutStage { get; set; }
         public string Certifications { get; set; } = String.Empty;
-        public bool HadAlreadyWorkedAtSQLI { get; set; }
 
         // Relations
         public int? PosteId { get; set; }
