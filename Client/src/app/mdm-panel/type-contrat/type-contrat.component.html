@@ -1,10 +1,10 @@
-<div class="w-75 m-auto">
+<div class="my-5">
   <p class="h2">Type de contrats</p>
-  <table class="table m-auto">
+  <table class="table mx-auto my-2">
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Name</th>
+        <th class="col-10" scope="col">Name</th>
         <th scope="col">Actions</th>
       </tr>
     </thead>
@@ -59,7 +59,10 @@
       </tr>
     </tbody>
   </table>
-  <button class="col-1 btn btn-sm btn-primary me-2 mb-1" (click)="onAdd()">
+  <button
+    class="col-1 btn btn-sm btn-primary me-2 mb-1 align-self-end"
+    (click)="onAdd()"
+  >
     <i class="bi bi-plus"></i>
   </button>
 </div>
