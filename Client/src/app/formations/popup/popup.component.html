@@ -12,23 +12,23 @@
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="inputGroupStatus">Status</label>
                     </div>
-                    <select class="custom-select" id="inputGroupStatus" name="status" [(ngModel)]="selected">
+                    <select class="custom-select" id="inputGroupStatus" name="status" (ngModelChange)="selectChange(selected)" [(ngModel)]="selected" required>
                         <option value="AFAIRE">À Faire</option>
-                        <option value="FAIT">Fait</option>
+                        <option value="FAIT" [disabled]="statusDisabled">Fait</option>
                     </select>
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">Date Début</span>
-                    <input type="date" class="form-control" ngModel name="date-debut">
+                    <input type="date" class="form-control" [disabled]="selected == 'FAIT'" [ngModel]="certification.dateDebut | date: 'yyyy-MM-dd'" name="dateDebut" required>
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">Date Fin</span>
-                    <input type="date" class="form-control" ngModel name="date-fin">
+                    <input type="date" class="form-control" [disabled]="selected == 'FAIT'" [ngModel]="dateFin | date: 'yyyy-MM-dd'" (ngModelChange)="dateFin=$event" name="dateFin" required>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" (click)="hideModal()">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="submit" class="btn btn-primary" [disabled]="f.invalid">Save</button>
             </div>
 
         </form>

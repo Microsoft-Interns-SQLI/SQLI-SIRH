@@ -174,11 +174,12 @@ namespace API_MySIRH.Controllers
         {
             return new List<CollaborateurCertification>
             {
-                new CollaborateurCertification{ CollaborateurId=1, CertificationId=1, Status = Status.AFAIRE},
-                new CollaborateurCertification{ CollaborateurId=1, CertificationId=2, Status= Status.AFAIRE},
-                new CollaborateurCertification{ CollaborateurId=1, CertificationId=3, Status= Status.AFAIRE},
-                new CollaborateurCertification{ CollaborateurId=24, CertificationId=2, Status= Status.AFAIRE},
-                new CollaborateurCertification{ CollaborateurId=24, CertificationId=5, Status= Status.AFAIRE},
+                new CollaborateurCertification{ CollaborateurId=1, CertificationId=1, Status = Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
+                new CollaborateurCertification{ CollaborateurId=1, CertificationId=2, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
+                new CollaborateurCertification{ CollaborateurId=1, CertificationId=3, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
+                new CollaborateurCertification{ CollaborateurId=24, CertificationId=2, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
+                new CollaborateurCertification{ CollaborateurId=24, CertificationId=5, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
+                new CollaborateurCertification{ CollaborateurId=60, CertificationId=1, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
             };
         }
 

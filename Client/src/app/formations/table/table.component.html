@@ -4,8 +4,16 @@
       <th scope="col">Nom</th>
       <th scope="col">Prenom</th>
 
-      <th scope="col" *ngFor="let certif of cols">
-        {{certif.libelle}}
+      <th class="header" scope="col" *ngFor="let certif of cols" (click)="sort(certif.libelle)">
+        <div class="d-flex flex-row bd-highlight align-items-center">
+          <div class="bd-highlight">
+            {{certif.libelle}}
+          </div>
+          <div class="bd-highlight p-1 d-flex flex-column bd-highlight">
+            <i class="bd-highlight bi bi-caret-up-fill" style="margin-bottom: -10px;"></i>
+            <i class="bd-highlight bi bi-caret-down-fill"></i>
+          </div>
+        </div>
       </th>
     </tr>
   </thead>
@@ -13,12 +21,10 @@
     <tr *ngFor="let collab of newRows">
       <td>{{collab.collaborateur.nom}}</td>
       <td>{{collab.collaborateur.prenom}}</td>
-      <td *ngFor="let c of collab.certificates" class="item" (click)="details(c)" appDisplayItem [hasStatus]="c.status">
-        
+      <td *ngFor="let c of collab.certificates" class="item" (click)="details(c)" [appDisplayItem]="c.status">
         {{c.status | handleStatusDisplay}}
       </td>
-
-
     </tr>
   </tbody>
 </table>
+<app-popup class="popup" *ngIf="displayed" (certificationEvent)="boxUpdated($event)"></app-popup>

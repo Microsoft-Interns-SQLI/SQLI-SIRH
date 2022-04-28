@@ -51,7 +51,7 @@ namespace API_MySIRH.Repositories
 
         public IQueryable<Collaborateur> GetCollaborateurs()
         {
-            var query = _context.Collaborateurs;
+            var query = _context.Collaborateurs.Include(x=>x.Certifications);
             return query;
         }
 

@@ -16,7 +16,6 @@ import { PopupService } from './popup/popup.service';
 export class FormationsComponent implements OnInit, OnDestroy {
 
   selected: boolean = true;
-  displayed: boolean = true;
   tab: CollabFormationCertif[] = [];
   cols: Certification[] = [];
   rows: Collaborator[] = [];
@@ -25,7 +24,6 @@ export class FormationsComponent implements OnInit, OnDestroy {
   subCollab!: Subscription;
   subCertif!: Subscription;
   subCollabCertif!: Subscription;  
-  subPopup!:Subscription;
 
   //pagination params
   pageNumber = 1;
@@ -35,14 +33,14 @@ export class FormationsComponent implements OnInit, OnDestroy {
     currentPage: this.pageNumber,
   } as Pagination;
 
-  constructor(private popupService: PopupService,private formationCertifService: FormationCertificationsService, private collaborateurService: CollaboratorsService) { }
+  constructor(private formationCertifService: FormationCertificationsService, private collaborateurService: CollaboratorsService) { }
 
 
   ngOnInit(): void {
-    this.subPopup = this.popupService.isShow.subscribe(data=> this.displayed = data);
+    
   }
 
-  onChange() {
+  onSwitch() {
     if (this.selected) {
       //fetch formation table
     } else {
@@ -67,10 +65,11 @@ export class FormationsComponent implements OnInit, OnDestroy {
     pageNumber?: number,
     filtrerPar?: string,
     search?: string,
-    orderby?: string
+    orderby?: string,
+    orderbyCertification?:string
   ) {
     this.subCollab = this.collaborateurService
-      .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby)
+      .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby, orderbyCertification)
       .subscribe(
         resp => {
           this.rows = resp.result;
@@ -87,13 +86,14 @@ export class FormationsComponent implements OnInit, OnDestroy {
     );
   }
 
-
+  sortData(libelle:string){
+    this.loadCollaborators(this.pageSize, this.pageNumber,undefined, undefined, undefined, libelle);
+  }
 
   ngOnDestroy(): void {
     this.subCertif.unsubscribe();
     this.subCollab.unsubscribe();
     this.subCollabCertif.unsubscribe();
-    this.subPopup.unsubscribe();
   }
 
 }

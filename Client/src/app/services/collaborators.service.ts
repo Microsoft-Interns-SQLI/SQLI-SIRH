@@ -22,7 +22,7 @@ export class CollaboratorsService {
 
   constructor(private http: HttpClient) { }
 
-  getCollaboratorsList(itemsPerPage?: number, page?: number, filtrerPar?: string, search?: string, orderby?: string) {
+  getCollaboratorsList(itemsPerPage?: number, page?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyCertification?:string) {
     //delay(50000);
     let params = new HttpParams();
     if (page != undefined && itemsPerPage != undefined) {
@@ -37,6 +37,10 @@ export class CollaboratorsService {
 
     if(search !=undefined){
       params = params.append("Search", search);
+    }
+
+    if(orderbyCertification !=undefined){
+      params = params.append("OrderByCertification", orderbyCertification);
     }
 
     return this.http.get<any>(this.myUrl, { observe: 'response', params }).pipe(

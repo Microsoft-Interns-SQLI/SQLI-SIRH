@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
   <div class="form-check form-switch">
-    <input class="form-check-input" [(ngModel)]="selected" (change)="onChange()" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+    <input class="form-check-input" [(ngModel)]="selected" (change)="onSwitch()" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
     <label class="form-check-label" for="flexSwitchCheckChecked">
       {{selected ? 'Formations' : 'Certifications'}}
     </label>
@@ -17,10 +17,10 @@
   </div>
 </div>
 <div class="table-scroll">
-  <app-table [table] ="tab" [rows]="rows" [cols]="cols"></app-table>
+  <app-table [table] ="tab" [rows]="rows" [cols]="cols" (sortValue)="sortData($event)"></app-table>
 </div>
 <div>
   <app-footer [pagination]="pagination" (pageNumber)="getCurrentPage($event)"></app-footer>
 </div>
 
-<app-popup class="popup" *ngIf="displayed"></app-popup>
+

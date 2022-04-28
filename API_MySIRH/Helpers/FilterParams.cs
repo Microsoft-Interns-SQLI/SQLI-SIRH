@@ -14,5 +14,7 @@ namespace API_MySIRH.Helpers
         public string Search { get; set; } = String.Empty;
         public string Site { get; set; } = String.Empty;
         public string OrderBy { get; set; } = "nom_asc";
+
+        public string OrderByCertification { get; set; } =String.Empty;
     }
 }
