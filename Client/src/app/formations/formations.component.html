@@ -22,3 +22,5 @@
 <div>
   <app-footer [pagination]="pagination" (pageNumber)="getCurrentPage($event)"></app-footer>
 </div>
+
+<app-popup class="popup" *ngIf="displayed"></app-popup>

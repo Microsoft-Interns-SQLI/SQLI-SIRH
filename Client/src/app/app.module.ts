@@ -58,6 +58,9 @@ import { RouteReuseStrategy } from '@angular/router';
 import { DiplomesComponent } from './diplomes/diplomes.component';
 import { ContratsComponent } from './contrats/contrats.component';
 import { TableComponent } from './formations/table/table.component';
+import { DisplayItemDirective } from './formations/table/display-item.directive';
+import { HandleStatusDisplayPipe } from './formations/table/handle-status-display.pipe';
+import { PopupComponent } from './formations/popup/popup.component';
 
 @NgModule({
   declarations: [
@@ -103,6 +106,9 @@ import { TableComponent } from './formations/table/table.component';
     DiplomesComponent,
     ContratsComponent,
     TableComponent,
+    DisplayItemDirective,
+    HandleStatusDisplayPipe,
+    PopupComponent,
   ],
   imports: [
     CommonModule,

@@ -6,6 +6,7 @@ import { Collaborator } from '../Models/Collaborator';
 import { Pagination } from '../Models/pagination';
 import { CollaboratorsService } from '../services/collaborators.service';
 import { FormationCertificationsService } from '../services/formation-certifications.service';
+import { PopupService } from './popup/popup.service';
 
 @Component({
   selector: 'app-formations',
@@ -15,6 +16,7 @@ import { FormationCertificationsService } from '../services/formation-certificat
 export class FormationsComponent implements OnInit, OnDestroy {
 
   selected: boolean = true;
+  displayed: boolean = true;
   tab: CollabFormationCertif[] = [];
   cols: Certification[] = [];
   rows: Collaborator[] = [];
@@ -22,7 +24,8 @@ export class FormationsComponent implements OnInit, OnDestroy {
   //Subscription
   subCollab!: Subscription;
   subCertif!: Subscription;
-  subCollabCertif!: Subscription;
+  subCollabCertif!: Subscription;  
+  subPopup!:Subscription;
 
   //pagination params
   pageNumber = 1;
@@ -32,12 +35,12 @@ export class FormationsComponent implements OnInit, OnDestroy {
     currentPage: this.pageNumber,
   } as Pagination;
 
-  constructor(private formationCertifService: FormationCertificationsService, private collaborateurService: CollaboratorsService) { }
+  constructor(private popupService: PopupService,private formationCertifService: FormationCertificationsService, private collaborateurService: CollaboratorsService) { }
 
 
   ngOnInit(): void {
+    this.subPopup = this.popupService.isShow.subscribe(data=> this.displayed = data);
   }
-
 
   onChange() {
     if (this.selected) {
@@ -90,6 +93,7 @@ export class FormationsComponent implements OnInit, OnDestroy {
     this.subCertif.unsubscribe();
     this.subCollab.unsubscribe();
     this.subCollabCertif.unsubscribe();
+    this.subPopup.unsubscribe();
   }
 
 }

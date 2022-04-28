@@ -46,6 +46,8 @@ namespace API_MySIRH.Controllers
             this._dataContext
                 .Certifications.RemoveRange(this._dataContext.Certifications.ToList());
             this._dataContext
+                .CollaborateurCertifications.RemoveRange(this._dataContext.CollaborateurCertifications.ToList());
+            this._dataContext
                 .CollaborateurTypeContrats.RemoveRange(this._dataContext.CollaborateurTypeContrats.ToList());
             await this._dataContext.SaveChangesAsync();
 
@@ -172,11 +174,11 @@ namespace API_MySIRH.Controllers
         {
             return new List<CollaborateurCertification>
             {
-                new CollaborateurCertification{ CollaborateurId=1, CertificationId=1},
-                new CollaborateurCertification{ CollaborateurId=1, CertificationId=2},
-                new CollaborateurCertification{ CollaborateurId=1, CertificationId=3},
-                new CollaborateurCertification{ CollaborateurId=24, CertificationId=2},
-                new CollaborateurCertification{ CollaborateurId=24, CertificationId=5},
+                new CollaborateurCertification{ CollaborateurId=1, CertificationId=1, Status = Status.AFAIRE},
+                new CollaborateurCertification{ CollaborateurId=1, CertificationId=2, Status= Status.AFAIRE},
+                new CollaborateurCertification{ CollaborateurId=1, CertificationId=3, Status= Status.AFAIRE},
+                new CollaborateurCertification{ CollaborateurId=24, CertificationId=2, Status= Status.AFAIRE},
+                new CollaborateurCertification{ CollaborateurId=24, CertificationId=5, Status= Status.AFAIRE},
             };
         }
 

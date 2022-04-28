@@ -1,7 +1,9 @@
-import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+
 import { Certification } from 'src/app/Models/certification';
 import { CollabFormationCertif } from 'src/app/Models/collaborationCertificationFormation';
 import { Collaborator } from 'src/app/Models/Collaborator';
+import { PopupService } from '../popup/popup.service';
 
 @Component({
   selector: 'app-table',
@@ -9,14 +11,16 @@ import { Collaborator } from 'src/app/Models/Collaborator';
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit, OnChanges {
-
+  // displayed:boolean = false;
+  // sub!:Subscription;
   @Input() table!:CollabFormationCertif[];
   @Input() rows: Collaborator[] =[];
   @Input() cols: Certification[] = [];
 
   newRows: {collaborateur: Collaborator, certificates: CollabFormationCertif[]}[] = [];
 
-  constructor() { }
+  constructor(private popupService: PopupService) { }
+
 
   ngOnChanges(changes: SimpleChanges): void {
     this.newRows = [];
@@ -34,11 +38,13 @@ export class TableComponent implements OnInit, OnChanges {
 
       this.newRows.push({collaborateur:collab, certificates: certificates})
     });
-    console.log(this.newRows);
   }
 
   ngOnInit(): void {
-    
+  }
+
+  details(certif: CollabFormationCertif){
+    this.popupService.show(certif);
   }
 
 }

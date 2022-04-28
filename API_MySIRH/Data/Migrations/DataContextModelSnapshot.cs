@@ -55,14 +55,14 @@ namespace API_MySIRH.Data.Migrations
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "69a1dda6-c6fb-4b77-a165-507a38364e5d",
+                            ConcurrencyStamp = "1880059d-6728-47fc-b60d-3cf37c8c807e",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "2a26d107-89d4-462e-8b08-9bf9f70486a4",
+                            ConcurrencyStamp = "eda6f82f-34b7-483a-8244-476179ba7a7d",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -140,13 +140,13 @@ namespace API_MySIRH.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5b3239bc-a987-41c1-b0fe-252677346aef",
+                            ConcurrencyStamp = "7dd397c3-32ef-4e71-aa88-7699f2acbeb9",
                             Email = "Admin@sqli.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@SQLI.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMVSTRDAbv9hhe7WjgO871CHDob/87mTyug2I2M1JQEfZMjXpYtw4A+YdvDp2Hm9jw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAXezOF649Lh3FjzCp1X/uE5MmmZmERWFTWKqMilRdzzOnV9Jks9+0xFcAI9u0RN6g==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "AdminUser"
@@ -335,8 +335,8 @@ namespace API_MySIRH.Data.Migrations
                     b.Property<DateTime?>("DateFin")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("CollaborateurId", "CertificationId");
 
