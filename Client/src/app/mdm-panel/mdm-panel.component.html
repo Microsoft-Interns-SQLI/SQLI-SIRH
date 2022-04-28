@@ -1,0 +1,42 @@
+<div
+  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom"
+>
+  <h2 class="h2">MDM Panel</h2>
+</div>
+<div class="container w-75 m-auto">
+  <app-poste
+    [postes]="postes"
+    (posteToDelete)="handleDeletePoste($event)"
+    (posteToAdd)="handleAddPoste($event)"
+  ></app-poste>
+
+  <app-site
+    [sites]="sites"
+    (siteToDelete)="handleDeleteSite($event)"
+    (siteToAdd)="handleAddSite($event)"
+  ></app-site>
+
+  <app-niveau
+    [niveaux]="niveaux"
+    (niveauToDelete)="handleDeleteNiveau($event)"
+    (niveauToAdd)="handleAddNiveau($event)"
+  ></app-niveau>
+
+  <app-skill-center
+    [skillCenters]="skillCenters"
+    (skillCenterToDelete)="handleDeleteSkillCenter($event)"
+    (skillCenterToAdd)="handleAddSkillCenter($event)"
+  ></app-skill-center>
+
+  <app-mode
+    [modes]="modes"
+    (modeToDelete)="handleDeleteMode($event)"
+    (modeToAdd)="handleAddMode($event)"
+  ></app-mode>
+
+  <app-type-contrat
+    [contrats]="contrats"
+    (contratToDelete)="handleDeleteContrat($event)"
+    (contratToAdd)="handleAddContrat($event)"
+  ></app-type-contrat>
+</div>
