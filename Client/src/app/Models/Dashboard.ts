@@ -1,13 +1,13 @@
-export interface Dashboard{
-    FemaleCount : number
-    MaleCount  : number
-    RateEncadrement : number
-    HeadCount : number
-    AverageExperience : number
-    RateEmploi : number
-    TurnOver : number
-    RateSousTraitance : number
-    RateSatisfaction :  number
-    AverageAge:  number
-    CountTLRH : number
+export class Dashboard{
+    femaleCount! : number
+    maleCount!  : number
+    rateEncadrement! : number
+    headCount! : number
+    averageExperience! : number
+    rateEmploi! : number
+    turnOver! : number
+    rateSousTraitance! : number
+    rateSatisfaction! :  number
+    averageAge!:  number
+    countTLRH! : number
 }

@@ -1,17 +1,20 @@
-﻿namespace API_MySIRH.DTOs
+﻿using static API_MySIRH.Services.DashboardService;
+
+namespace API_MySIRH.DTOs
 {
     public class DashboardDto :DtoBase
     {
-        public double FemaleCount { get; set; } 
-        public double MaleCount { get; set; } 
-        public double RateEncadrement { get; set; }
         public double HeadCount { get; set; }
-        public double AverageExperience { get; set; }
-        public double RateEmploi { get; set; }
-        public double TurnOver { get; set; }
-        public double RateSousTraitance { get; set; }
-        public double RateSatisfaction { get; set; }
+        public double FemaleCount { get; set; } 
+        public double MaleCount { get; set; }
         public double AverageAge { get; set; }
-        public double CountTLRH { get; set; }
+        public int ICDCount { get; set; }
+        public int ExpertTechCount { get; set; }
+        public int ChefDeProjetCount { get; set; }
+        public int ManagerCount { get; set; }
+        public int JuniorCount { get; set; }
+        public int OperationnelCount { get; set; }
+        public int ConfirmeCount { get; set; }
+        public int SeniorCount { get; set; } 
     }
 }

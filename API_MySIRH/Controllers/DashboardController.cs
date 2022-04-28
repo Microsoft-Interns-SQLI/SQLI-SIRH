@@ -22,28 +22,20 @@ namespace API_MySIRH.Controllers
         public async Task<ActionResult<DashboardDto>> GetDashboard()
         {
             DashboardDto dashboard = new();
-            var collection =  _collaborateurService.GetCollaborateurs().Where(collab => collab.DateSortieSqli > DateTime.Now || collab.DateSortieSqli== null);
-            dashboard.HeadCount = HeadCount(collection);
-            dashboard.FemaleCount = FemaleCount(collection);
-            dashboard.MaleCount = MaleCount(collection);
+            var collection = _collaborateurService.GetCollaborateurs().Where(collab => collab.DateSortieSqli == null || DateTime.Compare((DateTime)collab.DateSortieSqli, DateTime.Now) > 0 );
+            dashboard.HeadCount = _dashboardService.GetHeadCount(collection);
+            dashboard.FemaleCount = _dashboardService.GetFemaleCount(collection);
+            dashboard.MaleCount = _dashboardService.GetMaleCount(collection);
+            dashboard.AverageAge = _dashboardService.GetAverageAge(collection);
+            dashboard.ICDCount = _dashboardService.GetHeadCountPerPoste(collection, "Ingénieur Concepteur développeur");
+            dashboard.ExpertTechCount = _dashboardService.GetHeadCountPerPoste(collection, "Expert technique");
+            dashboard.ChefDeProjetCount = _dashboardService.GetHeadCountPerPoste(collection, "Chef de projet technique");
+            dashboard.ManagerCount = _dashboardService.GetHeadCountPerPoste(collection, "Manager");
+            dashboard.JuniorCount = _dashboardService.GetHeadCountPerNiveaux(collection, "Junior");
+            dashboard.OperationnelCount = _dashboardService.GetHeadCountPerNiveaux(collection, "Opérationnel");
+            dashboard.ConfirmeCount = _dashboardService.GetHeadCountPerNiveaux(collection, "Confirmé");
+            dashboard.SeniorCount = _dashboardService.GetHeadCountPerNiveaux(collection, "Sénior");
             return dashboard;
-        }
-
-        private int HeadCount(IEnumerable<CollaborateurDTO> collaborateurs)
-        {
-            return collaborateurs.Count();
-        }
-
-        private int FemaleCount(IEnumerable<CollaborateurDTO> collaborateurs)
-        {
-            return collaborateurs.Where(collab => collab.Civilite.ToUpper().Equals("F"))
-                        .Count();
-        }
-
-        private int MaleCount(IEnumerable<CollaborateurDTO> collaborateurs)
-        {
-            return collaborateurs.Where(collab => collab.Civilite.ToUpper().Equals("M"))
-                        .Count();
         }
 
          
