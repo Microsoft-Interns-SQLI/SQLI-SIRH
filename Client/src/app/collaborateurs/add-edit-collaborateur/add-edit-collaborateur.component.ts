@@ -154,7 +154,6 @@ export class AddEditCollaborateurComponent implements OnInit {
     res.dateSortieSqli = this.formGroup.value.dateSortieSqli;
     res.dateDebutStage = this.formGroup.value.dateDebutStage;
     res.certifications = this.collab.certifications;
-    res.hadAlreadyWorkedAtSQLI = this.collab.hadAlreadyWorkedAtSQLI;
     res.posteId = this.formGroup.value.poste;
     // res.skillCenterId = this.collab.skillCenter;
     res.skillCenterId = 1;

@@ -14,12 +14,12 @@ export class DownloadComponent implements OnInit, OnDestroy {
   subscription?: Subscription;
   message: string = '';
   progress: number = 0;
-  constructor(private filesService: FilesService) {}
+  constructor(private filesService: FilesService) { }
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
   download(document: any) {
     console.log(document);
     this.subscription = this.filesService

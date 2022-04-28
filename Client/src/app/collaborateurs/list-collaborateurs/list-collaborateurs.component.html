@@ -61,40 +61,70 @@
     </div>
 
     <div class="btn-group me-2">
-      <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
-        data-bs-target="#importModal">import</button>
-      <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+      <button
+        type="button"
+        class="btn btn-sm btn-outline-secondary"
+        data-bs-toggle="modal"
+        data-bs-target="#importModal"
+      >
+        import
+      </button>
+      <button type="button" class="btn btn-sm btn-outline-secondary">
+        Export
+      </button>
     </div>
 
-    <app-import-collabs class="modal fade" id="importModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-      aria-hidden="true"></app-import-collabs>
+    <app-import-collabs
+      class="modal fade"
+      id="importModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    ></app-import-collabs>
 
-      <select class="btn btn-sm btn-dark" [(ngModel)] = "selected" (ngModelChange)="onSelect()">
-        <option value="" disabled>Filtrer par</option>
-          <option value="rabat">Rabat</option>
-          <option value="oujda">Oujda</option>
-      </select>
+    <select
+      class="btn btn-sm btn-dark"
+      [(ngModel)]="selected"
+      (ngModelChange)="onSelect()"
+    >
+      <option value="" disabled>Filtrer par</option>
+      <option value="rabat">Rabat</option>
+      <option value="oujda">Oujda</option>
+    </select>
   </div>
 </div>
 
 <div>
-  <app-header (pageSize)="changePageSize($event)" (search)="search($event)"></app-header>
+  <app-header
+    (pageSize)="changePageSize($event)"
+    (search)="search($event)"
+  ></app-header>
 </div>
 
-<hr>
+<hr />
 
 <div *ngIf="displayTable">
   <table class="table">
     <thead>
       <th>
-        <button class="btn btn-sm m-0 p-0" value="matricule" #matricule (click)="trier(matricule.value)">
+        <button
+          class="btn btn-sm m-0 p-0"
+          value="matricule"
+          #matricule
+          (click)="trier(matricule.value)"
+        >
           <strong>#Matricule</strong>
         </button>
       </th>
       <th>
-        <div class="d-flex align-items-center" style="margin-bottom:-15px;">
+        <div class="d-flex align-items-center" style="margin-bottom: -15px">
           <div>
-            <button class="btn btn-sm m-0 p-0" value="nom" #nom (click)="trier(nom.value)">
+            <button
+              class="btn btn-sm m-0 p-0"
+              value="nom"
+              #nom
+              (click)="trier(nom.value)"
+            >
               <strong>Nom</strong>
             </button>
           </div>
@@ -105,7 +135,12 @@
         </div>
         <div class="d-flex align-items-center">
           <div>
-            <button class="btn btn-sm m-0 p-0" value="prenom" #prenom (click)="trier(prenom.value)">
+            <button
+              class="btn btn-sm m-0 p-0"
+              value="prenom"
+              #prenom
+              (click)="trier(prenom.value)"
+            >
               <strong>Prenom</strong>
             </button>
           </div>
@@ -115,12 +150,25 @@
           </div>
         </div>
       </th>
-      <th><button class="btn btn-sm m-0 p-0" value="exp" #annee (click)="trier(annee.value)"><strong>Annee
-            Experence</strong></button></th>
       <th>
-        <div class="d-flex align-items-center" style="margin-bottom:-15px;">
+        <button
+          class="btn btn-sm m-0 p-0"
+          value="exp"
+          #annee
+          (click)="trier(annee.value)"
+        >
+          <strong>Annee Experence</strong>
+        </button>
+      </th>
+      <th>
+        <div class="d-flex align-items-center" style="margin-bottom: -15px">
           <div>
-            <button class="btn btn-sm m-0 p-0" value="poste" #poste (click)="trier(poste.value)">
+            <button
+              class="btn btn-sm m-0 p-0"
+              value="poste"
+              #poste
+              (click)="trier(poste.value)"
+            >
               <strong>Poste</strong>
             </button>
           </div>
@@ -131,7 +179,12 @@
         </div>
         <div class="d-flex align-items-center">
           <div>
-            <button class="btn btn-sm m-0 p-0" value="niveau" #niveau (click)="trier(niveau.value)">
+            <button
+              class="btn btn-sm m-0 p-0"
+              value="niveau"
+              #niveau
+              (click)="trier(niveau.value)"
+            >
               <strong>Niveau</strong>
             </button>
           </div>
@@ -142,22 +195,41 @@
         </div>
       </th>
       <th>Cv</th>
-      <th style="text-align:right">Options</th>
+      <th style="text-align: right">Options</th>
     </thead>
     <tbody>
-      <tr class="shadow-sm p-3 mb-5 bg-body rounded align-baseline" id="{{item.id}}"
-        *ngFor="let item of collaboratorsArray">
-        <td class="text-start">{{item.matricule}}</td>
-        <td>{{item.nom}} <br> {{item.prenom }}</td>
-        <td>{{calculateYears(item.dateEntreeSqli)}}</td>
-        <td>{{item.poste?.name}}<br>{{item.niveau?.name}}</td>
-        <td><button class="btn btn-sm btn-info"><i class="bi bi-file-earmark-medical"></i></button></td>
+      <tr
+        class="shadow-sm p-3 mb-5 bg-body rounded align-baseline"
+        id="{{ item.id }}"
+        *ngFor="let item of collaboratorsArray"
+      >
+        <td class="text-start">{{ item.matricule }}</td>
+        <td>
+          {{ item.nom }} <br />
+          {{ item.prenom }}
+        </td>
+        <td>{{ calculateYears(item.dateEntreeSqli) }}</td>
+        <td>{{ item.poste?.name }}<br />{{ item.niveau?.name }}</td>
+        <td>
+          <button class="btn btn-sm btn-info">
+            <i class="bi bi-file-earmark-medical"></i>
+          </button>
+        </td>
         <td id="options" class="text-end">
           <div class="container justify-content-end">
-            <button [routerLink]="['/addEditcollaborateur', item.id]" class="btn btn-sm btn-primary me-2 mb-1"
-              aria-label="edit">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                class="bi bi-pencil-square" viewBox="0 0 16 16">
+            <button
+              [routerLink]="['/addEditcollaborateur', item.id]"
+              class="btn btn-sm btn-primary me-2 mb-1"
+              aria-label="edit"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-pencil-square"
+                viewBox="0 0 16 16"
+              >
                 <path
                   d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
                 />
@@ -281,7 +353,10 @@
 </div>
 
 <div>
-  <app-footer [pagination]="pagination" (pageNumber)="getCurrentPage($event)"></app-footer>
+  <app-footer
+    [pagination]="pagination"
+    (pageNumber)="getCurrentPage($event)"
+  ></app-footer>
 </div>
 
 <!-- Modal -->

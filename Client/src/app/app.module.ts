@@ -55,6 +55,16 @@ import { HeaderComponent } from './collaborateurs/header/header.component';
 import { FooterComponent } from './collaborateurs/footer/footer.component';
 import { CustomReuseStrategyService } from './services/custom-reuse-strategy.service';
 import { RouteReuseStrategy } from '@angular/router';
+import { DiplomesComponent } from './diplomes/diplomes.component';
+import { ContratsComponent } from './contrats/contrats.component';
+import { TableComponent } from './formations/table/table.component';
+import { MdmPanelComponent } from './mdm-panel/mdm-panel.component';
+import { SiteComponent } from './mdm-panel/site/site.component';
+import { SkillCenterComponent } from './mdm-panel/skill-center/skill-center.component';
+import { PosteComponent } from './mdm-panel/poste/poste.component';
+import { NiveauComponent } from './mdm-panel/niveau/niveau.component';
+import { ModeComponent } from './mdm-panel/mode/mode.component';
+import { TypeContratComponent } from './mdm-panel/type-contrat/type-contrat.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +107,16 @@ import { RouteReuseStrategy } from '@angular/router';
     SelectInputComponent,
     HeaderComponent,
     FooterComponent,
+    DiplomesComponent,
+    ContratsComponent,
+    TableComponent,
+    MdmPanelComponent,
+    SiteComponent,
+    SkillCenterComponent,
+    PosteComponent,
+    NiveauComponent,
+    ModeComponent,
+    TypeContratComponent,
   ],
   imports: [
     CommonModule,
@@ -115,11 +135,12 @@ import { RouteReuseStrategy } from '@angular/router';
     BrowserAnimationsModule,
     ngfModule,
     MatTabsModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
   ],
-  providers: [DatePipe,
-    {provide : HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},
-    { provide: RouteReuseStrategy, useClass: CustomReuseStrategyService }
+  providers: [
+    DatePipe,
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+    { provide: RouteReuseStrategy, useClass: CustomReuseStrategyService },
   ],
   bootstrap: [AppComponent],
 })

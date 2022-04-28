@@ -166,7 +166,7 @@ namespace API_MySIRH.Controllers
                         collaborateur.Civilite = worksheet.Rows[i].Cells[5].Value.ToString();
                         // collaborateur.Diplomes = worksheet.Rows[i].Cells[16].Value.ToString();  // todo-review : added relation between 'Diplome' and 'collaborateur'
                         // collaborateur.ModeRecrutement = worksheet.Rows[i].Cells[11].Value.ToString(); // todo-review : added relation between 'ModeRecrutement' and 'collaborateur'
-
+                        collaborateur.PosteId = 7;
                         if (worksheet.Rows[i].Cells[6].Value != "")
                             collaborateur.DateNaissance = Convert.ToDateTime(worksheet.Rows[i].Cells[6].Value);
                         if (worksheet.Rows[i].Cells[12].Value != "")
@@ -178,14 +178,14 @@ namespace API_MySIRH.Controllers
                         if (worksheet.Rows[i].Cells[15].Value != "")
                             collaborateur.DateSortieSqli = Convert.ToDateTime(worksheet.Rows[i].Cells[15].Value);
 
-                        if (await InvokeOperation(collaborateur))
-                        {
-                            compteRendu["ExistsCollab"]++;
-                        }
-                        else
-                        {
-                            compteRendu["AddingCollab"]++;
-                        }
+                        //if (await InvokeOperation(collaborateur))
+                        //{
+                        //    compteRendu["ExistsCollab"]++;
+                        //}
+                        //else
+                        //{
+                        //    compteRendu["AddingCollab"]++;
+                        //}
                     }
                 }
 
