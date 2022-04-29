@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace API_MySIRH.DTOs.Collaborateur
+namespace API_MySIRH.DTOs
 {
     public class CollaborateurDTO : DtoBase
     {

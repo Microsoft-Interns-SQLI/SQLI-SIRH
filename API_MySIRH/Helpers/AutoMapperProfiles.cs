@@ -1,6 +1,5 @@
 ﻿using API_MySIRH.DTOs;
 using API_MySIRH.DTOs.Auth;
-using API_MySIRH.DTOs.Collaborateur;
 using API_MySIRH.Entities;
 using API_MySIRH.Entities.Auth;
 using AutoMapper;
@@ -24,6 +23,7 @@ namespace API_MySIRH.Helpers
             CreateMap<ModeRecrutement, ModeRecrutementDTO>().ReverseMap();
             CreateMap<Document, FileDTO>().ReverseMap();
 
+            CreateMap<CollaborateurTypeContratDTO, CollaborateurTypeContrat>().ReverseMap();
             CreateMap<CollaborateurDTO, Collaborateur>().ReverseMap();
 
             CreateMap<Certification, CertificationDTO>().ReverseMap();
