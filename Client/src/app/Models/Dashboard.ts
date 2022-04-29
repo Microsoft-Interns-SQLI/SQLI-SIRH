@@ -1,13 +1,14 @@
-export class Dashboard{
-    femaleCount! : number
-    maleCount!  : number
-    rateEncadrement! : number
-    headCount! : number
-    averageExperience! : number
-    rateEmploi! : number
-    turnOver! : number
-    rateSousTraitance! : number
-    rateSatisfaction! :  number
-    averageAge!:  number
-    countTLRH! : number
+export class Dashboard {
+    headCount!: number
+    femaleCount!: number
+    maleCount!: number
+    averageAge!: number
+    iCDCount!: number
+    expertTechCount!: number
+    chefDeProjetCount!: number
+    managerCount!: number
+    juniorCount!: number
+    operationnelCount!: number
+    confirmeCount!: number
+    seniorCount!: number
 }
