@@ -48,6 +48,8 @@ builder.Services.AddScoped<ICertificationService, CertificationService>();
 builder.Services.AddScoped<ICertificationRepository, CertificationRepository>();
 builder.Services.AddScoped<ICollaborateurCertificationService, CollaborateurCertificationService>();
 builder.Services.AddScoped<ICollaborateurCertificationRepository, CollaborateurCertificationRepository>();
+builder.Services.AddScoped<ICollaborateurTypeContratRepository, CollaborateurTypeContratRepository>();
+builder.Services.AddScoped<ICollaborateurTypeContratService, CollaborateurTypeContratService>();
 builder.Services.AddScoped(typeof(IMdmRepository<>), typeof(MdmRepository<>));
 builder.Services.AddScoped(typeof(IMdmService<,>), typeof(MdmService<,>));
 

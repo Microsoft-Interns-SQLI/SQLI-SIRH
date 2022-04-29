@@ -21,8 +21,7 @@ namespace API_MySIRH.Repositories
             await this._context.Collaborateurs.AddAsync(collaborateur);
             await this._context.SaveChangesAsync();
 
-            collaborateur = await this.GetCollaborateurById(collaborateur.Id); // todo-review : is it necessary to fetch by id after insert ?
-            return collaborateur;
+            return await this.GetCollaborateurById(collaborateur.Id); // todo-review : is it necessary to fetch by id after insert ?
         }
 
         public async Task<bool> CollaborateurExistsById(int id)
@@ -81,7 +80,7 @@ namespace API_MySIRH.Repositories
             return await this._context.Collaborateurs.Where(c => c.Email == email).AsNoTracking().FirstOrDefaultAsync();
         }
 
-        public async Task UpdateCollaborateur(int id, Collaborateur collaborateur)
+        public async Task UpdateCollaborateur(Collaborateur collaborateur)
         {
             this._context.Entry(collaborateur).State = EntityState.Modified;
             await this._context.SaveChangesAsync();

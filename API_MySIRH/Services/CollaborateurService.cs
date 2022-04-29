@@ -1,4 +1,4 @@
-using API_MySIRH.DTOs.Collaborateur;
+using API_MySIRH.DTOs;
 using API_MySIRH.Entities;
 using API_MySIRH.Helpers;
 using API_MySIRH.Interfaces;
@@ -78,9 +78,9 @@ namespace API_MySIRH.Services
             return _mapper.Map<IEnumerable<CollaborateurDTO>>(_collaborateurRepository.GetCollaborateurs());
         }
 
-        public async Task UpdateCollaborateur(int id, CollaborateurDTO collaborateur)
+        public async Task UpdateCollaborateur(CollaborateurDTO collaborateur)
         {
-            await this._collaborateurRepository.UpdateCollaborateur(id, this._mapper.Map<Collaborateur>(collaborateur));
+            await this._collaborateurRepository.UpdateCollaborateur(this._mapper.Map<Collaborateur>(collaborateur));
         }
 
         public Task<bool> CollaborateurExistsById(int id)

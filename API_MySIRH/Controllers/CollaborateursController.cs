@@ -8,7 +8,6 @@ using System.Collections;
 using AutoMapper;
 using API_MySIRH.Entities;
 using Microsoft.AspNetCore.JsonPatch;
-using API_MySIRH.DTOs.Collaborateur;
 
 namespace API_MySIRH.Controllers
 {
@@ -49,7 +48,7 @@ namespace API_MySIRH.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<CollaborateurDTO>> UpdateCollaborateur(int id, CollaborateurDTO collaborateurDTO)
+        public async Task<ActionResult> UpdateCollaborateur(int id, CollaborateurDTO collaborateurDTO)
         {
             if (id != collaborateurDTO.Id)
             {
@@ -57,7 +56,7 @@ namespace API_MySIRH.Controllers
             }
             try
             {
-                await this._collaborateurService.UpdateCollaborateur(id, collaborateurDTO);
+                await this._collaborateurService.UpdateCollaborateur(collaborateurDTO);
             }
             catch
             {
@@ -269,8 +268,8 @@ namespace API_MySIRH.Controllers
             }
 
             var stream = new MemoryStream();
-            
-                
+
+
             workbook.SaveAs(stream);
 
             stream.Position = 0;
