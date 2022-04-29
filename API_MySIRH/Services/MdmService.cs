@@ -37,6 +37,11 @@ namespace API_MySIRH.Services
             return _mapper.Map<TDto>(await _mdmRepository.GetById(id));
         }
 
+        public async Task<TDto> GetByName(string name)
+        {
+            return _mapper.Map<TDto>(await _mdmRepository.GetByName(name));
+        }
+
         public async Task Update(int id, TDto objDTO)
         {
             await _mdmRepository.Update(id, _mapper.Map<T>(objDTO));

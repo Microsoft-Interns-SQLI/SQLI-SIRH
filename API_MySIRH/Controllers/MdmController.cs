@@ -394,7 +394,7 @@ namespace API_MySIRH.Controllers
                 {
                     return BadRequest(ex.Message);
                 }
-                return Ok($"Mode de Recrutement : {mode.Mode} added successfully !");
+                return Ok($"Name de Recrutement : {mode.Name} added successfully !");
             }
             else
             {
@@ -415,7 +415,7 @@ namespace API_MySIRH.Controllers
                 {
                     return BadRequest(ex.Message);
                 }
-                return Ok($"Mode de Recrutement with id : {id} updated successfully!");
+                return Ok($"Name de Recrutement with id : {id} updated successfully!");
             }
             else
             {
@@ -435,7 +435,7 @@ namespace API_MySIRH.Controllers
                 return NotFound(ex.Message);
             }
 
-            return Ok($"Mode de Recrutement with id : {id} deleted successfully!");
+            return Ok($"Name de Recrutement with id : {id} deleted successfully!");
         }
     }
 }

@@ -83,7 +83,8 @@ namespace API_MySIRH.Services
 
         public IEnumerable<CollaborateurDTO> GetCollaborateurs()
         {
-            return _mapper.Map<IEnumerable<CollaborateurDTO>>(_collaborateurRepository.GetCollaborateurs());
+            var list = _collaborateurRepository.GetCollaborateurs().ProjectTo<CollaborateurDTO>(_mapper.ConfigurationProvider).AsNoTracking();
+            return list;
         }
 
         public async Task UpdateCollaborateur(int id, CollaborateurDTO collaborateur)
