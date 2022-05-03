@@ -5,8 +5,9 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError, delay } from 'rxjs';
+import { catchError, Observable, throwError, tap } from 'rxjs';
 import { map } from 'rxjs';
+
 import { environment } from 'src/environments/environment';
 import { Collaborator } from '../Models/Collaborator';
 import { PaginatedResults } from '../Models/pagination';
@@ -81,6 +82,11 @@ export class CollaboratorsService {
       .pipe(catchError(this.handleError));
   }
 
+  exportCollaborateurs(){
+    return this.http.get(this.myUrl+ '/export', {
+      responseType: 'blob'
+    })
+  }
   private handleError(error: HttpErrorResponse): Observable<never> {
     if (error.status === 0 || error.status === 500)
       return throwError(() => 'Something went wrong!');

@@ -63,13 +63,13 @@
     <div class="btn-group me-2">
       <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
         data-bs-target="#importModal">import</button>
-      <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+      <button type="button" class="btn btn-sm btn-outline-secondary" (click)="export()">Export</button>
     </div>
 
     <app-import-collabs class="modal fade" id="importModal" tabindex="-1" aria-labelledby="exampleModalLabel"
       aria-hidden="true"></app-import-collabs>
 
-      <select class="btn btn-sm btn-dark" [(ngModel)] = "selected" (ngModelChange)="onSelect()">
+      <select class="btn btn-sm btn-secondary" [(ngModel)] = "selected" (ngModelChange)="onSelect()">
         <option value="" disabled>Filtrer par</option>
           <option value="rabat">Rabat</option>
           <option value="oujda">Oujda</option>
@@ -99,8 +99,8 @@
             </button>
           </div>
           <div class="d-flex align-items-center">
-            <i *ngIf="!trierParNom" class="bi bi-arrow-down"></i>
-            <i *ngIf="trierParNom" class="bi bi-arrow-up"></i>
+            <i *ngIf="!trierParNom" class="bi bi-arrow-down-short"></i>
+            <i *ngIf="trierParNom" class="bi bi-arrow-up-short"></i>
           </div>
         </div>
         <div class="d-flex align-items-center">
@@ -110,8 +110,8 @@
             </button>
           </div>
           <div class="d-flex align-items-center">
-            <i *ngIf="!trierParPrenom" class="bi bi-arrow-down"></i>
-            <i *ngIf="trierParPrenom" class="bi bi-arrow-up"></i>
+            <i *ngIf="!trierParPrenom" class="bi bi-arrow-down-short"></i>
+            <i *ngIf="trierParPrenom" class="bi bi-arrow-up-short"></i>
           </div>
         </div>
       </th>
@@ -125,8 +125,8 @@
             </button>
           </div>
           <div class="d-flex align-items-center">
-            <i *ngIf="!trierParPoste" class="bi bi-arrow-down"></i>
-            <i *ngIf="trierParPoste" class="bi bi-arrow-up"></i>
+            <i *ngIf="!trierParPoste" class="bi bi-arrow-down-short"></i>
+            <i *ngIf="trierParPoste" class="bi bi-arrow-up-short"></i>
           </div>
         </div>
         <div class="d-flex align-items-center">
@@ -136,8 +136,8 @@
             </button>
           </div>
           <div class="d-flex align-items-center">
-            <i *ngIf="!trierParNiveau" class="bi bi-arrow-down"></i>
-            <i *ngIf="trierParNiveau" class="bi bi-arrow-up"></i>
+            <i *ngIf="!trierParNiveau" class="bi bi-arrow-down-short"></i>
+            <i *ngIf="trierParNiveau" class="bi bi-arrow-up-short"></i>
           </div>
         </div>
       </th>
