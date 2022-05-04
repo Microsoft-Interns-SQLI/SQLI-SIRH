@@ -103,6 +103,12 @@ namespace API_MySIRH.Data
                         j.HasKey(cc => new { cc.CollaborateurId, cc.CertificationId });
                     }
                 );
+            modelBuilder.Entity<CollaborateurCertification>()
+                .Property(cc=>cc.Status)
+                .HasConversion(
+                    v => (int)v,
+                    v=> (Status)v
+                );
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

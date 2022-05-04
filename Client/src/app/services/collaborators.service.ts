@@ -5,8 +5,9 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError, delay } from 'rxjs';
+import { catchError, Observable, throwError, tap } from 'rxjs';
 import { map } from 'rxjs';
+
 import { environment } from 'src/environments/environment';
 import { Collaborator } from '../Models/Collaborator';
 import { PaginatedResults } from '../Models/pagination';
@@ -22,7 +23,7 @@ export class CollaboratorsService {
 
   constructor(private http: HttpClient) { }
 
-  getCollaboratorsList(itemsPerPage?: number, page?: number, filtrerPar?: string, search?: string, orderby?: string) {
+  getCollaboratorsList(itemsPerPage?: number, page?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyCertification?:string) {
     //delay(50000);
     let params = new HttpParams();
     if (page != undefined && itemsPerPage != undefined) {
@@ -37,6 +38,10 @@ export class CollaboratorsService {
 
     if (search != undefined) {
       params = params.append("Search", search);
+    }
+
+    if(orderbyCertification !=undefined){
+      params = params.append("OrderByCertification", orderbyCertification);
     }
 
     return this.http.get<any>(this.myUrl, { observe: 'response', params }).pipe(
@@ -77,6 +82,11 @@ export class CollaboratorsService {
       .pipe(catchError(this.handleError));
   }
 
+  exportCollaborateurs(){
+    return this.http.get(this.myUrl+ '/export', {
+      responseType: 'blob'
+    })
+  }
   private handleError(error: HttpErrorResponse): Observable<never> {
     if (error.status === 0 || error.status === 500)
       return throwError(() => 'Something went wrong!');

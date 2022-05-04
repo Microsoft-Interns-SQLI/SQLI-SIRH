@@ -55,14 +55,14 @@ namespace API_MySIRH.Data.Migrations
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "69a1dda6-c6fb-4b77-a165-507a38364e5d",
+                            ConcurrencyStamp = "0808b432-9dc2-4a83-8e82-a9937aab0a69",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "2a26d107-89d4-462e-8b08-9bf9f70486a4",
+                            ConcurrencyStamp = "28ce04e9-94b2-4e6b-a302-9b7ffc15fd4b",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -140,13 +140,13 @@ namespace API_MySIRH.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5b3239bc-a987-41c1-b0fe-252677346aef",
+                            ConcurrencyStamp = "977b432b-e194-4a1b-880c-554a6060519e",
                             Email = "Admin@sqli.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@SQLI.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMVSTRDAbv9hhe7WjgO871CHDob/87mTyug2I2M1JQEfZMjXpYtw4A+YdvDp2Hm9jw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENvUq+i1QW8/FBgWMSbmg9fDtIcz4Zjy33rDtcIozWqxGV3qO2LFzQnkj6+deew0lg==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "AdminUser"
@@ -335,8 +335,8 @@ namespace API_MySIRH.Data.Migrations
                     b.Property<DateTime?>("DateFin")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("CollaborateurId", "CertificationId");
 
@@ -521,12 +521,12 @@ namespace API_MySIRH.Data.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Mode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("ModificationDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

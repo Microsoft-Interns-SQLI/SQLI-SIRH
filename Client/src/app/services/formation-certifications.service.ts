@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CollabFormationCertif } from '../Models/collaborationCertificationFormation';
 import { environment } from 'src/environments/environment';
@@ -21,6 +21,17 @@ export class FormationCertificationsService {
 
   getCollabCertif(): Observable<CollabFormationCertif[]> {
     return this.http.get<CollabFormationCertif[]>(this.url_formation_certif);
+  }
+
+  updateCollabCertif(data: CollabFormationCertif) {
+    const opts: any = {
+      responseType: 'text'
+    };
+    return this.http.put<CollabFormationCertif>(
+      `${this.url_formation_certif}/${data.collaborateurId}/${data.certificationId}`,
+      data,
+      opts
+    );
   }
 
 }

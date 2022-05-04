@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API_MySIRH.Repositories
 {
-    public class MdmRepository<T> : IMdmRepository<T> where T : class
+    public class MdmRepository<T> : IMdmRepository<T> where T : class,IStringName
     {
         private readonly DataContext _context;
 
@@ -43,6 +43,11 @@ namespace API_MySIRH.Repositories
         public async Task<T> GetById(int id)
         {
             return await _context.Set<T>().FindAsync(id);
+        }
+
+        public async Task<T> GetByName(string name)
+        {
+            return await _context.Set<T>().Where(x => x.Name == name).FirstOrDefaultAsync();
         }
 
         public async Task Update(int id, T obj)

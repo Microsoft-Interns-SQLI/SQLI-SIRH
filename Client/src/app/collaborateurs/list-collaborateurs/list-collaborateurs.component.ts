@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import * as FileSaver from 'file-saver';
+import { Subscription } from 'rxjs';
+
 import { Collaborator } from 'src/app/Models/Collaborator';
 import { Pagination } from 'src/app/Models/pagination';
 import { CollaboratorsService } from 'src/app/services/collaborators.service';
@@ -10,10 +13,14 @@ import { ToastService } from 'src/app/shared/toast/toast.service';
   templateUrl: './list-collaborateurs.component.html',
   styleUrls: ['./list-collaborateurs.component.css'],
 })
-export class ListCollaborateursComponent implements OnInit {
+export class ListCollaborateursComponent implements OnInit, OnDestroy {
   collaboratorsArray: Collaborator[] = [];
   displayTable: boolean = true;
   collabToDelete?: Collaborator = new Collaborator();
+
+  //subscription
+  exportSubscription!: Subscription;
+  loadCollabSubscription!: Subscription;
 
   pageNumber = 1;
   pageSize = 10;
@@ -40,6 +47,7 @@ export class ListCollaborateursComponent implements OnInit {
 
   constructor(private service: CollaboratorsService, private toastService: ToastService, private spinnerService: SpinnerService) { }
 
+
   ngOnInit(): void {
     this.loadCollaborators(this.pageSize, this.pageNumber);
   }
@@ -56,7 +64,7 @@ export class ListCollaborateursComponent implements OnInit {
     } else {
       this.spinnerService.isSearch.next(false);
     }
-    this.service
+    this.loadCollabSubscription = this.service
       .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby)
       .subscribe({
         next: (resp) => {
@@ -140,182 +148,139 @@ export class ListCollaborateursComponent implements OnInit {
     }
   }
 
+  export() {
+    this.exportSubscription = this.service.exportCollaborateurs().subscribe((data) => {
+      const buffer = new Blob([data], { type: data.type });
+      FileSaver.saveAs(buffer, "Collaborateurs.xlsx");
+    });
+  }
+
   calculateYears(year: any): number {
     const date = new Date(year);
     const now = new Date(Date.now());
     return Math.abs(now.getFullYear() - date.getFullYear());
   }
 
+  ngOnDestroy(): void {
+    this.exportSubscription.unsubscribe();
+    this.loadCollabSubscription.unsubscribe();
+  }
   trier(value: string) {
     switch (value) {
       case 'matricule': {
-        this.sort(value, this.trierParMatricule);
+        if (this.trierParMatricule) {
+          this.loadCollaborators(
+            this.pageSize,
+            this.pageNumber,
+            this.selected === '' ? undefined : this.selected,
+            this.searchInput === '' ? undefined : this.searchInput,
+            "matricule_asc");
+        }else{
+          this.loadCollaborators(
+            this.pageSize,
+            this.pageNumber,
+            this.selected === '' ? undefined : this.selected,
+            this.searchInput === '' ? undefined : this.searchInput,
+            "matricule_desc");
+        }
         this.trierParMatricule = !this.trierParMatricule;
         break;
       }
       case 'nom': {
-        this.sort(value, this.trierParNom);
+        if(this.trierParNom){
+          this.loadCollaborators(
+            this.pageSize,
+            this.pageNumber,
+            this.selected === '' ? undefined : this.selected,
+            this.searchInput === '' ? undefined : this.searchInput,
+            undefined);// undefined because there is basically a sorted by name asc
+        }else{
+          this.loadCollaborators(
+            this.pageSize,
+            this.pageNumber,
+            this.selected === '' ? undefined : this.selected,
+            this.searchInput === '' ? undefined : this.searchInput,
+            "nom_desc");
+        }
         this.trierParNom = !this.trierParNom;
         break;
       }
       case 'prenom': {
-        this.sort(value, this.trierParPrenom);
+        if(this.trierParPrenom){
+          this.loadCollaborators(
+            this.pageSize,
+            this.pageNumber,
+            this.selected === '' ? undefined : this.selected,
+            this.searchInput === '' ? undefined : this.searchInput,
+            "prenom_asc");
+        }else{
+          this.loadCollaborators(
+            this.pageSize,
+            this.pageNumber,
+            this.selected === '' ? undefined : this.selected,
+            this.searchInput === '' ? undefined : this.searchInput,
+            "prenom_desc");
+        }
         this.trierParPrenom = !this.trierParPrenom;
         break;
       }
       case 'exp': {
-        this.sort(value, this.trierParAnnee);
+        if(this.trierParAnnee){
+          this.loadCollaborators(
+            this.pageSize,
+            this.pageNumber,
+            this.selected === '' ? undefined : this.selected,
+            this.searchInput === '' ? undefined : this.searchInput,
+            "exp_asc");
+        }else{
+          this.loadCollaborators(
+            this.pageSize,
+            this.pageNumber,
+            this.selected === '' ? undefined : this.selected,
+            this.searchInput === '' ? undefined : this.searchInput,
+            "exp_desc");
+        }
         this.trierParAnnee = !this.trierParAnnee;
         break;
       }
       case 'poste': {
-        this.sort(value, this.trierParPoste);
+        if(this.trierParPoste){
+          this.loadCollaborators(
+            this.pageSize,
+            this.pageNumber,
+            this.selected === '' ? undefined : this.selected,
+            this.searchInput === '' ? undefined : this.searchInput,
+            "poste_asc");
+        }else{
+          this.loadCollaborators(
+            this.pageSize,
+            this.pageNumber,
+            this.selected === '' ? undefined : this.selected,
+            this.searchInput === '' ? undefined : this.searchInput,
+            "poste_desc");
+        }
         this.trierParPoste = !this.trierParPoste;
         break;
       }
       case 'niveau': {
-        this.sort(value, this.trierParNiveau);
+        if(this.trierParNiveau){
+          this.loadCollaborators(
+            this.pageSize,
+            this.pageNumber,
+            this.selected === '' ? undefined : this.selected,
+            this.searchInput === '' ? undefined : this.searchInput,
+            "niveau_asc");
+        }else{
+          this.loadCollaborators(
+            this.pageSize,
+            this.pageNumber,
+            this.selected === '' ? undefined : this.selected,
+            this.searchInput === '' ? undefined : this.searchInput,
+            "niveau_desc");
+        }
         this.trierParNiveau = !this.trierParNiveau;
         break;
       }
-    }
-  }
-
-  private sort(attr: string, asc: boolean) {
-    switch (attr) {
-      case 'matricule':
-        if (asc) {
-          this.collaboratorsArray = this.collaboratorsArray
-            .sort((x, y) => {
-              return +x.matricule - +y.matricule;
-            })
-            .slice();
-        } else {
-          this.collaboratorsArray = this.collaboratorsArray
-            .sort((x, y) => {
-              return +y.matricule - +x.matricule;
-            })
-            .slice();
-        }
-        break;
-
-      case 'nom':
-        if (asc) {
-          this.collaboratorsArray = this.collaboratorsArray
-            .sort((x, y) => {
-              return x.nom.toUpperCase() > y.nom.toUpperCase()
-                ? 1
-                : x.nom.toUpperCase() < y.nom.toUpperCase()
-                  ? -1
-                  : 0;
-            })
-            .slice();
-        } else {
-          this.collaboratorsArray = this.collaboratorsArray
-            .sort((x, y) => {
-              return x.nom.toUpperCase() > y.nom.toUpperCase()
-                ? -1
-                : x.nom.toUpperCase() < y.nom.toUpperCase()
-                  ? 1
-                  : 0;
-            })
-            .slice();
-        }
-        break;
-
-      case 'prenom':
-        if (asc) {
-          this.collaboratorsArray = this.collaboratorsArray
-            .sort((x, y) => {
-              return x.prenom.toUpperCase() > y.prenom.toUpperCase()
-                ? 1
-                : x.prenom.toUpperCase() < y.prenom.toUpperCase()
-                  ? -1
-                  : 0;
-            })
-            .slice();
-        } else {
-          this.collaboratorsArray = this.collaboratorsArray
-            .sort((x, y) => {
-              return x.prenom.toUpperCase() > y.prenom.toUpperCase()
-                ? -1
-                : x.prenom.toUpperCase() < y.prenom.toUpperCase()
-                  ? 1
-                  : 0;
-            })
-            .slice();
-        }
-        break;
-
-      case 'exp':
-        if (asc) {
-          this.collaboratorsArray = this.collaboratorsArray
-            .sort((x, y) => {
-              return (
-                this.calculateYears(x.dateEntreeSqli) -
-                this.calculateYears(y.dateEntreeSqli)
-              );
-            })
-            .slice();
-        } else {
-          this.collaboratorsArray = this.collaboratorsArray
-            .sort((x, y) => {
-              return (
-                this.calculateYears(y.dateEntreeSqli) -
-                this.calculateYears(x.dateEntreeSqli)
-              );
-            })
-            .slice();
-        }
-        break;
-
-      case 'poste':
-        if (asc) {
-          this.collaboratorsArray = this.collaboratorsArray
-            .sort((x, y) => {
-              return x.poste.name.toUpperCase() > y.poste.name.toUpperCase()
-                ? 1
-                : x.poste.name.toUpperCase() < y.poste.name.toUpperCase()
-                  ? -1
-                  : 0;
-            })
-            .slice();
-        } else {
-          this.collaboratorsArray = this.collaboratorsArray
-            .sort((x, y) => {
-              return x.poste.name.toUpperCase() > y.poste.name.toUpperCase()
-                ? -1
-                : x.poste.name.toUpperCase() < y.poste.name.toUpperCase()
-                  ? 1
-                  : 0;
-            })
-            .slice();
-        }
-        break;
-
-      case 'niveau':
-        if (asc) {
-          this.collaboratorsArray = this.collaboratorsArray
-            .sort((x, y) => {
-              return x.niveau.name.toUpperCase() > y.niveau.name.toUpperCase()
-                ? 1
-                : x.niveau.name.toUpperCase() < y.niveau.name.toUpperCase()
-                  ? -1
-                  : 0;
-            })
-            .slice();
-        } else {
-          this.collaboratorsArray = this.collaboratorsArray
-            .sort((x, y) => {
-              return x.niveau.name.toUpperCase() > y.niveau.name.toUpperCase()
-                ? -1
-                : x.niveau.name.toUpperCase() < y.niveau.name.toUpperCase()
-                  ? 1
-                  : 0;
-            })
-            .slice();
-        }
-        break;
     }
   }
 }

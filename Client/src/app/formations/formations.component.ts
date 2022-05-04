@@ -6,6 +6,7 @@ import { Collaborator } from '../Models/Collaborator';
 import { Pagination } from '../Models/pagination';
 import { CollaboratorsService } from '../services/collaborators.service';
 import { FormationCertificationsService } from '../services/formation-certifications.service';
+import { PopupService } from './popup/popup.service';
 
 @Component({
   selector: 'app-formations',
@@ -22,7 +23,7 @@ export class FormationsComponent implements OnInit, OnDestroy {
   //Subscription
   subCollab!: Subscription;
   subCertif!: Subscription;
-  subCollabCertif!: Subscription;
+  subCollabCertif!: Subscription;  
 
   //pagination params
   pageNumber = 1;
@@ -36,10 +37,10 @@ export class FormationsComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
+    
   }
 
-
-  onChange() {
+  onSwitch() {
     if (this.selected) {
       //fetch formation table
     } else {
@@ -64,10 +65,11 @@ export class FormationsComponent implements OnInit, OnDestroy {
     pageNumber?: number,
     filtrerPar?: string,
     search?: string,
-    orderby?: string
+    orderby?: string,
+    orderbyCertification?:string
   ) {
     this.subCollab = this.collaborateurService
-      .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby)
+      .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby, orderbyCertification)
       .subscribe(
         resp => {
           this.rows = resp.result;
@@ -84,7 +86,9 @@ export class FormationsComponent implements OnInit, OnDestroy {
     );
   }
 
-
+  sortData(libelle:string){
+    this.loadCollaborators(this.pageSize, this.pageNumber,undefined, undefined, undefined, libelle);
+  }
 
   ngOnDestroy(): void {
     this.subCertif.unsubscribe();

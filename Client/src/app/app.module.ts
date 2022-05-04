@@ -65,6 +65,9 @@ import { PosteComponent } from './mdm-panel/poste/poste.component';
 import { NiveauComponent } from './mdm-panel/niveau/niveau.component';
 import { ModeComponent } from './mdm-panel/mode/mode.component';
 import { TypeContratComponent } from './mdm-panel/type-contrat/type-contrat.component';
+import { DisplayItemDirective } from './formations/table/display-item.directive';
+import { HandleStatusDisplayPipe } from './formations/table/handle-status-display.pipe';
+import { PopupComponent } from './formations/popup/popup.component';
 
 @NgModule({
   declarations: [
@@ -117,6 +120,9 @@ import { TypeContratComponent } from './mdm-panel/type-contrat/type-contrat.comp
     NiveauComponent,
     ModeComponent,
     TypeContratComponent,
+    DisplayItemDirective,
+    HandleStatusDisplayPipe,
+    PopupComponent,
   ],
   imports: [
     CommonModule,

@@ -46,6 +46,8 @@ namespace API_MySIRH.Controllers
             this._dataContext
                 .Certifications.RemoveRange(this._dataContext.Certifications.ToList());
             this._dataContext
+                .CollaborateurCertifications.RemoveRange(this._dataContext.CollaborateurCertifications.ToList());
+            this._dataContext
                 .CollaborateurTypeContrats.RemoveRange(this._dataContext.CollaborateurTypeContrats.ToList());
             await this._dataContext.SaveChangesAsync();
 
@@ -93,11 +95,12 @@ namespace API_MySIRH.Controllers
             var collaborateurDynamicJson = JsonConvert.DeserializeObject<dynamic>(collaborateursJsonString);
             foreach (var collaborateurJson in collaborateurDynamicJson)
             {
-                string mode = collaborateurJson["Recrutement Mode"].ToString();
+                
                 string niveau = collaborateurJson["Niveau"].ToString();
                 string post = collaborateurJson["Poste"].ToString();
                 string skillCenter = collaborateurJson["Skills center"].ToString();
                 string site = collaborateurJson["Agence"].ToString();
+                string mode = collaborateurJson["Recrutement Mode"].ToString();
 
                 Collaborateur collaborateur = new Collaborateur
                 {
@@ -113,7 +116,7 @@ namespace API_MySIRH.Controllers
                     DatePremiereExperience = collaborateurJson["Date 1ere expèrience"].ToString() != String.Empty ? DateTime.Parse(collaborateurJson["Date 1ere expèrience"].ToString()) : null,
                     DateSortieSqli = collaborateurJson["Date de sortie"].ToString() != String.Empty ? DateTime.Parse(collaborateurJson["Date de sortie"].ToString()) : null,
 
-                    ModeRecrutement = this._dataContext.ModesRecrutements.Where(m => m.Mode == mode).FirstOrDefault(),
+                    ModeRecrutement = this._dataContext.ModesRecrutements.Where(m => m.Name == mode).FirstOrDefault(),
                     Niveau = this._dataContext.Niveaux.Where(n => n.Name == niveau).FirstOrDefault(),
                     Poste = this._dataContext.Posts.Where(p => p.Name == post).FirstOrDefault(),
                     SkillCenter = this._dataContext.SkillCenters.Where(sc => sc.Name == skillCenter).FirstOrDefault(),
@@ -172,11 +175,12 @@ namespace API_MySIRH.Controllers
         {
             return new List<CollaborateurCertification>
             {
-                new CollaborateurCertification{ CollaborateurId=1, CertificationId=1},
-                new CollaborateurCertification{ CollaborateurId=1, CertificationId=2},
-                new CollaborateurCertification{ CollaborateurId=1, CertificationId=3},
-                new CollaborateurCertification{ CollaborateurId=24, CertificationId=2},
-                new CollaborateurCertification{ CollaborateurId=24, CertificationId=5},
+                new CollaborateurCertification{ CollaborateurId=1, CertificationId=1, Status = Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
+                new CollaborateurCertification{ CollaborateurId=1, CertificationId=2, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
+                new CollaborateurCertification{ CollaborateurId=1, CertificationId=3, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
+                new CollaborateurCertification{ CollaborateurId=24, CertificationId=2, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
+                new CollaborateurCertification{ CollaborateurId=24, CertificationId=5, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
+                new CollaborateurCertification{ CollaborateurId=60, CertificationId=1, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
             };
         }
 
@@ -244,11 +248,11 @@ namespace API_MySIRH.Controllers
         {
             return new List<ModeRecrutement>
             {
-                new ModeRecrutement{ Mode="E-Chalenge"},
-                new ModeRecrutement{ Mode="Recommandation"},
-                new ModeRecrutement{ Mode="Stage PFE"},
-                new ModeRecrutement{ Mode="Cooptation"},
-                new ModeRecrutement{ Mode="Autre"},
+                new ModeRecrutement{ Name="E-Chalenge"},
+                new ModeRecrutement{ Name="Recommandation"},
+                new ModeRecrutement{ Name="Stage PFE"},
+                new ModeRecrutement{ Name="Cooptation"},
+                new ModeRecrutement{ Name="Autre"},
             };
         }
 
