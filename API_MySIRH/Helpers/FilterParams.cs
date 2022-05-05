@@ -16,5 +16,7 @@ namespace API_MySIRH.Helpers
         public string OrderBy { get; set; } = "nom_asc";
 
         public string OrderByCertification { get; set; } =String.Empty;
+        public string OrderByFormation { get; set; } =String.Empty;
+
     }
 }

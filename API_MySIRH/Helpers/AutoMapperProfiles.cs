@@ -27,10 +27,10 @@ namespace API_MySIRH.Helpers
             CreateMap<CollaborateurDTO, Collaborateur>().ReverseMap();
 
             CreateMap<Certification, CertificationDTO>().ReverseMap();
-            CreateMap<CollaborateurCertification, CollaborateurCertificationDTO>()
-                //.ForMember(ccdto=>ccdto.Nom, m=>m.MapFrom(cc=>cc.Collaborateur.Nom))
-                //.ForMember(ccdto=>ccdto.Prenom, m=>m.MapFrom(cc=>cc.Collaborateur.Prenom))
-                .ReverseMap();
+            CreateMap<CollaborateurCertification, CollaborateurCertificationDTO>().ReverseMap();
+
+            CreateMap<Formation, FormationDTO>().ReverseMap();
+            CreateMap<CollaborateurFormation, CollaborateurFormationDTO>().ReverseMap();
 
             CreateMap<EntityBase, DtoBase>().ReverseMap();
         }

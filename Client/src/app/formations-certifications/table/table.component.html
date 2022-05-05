@@ -18,7 +18,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let collab of newRows">
+    <tr *ngFor="let collab of newRows" class="text-center">
       <td>{{collab.collaborateur.nom}}</td>
       <td>{{collab.collaborateur.prenom}}</td>
       <td *ngFor="let c of collab.certificates" class="item" (click)="details(c)" [appDisplayItem]="c.status">
@@ -27,4 +27,4 @@
     </tr>
   </tbody>
 </table>
-<app-popup class="popup" *ngIf="displayed" (certificationEvent)="boxUpdated($event)"></app-popup>
+<app-popup class="popup" [type]="type ? 'formation' : 'certification'" *ngIf="displayed" (certificationEvent)="boxUpdated($event)"></app-popup>

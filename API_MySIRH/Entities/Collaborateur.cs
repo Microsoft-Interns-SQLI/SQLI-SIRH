@@ -30,6 +30,9 @@ namespace API_MySIRH.Entities
         public virtual ICollection<Certification> Certifications { get; set; }
         public List<CollaborateurCertification> CollaborateurCertifications { get; set; }
 
+        public virtual ICollection<Formation> Formations { get; set; }
+        public List<CollaborateurFormation> CollaborateurFormations { get; set; }
+
         /**
         *  Foreign key & navigabilité
         */

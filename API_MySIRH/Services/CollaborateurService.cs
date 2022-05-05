@@ -60,6 +60,11 @@ namespace API_MySIRH.Services
                 query = query.OrderByDescending(
                     x => x.Certifications.Where(x => x.Libelle == filterParams.OrderByCertification).Any());
             }
+            else if (!string.IsNullOrWhiteSpace(filterParams.OrderByFormation))
+            {
+                query = query.OrderByDescending(
+                    x => x.Formations.Where(x => x.Libelle == filterParams.OrderByFormation).Any());
+            }
             else
             {
                 query = filterParams.OrderBy switch

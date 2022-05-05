@@ -11,7 +11,7 @@ import { DemissionsComponent } from './demissions/demissions.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
-import { FormationsComponent } from './formations/formations.component';
+import { FormationsComponent } from './formations-certifications/formations.component';
 import { ListFreelancesComponent } from './freelances/list-freelances/list-freelances.component';
 import { HomeComponent } from './home/home.component';
 import { IntegrationsComponent } from './integrations/integrations.component';

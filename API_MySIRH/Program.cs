@@ -48,6 +48,10 @@ builder.Services.AddScoped<ICertificationService, CertificationService>();
 builder.Services.AddScoped<ICertificationRepository, CertificationRepository>();
 builder.Services.AddScoped<ICollaborateurCertificationService, CollaborateurCertificationService>();
 builder.Services.AddScoped<ICollaborateurCertificationRepository, CollaborateurCertificationRepository>();
+builder.Services.AddScoped<IFormationService, FormationService>();
+builder.Services.AddScoped<IFormationRepository, FormationRepository>();
+builder.Services.AddScoped<ICollaborateurFormationService, CollaborateurFormationService>();
+builder.Services.AddScoped<ICollaborateurFormationRepository, CollaborateurFormationRepository>();
 builder.Services.AddScoped(typeof(IMdmRepository<>), typeof(MdmRepository<>));
 builder.Services.AddScoped(typeof(IMdmService<,>), typeof(MdmService<,>));
 
