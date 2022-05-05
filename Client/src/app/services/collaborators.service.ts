@@ -36,7 +36,7 @@ export class CollaboratorsService {
     if (orderby != undefined)
       params = params.append('OrderBy', orderby.toString());
 
-    if(search !=undefined){
+    if (search != undefined) {
       params = params.append("Search", search);
     }
     if(orderbyFormation !=undefined){
@@ -68,7 +68,7 @@ export class CollaboratorsService {
     return this.http.post(this.myUrl, collabToAdd);
   }
 
-  updateCollaborator(id: number | string, data: any) : Observable<Collaborator>  {
+  updateCollaborator(id: number | string, data: any): Observable<Collaborator> {
     return this.http.put<any>(this.myUrl + `/${id}`, data);
   }
 

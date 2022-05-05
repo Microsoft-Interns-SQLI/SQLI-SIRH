@@ -9,7 +9,7 @@ namespace API_MySIRH.Interfaces
         Task<Collaborateur?> GetCollaborateurById(int id);
         Task<Collaborateur?> GetCollaborateurByMatricule(string matricule);
         Task<Collaborateur?> GetCollaborateurByEmail(string email);
-        Task UpdateCollaborateur(int id, Collaborateur collaborateur);
+        Task UpdateCollaborateur(Collaborateur collaborateur);
         Task<Collaborateur> AddCollaborateur(Collaborateur collaborateur);
         Task DeleteCollaborateur(int id);
         Task<bool> CollaborateurExistsById(int id);

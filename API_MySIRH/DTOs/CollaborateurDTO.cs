@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace API_MySIRH.DTOs.Collaborateur
+namespace API_MySIRH.DTOs
 {
     public class CollaborateurDTO : DtoBase
     {
@@ -45,7 +45,7 @@ namespace API_MySIRH.DTOs.Collaborateur
         public NiveauDTO? Niveau { get; set; }
         public int? ModeRecrutementId { get; set; }
         public ModeRecrutementDTO? ModeRecrutement { get; set; }
-        public ICollection<DiplomeDTO>? Diplomes { get; set; }
+        public ICollection<DiplomeDTO> Diplomes { get; set; }
         public ICollection<FileDTO>? Documents { get; set; }
 
         //public ICollection<CertificationDTO>? Certifications { get; set; }

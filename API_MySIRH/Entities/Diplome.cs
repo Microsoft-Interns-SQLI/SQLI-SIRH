@@ -8,5 +8,7 @@ namespace API_MySIRH.Entities
         public string? Label { get; set; } = String.Empty;
         public string? Detail { get; set; } = String.Empty;
         public string? Description { get; set; } = String.Empty;
+        public int CollaborateurId { get; set; }
+        public Collaborateur? Collaborateur { get; set; }
     }
 }
