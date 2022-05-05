@@ -8,5 +8,6 @@ namespace API_MySIRH.DTOs
         public string? Label { get; set; }
         public string? Detail { get; set; }
         public string? Description { get; set; }
+        public int CollaborateurId { get; set; }
     }
 }
