@@ -1,5 +1,4 @@
 ﻿using API_MySIRH.DTOs;
-using API_MySIRH.DTOs.Collaborateur;
 using API_MySIRH.Entities;
 using API_MySIRH.Interfaces;
 using AutoMapper;
@@ -26,14 +25,14 @@ namespace API_MySIRH.Services
 
         public double GetAverageAge(IEnumerable<CollaborateurDTO> collaborateurs)
         {
-            return collaborateurs.Average(collaborateur => DateCalcule(collaborateur.DateNaissance));                 
+            return collaborateurs.Average(collaborateur => DateNaissanceCalcule(collaborateur.DateNaissance));                 
         }
-        /*
-        public async Task<DashboardDto> getDashboard()
+
+        public double GetDemissionCount(IEnumerable<CollaborateurDTO> collaborateurs)
         {
-            return _mapper.Map<DashboardDto>(await _repository.getDashboard());
+            return collaborateurs.Where(collaborateur => collaborateur.DateSortieSqli > DateTime.Now).Count();
         }
-        */
+
         public double GetFemaleCount(IEnumerable<CollaborateurDTO> collaborateurs)
         {
             return collaborateurs.Where(collaborateur => collaborateur.Civilite.Equals("F")).Count();
@@ -44,14 +43,14 @@ namespace API_MySIRH.Services
             return collaborateurs.Count();
         }
 
-        public int GetHeadCountPerNiveaux(IEnumerable<CollaborateurDTO> collaborateurs, string niveauName)
+        public double GetHeadCountPerNiveaux(IEnumerable<CollaborateurDTO> collaborateurs, string niveauName)
         {
             NiveauDTO myNiveau = _niveauService.GetAll().Result.Where(niveau => niveau.Name.Equals(niveauName)).FirstOrDefault();
             if (myNiveau == null) return 0;
             return collaborateurs.Where(collab => collab.NiveauId == myNiveau.Id).ToList().Count();
         }
 
-        public int GetHeadCountPerPoste(IEnumerable<CollaborateurDTO> collaborateurs,string postName)
+        public double GetHeadCountPerPoste(IEnumerable<CollaborateurDTO> collaborateurs,string postName)
         {
             PostDTO myPost= _postService.GetAll().Result.Where(post => post.Name.Equals(postName)).FirstOrDefault();
             if (myPost == null) return 0;
@@ -63,9 +62,9 @@ namespace API_MySIRH.Services
             return collaborateurs.Where(collaborateur => collaborateur.Civilite.Equals("M")).Count();
         }
         
-        private int DateCalcule(DateTime dateNaissance)
+        private int DateNaissanceCalcule(DateTime dateNaissance)
         {
-            return DateTime.Now.Year - dateNaissance.Year;
+            return (int)((DateTime.Now - dateNaissance).TotalDays / 365);
         }
 
     }

@@ -1,11 +1,8 @@
-import { transition } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
-import { environment } from 'src/environments/environment';
 import { Dashboard } from '../Models/Dashboard';
 import { DashboardService } from '../services/dashboard.service';
 
-import { SpinnerComponent } from '../shared/spinner/spinner.component';
 
 
 @Component({
@@ -15,7 +12,7 @@ import { SpinnerComponent } from '../shared/spinner/spinner.component';
 })
 export class DashboardComponent implements OnInit {
 
-  dashboard!: Dashboard;
+  dashboard!: Dashboard ;
 
   constructor(private dahsboardService: DashboardService) { }
 
@@ -28,11 +25,12 @@ export class DashboardComponent implements OnInit {
      this.showLine("lineChart")*/
     this.dahsboardService.getDashboard().subscribe((data: Dashboard) => {
       this.dashboard = data;
-      console.log(this.dashboard);
-      this.CiviliteChart("donutChart2", data.femaleCount, data.maleCount);
-      this.NiveauChart("pieChart", data.juniorCount, data.operationnelCount, data.confirmeCount, data.seniorCount);
-      this.PostsChart("donutChart",data.iCDCount,data.expertTechCount,data.chefDeProjetCount,data.managerCount);
+      console.log(data);
+      this.CiviliteChart("barChart", this.dashboard.icdCount, this.dashboard.expertTechCount, this.dashboard.chefDeProjetCount, this.dashboard.managerCount);
+      this.NiveauPieChart("niveauChart", this.dashboard.juniorCount, this.dashboard.operationnelCount, this.dashboard.confirmeCount, this.dashboard.seniorCount);
+      this.PostsDonutChart("postChart", this.dashboard.icdCount, this.dashboard.expertTechCount, this.dashboard.chefDeProjetCount, this.dashboard.managerCount);
     });
+
   }
 
   showDonut() {
@@ -104,10 +102,10 @@ export class DashboardComponent implements OnInit {
         }
       }
     });
-    
+
   }
 
-  PostsChart(elementId: string, icd: number, expertTech: number, chefDeProjet: number, manager: number) {
+  PostsDonutChart(elementId: string, icd: number, expertTech: number, chefDeProjet: number, manager: number) {
     Chart.register(...registerables);
     const ctx = document.getElementById(elementId) as HTMLCanvasElement
     const myChart = new Chart(ctx, {
@@ -118,47 +116,43 @@ export class DashboardComponent implements OnInit {
           label: '# of Votes',
           data: [icd, expertTech, chefDeProjet, manager],
           backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)'
+            'rgba(248, 192, 200, 1)',
+            'rgba(239, 231, 211, 1)',
+            'rgba(211, 187, 221, 1)',
+            'rgba(236, 227, 240, 1)'
           ],
           borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)'
+            'rgba(248, 192, 200, 1)',
+            'rgba(239, 231, 211, 1)',
+            'rgba(211, 187, 221, 1)',
+            'rgba(236, 227, 240, 1)'
           ],
           borderWidth: 1,
           hoverOffset: 4
         }]
       },
       options: {
-        animation:{
-          duration:2000,
-          easing:'linear',
+        animation: {
+          duration: 1000,
+          easing: 'linear',
         },
         plugins: {
-          title: {
+          legend: {
             display: true,
-            text: 'Post Chart',
-          },
-          legend:{
-            display:true,
-            position:'top'
+            position: 'top'
           },
         },
         scales: {
           y: {
-            beginAtZero: true
+            display:false
           }
         },
-        responsive:true,
+        responsive: true,
       }
     });
-   }
+  }
 
-  NiveauChart(elementId: string, junior: number, operationnel: number, confirme: number, senior: number) {
+  NiveauPieChart(elementId: string, junior: number, operationnel: number, confirme: number, senior: number) {
     Chart.register(...registerables);
     const ctx = document.getElementById(elementId) as HTMLCanvasElement
     const myChart = new Chart(ctx, {
@@ -185,56 +179,72 @@ export class DashboardComponent implements OnInit {
         }]
       },
       options: {
+        animation: {
+          duration: 1000,
+          easing: 'linear',
+        },
         plugins: {
-          title: {
+          legend: {
             display: true,
-            text: 'Niveau Chart',
+            position: 'top'
           },
         },
         scales: {
           y: {
-            beginAtZero: true
+            display:false
           }
-        }
+        },
+        responsive: true,
       }
     });
   }
 
-  CiviliteChart(elementId: string, female: number, male: number) {
+  CiviliteChart(elementId: string, icd: number, expertTech: number, chefDeProjet: number, manager: number) {
     Chart.register(...registerables);
     const ctx = document.getElementById(elementId) as HTMLCanvasElement
     const myChart = new Chart(ctx, {
-      type: 'doughnut',
+      type: 'pie',
       data: {
-        labels: ['Females', 'Males'],
+        labels: ['ICD', 'ET','Chef de projet' , 'Manager'],
         datasets: [{
           label: '# of Votes',
-          data: [female, male],
+          data: [icd, expertTech, chefDeProjet, manager],
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)'
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)'
           ],
           borderColor: [
             'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)'
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)'
           ],
-          borderWidth: 1
+          borderWidth: 1,
+          hoverOffset: 4
         }]
       },
       options: {
+        animation: {
+          duration: 1000,
+          easing: 'linear',
+        },
         plugins: {
-          title: {
+          legend: {
             display: true,
-            text: 'Civilté Chart',
+            position: 'top'
           },
         },
         scales: {
           y: {
-            beginAtZero: true
+            display:false
           }
-        }
+        },
+        responsive: true,
       }
     });
   }
+
 
 }

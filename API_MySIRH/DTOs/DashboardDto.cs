@@ -7,14 +7,15 @@ namespace API_MySIRH.DTOs
         public double HeadCount { get; set; }
         public double FemaleCount { get; set; } 
         public double MaleCount { get; set; }
+        public double DemissionCount { get; set; }
         public double AverageAge { get; set; }
-        public int ICDCount { get; set; }
-        public int ExpertTechCount { get; set; }
-        public int ChefDeProjetCount { get; set; }
-        public int ManagerCount { get; set; }
-        public int JuniorCount { get; set; }
-        public int OperationnelCount { get; set; }
-        public int ConfirmeCount { get; set; }
-        public int SeniorCount { get; set; } 
+        public double ICDCount { get; set; }
+        public double ExpertTechCount { get; set; }
+        public double ChefDeProjetCount { get; set; }
+        public double ManagerCount { get; set; }
+        public double JuniorCount { get; set; }
+        public double OperationnelCount { get; set; }
+        public double ConfirmeCount { get; set; }
+        public double SeniorCount { get; set; } 
     }
 }

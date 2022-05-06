@@ -1,5 +1,4 @@
 ﻿using API_MySIRH.DTOs;
-using API_MySIRH.DTOs.Collaborateur;
 using API_MySIRH.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,6 +25,7 @@ namespace API_MySIRH.Controllers
             dashboard.HeadCount = _dashboardService.GetHeadCount(collection);
             dashboard.FemaleCount = _dashboardService.GetFemaleCount(collection);
             dashboard.MaleCount = _dashboardService.GetMaleCount(collection);
+            dashboard.DemissionCount = _dashboardService.GetDemissionCount(_collaborateurService.GetCollaborateurs());
             dashboard.AverageAge = _dashboardService.GetAverageAge(collection);
             dashboard.ICDCount = _dashboardService.GetHeadCountPerPoste(collection, "Ingénieur Concepteur développeur");
             dashboard.ExpertTechCount = _dashboardService.GetHeadCountPerPoste(collection, "Expert technique");
