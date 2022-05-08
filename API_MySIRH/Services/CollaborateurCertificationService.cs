@@ -28,7 +28,6 @@ namespace API_MySIRH.Services
 
         public async Task<List<CollaborateurCertificationDTO>> GetAll()
         {
-            var list = await _collaborateurCertificationRepository.GetAll();
             return _mapper.Map<List<CollaborateurCertificationDTO>>(await _collaborateurCertificationRepository.GetAll());
         }
 

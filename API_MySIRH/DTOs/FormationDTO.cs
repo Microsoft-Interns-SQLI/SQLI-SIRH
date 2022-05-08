@@ -1,6 +1,6 @@
 ﻿namespace API_MySIRH.DTOs
 {
-    public class CertificationDTO : DtoBase
+    public class FormationDTO : DtoBase
     {
         public string Libelle { get; set; }
     }

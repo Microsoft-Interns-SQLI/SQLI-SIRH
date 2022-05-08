@@ -55,14 +55,14 @@ namespace API_MySIRH.Data.Migrations
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "93346e61-cee2-46e4-bccc-63722d13fcd6",
+                            ConcurrencyStamp = "4ed17b4c-82e4-434a-94c0-84201c204124",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "f676cbd3-a25c-4018-a254-8d4599b1ed3a",
+                            ConcurrencyStamp = "576e3402-4f6d-41ec-8bfa-368af56dc9ab",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -140,13 +140,13 @@ namespace API_MySIRH.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d645563b-0b38-4c0c-907c-58f8f01bdd02",
+                            ConcurrencyStamp = "9ed37fe9-af2f-4de6-b2d6-a52c2567cbbe",
                             Email = "Admin@sqli.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@SQLI.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMN89VJmvd1+fK7nb0bHgoZXOdaJTQOzT/GYPVygtCc1RBzMSTngavvGE7Uj9BD5jA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDU1nZZspdKfNQ232q5drqbInrOW7eFNIqzYUziTz6n6l2jKAhCuyH7vC+deDqdAvg==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "AdminUser"
@@ -335,14 +335,38 @@ namespace API_MySIRH.Data.Migrations
                     b.Property<DateTime?>("DateFin")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("CollaborateurId", "CertificationId");
 
                     b.HasIndex("CertificationId");
 
                     b.ToTable("CollaborateurCertifications");
+                });
+
+            modelBuilder.Entity("API_MySIRH.Entities.CollaborateurFormation", b =>
+                {
+                    b.Property<int>("CollaborateurId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FormationId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DateDebut")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateFin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("CollaborateurId", "FormationId");
+
+                    b.HasIndex("FormationId");
+
+                    b.ToTable("CollaborateurFormations");
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.CollaborateurTypeContrat", b =>
@@ -483,6 +507,29 @@ namespace API_MySIRH.Data.Migrations
                     b.ToTable("Documents");
                 });
 
+            modelBuilder.Entity("API_MySIRH.Entities.Formation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Libelle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ModificationDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Formations");
+                });
+
             modelBuilder.Entity("API_MySIRH.Entities.Memo", b =>
                 {
                     b.Property<int>("Id")
@@ -521,12 +568,12 @@ namespace API_MySIRH.Data.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Mode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("ModificationDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -875,6 +922,25 @@ namespace API_MySIRH.Data.Migrations
                     b.Navigation("Collaborateur");
                 });
 
+            modelBuilder.Entity("API_MySIRH.Entities.CollaborateurFormation", b =>
+                {
+                    b.HasOne("API_MySIRH.Entities.Collaborateur", "Collaborateur")
+                        .WithMany("CollaborateurFormations")
+                        .HasForeignKey("CollaborateurId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API_MySIRH.Entities.Formation", "Formation")
+                        .WithMany("CollaborateurFormations")
+                        .HasForeignKey("FormationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Collaborateur");
+
+                    b.Navigation("Formation");
+                });
+
             modelBuilder.Entity("API_MySIRH.Entities.CollaborateurTypeContrat", b =>
                 {
                     b.HasOne("API_MySIRH.Entities.Collaborateur", "Collaborateur")
@@ -974,9 +1040,16 @@ namespace API_MySIRH.Data.Migrations
                 {
                     b.Navigation("CollaborateurCertifications");
 
+                    b.Navigation("CollaborateurFormations");
+
                     b.Navigation("Diplomes");
 
                     b.Navigation("Documents");
+                });
+
+            modelBuilder.Entity("API_MySIRH.Entities.Formation", b =>
+                {
+                    b.Navigation("CollaborateurFormations");
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.ToDoList", b =>

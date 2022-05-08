@@ -5,41 +5,41 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API_MySIRH.Repositories
 {
-    public class CertificationRepository : ICertificationRepository
+    public class FormationRepository : IFormationRepository
     {
         private readonly DataContext _context;
 
-        public CertificationRepository(DataContext context)
+        public FormationRepository(DataContext context)
         {
             _context = context;
         }
 
-        public Task Add(Certification certification)
+        public Task Add(Formation formation)
         {
             throw new NotImplementedException();
         }
 
-        public Task Delete(Certification certification)
+        public Task Delete(Formation formation)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<List<Certification>> GetAll()
+        public async Task<List<Formation>> GetAll()
         {
-            return await _context.Certifications.AsNoTracking().ToListAsync();
+            return await _context.Formations.ToListAsync();
         }
 
-        public Task<Certification> GetById()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Certification> GetByLibelle()
+        public Task<Formation> GetById()
         {
             throw new NotImplementedException();
         }
 
-        public Task Update(Certification certification)
+        public Task<Formation> GetByLibelle()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Update(Formation formation)
         {
             throw new NotImplementedException();
         }
