@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Certification } from '../Models/certification';
+import { CertificationOrFormation } from '../Models/certification-formation';
 import { CollabFormationCertif } from '../Models/collaborationCertificationFormation';
 import { Collaborator } from '../Models/Collaborator';
 import { Pagination } from '../Models/pagination';
 import { CollaboratorsService } from '../services/collaborators.service';
 import { FormationCertificationsService } from '../services/formation-certifications.service';
-import { PopupService } from './popup/popup.service';
 
 @Component({
   selector: 'app-formations',
@@ -17,7 +16,7 @@ export class FormationsComponent implements OnInit, OnDestroy {
 
   selected: boolean = true;
   tab: CollabFormationCertif[] = [];
-  cols: Certification[] = [];
+  cols: CertificationOrFormation[] = [];
   rows: Collaborator[] = [];
 
   //Subscription
@@ -37,17 +36,28 @@ export class FormationsComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    
+    this.onSwitch();
   }
 
   onSwitch() {
-    if (this.selected) {
-      //fetch formation table
-    } else {
-      this.loadCollaborators(this.pageSize, this.pageNumber);
+    this.loadCollaborators(this.pageSize, this.pageNumber);
 
+    if (this.selected) {
+      this.subCertif = this.formationCertifService.getFormations().subscribe(
+        (data: CertificationOrFormation[]) => {
+          this.cols = data;
+        }
+      );
+
+      this.subCollabCertif = this.formationCertifService.getCollabFormation().subscribe(
+        (data: CollabFormationCertif[])=>{
+          this.tab = data;
+        }
+      )
+
+    } else {
       this.subCertif = this.formationCertifService.getCertifications().subscribe(
-        (data: Certification[]) => {
+        (data: CertificationOrFormation[]) => {
           this.cols = data;
         }
       );
@@ -66,10 +76,11 @@ export class FormationsComponent implements OnInit, OnDestroy {
     filtrerPar?: string,
     search?: string,
     orderby?: string,
+    orderbyFormation?:string,
     orderbyCertification?:string
   ) {
     this.subCollab = this.collaborateurService
-      .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby, orderbyCertification)
+      .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby,orderbyFormation, orderbyCertification)
       .subscribe(
         resp => {
           this.rows = resp.result;
@@ -87,7 +98,14 @@ export class FormationsComponent implements OnInit, OnDestroy {
   }
 
   sortData(libelle:string){
-    this.loadCollaborators(this.pageSize, this.pageNumber,undefined, undefined, undefined, libelle);
+    this.loadCollaborators(
+      this.pageSize, 
+      this.pageNumber,
+      undefined, 
+      undefined, 
+      undefined, 
+      this.selected ? libelle : undefined,
+      !this.selected ? libelle : undefined);
   }
 
   ngOnDestroy(): void {

@@ -17,7 +17,7 @@
   </div>
 </div>
 <div class="table-scroll">
-  <app-table [table] ="tab" [rows]="rows" [cols]="cols" (sortValue)="sortData($event)"></app-table>
+  <app-table [type]='selected' [table] ="tab" [rows]="rows" [cols]="cols" (sortValue)="sortData($event)"></app-table>
 </div>
 <div>
   <app-footer [pagination]="pagination" (pageNumber)="getCurrentPage($event)"></app-footer>

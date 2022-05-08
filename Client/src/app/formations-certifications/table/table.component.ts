@@ -1,10 +1,9 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { Certification } from 'src/app/Models/certification';
+import { CertificationOrFormation } from 'src/app/Models/certification-formation';
 import { CollabFormationCertif } from 'src/app/Models/collaborationCertificationFormation';
 import { Collaborator } from 'src/app/Models/Collaborator';
-import { CollaboratorsService } from 'src/app/services/collaborators.service';
 import { PopupService } from '../popup/popup.service';
 
 @Component({
@@ -17,7 +16,8 @@ export class TableComponent implements OnInit, OnDestroy, OnChanges {
 
   @Input() table!: CollabFormationCertif[];
   @Input() rows: Collaborator[] = [];
-  @Input() cols: Certification[] = [];
+  @Input() cols: CertificationOrFormation[] = [];
+  @Input() type!: boolean;
   @Output() sortValue: EventEmitter<string> = new EventEmitter<string>();
   
   subPopup!: Subscription;
@@ -45,7 +45,7 @@ export class TableComponent implements OnInit, OnDestroy, OnChanges {
       return {
         collaborateur: item.collaborateur,
         certificates: item.certificates.map(certif => {
-          if (certif.certificationId === value.certificationId && certif.collaborateurId === value.collaborateurId) {
+          if (certif.id === value.id && certif.collaborateurId === value.collaborateurId) {
             return value;
           }
           return certif;
@@ -57,13 +57,14 @@ export class TableComponent implements OnInit, OnDestroy, OnChanges {
   sort(libelle:string){
     this.sortValue.emit(libelle);
   }
+
   private prepareData(){
     this.newRows = [];
     this.rows.forEach(collab => {
       let certificates: CollabFormationCertif[] = [];
 
       this.cols.forEach(certif => {
-        const collabFormCert = this.table.find(x => x.collaborateurId === collab.id && x.certificationId === certif.id);
+        const collabFormCert = this.table.find(x => x.collaborateurId === collab.id && x.id === certif.id);
         if (collabFormCert != undefined) {
           certificates.push(collabFormCert);
         } else {
@@ -73,6 +74,7 @@ export class TableComponent implements OnInit, OnDestroy, OnChanges {
 
       this.newRows.push({ collaborateur: collab, certificates: certificates })
     });
+    
   }
   ngOnDestroy(): void {
     this.subPopup.unsubscribe();

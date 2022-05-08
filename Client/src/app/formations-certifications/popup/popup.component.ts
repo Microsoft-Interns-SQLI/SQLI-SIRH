@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
@@ -15,6 +15,7 @@ import { PopupService } from './popup.service';
 export class PopupComponent implements OnInit, OnDestroy {
 
   selected: string = '';
+  @Input() type!: string;
 
   @Output() certificationEvent: EventEmitter<CollabFormationCertif> = new EventEmitter<CollabFormationCertif>();
 
@@ -43,27 +44,36 @@ export class PopupComponent implements OnInit, OnDestroy {
   onSubmit(form: NgForm) {
     let item: CollabFormationCertif = {
       collaborateurId: this.certification.collaborateurId,
-      certificationId: this.certification.certificationId,
+      id: this.certification.id,
       status: form.controls['status'].value,
       dateDebut: form.controls['dateDebut'].value,
       dateFin: form.controls['dateFin'].value,
     } as CollabFormationCertif
-
-    this.sub = this.formationCertifService.updateCollabCertif(item).subscribe(
-      {
-        complete: () => {
-          this.hideModal();
-          this.certificationEvent.emit(item);
+    if (this.type === 'certification')
+      this.sub = this.formationCertifService.updateCollabCertif(item).subscribe(
+        {
+          complete: () => {
+            this.hideModal();
+            this.certificationEvent.emit(item);
+          }
         }
-      }
-    );
-
+      );
+    else if(this.type ==='formation'){
+      this.sub = this.formationCertifService.updateCollabFormation(item).subscribe(
+        {
+          complete: () => {
+            this.hideModal();
+            this.certificationEvent.emit(item);
+          }
+        }
+      )
+    }
   }
 
   selectChange(value: string) {
     if (value == "AFAIRE") {
       this.dateFin = new Date();
-    }else{
+    } else {
       this.dateFin = this.certification.dateFin;
     }
   }
