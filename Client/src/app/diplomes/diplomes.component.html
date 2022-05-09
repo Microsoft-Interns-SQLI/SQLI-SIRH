@@ -18,6 +18,7 @@
                                     <th>Libellé</th>
                                     <th>Détail</th>
                                     <th>Description</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -26,6 +27,11 @@
                                     <td>{{ diplome.label }}</td>
                                     <td>{{ diplome.detail }}</td>
                                     <td>{{ diplome.description }}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-danger" (click)="deleteDiplome(diplome.id)">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

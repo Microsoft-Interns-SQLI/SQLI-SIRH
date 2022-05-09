@@ -1,0 +1,17 @@
+.item{
+    cursor: pointer;
+}
+.header{
+    cursor: pointer;
+}
+.header:hover{
+    background-color: rgba(0, 0, 0, 0.058);
+}
+.popup{
+    position: absolute;
+    top:2rem;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.767);
+}

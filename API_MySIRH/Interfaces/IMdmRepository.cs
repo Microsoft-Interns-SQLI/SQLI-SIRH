@@ -6,6 +6,7 @@ namespace API_MySIRH.Interfaces
     {
         Task<IEnumerable<T>> GetAll();
         Task<T> GetById(int id);
+        Task<T> GetByName(string name);
         Task Update(int id, T obj);
         Task<T> Add(T obj);
         Task Delete(int id);

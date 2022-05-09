@@ -26,7 +26,7 @@ namespace API_MySIRH.Repositories
 
         public async Task<List<Certification>> GetAll()
         {
-            return await _context.Certifications.ToListAsync();
+            return await _context.Certifications.AsNoTracking().ToListAsync();
         }
 
         public Task<Certification> GetById()

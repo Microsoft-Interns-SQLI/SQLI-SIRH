@@ -17,11 +17,23 @@ namespace API_MySIRH.Controllers
     public class CollaborateursController : ControllerBase
     {
         private readonly ICollaborateurService _collaborateurService;
+        private readonly IMdmService<Niveau, NiveauDTO> _mdmServiceNiveau;
+        private readonly IMdmService<Site, SiteDTO> _mdmServiceSite;
+        private readonly IMdmService<Post, PostDTO> _mdmServicePoste;
+        private readonly IMdmService<TypeContrat, TypeContratDTO> _mdmServiceTypeContrat;
+        private readonly IMdmService<SkillCenter, SkillCenterDTO> _mdmServiceSkillCenter;
+        private readonly IMdmService<ModeRecrutement, ModeRecrutementDTO> _mdmServiceModeRecrutement;
         private readonly IMapper _mapper;
 
-        public CollaborateursController(ICollaborateurService collaborateurService, IMapper mapper)
+        public CollaborateursController(ICollaborateurService collaborateurService, IMdmService<Niveau, NiveauDTO> mdmServiceNiveau, IMdmService<Site, SiteDTO> mdmServiceSite, IMdmService<Post, PostDTO> mdmServicePoste, IMdmService<TypeContrat, TypeContratDTO> mdmServiceTypeContrat, IMdmService<SkillCenter, SkillCenterDTO> mdmServiceSkillCenter, IMdmService<ModeRecrutement, ModeRecrutementDTO> mdmServiceModeRecrutement, IMapper mapper)
         {
             _collaborateurService = collaborateurService;
+            _mdmServiceNiveau = mdmServiceNiveau;
+            _mdmServiceSite = mdmServiceSite;
+            _mdmServicePoste = mdmServicePoste;
+            _mdmServiceTypeContrat = mdmServiceTypeContrat;
+            _mdmServiceSkillCenter = mdmServiceSkillCenter;
+            _mdmServiceModeRecrutement = mdmServiceModeRecrutement;
             _mapper = mapper;
         }
 
@@ -31,6 +43,7 @@ namespace API_MySIRH.Controllers
             var collabs = await _collaborateurService.GetCollaborateurs(filterParams);
             Response.AddPaginationHeader(collabs.CurrentPage, collabs.PageSize, collabs.TotalCount, collabs.TotalPages);
             return Ok(collabs);
+            //return Ok(list.OrderByDescending(x => x.Certifications.Where(x => x.Libelle == "AZ-104").Any() ? x.Certifications.Where(x => x.Libelle == "AZ-104").FirstOrDefault().Libelle : null));
         }
 
         [HttpGet("{id}")]
@@ -148,24 +161,46 @@ namespace API_MySIRH.Controllers
                 {
                     if (!worksheet.Rows[i].IsBlank)
                     {
+                        Collaborateur collaborateur = new Collaborateur();
+
+                        //Split full name into lastname and firstname
                         var nomComplet = worksheet.Rows[i].Cells[3].Value.Split(' ');
-
                         var Nom = nomComplet[1];
-
                         var Prenom = nomComplet[0];
-
                         if (nomComplet.Length > 2)
                             Nom += $"{string.Join(" ", nomComplet.Skip(2))}";
 
-                        Collaborateur collaborateur = new Collaborateur();
-                        collaborateur.Matricule = worksheet.Rows[i].Cells[0].Value.ToString();
                         collaborateur.Nom = Nom;
                         collaborateur.Prenom = Prenom;
+
+                        //Matricule
+                        collaborateur.Matricule = worksheet.Rows[i].Cells[0].Value.ToString();
+                        //Email
                         collaborateur.Email = worksheet.Rows[i].Cells[2].Value.ToString();
+                        //Civilite
                         collaborateur.Civilite = worksheet.Rows[i].Cells[5].Value.ToString();
-                        // collaborateur.Diplomes = worksheet.Rows[i].Cells[16].Value.ToString();  // todo-review : added relation between 'Diplome' and 'collaborateur'
-                        // collaborateur.ModeRecrutement = worksheet.Rows[i].Cells[11].Value.ToString(); // todo-review : added relation between 'ModeRecrutement' and 'collaborateur'
-                        collaborateur.PosteId = 7;
+
+                        //Diplomes
+                        var diplomes = SerializeDiplomes(worksheet.Rows[i].Cells[16].Value.ToString());
+                        collaborateur.Diplomes = diplomes.ToList();
+                        //Mode recrutement
+                        var modeRecrutement = await _mdmServiceModeRecrutement.GetByName(worksheet.Rows[i].Cells[11].Value.ToString());
+                        collaborateur.ModeRecrutement = _mapper.Map<ModeRecrutement>(modeRecrutement);
+                        //Poste
+                        var poste = await _mdmServicePoste.GetByName(worksheet.Rows[i].Cells[8].Value.ToString());
+                        collaborateur.Poste = _mapper.Map<Post>(poste);
+                        //Niveau
+                        var niveau = await _mdmServiceNiveau.GetByName(worksheet.Rows[i].Cells[9].Value.ToString());
+                        collaborateur.Niveau = _mapper.Map<Niveau>(niveau);
+                        //Site
+                        var site = await _mdmServiceSite.GetByName(worksheet.Rows[i].Cells[4].Value.ToString());
+                        collaborateur.Site = _mapper.Map<Site>(site);
+                        //Skill center
+                        var skillCenter = await _mdmServiceSkillCenter.GetByName(worksheet.Rows[i].Cells[7].Value.ToString());
+                        collaborateur.SkillCenter = _mapper.Map<SkillCenter>(skillCenter);
+
+                        //Type contrat later 
+
                         if (worksheet.Rows[i].Cells[6].Value != "")
                             collaborateur.DateNaissance = Convert.ToDateTime(worksheet.Rows[i].Cells[6].Value);
                         if (worksheet.Rows[i].Cells[12].Value != "")
@@ -177,14 +212,14 @@ namespace API_MySIRH.Controllers
                         if (worksheet.Rows[i].Cells[15].Value != "")
                             collaborateur.DateSortieSqli = Convert.ToDateTime(worksheet.Rows[i].Cells[15].Value);
 
-                        //if (await InvokeOperation(collaborateur))
-                        //{
-                        //    compteRendu["ExistsCollab"]++;
-                        //}
-                        //else
-                        //{
-                        //    compteRendu["AddingCollab"]++;
-                        //}
+                        if (await InvokeOperation(collaborateur))
+                        {
+                            compteRendu["ExistsCollab"]++;
+                        }
+                        else
+                        {
+                            compteRendu["AddingCollab"]++;
+                        }
                     }
                 }
 
@@ -194,6 +229,26 @@ namespace API_MySIRH.Controllers
             excelEngine.Dispose();
 
             return compteRendu;
+        }
+        private IEnumerable<Diplome> SerializeDiplomes(string str)
+        {
+            List<Diplome> resultDiplomes = new List<Diplome>();
+            var diplomes = str.Split('|');
+
+            foreach (var diplome in diplomes)
+            {
+                if (diplome == "")
+                {
+                    continue;
+                }
+
+                var diplomeEntity = diplome.Trim().Split(':', StringSplitOptions.TrimEntries);
+                var annee = diplomeEntity[0];
+                var detail = diplomeEntity[1];
+                resultDiplomes.Add(new Diplome { Annee = Int32.Parse(annee), Detail = detail });
+            }
+
+            return resultDiplomes;
         }
 
         private FileContentResult export()
@@ -224,18 +279,18 @@ namespace API_MySIRH.Controllers
             worksheet["D1"].Value = "Nom";
             worksheet["E1"].Value = "Prenom";
             worksheet["F1"].Value = "Agence";
-            worksheet["G1"].Value = "Civilit�";
+            worksheet["G1"].Value = "Civilité";
             worksheet["H1"].Value = "Date Naissance";
             worksheet["I1"].Value = "Skill Center";
             worksheet["J1"].Value = "Poste";
             worksheet["K1"].Value = "Niveau";
-            worksheet["L1"].Value = "Type de Contrat";
+            //worksheet["L1"].Value = "Type de Contrat";
             worksheet["M1"].Value = "Recrutement Mode";
-            worksheet["N1"].Value = "Date 1ere exp�rience";
-            worksheet["O1"].Value = "Date d'entr�e";
-            worksheet["P1"].Value = "Date de d�but de stage";
+            worksheet["N1"].Value = "Date 1ere expérience";
+            worksheet["O1"].Value = "Date d'entrée";
+            worksheet["P1"].Value = "Date de début de stage";
             worksheet["Q1"].Value = "Date de sortie";
-            worksheet["R1"].Value = "Dipl�mes";
+            worksheet["R1"].Value = "Diplomes";
 
             int i = 2;
             foreach (var collab in collabs)
@@ -245,19 +300,23 @@ namespace API_MySIRH.Controllers
                 worksheet[$"C{i}"].Value = collab.Email;
                 worksheet[$"D{i}"].Value = collab.Nom;
                 worksheet[$"E{i}"].Value = collab.Prenom;
-                //worksheet[$"F{i}"].Value = collab.Site;
+                worksheet[$"F{i}"].Value = collab.Site.Name;
                 worksheet[$"G{i}"].Value = collab.Civilite;
                 worksheet[$"H{i}"].Value = collab.DateNaissance.ToString("dd/MM/yyyy");
-                //worksheet[$"I{i}"].Value = collab.SkillCenter;
-                //worksheet[$"J{i}"].Value = collab.Poste;
-                //worksheet[$"K{i}"].Value = collab.NiveauName;
+                worksheet[$"I{i}"].Value = collab.SkillCenter.Name;
+                worksheet[$"J{i}"].Value = collab.Poste.Name;
+                worksheet[$"K{i}"].Value = collab.Niveau.Name;
                 //worksheet[$"L{i}"].Value = collab.TypeContrat;
-                //worksheet[$"M{i}"].Value = collab.ModeRecrutement;
+                worksheet[$"M{i}"].Value = collab.ModeRecrutement == null ? "" : collab.ModeRecrutement.Name;
                 worksheet[$"N{i}"].Value = collab.DatePremiereExperience == null ? "" : collab.DatePremiereExperience?.ToString("dd/MM/yyyy");
                 worksheet[$"O{i}"].Value = collab.DateEntreeSqli == null ? "" : collab.DateEntreeSqli?.ToString("dd/MM/yyyy");
                 worksheet[$"P{i}"].Value = collab.DateDebutStage == null ? "" : collab.DateDebutStage?.ToString("dd/MM/yyyy");
                 worksheet[$"Q{i}"].Value = collab.DateSortieSqli == null ? "" : collab.DateSortieSqli?.ToString("dd/MM/yyyy");
-                //worksheet[$"R{i}"].Value = collab.Diplomes;
+                
+                var diplomes = "";
+                if (collab.Diplomes != null)
+                    diplomes = String.Join(" | ",collab.Diplomes.Select(x => $"{x.Annee} : {x.Detail}"));
+                worksheet[$"R{i}"].Value = diplomes;
 
                 worksheet[$"H{i}"].CellStyle.ShrinkToFit = true;
                 worksheet[$"N{i}"].CellStyle.ShrinkToFit = true;
