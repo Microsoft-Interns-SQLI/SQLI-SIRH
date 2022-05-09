@@ -12,7 +12,7 @@ import { DashboardService } from '../services/dashboard.service';
 })
 export class DashboardComponent implements OnInit {
 
-  dashboard!: Dashboard ;
+  dashboard: Dashboard = {} as Dashboard;
 
   constructor(private dahsboardService: DashboardService) { }
 
@@ -26,7 +26,6 @@ export class DashboardComponent implements OnInit {
     this.dahsboardService.getDashboard().subscribe((data: Dashboard) => {
       this.dashboard = data;
       console.log(data);
-      this.CiviliteChart("barChart", this.dashboard.icdCount, this.dashboard.expertTechCount, this.dashboard.chefDeProjetCount, this.dashboard.managerCount);
       this.NiveauPieChart("niveauChart", this.dashboard.juniorCount, this.dashboard.operationnelCount, this.dashboard.confirmeCount, this.dashboard.seniorCount);
       this.PostsDonutChart("postChart", this.dashboard.icdCount, this.dashboard.expertTechCount, this.dashboard.chefDeProjetCount, this.dashboard.managerCount);
     });
@@ -199,52 +198,6 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  CiviliteChart(elementId: string, icd: number, expertTech: number, chefDeProjet: number, manager: number) {
-    Chart.register(...registerables);
-    const ctx = document.getElementById(elementId) as HTMLCanvasElement
-    const myChart = new Chart(ctx, {
-      type: 'pie',
-      data: {
-        labels: ['ICD', 'ET','Chef de projet' , 'Manager'],
-        datasets: [{
-          label: '# of Votes',
-          data: [icd, expertTech, chefDeProjet, manager],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)'
-          ],
-          borderWidth: 1,
-          hoverOffset: 4
-        }]
-      },
-      options: {
-        animation: {
-          duration: 1000,
-          easing: 'linear',
-        },
-        plugins: {
-          legend: {
-            display: true,
-            position: 'top'
-          },
-        },
-        scales: {
-          y: {
-            display:false
-          }
-        },
-        responsive: true,
-      }
-    });
-  }
 
 
 }
