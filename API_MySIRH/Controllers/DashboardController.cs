@@ -9,16 +9,36 @@ namespace API_MySIRH.Controllers
     public class DashboardController : ControllerBase
     {
         private readonly IDashboardService _dashboardService;
+        private readonly ICollaborateurService _collaborateurService;
 
-        public DashboardController(IDashboardService dashboardService)
+        public DashboardController(IDashboardService dashboardService,ICollaborateurService collaborateurService)
         {
             _dashboardService = dashboardService;
+            _collaborateurService = collaborateurService;
         }
 
-        [HttpPut]
-        public async Task<ActionResult<DashboardDto>> Get()
+        [HttpGet]
+        public async Task<ActionResult<DashboardDto>> GetDashboard()
         {
-            return await _dashboardService.getDashboard();
+            DashboardDto dashboard = new();
+            var collection = _collaborateurService.GetCollaborateurs().Where(collab => collab.DateSortieSqli == null || DateTime.Compare((DateTime)collab.DateSortieSqli, DateTime.Now) > 0 );
+            dashboard.HeadCount = _dashboardService.GetHeadCount(collection);
+            dashboard.FemaleCount = _dashboardService.GetFemaleCount(collection);
+            dashboard.MaleCount = _dashboardService.GetMaleCount(collection);
+            dashboard.DemissionCount = _dashboardService.GetDemissionCount(_collaborateurService.GetCollaborateurs());
+            dashboard.AverageAge = _dashboardService.GetAverageAge(collection);
+            dashboard.ICDCount = _dashboardService.GetHeadCountPerPoste(collection, "Ingénieur Concepteur développeur");
+            dashboard.ExpertTechCount = _dashboardService.GetHeadCountPerPoste(collection, "Expert technique");
+            dashboard.ChefDeProjetCount = _dashboardService.GetHeadCountPerPoste(collection, "Chef de projet technique");
+            dashboard.ManagerCount = _dashboardService.GetHeadCountPerPoste(collection, "Manager");
+            dashboard.JuniorCount = _dashboardService.GetHeadCountPerNiveaux(collection, "Junior");
+            dashboard.OperationnelCount = _dashboardService.GetHeadCountPerNiveaux(collection, "Opérationnel");
+            dashboard.ConfirmeCount = _dashboardService.GetHeadCountPerNiveaux(collection, "Confirmé");
+            dashboard.SeniorCount = _dashboardService.GetHeadCountPerNiveaux(collection, "Sénior");
+            return dashboard;
         }
+
+         
+
     }
 }
