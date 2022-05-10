@@ -11,6 +11,7 @@ namespace API_MySIRH.Interfaces
         Task<Diplome> AddDiplomeToCollab(Diplome diplome);
         Task UpdateCollabDiplome(Diplome diplome);
         Task DeleteDiplomeToCollab(int idDiplome);
+        Task<bool> Exists(int idDiplome);
 
         Task<List<Diplome>> GetAllDiplomes();
         Task<Diplome?> GetDiplome(int idDiplome);
