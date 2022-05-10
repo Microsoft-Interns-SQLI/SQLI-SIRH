@@ -171,7 +171,7 @@
             </div>
           </a>
           <div class="my-2">
-            {{ item?.poste || "N/A" }}
+            {{ item?.poste?.name || "N/A" }}
           </div>
           <div class="d-flex justify-content-center my-2 align-items-center">
             <span>Expérience </span><span class="badge bg-dark ms-1">{{ calculateYears(item?.dateEntreeSqli) }}

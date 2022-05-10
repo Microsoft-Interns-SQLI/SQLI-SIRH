@@ -17,6 +17,10 @@
                             </label>
                             <input type="date" formControlName="dateDebut" placeholder="jj/mm/aaaa"
                                 class="form-control form-control-sm">
+                            <small class="text-red"
+                                *ngIf="form.get('dateDebut')?.invalid && (form.get('dateDebut')?.dirty || form.get('dateDebut')?.touched)">
+                                Champs obligatoire.
+                            </small>
                         </div>
 
                         <div class="col-md-6 mt-3">
