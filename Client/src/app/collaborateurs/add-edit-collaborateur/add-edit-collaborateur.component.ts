@@ -44,7 +44,6 @@ export class AddEditCollaborateurComponent implements OnInit {
   }
 
   initForm(): void {
-    console.log(this.collab);
     this.formGroup = this.fb.group({
       civilite: [this.collab.civilite, [Validators.required, Validators.minLength(1), Validators.maxLength(1)]],
       nom: [this.collab.nom, Validators.required],
@@ -121,9 +120,9 @@ export class AddEditCollaborateurComponent implements OnInit {
     this.collab.adresse = this.formGroup.value.adresse;
     this.collab.dateEntreeSqli = this.formGroup.value.dateEntreeSqli;
     this.collab.dateSortieSqli = this.formGroup.value.dateSortieSqli;
-    this.collab.modeRecrutement.id = this.formGroup.value.modeRecrutement;
-    this.collab.niveau.id = this.formGroup.value.niveau;
-    this.collab.poste.id = this.formGroup.value.poste;
+    this.collab.modeRecrutementId = this.formGroup.value.modeRecrutement;
+    this.collab.niveauId = this.formGroup.value.niveau;
+    this.collab.posteId = this.formGroup.value.poste;
     this.collab.situationFamiliale = this.formGroup.value.situationFamiliale;
     this.collab.dateDebutStage = this.formGroup.value.dateDebutStage;
     this.collab.datePremiereExperience = this.formGroup.value.datePremiereExperience;

@@ -10,7 +10,8 @@ export class Collaborator {
   dateNaissance: Date = new Date();
   matricule: string = '';
   civilite: string = '';
-  modeRecrutement: RecruteMode = new RecruteMode();
+  modeRecrutementId: number = 0;
+  modeRecrutement?: RecruteMode;
   datePremiereExperience: Date = new Date();
   dateEntreeSqli: Date = new Date();
   dateSortieSqli: Date = new Date();
@@ -21,8 +22,10 @@ export class Collaborator {
   phonePersonnel: string = '';
   phoneProfesionnel: string = '';
   autreTechnos: string = '';
-  niveau: Niveau = new Niveau();
-  site: Site = new Site();
+  niveauId: number = 0;
+  niveau?: Niveau;
+  siteId?: number;
+  site?: Site;
   skillCenter: string = '';
   emailPersonnel: string = '';
   email: string = '';
@@ -31,7 +34,8 @@ export class Collaborator {
   technos: string = '';
   certifications: string = '';
   langues: string = '';
-  poste: Poste = new Poste();
+  posteId: number = 0;
+  poste?: Poste;
   nationnalite: string = '';
   lieuNaissance: string = '';
   numCin: string = '';

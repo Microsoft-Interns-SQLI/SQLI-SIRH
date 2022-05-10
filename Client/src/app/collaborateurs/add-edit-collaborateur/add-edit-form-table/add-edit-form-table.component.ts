@@ -29,8 +29,9 @@ export class AddEditFormTableComponent implements OnInit {
       new SelectInputObject('F', 'Mme.'),
     ];
     this.service.getRecrutementMode().subscribe((res) => {
+      console.log(res);
       this.recruteModeData.data = res.map(
-        (obj) => new SelectInputObject(obj.id, obj.mode)
+        (obj) => new SelectInputObject(obj.id, obj.name)
       );
     });
     this.service.getNiveaux().subscribe((res) => {
