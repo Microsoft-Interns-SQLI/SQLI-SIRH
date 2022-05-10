@@ -421,11 +421,7 @@ namespace API_MySIRH.Controllers
                 return NotFound(ex.Message);
             }
 
-<<<<<<< HEAD
             return Ok($"Name de Recrutement with id : {id} deleted successfully!");
-=======
-            return NoContent();
->>>>>>> 196b3f1c839ffe0f71f7b46721da774970e8fd6f
         }
     }
 }

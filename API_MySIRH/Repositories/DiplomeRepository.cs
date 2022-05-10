@@ -48,5 +48,10 @@ namespace API_MySIRH.Repositories
             this._dataContext.Diplomes.Remove((await this.GetDiplome(idDiplome))!);
             await this._dataContext.SaveChangesAsync();
         }
+
+        public async Task<bool> Exists(int idDiplome)
+        {
+            return await this._dataContext.Diplomes.AnyAsync(diplome => diplome.Id == idDiplome);
+        }
     }
 }

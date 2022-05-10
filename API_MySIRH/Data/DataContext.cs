@@ -140,6 +140,11 @@ namespace API_MySIRH.Data
                 );
         }
 
+        internal Task<bool> AnyAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
 
