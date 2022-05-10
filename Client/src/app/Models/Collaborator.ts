@@ -21,7 +21,6 @@ export class Collaborator {
   phonePersonnel: string = '';
   phoneProfesionnel: string = '';
   autreTechnos: string = '';
-  typeContrat: string = ''; // todo : must be deleted
   niveau: Niveau = new Niveau();
   site: Site = new Site();
   skillCenter: string = '';
@@ -38,38 +37,4 @@ export class Collaborator {
   numCin: string = '';
   documents?: CollabFile[];
   situationFamiliale: string = '';
-}
-
-export class CollabAddUpdate {
-  id?: number
-  creationDate?: Date
-  modificationDate?: Date
-  nom?: string
-  prenom?: string
-  email?: string
-  dateNaissance?: string
-  matricule?: string
-  civilite?: string
-  autreTechnos?: string
-  situationFamiliale?: string
-  numCin?: string
-  nationnalite?: string
-  lieuNaissance?: string
-  phoneProfesionnel?: string
-  phonePersonnel?: string
-  emailPersonnel?: string
-  adresse?: string
-  langues?: string
-  note?: string
-  datePremiereExperience?: Date
-  dateEntreeSqli?: Date
-  dateSortieSqli?: Date
-  dateDebutStage?: Date
-  certifications?: string
-  posteId?: number
-  skillCenterId?: number
-  siteId?: number
-  niveauId?: number
-  typeContratId?: number // todo : must be deleted
-  modeRecrutementId?: number
 }

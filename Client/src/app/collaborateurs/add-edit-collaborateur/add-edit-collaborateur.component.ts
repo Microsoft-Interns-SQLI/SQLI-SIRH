@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { delay } from 'rxjs';
 import { routes } from 'src/app/app-routing.module';
-import { Collaborator, CollabAddUpdate } from 'src/app/Models/Collaborator';
+import { Collaborator } from 'src/app/Models/Collaborator';
 import { CollaboratorsService } from 'src/app/services/collaborators.service';
 import { ToastService } from 'src/app/shared/toast/toast.service';
 
@@ -78,16 +78,16 @@ export class AddEditCollaborateurComponent implements OnInit {
       this.formGroup.markAllAsTouched();
       return;
     }
-    let result = this.updateCollab();
+    this.updateCollab();
     if (this.collab_id) {
       this.sevice
-        .updateCollaborator(this.collab_id, result)
+        .updateCollaborator(this.collab_id, this.collab)
         .subscribe((res) => {
         });
       message = this.collab.prenom + " " + this.collab.nom + " a été modifier avec success";
       this.toastServise.showToast("success", message);
     } else {
-      this.sevice.addCollaborator(result).subscribe((res) => {
+      this.sevice.addCollaborator(this.collab).subscribe((res) => {
         let collaborator: any = res;
         message = this.collab.prenom + " " + this.collab.nom + " a été ajouter avec success";
         this.toastServise.showToast("success", message);
@@ -128,41 +128,6 @@ export class AddEditCollaborateurComponent implements OnInit {
     this.collab.dateDebutStage = this.formGroup.value.dateDebutStage;
     this.collab.datePremiereExperience = this.formGroup.value.datePremiereExperience;
     // this.collab.diplomes = this.formGroup.value.diplomes;
-    let res: CollabAddUpdate = new CollabAddUpdate();
-    res.id = this.collab.id;
-    res.creationDate = this.collab.creationDate;
-    res.modificationDate = this.collab.modificationDate;
-    res.nom = this.formGroup.value.nom;
-    res.prenom = this.formGroup.value.prenom;
-    res.email = this.formGroup.value.email;
-    res.dateNaissance = this.formGroup.value.dateNaissance;
-    res.matricule = this.formGroup.value.matricule;
-    res.civilite = this.formGroup.value.civilite;
-    res.autreTechnos = this.collab.autreTechnos;
-    res.situationFamiliale = this.formGroup.value.situationFamiliale;
-    res.numCin = this.formGroup.value.numCin;
-    res.nationnalite = this.formGroup.value.nationnalite;
-    res.lieuNaissance = this.formGroup.value.lieuNaissance;
-    res.phoneProfesionnel = this.formGroup.value.phoneProfesionnel;
-    res.phonePersonnel = this.formGroup.value.phonePersonnel;
-    res.emailPersonnel = this.formGroup.value.emailPersonnel;
-    res.adresse = this.formGroup.value.adresse;
-    res.langues = this.collab.langues;
-    res.note = this.collab.note;
-    res.datePremiereExperience = this.formGroup.value.datePremiereExperience;
-    res.dateEntreeSqli = this.formGroup.value.dateEntreeSqli;
-    res.dateSortieSqli = this.formGroup.value.dateSortieSqli;
-    res.dateDebutStage = this.formGroup.value.dateDebutStage;
-    res.certifications = this.collab.certifications;
-    res.posteId = this.formGroup.value.poste;
-    // res.skillCenterId = this.collab.skillCenter;
-    res.skillCenterId = 1;
-    res.siteId = 1;
-    res.niveauId = this.formGroup.value.niveau;
-    res.typeContratId = this.formGroup.value.typeContrat;
-    res.modeRecrutementId = this.formGroup.value.modeRecrutement;
-    console.log(res);
-    return res;
   }
 
   calculateYeas(year: any): any {
