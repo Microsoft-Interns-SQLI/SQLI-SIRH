@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { mergeMap } from 'rxjs';
 import { Collaborator } from '../Models/Collaborator';
+import { CollabTypeContrat } from '../Models/MdmModel';
 import { ContratsService } from '../services/contrats.service';
 
 @Component({
@@ -7,12 +9,22 @@ import { ContratsService } from '../services/contrats.service';
   templateUrl: './contrats.component.html',
 })
 export class ContratsComponent implements OnInit {
-  @Input() collab?: Collaborator;
-  constructor(
-    private contratsService: ContratsService
-  ) { }
+  @ViewChild("affectations") affectations!: CollabTypeContrat[];
+  @Input() collab!: Collaborator;
+
+  constructor(private contratsService: ContratsService) { }
 
   ngOnInit(): void {
+    this.contratsService.getContratsOfCollab(this.collab.id).subscribe((contrats) => {
+      this.affectations = contrats;
+    });
   }
 
+  deleteAffectation(idAffectation: number) {
+    this.contratsService.deleteAffectation(idAffectation).pipe(
+      mergeMap(() => this.contratsService.getContratsOfCollab(this.collab.id))
+    ).subscribe((contrats) => {
+      this.affectations = contrats;
+    })
+  }
 }

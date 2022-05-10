@@ -26,6 +26,15 @@ namespace API_MySIRH.Repositories
             .ToListAsync();
         }
 
+        public async Task<List<CollaborateurTypeContrat>> GetAllCollabsContratsByCollab(int idCollaborateur)
+        {
+            return await this._context.CollaborateurTypeContrats
+                .Where(cc => cc.CollaborateurId == idCollaborateur)
+                .Include(cc => cc.Collaborateur)
+                .Include(cc => cc.TypeContrat)
+                .ToListAsync();
+        }
+
         public async Task<CollaborateurTypeContrat?> GetCollabContratById(int idCollabContrat)
         {
             return await this._context.CollaborateurTypeContrats

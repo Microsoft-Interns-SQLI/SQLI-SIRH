@@ -27,4 +27,5 @@
     </tr>
   </tbody>
 </table>
-<app-popup class="popup" [type]="type ? 'formation' : 'certification'" *ngIf="displayed" (certificationEvent)="boxUpdated($event)"></app-popup>
+<app-popup class="popup" [type]="type ? 'formation' : 'certification'" *ngIf="displayed"
+  (certificationEvent)="boxUpdated($event)"></app-popup>

@@ -1,24 +1,53 @@
 <div class="my-3">
     <div class="card">
         <div class="card-header">
-            <strong>
-                <u>
-                    Contrats
-                </u>
-            </strong>
+            <div class="row">
+                <div class="col-md-8">
+                    <strong>
+                        <u>
+                            Contrats
+                        </u>
+                    </strong>
+                </div>
+                <div class="col-md-4 text-end">
+                    <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#affecteContrat">
+                        <i class="bi bi-plus-square"></i>
+                        Contrat
+                    </button>
+                </div>
+            </div>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table w-100">
-                    <thead>
-                        <tr>
-                            <th>Type Contrat</th>
-                            <th>à SQLI</th>
-                            <th>Début</th>
-                            <th>Fin</th>
-                        </tr>
-                    </thead>
-                </table>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table w-100">
+                            <thead>
+                                <tr>
+                                    <th>Type Contrat</th>
+                                    <th>à SQLI</th>
+                                    <th>Début</th>
+                                    <th>Fin</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let affectation of affectations">
+                                    <td>{{affectation.typeContrat?.name}}</td>
+                                    <td>{{affectation.isInSQLI ? "✅" : "❌"}}</td>
+                                    <td>{{affectation.dateDebut ?? "N/A"}}</td>
+                                    <td>{{affectation.dateFin ?? "N/A"}}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-danger"
+                                            (click)="deleteAffectation(affectation.id)">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
