@@ -10,7 +10,8 @@ export class Collaborator {
   dateNaissance: Date = new Date();
   matricule: string = '';
   civilite: string = '';
-  modeRecrutement: RecruteMode = new RecruteMode();
+  modeRecrutementId: number = 0;
+  modeRecrutement?: RecruteMode;
   datePremiereExperience: Date = new Date();
   dateEntreeSqli: Date = new Date();
   dateSortieSqli: Date = new Date();
@@ -21,9 +22,10 @@ export class Collaborator {
   phonePersonnel: string = '';
   phoneProfesionnel: string = '';
   autreTechnos: string = '';
-  typeContrat: string = ''; // todo : must be deleted
-  niveau: Niveau = new Niveau();
-  site: Site = new Site();
+  niveauId: number = 0;
+  niveau?: Niveau;
+  siteId?: number;
+  site?: Site;
   skillCenter: string = '';
   emailPersonnel: string = '';
   email: string = '';
@@ -32,44 +34,11 @@ export class Collaborator {
   technos: string = '';
   certifications: string = '';
   langues: string = '';
-  poste: Poste = new Poste();
+  posteId: number = 0;
+  poste?: Poste;
   nationnalite: string = '';
   lieuNaissance: string = '';
   numCin: string = '';
   documents?: CollabFile[];
   situationFamiliale: string = '';
-}
-
-export class CollabAddUpdate {
-  id?: number
-  creationDate?: Date
-  modificationDate?: Date
-  nom?: string
-  prenom?: string
-  email?: string
-  dateNaissance?: string
-  matricule?: string
-  civilite?: string
-  autreTechnos?: string
-  situationFamiliale?: string
-  numCin?: string
-  nationnalite?: string
-  lieuNaissance?: string
-  phoneProfesionnel?: string
-  phonePersonnel?: string
-  emailPersonnel?: string
-  adresse?: string
-  langues?: string
-  note?: string
-  datePremiereExperience?: Date
-  dateEntreeSqli?: Date
-  dateSortieSqli?: Date
-  dateDebutStage?: Date
-  certifications?: string
-  posteId?: number
-  skillCenterId?: number
-  siteId?: number
-  niveauId?: number
-  typeContratId?: number // todo : must be deleted
-  modeRecrutementId?: number
 }
