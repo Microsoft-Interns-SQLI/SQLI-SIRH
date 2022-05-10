@@ -1,0 +1,43 @@
+<div class="modal fade" id="affecteContrat" tabindex="-1" aria-labelledby="affecteContrat" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Affectation d'un contrat
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form [formGroup]="form" (ngSubmit)="affecteContrat(form)">
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="col-md-6 mt-3">
+                            <label>
+                                Début :
+                            </label>
+                            <input type="date" formControlName="dateDebut" placeholder="jj/mm/aaaa"
+                                class="form-control form-control-sm">
+                        </div>
+
+                        <div class="col-md-6 mt-3">
+                            <label>
+                                Fin :
+                            </label>
+                            <input type="date" formControlName="dateFin" placeholder="jj/mm/aaaa"
+                                class="form-control form-control-sm">
+                        </div>
+
+                        <div class="col-md-12 mt-3">
+                            <app-select-input [formControl]="$any(form.controls?.['typeContratId'])"
+                                [data]="typesContratData" [label]="'Type contrat'"></app-select-input>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-outline-success" data-bs-dismiss="modal">Confirmer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

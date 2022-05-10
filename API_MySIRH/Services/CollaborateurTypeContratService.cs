@@ -22,6 +22,11 @@ namespace API_MySIRH.Services
             return this._mapper.Map<List<CollaborateurTypeContratDTO>>(await this._collaborateurTypeContratRepository.GetAllCollabsContrats());
         }
 
+        public async Task<List<CollaborateurTypeContratDTO>?> GetAllCollabsContratsByCollab(int idCollaborateur)
+        {
+            return this._mapper.Map<List<CollaborateurTypeContratDTO>>(await this._collaborateurTypeContratRepository.GetAllCollabsContratsByCollab(idCollaborateur));
+        }
+
         public async Task<CollaborateurTypeContratDTO> GetCollabContratById(int idCollabTypeContrat)
         {
             return this._mapper.Map<CollaborateurTypeContratDTO>(await this._collaborateurTypeContratRepository.GetCollabContratById(idCollabTypeContrat));

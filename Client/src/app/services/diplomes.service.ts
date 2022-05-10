@@ -10,15 +10,10 @@ import { Diplome } from '../Models/MdmModel';
 export class DiplomesService {
   private Diplomes_URL: string = `${environment.URL}api/Diplomes`;
 
-
   constructor(private httpClient: HttpClient) { }
 
   deleteDiplome(idDiplome: number) {
     return this.httpClient.delete(`${this.Diplomes_URL}/${idDiplome}`);
-  }
-
-  updateDiplome() {
-    console.log("update diplomes");
   }
 
   addDiplome(diplome: Diplome) {

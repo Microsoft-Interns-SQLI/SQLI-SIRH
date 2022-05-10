@@ -69,6 +69,7 @@ import { NiveauComponent } from './mdm-panel/niveau/niveau.component';
 import { ModeComponent } from './mdm-panel/mode/mode.component';
 import { TypeContratComponent } from './mdm-panel/type-contrat/type-contrat.component';
 import { ModalAjoutDiplomeComponent } from './diplomes/modal-ajout-diplome/modal-ajout-diplome.component';
+import { ModalAjoutContratComponent } from './contrats/modal-ajout-contrat/modal-ajout-contrat.component';
 
 @NgModule({
   declarations: [
@@ -125,6 +126,7 @@ import { ModalAjoutDiplomeComponent } from './diplomes/modal-ajout-diplome/modal
     ModeComponent,
     TypeContratComponent,
     ModalAjoutDiplomeComponent,
+    ModalAjoutContratComponent,
   ],
   imports: [
     CommonModule,

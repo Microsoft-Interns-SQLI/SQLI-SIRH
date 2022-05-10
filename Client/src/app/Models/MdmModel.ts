@@ -33,6 +33,16 @@ export class Contrat extends BaseMDM {
   name: string = '';
 }
 
+export class CollabTypeContrat extends BaseMDM {
+  id: number = 0;
+  dateDebut: Date = new Date();
+  dateFin: Date = new Date();
+  isInSQLI: Boolean = true;
+  typeContratId: number = 0;
+  typeContrat?: Contrat;
+  collaborateurId: number = 0;
+}
+
 export class Diplome extends BaseMDM {
   id: number = 0;
   annee?: number;

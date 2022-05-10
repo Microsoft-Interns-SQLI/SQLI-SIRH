@@ -21,7 +21,7 @@ export class Collaborator {
   phonePersonnel: string = '';
   phoneProfesionnel: string = '';
   autreTechnos: string = '';
-  typeContrat: string = '';
+  typeContrat: string = ''; // todo : must be deleted
   niveau: Niveau = new Niveau();
   site: Site = new Site();
   skillCenter: string = '';
@@ -70,6 +70,6 @@ export class CollabAddUpdate {
   skillCenterId?: number
   siteId?: number
   niveauId?: number
-  typeContratId?: number
+  typeContratId?: number // todo : must be deleted
   modeRecrutementId?: number
 }
