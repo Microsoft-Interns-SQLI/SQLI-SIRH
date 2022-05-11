@@ -16,6 +16,30 @@
     </button>
   </div>
 </div>
+<div class="d-flex justify-content-between mb-3">
+  <div class="d-flex justify-content-start col-6">
+    <div class="col-2">
+      <select class="form-select form-select-sm">
+        <option value="1">2022</option>
+        <option value="2">2021</option>
+        <option value="3">2020</option>
+      </select>
+    </div>
+    <div class="col-2">
+      <select class="form-select form-select-sm" [(ngModel)]="status" (ngModelChange)="filterByStatus()">
+        <option value="0">All</option>
+        <option value="1">A Faire</option>
+        <option value="2">Fait</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-3">
+    <div class="input-group input-group-sm">
+      <span class="input-group-text bi bi-search"></span> 
+      <input type="search" class="form-control" placeholder="Search..." aria-describedby="search" [(ngModel)]="searchInput" (ngModelChange)="onSearch()"> 
+    </div>
+  </div>
+</div>
 <div class="table-scroll">
   <app-table [type]='selected' [table] ="tab" [rows]="rows" [cols]="cols" (sortValue)="sortData($event)"></app-table>
 </div>

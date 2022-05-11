@@ -10,6 +10,7 @@ export class PopupService {
 
   isShow: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   certification!:CollabFormationCertif;
+  
   constructor() { }
 
   show(certif: CollabFormationCertif){

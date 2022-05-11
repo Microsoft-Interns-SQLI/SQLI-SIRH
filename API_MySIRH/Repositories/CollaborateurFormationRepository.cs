@@ -26,10 +26,12 @@ namespace API_MySIRH.Repositories
 
         public async Task<List<CollaborateurFormation>> GetAll()
         {
-            return await _context.CollaborateurFormations
+            var list =  await _context.CollaborateurFormations
                             .Include(cf=>cf.Collaborateur)
                             .Include(cf=>cf.Formation)
                             .ToListAsync();
+
+            return list;
         }
 
         public Task<List<CollaborateurFormation>> GetByCollaborateur(int id)

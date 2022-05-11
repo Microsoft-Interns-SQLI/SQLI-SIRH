@@ -6,6 +6,7 @@ import { Collaborator } from '../Models/Collaborator';
 import { Pagination } from '../Models/pagination';
 import { CollaboratorsService } from '../services/collaborators.service';
 import { FormationCertificationsService } from '../services/formation-certifications.service';
+import { SpinnerService } from '../services/spinner.service';
 
 @Component({
   selector: 'app-formations',
@@ -18,6 +19,9 @@ export class FormationsComponent implements OnInit, OnDestroy {
   tab: CollabFormationCertif[] = [];
   cols: CertificationOrFormation[] = [];
   rows: Collaborator[] = [];
+
+  searchInput:string = "";
+  status:number = 0;
 
   //Subscription
   subCollab!: Subscription;
@@ -32,7 +36,9 @@ export class FormationsComponent implements OnInit, OnDestroy {
     currentPage: this.pageNumber,
   } as Pagination;
 
-  constructor(private formationCertifService: FormationCertificationsService, private collaborateurService: CollaboratorsService) { }
+  constructor(private formationCertifService: FormationCertificationsService, 
+    private collaborateurService: CollaboratorsService,
+    private spinnerService: SpinnerService) { }
 
 
   ngOnInit(): void {
@@ -79,6 +85,11 @@ export class FormationsComponent implements OnInit, OnDestroy {
     orderbyFormation?:string,
     orderbyCertification?:string
   ) {
+    if (search != undefined) {
+      this.spinnerService.isSearch.next(true);
+    } else {
+      this.spinnerService.isSearch.next(false);
+    }
     this.subCollab = this.collaborateurService
       .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby,orderbyFormation, orderbyCertification)
       .subscribe(
@@ -107,7 +118,36 @@ export class FormationsComponent implements OnInit, OnDestroy {
       this.selected ? libelle : undefined,
       !this.selected ? libelle : undefined);
   }
+  onSearch(){
+    this.loadCollaborators(
+      this.pageSize,
+      1,
+      undefined,
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      undefined,
+      undefined
+    )
+  }
 
+  filterByStatus(){
+    if (this.selected) {
+
+      const status: number|undefined = +this.status === 0 ? undefined : +this.status;
+      this.subCollabCertif = this.formationCertifService.getCollabFormation(status).subscribe(
+        (data: CollabFormationCertif[])=>{
+          this.tab = data;
+        }
+      )
+
+    } else {
+      this.subCollabCertif = this.formationCertifService.getCollabCertif().subscribe(
+        (data: CollabFormationCertif[])=>{
+          this.tab = data;
+        }
+      )
+    }
+  }
   ngOnDestroy(): void {
     this.subCertif.unsubscribe();
     this.subCollab.unsubscribe();

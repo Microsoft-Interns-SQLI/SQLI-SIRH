@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CollabFormationCertif } from '../Models/collaborationCertificationFormation';
 import { environment } from 'src/environments/environment';
@@ -40,8 +40,13 @@ export class FormationCertificationsService {
       )
     );
   }
-  getCollabFormation(): Observable<CollabFormationCertif[]> {
-    return this.http.get<CollabFormationCertif[]>(this.url_collab_formation).pipe(
+  getCollabFormation(status?: number): Observable<CollabFormationCertif[]> {
+
+    let params: HttpParams = new HttpParams();
+    if(status != undefined)
+      params = params.append("status", status);
+
+    return this.http.get<CollabFormationCertif[]>(this.url_collab_formation, {params}).pipe(
       map(data=> data.map((item:any)=>{
         const cc:CollabFormationCertif = {
           status: item.status,

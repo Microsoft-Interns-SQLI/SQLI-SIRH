@@ -2,6 +2,7 @@
 using API_MySIRH.Entities;
 using API_MySIRH.Interfaces;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace API_MySIRH.Services
 {
@@ -26,9 +27,16 @@ namespace API_MySIRH.Services
             throw new NotImplementedException();
         }
 
-        public async Task<List<CollaborateurFormationDTO>> GetAll()
+        public async Task<List<CollaborateurFormationDTO>> GetAll(Status status)
         {
-            return _mapper.Map<List<CollaborateurFormationDTO>>(await _collaborateurFormationRepository.GetAll());
+            var list = await _collaborateurFormationRepository.GetAll();
+
+            if (status != null && status != 0)
+            {
+                list = list.Where(cf => cf.Status == status).ToList();
+            }
+
+            return _mapper.Map<List<CollaborateurFormationDTO>>(list);
         }
 
         public Task<List<CollaborateurFormationDTO>> GetByCollaborateur(int id)

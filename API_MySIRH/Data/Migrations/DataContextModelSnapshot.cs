@@ -55,14 +55,14 @@ namespace API_MySIRH.Data.Migrations
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "4ed17b4c-82e4-434a-94c0-84201c204124",
+                            ConcurrencyStamp = "d064516c-ea97-4ff6-a5d4-f2374d328f5b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "576e3402-4f6d-41ec-8bfa-368af56dc9ab",
+                            ConcurrencyStamp = "a0afcf98-5dac-4cd6-8233-ae82aa7fe4f7",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -140,13 +140,13 @@ namespace API_MySIRH.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9ed37fe9-af2f-4de6-b2d6-a52c2567cbbe",
+                            ConcurrencyStamp = "8ff15e51-30aa-4fd3-83c9-bfafc1e6b3f6",
                             Email = "Admin@sqli.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@SQLI.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDU1nZZspdKfNQ232q5drqbInrOW7eFNIqzYUziTz6n6l2jKAhCuyH7vC+deDqdAvg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKeWTFw8GAMcYS9BhwUPu/Lqy26Vc5pJaGN4pMtgLXbg1hqUTpeh2dom91vVZ6f0sw==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "AdminUser"
@@ -443,7 +443,7 @@ namespace API_MySIRH.Data.Migrations
                     b.Property<int?>("Annee")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CollaborateurId")
+                    b.Property<int>("CollaborateurId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreationDate")
@@ -958,9 +958,13 @@ namespace API_MySIRH.Data.Migrations
 
             modelBuilder.Entity("API_MySIRH.Entities.Diplome", b =>
                 {
-                    b.HasOne("API_MySIRH.Entities.Collaborateur", null)
+                    b.HasOne("API_MySIRH.Entities.Collaborateur", "Collaborateur")
                         .WithMany("Diplomes")
-                        .HasForeignKey("CollaborateurId");
+                        .HasForeignKey("CollaborateurId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Collaborateur");
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.Document", b =>
