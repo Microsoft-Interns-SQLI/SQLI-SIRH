@@ -1,5 +1,5 @@
 <div>
-  <p class="h2">Niveaux</p>
+  <p class="h2">{{ title }}</p>
   <table class="table mx-auto my-2">
     <thead>
       <tr>
@@ -9,16 +9,16 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let niveau of niveaux">
-        <th scope="row">{{ niveau.id }}</th>
-        <td>{{ niveau.name }}</td>
+      <tr *ngFor="let item of Data">
+        <th scope="row">{{ item.id }}</th>
+        <td>{{ item.name }}</td>
         <td>
           <button
             class="col btn btn-sm btn-danger me-2 mb-1"
             data-bs-toggle="modal"
             data-bs-target="#deleteNiveauModal"
             aria-label="delete"
-            (click)="onDelete(niveau.id)"
+            (click)="onDelete(item.id)"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@
       </tr>
       <tr [ngClass]="isAdding ? '' : 'isHidden'">
         <td></td>
-        <td><input type="text" [(ngModel)]="niveau" /></td>
+        <td><input type="text" [(ngModel)]="item" /></td>
         <td>
           <button
             class="col btn btn-sm btn-success me-2 mb-1"

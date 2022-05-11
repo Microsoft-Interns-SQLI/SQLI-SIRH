@@ -370,22 +370,8 @@ namespace API_MySIRH.Controllers
         [HttpPost("modes")]
         public async Task<ActionResult<ModeRecrutementDTO>> AddMode([FromBody] ModeRecrutementDTO mode)
         {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    await _mdmServiceModeRecrutement.Add(mode);
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message);
-                }
-                return Ok($"Name de Recrutement : {mode.Name} added successfully !");
-            }
-            else
-            {
-                return BadRequest();
-            }
+            var returnedMode = await _mdmServiceModeRecrutement.Add(mode);
+            return CreatedAtAction(nameof(AddContrat), new { id = returnedMode.Id }, returnedMode);
         }
 
         [HttpPut("modes/{id}")]
@@ -412,6 +398,7 @@ namespace API_MySIRH.Controllers
         [HttpDelete("modes/{id}")]
         public async Task<IActionResult> DeleteMode(int id)
         {
+
             try
             {
                 await _mdmServiceModeRecrutement.Delete(id);
@@ -421,7 +408,7 @@ namespace API_MySIRH.Controllers
                 return NotFound(ex.Message);
             }
 
-            return Ok($"Name de Recrutement with id : {id} deleted successfully!");
+            return NoContent();
         }
     }
 }

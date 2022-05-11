@@ -70,6 +70,7 @@ import { ModeComponent } from './mdm-panel/mode/mode.component';
 import { TypeContratComponent } from './mdm-panel/type-contrat/type-contrat.component';
 import { ModalAjoutDiplomeComponent } from './diplomes/modal-ajout-diplome/modal-ajout-diplome.component';
 import { ModalAjoutContratComponent } from './contrats/modal-ajout-contrat/modal-ajout-contrat.component';
+import { MdmTableComponent } from './mdm-panel/mdm-table/mdm-table.component';
 
 @NgModule({
   declarations: [
@@ -127,6 +128,7 @@ import { ModalAjoutContratComponent } from './contrats/modal-ajout-contrat/modal
     TypeContratComponent,
     ModalAjoutDiplomeComponent,
     ModalAjoutContratComponent,
+    MdmTableComponent,
   ],
   imports: [
     CommonModule,

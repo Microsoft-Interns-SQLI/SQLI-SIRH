@@ -3,8 +3,23 @@
 >
   <h2 class="h2">MDM Panel</h2>
 </div>
+<select
+  class="form-select"
+  aria-label="Default select example"
+  (change)="onChange($event)"
+>
+  <option disabled selected>Select</option>
+  <option *ngFor="let item of mdmItems">{{ item }}</option>
+</select>
+<app-mdm-table
+  [title]="selectedItem"
+  [ngClass]="mdmData === undefined ? 'isHidden' : ''"
+  [Data]="mdmData"
+  (itemToAdd)="handleAdd($event)"
+  (itemToDelete)="handleDelete($event)"
+></app-mdm-table>
 
-<div class="accordion w-75 mx-auto" id="accordionExample">
+<!-- <div class="accordion w-75 mx-auto" id="accordionExample">
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingOne">
       <button
@@ -173,41 +188,4 @@
       </div>
     </div>
   </div>
-</div>
-<!-- <div class="container w-75 m-auto">
-  <app-poste
-    [postes]="postes"
-    (posteToDelete)="handleDeletePoste($event)"
-    (posteToAdd)="handleAddPoste($event)"
-  ></app-poste>
-
-  <app-site
-    [sites]="sites"
-    (siteToDelete)="handleDeleteSite($event)"
-    (siteToAdd)="handleAddSite($event)"
-  ></app-site>
-
-  <app-niveau
-    [niveaux]="niveaux"
-    (niveauToDelete)="handleDeleteNiveau($event)"
-    (niveauToAdd)="handleAddNiveau($event)"
-  ></app-niveau>
-
-  <app-skill-center
-    [skillCenters]="skillCenters"
-    (skillCenterToDelete)="handleDeleteSkillCenter($event)"
-    (skillCenterToAdd)="handleAddSkillCenter($event)"
-  ></app-skill-center>
-
-  <app-mode
-    [modes]="modes"
-    (modeToDelete)="handleDeleteMode($event)"
-    (modeToAdd)="handleAddMode($event)"
-  ></app-mode>
-
-  <app-type-contrat
-    [contrats]="contrats"
-    (contratToDelete)="handleDeleteContrat($event)"
-    (contratToAdd)="handleAddContrat($event)"
-  ></app-type-contrat>
 </div> -->
