@@ -120,6 +120,9 @@ import { TypeContratComponent } from './mdm-panel/type-contrat/type-contrat.comp
     NiveauComponent,
     ModeComponent,
     TypeContratComponent,
+    HandleStatusDisplayPipe,
+    DisplayItemDirective,
+    PopupComponent
   ],
   imports: [
     CommonModule,
