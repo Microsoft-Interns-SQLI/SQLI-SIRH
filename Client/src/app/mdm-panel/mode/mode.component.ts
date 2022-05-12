@@ -29,7 +29,7 @@ export class ModeComponent implements OnInit {
 
   onConfirm() {
     if (this.mode.trim().length !== 0) {
-      this.modeToAdd.emit({ mode: this.mode } as RecruteMode);
+      this.modeToAdd.emit({ name: this.mode } as RecruteMode);
       this.mode = '';
       this.isAdding = false;
     }

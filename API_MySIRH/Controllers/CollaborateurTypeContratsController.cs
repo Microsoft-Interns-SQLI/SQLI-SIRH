@@ -23,6 +23,13 @@ namespace API_MySIRH.Controllers
             return Ok(allCollabsTypeContrats);
         }
 
+        [HttpGet("collaborateur-{idCollaborateur}")]
+        public async Task<ActionResult<IEnumerable<CollaborateurTypeContratDTO>>> GetAllCollaborateursTypeContratsByCollab(int idCollaborateur)
+        {
+            var allCollabsTypeContratsByCollab = await this._collaborateurTypeContratService.GetAllCollabsContratsByCollab(idCollaborateur);
+            return Ok(allCollabsTypeContratsByCollab);
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<CollaborateurTypeContratDTO>> GetOneCollaborateursTypeContrat(int id)
         {
@@ -75,7 +82,7 @@ namespace API_MySIRH.Controllers
             return Ok(data);
         }
 
-        [HttpGet("collaborateur-{idCollaborateur}")]
+        [HttpGet("contrats-of-collaborateur-{idCollaborateur}")]
         public async Task<ActionResult<IEnumerable<CollaborateurTypeContratDTO>>> GetContratsByCollaborateur(int idCollaborateur)
         {
             var data = await this._collaborateurTypeContratService.GetContratsByCollaborateur(idCollaborateur);

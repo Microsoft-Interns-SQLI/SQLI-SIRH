@@ -15,10 +15,12 @@ namespace API_MySIRH.Controllers
     public class DiplomesController : ControllerBase
     {
         private readonly IDiplomeService _diplomeService;
+        private readonly ICollaborateurRepository _collaborateurRepository;
         private readonly IMapper _mapper;
-        public DiplomesController(IDiplomeService diplomeService, IMapper mapper)
+        public DiplomesController(IDiplomeService diplomeService, ICollaborateurRepository collaborateurRepository, IMapper mapper)
         {
             this._diplomeService = diplomeService;
+            this._collaborateurRepository = collaborateurRepository;
             this._mapper = mapper;
         }
 
@@ -26,6 +28,14 @@ namespace API_MySIRH.Controllers
         public async Task<ActionResult<IEnumerable<DiplomeDTO>>> GetAllDiplomes()
         {
             return await this._diplomeService.GetAllDiplomes();
+        }
+
+        [HttpGet("collab-{idCollab}")]
+        public async Task<ActionResult<IEnumerable<DiplomeDTO>>> GetCollabDiplomes(int idCollab)
+        {
+            if (await this._collaborateurRepository.CollaborateurExistsById(idCollab))
+                return Ok(await this._diplomeService.GetCollabDiplomes(idCollab));
+            return NotFound();
         }
 
         [HttpPost]
@@ -54,8 +64,7 @@ namespace API_MySIRH.Controllers
         [HttpDelete("{diplomeId}")]
         public async Task<ActionResult> DeleteDiplome(int diplomeId)
         {
-            var diplome = await this._diplomeService.GetDiplome(diplomeId);
-            if (diplome is null)
+            if (!await this._diplomeService.Exists(diplomeId))
                 return NotFound();
             await this._diplomeService.DeleteDiplomeToCollab(diplomeId);
             return NoContent();

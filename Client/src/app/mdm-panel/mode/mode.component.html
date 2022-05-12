@@ -1,4 +1,4 @@
-<div class="my-5">
+<div>
   <p class="h2">Modes de Recrutement</p>
   <table class="table mx-auto my-2">
     <thead>
@@ -11,7 +11,7 @@
     <tbody>
       <tr *ngFor="let mode of modes">
         <th scope="row">{{ mode.id }}</th>
-        <td>{{ mode.mode }}</td>
+        <td>{{ mode.name }}</td>
         <td>
           <button
             class="col btn btn-sm btn-danger me-2 mb-1"

@@ -420,8 +420,8 @@ namespace API_MySIRH.Controllers
             {
                 return NotFound(ex.Message);
             }
+
             return Ok($"Name de Recrutement with id : {id} deleted successfully!");
-            return NoContent();
         }
     }
 }
