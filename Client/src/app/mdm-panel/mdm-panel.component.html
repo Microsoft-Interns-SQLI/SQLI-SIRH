@@ -3,21 +3,35 @@
 >
   <h2 class="h2">MDM Panel</h2>
 </div>
-<select
-  class="form-select"
-  aria-label="Default select example"
-  (change)="onChange($event)"
->
-  <option disabled selected>Select</option>
-  <option *ngFor="let item of mdmItems">{{ item }}</option>
-</select>
-<app-mdm-table
-  [title]="selectedItem"
-  [ngClass]="mdmData === undefined ? 'isHidden' : ''"
-  [Data]="mdmData"
-  (itemToAdd)="handleAdd($event)"
-  (itemToDelete)="handleDelete($event)"
-></app-mdm-table>
+<div class="card w-75 mx-auto">
+  <div class="card-header">
+    <label for="mdmSelect">Select an option from the dropdown</label>
+    <select
+      class="form-select my-2"
+      aria-label="Default select example"
+      (change)="onChange($event)"
+      id="mdmSelect"
+    >
+      <option disabled selected>Select</option>
+      <option *ngFor="let item of mdmItems">{{ item }}</option>
+    </select>
+  </div>
+  <div class="card-body">
+    <app-mdm-table
+      [title]="selectedItem"
+      [ngClass]="mdmData === undefined ? 'isHidden' : ''"
+      [Data]="mdmData"
+      (itemToAdd)="handleAdd($event)"
+      (itemToDelete)="handleDelete($event)"
+    ></app-mdm-table>
+    <h5
+      class="text-center my-4"
+      [ngClass]="mdmData !== undefined ? 'isHidden' : ''"
+    >
+      Select an option from the dropdown to display the appropriate table here
+    </h5>
+  </div>
+</div>
 
 <!-- <div class="accordion w-75 mx-auto" id="accordionExample">
   <div class="accordion-item">
