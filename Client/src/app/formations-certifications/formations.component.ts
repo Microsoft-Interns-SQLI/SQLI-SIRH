@@ -5,7 +5,7 @@ import { CollabFormationCertif } from '../Models/collaborationCertificationForma
 import { Collaborator } from '../Models/Collaborator';
 import { Pagination } from '../Models/pagination';
 import { CollaboratorsService } from '../services/collaborators.service';
-import { FormationCertificationsService } from '../services/formation-certifications.service';
+import { FormationCertificationResponse, FormationCertificationsService } from '../services/formation-certifications.service';
 import { SpinnerService } from '../services/spinner.service';
 
 @Component({
@@ -15,13 +15,13 @@ import { SpinnerService } from '../services/spinner.service';
 })
 export class FormationsComponent implements OnInit, OnDestroy {
 
-  selected: boolean = true;
+
   tab: CollabFormationCertif[] = [];
   cols: CertificationOrFormation[] = [];
   rows: Collaborator[] = [];
-
-  searchInput:string = "";
-  status:number = 0;
+  annees: number[] = [];
+  
+  selected: boolean = true;
 
   //Subscription
   subCollab!: Subscription;
@@ -46,6 +46,7 @@ export class FormationsComponent implements OnInit, OnDestroy {
   }
 
   onSwitch() {
+
     this.loadCollaborators(this.pageSize, this.pageNumber);
 
     if (this.selected) {
@@ -56,8 +57,9 @@ export class FormationsComponent implements OnInit, OnDestroy {
       );
 
       this.subCollabCertif = this.formationCertifService.getCollabFormation().subscribe(
-        (data: CollabFormationCertif[])=>{
-          this.tab = data;
+        (data: FormationCertificationResponse)=>{
+          this.tab = data.list;
+          this.annees = data.annees;
         }
       )
 
@@ -69,8 +71,9 @@ export class FormationsComponent implements OnInit, OnDestroy {
       );
 
       this.subCollabCertif = this.formationCertifService.getCollabCertif().subscribe(
-        (data: CollabFormationCertif[])=>{
-          this.tab = data;
+        (data: FormationCertificationResponse)=>{
+          this.tab = data.list;
+          this.annees = data.annees;
         }
       )
     }
@@ -118,36 +121,42 @@ export class FormationsComponent implements OnInit, OnDestroy {
       this.selected ? libelle : undefined,
       !this.selected ? libelle : undefined);
   }
-  onSearch(){
+  onSearch(search:string){
     this.loadCollaborators(
       this.pageSize,
       1,
       undefined,
-      this.searchInput === '' ? undefined : this.searchInput,
+      search === '' ? undefined : search,
       undefined,
       undefined,
       undefined
     )
   }
 
-  filterByStatus(){
+  filter(data:{status:number, year:number}){
+    this.filterTable(+data.status, data.year);
+  }
+
+  private filterTable(status?: number, annee?:number){
+    const s : number|undefined = status === 0 ? undefined : status;
+
     if (this.selected) {
 
-      const status: number|undefined = +this.status === 0 ? undefined : +this.status;
-      this.subCollabCertif = this.formationCertifService.getCollabFormation(status).subscribe(
-        (data: CollabFormationCertif[])=>{
-          this.tab = data;
+      this.subCollabCertif = this.formationCertifService.getCollabFormation(s, annee).subscribe(
+        (data: FormationCertificationResponse)=>{
+          this.tab = data.list;
         }
       )
 
     } else {
-      this.subCollabCertif = this.formationCertifService.getCollabCertif().subscribe(
-        (data: CollabFormationCertif[])=>{
-          this.tab = data;
+      this.subCollabCertif = this.formationCertifService.getCollabCertif(s, annee).subscribe(
+        (data: FormationCertificationResponse)=>{
+          this.tab = data.list;
         }
       )
     }
   }
+
   ngOnDestroy(): void {
     this.subCertif.unsubscribe();
     this.subCollab.unsubscribe();

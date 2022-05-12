@@ -11,5 +11,7 @@ namespace API_MySIRH.Interfaces
         Task Add(CollaborateurFormation collaborateurFormation);
         Task Update(CollaborateurFormation collaborateurFormation);
         Task Delete(CollaborateurFormation collaborateurFormation);
+
+        Task<List<int>> GetAnnees();
     }
 }

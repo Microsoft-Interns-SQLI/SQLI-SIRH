@@ -61,6 +61,7 @@ import { TableComponent } from './formations-certifications/table/table.componen
 import { DisplayItemDirective } from './formations-certifications/table/display-item.directive';
 import { HandleStatusDisplayPipe } from './formations-certifications/table/handle-status-display.pipe';
 import { PopupComponent } from './formations-certifications/popup/popup.component';
+import { HeaderFormationCertificationComponent } from './formations-certifications/header-formation-certification/header-formation-certification.component';
 
 @NgModule({
   declarations: [
@@ -109,6 +110,7 @@ import { PopupComponent } from './formations-certifications/popup/popup.componen
     DisplayItemDirective,
     HandleStatusDisplayPipe,
     PopupComponent,
+    HeaderFormationCertificationComponent,
   ],
   imports: [
     CommonModule,

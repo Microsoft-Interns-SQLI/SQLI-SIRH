@@ -34,6 +34,14 @@ namespace API_MySIRH.Repositories
             return list;
         }
 
+        public async Task<List<int>> GetAnnees()
+        {
+            return await _context.CollaborateurFormations
+                                .Select(x => x.DateDebut.Value.Year)
+                                .Distinct()
+                                .ToListAsync();
+        }
+
         public Task<List<CollaborateurFormation>> GetByCollaborateur(int id)
         {
             throw new NotImplementedException();

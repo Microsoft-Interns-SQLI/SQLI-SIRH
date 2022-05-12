@@ -5,6 +5,10 @@ import { environment } from 'src/environments/environment';
 import { map, Observable, tap } from 'rxjs';
 import { CertificationOrFormation } from '../Models/certification-formation';
 
+export interface FormationCertificationResponse{
+  list: CollabFormationCertif[];
+  annees: number[];
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -26,37 +30,55 @@ export class FormationCertificationsService {
     return this.http.get<CertificationOrFormation[]>(this.url_formation);
   }
 
-  getCollabCertif(): Observable<CollabFormationCertif[]> {
-    return this.http.get<CollabFormationCertif[]>(this.url_collab_certif).pipe(
-      map(data=> data.map((item:any)=>{
-        const cc:CollabFormationCertif = {
-          status: item.status,
-          dateDebut:item.dateDebut, 
-          dateFin:item.dateFin,
-          collaborateurId:item.collaborateurId,
-          id: item['certificationId']
-        } as CollabFormationCertif
-         return cc;})
-      )
-    );
-  }
-  getCollabFormation(status?: number): Observable<CollabFormationCertif[]> {
+  getCollabCertif(status?: number, annee?: number): Observable<FormationCertificationResponse> {
 
     let params: HttpParams = new HttpParams();
-    if(status != undefined)
-      params = params.append("status", status);
 
-    return this.http.get<CollabFormationCertif[]>(this.url_collab_formation, {params}).pipe(
-      map(data=> data.map((item:any)=>{
-        const cc:CollabFormationCertif = {
-          status: item.status,
-          dateDebut:item.dateDebut, 
-          dateFin:item.dateFin,
-          collaborateurId:item.collaborateurId,
-          id: item['formationId']
-        } as CollabFormationCertif
-         return cc;})
-      )
+    if (status != undefined)
+      params = params.append("status", status);
+    if (annee != undefined)
+      params = params.append("annee", annee);
+
+    return this.http.get<FormationCertificationResponse>(this.url_collab_certif, { params }).pipe(
+      map(data => {
+        data.list = data.list.map((item: any) => {
+          const cc: CollabFormationCertif = {
+            status: item.status,
+            dateDebut: item.dateDebut,
+            dateFin: item.dateFin,
+            collaborateurId: item.collaborateurId,
+            id: item['certificationId']
+          } as CollabFormationCertif
+          return cc;
+        });
+
+        return data;
+      })
+    );
+  }
+  getCollabFormation(status?: number, annee?: number): Observable<FormationCertificationResponse> {
+
+    let params: HttpParams = new HttpParams();
+    if (status != undefined)
+      params = params.append("status", status);
+    if (annee != undefined)
+      params = params.append("annee", annee);
+
+    return this.http.get<FormationCertificationResponse>(this.url_collab_formation, { params }).pipe(
+      map(data => {
+        data.list = data.list.map((item: any) => {
+          const cc: CollabFormationCertif = {
+            status: item.status,
+            dateDebut: item.dateDebut,
+            dateFin: item.dateFin,
+            collaborateurId: item.collaborateurId,
+            id: item['formationId']
+          } as CollabFormationCertif
+          return cc;
+        });
+
+        return data;
+      })
     );
   }
 
@@ -68,9 +90,9 @@ export class FormationCertificationsService {
       `${this.url_collab_certif}/${data.collaborateurId}/${data.id}`,
       {
         status: data.status,
-        dateDebut: data.dateDebut, 
-        dateFin: data.dateFin, 
-        collaborateurId: data.collaborateurId, 
+        dateDebut: data.dateDebut,
+        dateFin: data.dateFin,
+        collaborateurId: data.collaborateurId,
         certificationId: data.id
       },
       opts
@@ -85,9 +107,9 @@ export class FormationCertificationsService {
       `${this.url_collab_formation}/${data.collaborateurId}/${data.id}`,
       {
         status: data.status,
-        dateDebut: data.dateDebut, 
-        dateFin: data.dateFin, 
-        collaborateurId: data.collaborateurId, 
+        dateDebut: data.dateDebut,
+        dateFin: data.dateFin,
+        collaborateurId: data.collaborateurId,
         formationId: data.id
       },
       opts

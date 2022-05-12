@@ -1,5 +1,6 @@
 ﻿using API_MySIRH.DTOs;
 using API_MySIRH.Entities;
+using API_MySIRH.Helpers;
 using API_MySIRH.Interfaces;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -27,18 +28,27 @@ namespace API_MySIRH.Services
             throw new NotImplementedException();
         }
 
-        public async Task<List<CollaborateurFormationDTO>> GetAll(Status status)
+        public async Task<List<CollaborateurFormationDTO>> GetAll(FilterParamsForCertifAndFormation filter)
         {
             var list = await _collaborateurFormationRepository.GetAll();
 
-            if (status != null && status != 0)
+            if (filter.status != null && filter.status != 0)
             {
-                list = list.Where(cf => cf.Status == status).ToList();
+                list = list.Where(cf => cf.Status == filter.status).ToList();
+            }
+
+            if (filter.annee != null && filter.annee.ToString().Length >= 4 && filter.annee != 0)
+            {
+                list = list.Where(cc => cc.DateDebut.Value.Year == filter.annee).ToList();
             }
 
             return _mapper.Map<List<CollaborateurFormationDTO>>(list);
         }
+        public async Task<List<int>> GetAnnees()
+        {
+            return await _collaborateurFormationRepository.GetAnnees();
 
+        }
         public Task<List<CollaborateurFormationDTO>> GetByCollaborateur(int id)
         {
             throw new NotImplementedException();

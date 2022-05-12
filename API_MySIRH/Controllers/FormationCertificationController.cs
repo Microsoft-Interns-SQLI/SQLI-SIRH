@@ -2,6 +2,7 @@
 
 using API_MySIRH.DTOs;
 using API_MySIRH.Entities;
+using API_MySIRH.Helpers;
 using API_MySIRH.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,11 +23,13 @@ namespace API_MySIRH.Controllers
         }
 
         [HttpGet("certifications")]
-        public async Task<IActionResult> GetCertifications()
+        public async Task<IActionResult> GetCertifications([FromQuery] FilterParamsForCertifAndFormation filter)
         {
-            var list = await _collaborateurCertificationService.GetAll();
+            var list = await _collaborateurCertificationService.GetAll(filter);
 
-            return Ok(list);
+            var annees =  await _collaborateurCertificationService.GetAnnees();
+
+            return Ok(new { list = list, annees = annees });
         }
         [HttpGet("certifications/{collabId}/{certifId}")]
         public async Task<IActionResult> GetCertification(int collabId, int certifId)
@@ -51,12 +54,13 @@ namespace API_MySIRH.Controllers
         }
 
         [HttpGet("formations")]
-        public async Task<IActionResult> GetFormations([FromQuery] Status status)
+        public async Task<IActionResult> GetFormations([FromQuery] FilterParamsForCertifAndFormation filter)
         {
-            
-            var list = await _collaborateurFormationService.GetAll(status);
+            var list = await _collaborateurFormationService.GetAll(filter);
 
-            return Ok(list);
+            var annees = await _collaborateurFormationService.GetAnnees();
+
+            return Ok(new {list = list, annees = annees});
         }
         [HttpGet("formations/{collabId}/{formationId}")]
         public async Task<IActionResult> GetFormation(int collabId, int formationId)
