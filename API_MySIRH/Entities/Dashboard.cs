@@ -9,6 +9,7 @@ namespace API_MySIRH.Entities
         public double MaleCount { get; set; }
         public double DemissionCount { get; set; }
         public double AverageAge { get; set; }
+        public double AverageExp { get; set; }
         public double ICDCount { get; set; }
         public double ExpertTechCount { get; set; }
         public double ChefDeProjetCount { get; set; }
@@ -17,5 +18,7 @@ namespace API_MySIRH.Entities
         public double OperationnelCount { get; set; }
         public double ConfirmeCount { get; set; }
         public double SeniorCount { get; set; }
+        public double TauxEncadrement { get; set; }
+        public double TauxSoustraitant { get; set; }
     }
 }
