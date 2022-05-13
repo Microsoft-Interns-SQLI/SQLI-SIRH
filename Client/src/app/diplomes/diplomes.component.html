@@ -1,11 +1,21 @@
 <div class="my-3">
     <div class="card">
         <div class="card-header">
-            <strong>
-                <u>
-                    Diplômes
-                </u>
-            </strong>
+            <div class="row">
+                <div class="col-md-8">
+                    <strong>
+                        <u>
+                            Diplômes
+                        </u>
+                    </strong>
+                </div>
+                <div class="col-md-4 text-end">
+                    <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#ajoutDiplome">
+                        <i class="bi bi-plus-square"></i>
+                        Diplôme
+                    </button>
+                </div>
+            </div>
         </div>
         <div class="card-body">
             <div class="row">
@@ -18,6 +28,7 @@
                                     <th>Libellé</th>
                                     <th>Détail</th>
                                     <th>Description</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -26,6 +37,11 @@
                                     <td>{{ diplome.label }}</td>
                                     <td>{{ diplome.detail }}</td>
                                     <td>{{ diplome.description }}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-danger" (click)="deleteDiplome(diplome.id)">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

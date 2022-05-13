@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace API_MySIRH.Entities
 {
     public class CollaborateurCertification
     {
-        public string? Status { get; set; }
+        public Status? Status { get; set; }
         public DateTime? DateDebut { get; set; } 
         public DateTime? DateFin { get; set; }
 
@@ -14,5 +15,11 @@ namespace API_MySIRH.Entities
 
         public int CertificationId { get; set; }
         public virtual Certification Certification { get; set; }
+    }
+
+    public enum Status : int
+    {
+        AFAIRE = 1,
+        FAIT = 2,
     }
 }

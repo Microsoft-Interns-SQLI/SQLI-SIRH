@@ -1,7 +1,9 @@
+using API_MySIRH.Interfaces;
+
 namespace API_MySIRH.Entities
 {
-    public class ModeRecrutement : EntityBase
+    public class ModeRecrutement : EntityBase, IStringName
     {
-        public string Mode { get; set; } = String.Empty;
+        public string Name { get; set; } = "Autre";
     }
 }

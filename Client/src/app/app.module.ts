@@ -26,7 +26,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
-import { FormationsComponent } from './formations/formations.component';
+import { FormationsComponent } from './formations-certifications/formations.component';
 import { IntegrationsComponent } from './integrations/integrations.component';
 import { ReportsComponent } from './reports/reports.component';
 import { DemissionsComponent } from './demissions/demissions.component';
@@ -57,7 +57,19 @@ import { CustomReuseStrategyService } from './services/custom-reuse-strategy.ser
 import { RouteReuseStrategy } from '@angular/router';
 import { DiplomesComponent } from './diplomes/diplomes.component';
 import { ContratsComponent } from './contrats/contrats.component';
-import { TableComponent } from './formations/table/table.component';
+import { TableComponent } from './formations-certifications/table/table.component';
+import { DisplayItemDirective } from './formations-certifications/table/display-item.directive';
+import { HandleStatusDisplayPipe } from './formations-certifications/table/handle-status-display.pipe';
+import { PopupComponent } from './formations-certifications/popup/popup.component';
+import { MdmPanelComponent } from './mdm-panel/mdm-panel.component';
+import { SiteComponent } from './mdm-panel/site/site.component';
+import { SkillCenterComponent } from './mdm-panel/skill-center/skill-center.component';
+import { PosteComponent } from './mdm-panel/poste/poste.component';
+import { NiveauComponent } from './mdm-panel/niveau/niveau.component';
+import { ModeComponent } from './mdm-panel/mode/mode.component';
+import { TypeContratComponent } from './mdm-panel/type-contrat/type-contrat.component';
+import { ModalAjoutDiplomeComponent } from './diplomes/modal-ajout-diplome/modal-ajout-diplome.component';
+import { ModalAjoutContratComponent } from './contrats/modal-ajout-contrat/modal-ajout-contrat.component';
 
 @NgModule({
   declarations: [
@@ -103,6 +115,18 @@ import { TableComponent } from './formations/table/table.component';
     DiplomesComponent,
     ContratsComponent,
     TableComponent,
+    DisplayItemDirective,
+    HandleStatusDisplayPipe,
+    PopupComponent,
+    MdmPanelComponent,
+    SiteComponent,
+    SkillCenterComponent,
+    PosteComponent,
+    NiveauComponent,
+    ModeComponent,
+    TypeContratComponent,
+    ModalAjoutDiplomeComponent,
+    ModalAjoutContratComponent,
   ],
   imports: [
     CommonModule,
@@ -121,11 +145,12 @@ import { TableComponent } from './formations/table/table.component';
     BrowserAnimationsModule,
     ngfModule,
     MatTabsModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
   ],
-  providers: [DatePipe,
-    {provide : HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},
-    { provide: RouteReuseStrategy, useClass: CustomReuseStrategyService }
+  providers: [
+    DatePipe,
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+    { provide: RouteReuseStrategy, useClass: CustomReuseStrategyService },
   ],
   bootstrap: [AppComponent],
 })

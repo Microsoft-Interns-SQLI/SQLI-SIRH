@@ -46,6 +46,12 @@ namespace API_MySIRH.Controllers
             this._dataContext
                 .Certifications.RemoveRange(this._dataContext.Certifications.ToList());
             this._dataContext
+                .CollaborateurCertifications.RemoveRange(this._dataContext.CollaborateurCertifications.ToList());
+            this._dataContext
+                .Formations.RemoveRange(this._dataContext.Formations.ToList());
+            this._dataContext
+                .CollaborateurFormations.RemoveRange(this._dataContext.CollaborateurFormations.ToList());
+            this._dataContext
                 .CollaborateurTypeContrats.RemoveRange(this._dataContext.CollaborateurTypeContrats.ToList());
             await this._dataContext.SaveChangesAsync();
 
@@ -57,6 +63,7 @@ namespace API_MySIRH.Controllers
             await this._dataContext.Sites.AddRangeAsync(this.SeedSites());
             await this._dataContext.ModesRecrutements.AddRangeAsync(this.SeedModeRecrutement());
             await this._dataContext.Certifications.AddRangeAsync(this.SeedCertifications());
+            await this._dataContext.Formations.AddRangeAsync(this.SeedFormations());
             this._dataContext.SaveChanges();
 
             this._dataContext.Collaborateurs.AddRange(await this.SeedCollaborateurs());
@@ -64,6 +71,7 @@ namespace API_MySIRH.Controllers
 
 
             await this._dataContext.CollaborateurCertifications.AddRangeAsync(this.SeedCollabCertification());
+            await this._dataContext.CollaborateurFormations.AddRangeAsync(this.SeedCollabFormation());
             this._dataContext.SaveChanges();
 
             // return count of each dbSet
@@ -80,7 +88,9 @@ namespace API_MySIRH.Controllers
                     collaborateurTypeContrat = this._dataContext.CollaborateurTypeContrats.Count(),
                     diplomes = this._dataContext.Diplomes.Count(),
                     certifications = _dataContext.Certifications.Count(),
-                    certificationCollab = _dataContext.CollaborateurCertifications.Count()
+                    formations = _dataContext.Formations.Count(),
+                    certificationCollab = _dataContext.CollaborateurCertifications.Count(),
+                    formationCollab = _dataContext.CollaborateurFormations.Count()
                 }
             );
         }
@@ -93,11 +103,12 @@ namespace API_MySIRH.Controllers
             var collaborateurDynamicJson = JsonConvert.DeserializeObject<dynamic>(collaborateursJsonString);
             foreach (var collaborateurJson in collaborateurDynamicJson)
             {
-                string mode = collaborateurJson["Recrutement Mode"].ToString();
+                
                 string niveau = collaborateurJson["Niveau"].ToString();
                 string post = collaborateurJson["Poste"].ToString();
                 string skillCenter = collaborateurJson["Skills center"].ToString();
                 string site = collaborateurJson["Agence"].ToString();
+                string mode = collaborateurJson["Recrutement Mode"].ToString();
 
                 Collaborateur collaborateur = new Collaborateur
                 {
@@ -113,7 +124,7 @@ namespace API_MySIRH.Controllers
                     DatePremiereExperience = collaborateurJson["Date 1ere expèrience"].ToString() != String.Empty ? DateTime.Parse(collaborateurJson["Date 1ere expèrience"].ToString()) : null,
                     //DateSortieSqli = collaborateurJson["Date de sortie"].ToString() != String.Empty ? DateTime.Parse(collaborateurJson["Date de sortie"].ToString()) : null,
 
-                    ModeRecrutement = this._dataContext.ModesRecrutements.Where(m => m.Mode == mode).FirstOrDefault(),
+                    ModeRecrutement = this._dataContext.ModesRecrutements.Where(m => m.Name == mode).FirstOrDefault(),
                     Niveau = this._dataContext.Niveaux.Where(n => n.Name == niveau).FirstOrDefault(),
                     Poste = this._dataContext.Posts.Where(p => p.Name == post).FirstOrDefault(),
                     SkillCenter = this._dataContext.SkillCenters.Where(sc => sc.Name == skillCenter).FirstOrDefault(),
@@ -167,17 +178,61 @@ namespace API_MySIRH.Controllers
                 new Certification{ Libelle="MS600"},
             };
         }
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public List<Formation> SeedFormations()
+        {
+            return new List<Formation>
+            {
+                new Formation{ Libelle="Skills"},
+                new Formation{ Libelle="Gestion Projet"},
+                new Formation{ Libelle=".NetCore"},
+                new Formation{ Libelle="Angular 8+"},
+                new Formation{ Libelle="Test Auto "},
+                new Formation{ Libelle="ReactJS"},
+                new Formation{ Libelle="PowerApps"},
+                new Formation{ Libelle="PowerBI"},
+                new Formation{ Libelle="Power Automate"},
+                new Formation{ Libelle="Blazor"},
+                new Formation{ Libelle="ASP MVC"},
+                new Formation{ Libelle="OutSystems"},
+                new Formation{ Libelle="Micro Servicesa"},
+                new Formation{ Libelle="Azure"},
+                new Formation{ Libelle="Epi"},
+                new Formation{ Libelle="InRiver"},
+                new Formation{ Libelle="CRM generalités"},
+                new Formation{ Libelle="Dynamics Cloud"},
+                new Formation{ Libelle="Dynamics 365 Avancé"},
+                new Formation{ Libelle="DevOPS"},
+                new Formation{ Libelle="Front (html, css & JS)"},
+                new Formation{ Libelle="PWA"},
+                new Formation{ Libelle="Graph QL"},
+            };
+        }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public List<CollaborateurFormation> SeedCollabFormation()
+        {
+            return new List<CollaborateurFormation>
+            {
+                new CollaborateurFormation{ CollaborateurId=1, FormationId=1, Status = Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
+                new CollaborateurFormation{ CollaborateurId=1, FormationId=2, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
+                new CollaborateurFormation{ CollaborateurId=1, FormationId=3, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
+                new CollaborateurFormation{ CollaborateurId=24, FormationId=2, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
+                new CollaborateurFormation{ CollaborateurId=24, FormationId=5, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
+                new CollaborateurFormation{ CollaborateurId=60, FormationId=1, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
+            };
+        }
         [ApiExplorerSettings(IgnoreApi = true)]
         public List<CollaborateurCertification> SeedCollabCertification()
         {
             return new List<CollaborateurCertification>
             {
-                new CollaborateurCertification{ CollaborateurId=1, CertificationId=1},
-                new CollaborateurCertification{ CollaborateurId=1, CertificationId=2},
-                new CollaborateurCertification{ CollaborateurId=1, CertificationId=3},
-                new CollaborateurCertification{ CollaborateurId=24, CertificationId=2},
-                new CollaborateurCertification{ CollaborateurId=24, CertificationId=5},
+                new CollaborateurCertification{ CollaborateurId=1, CertificationId=1, Status = Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
+                new CollaborateurCertification{ CollaborateurId=1, CertificationId=2, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
+                new CollaborateurCertification{ CollaborateurId=1, CertificationId=3, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
+                new CollaborateurCertification{ CollaborateurId=24, CertificationId=2, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
+                new CollaborateurCertification{ CollaborateurId=24, CertificationId=5, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
+                new CollaborateurCertification{ CollaborateurId=60, CertificationId=1, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)}
             };
         }
 
@@ -245,11 +300,11 @@ namespace API_MySIRH.Controllers
         {
             return new List<ModeRecrutement>
             {
-                new ModeRecrutement{ Mode="E-Chalenge"},
-                new ModeRecrutement{ Mode="Recommandation"},
-                new ModeRecrutement{ Mode="Stage PFE"},
-                new ModeRecrutement{ Mode="Cooptation"},
-                new ModeRecrutement{ Mode="Autre"},
+                new ModeRecrutement{ Name="E-Chalenge"},
+                new ModeRecrutement{ Name="Recommandation"},
+                new ModeRecrutement{ Name="Stage PFE"},
+                new ModeRecrutement{ Name="Cooptation"},
+                new ModeRecrutement{ Name="Autre"},
             };
         }
 

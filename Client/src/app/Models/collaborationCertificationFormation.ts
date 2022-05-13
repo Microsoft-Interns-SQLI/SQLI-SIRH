@@ -1,4 +1,4 @@
-import { Certification } from "./certification";
+import { CertificationOrFormation } from "./certification-formation";
 import { Collaborator } from "./Collaborator";
 
 export interface CollabFormationCertif{
@@ -6,5 +6,5 @@ export interface CollabFormationCertif{
     dateDebut: Date,
     dateFin: Date,
     collaborateurId: number,
-    certificationId: number
+    id: number
 }

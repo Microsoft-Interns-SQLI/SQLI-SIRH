@@ -29,6 +29,7 @@ namespace API_MySIRH.Repositories
             return await _context.CollaborateurCertifications
                 .Include(cc => cc.Certification)
                 .Include(cc => cc.Collaborateur)
+                .AsNoTracking()
                 .ToListAsync();
         }
 

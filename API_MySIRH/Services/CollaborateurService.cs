@@ -1,4 +1,4 @@
-using API_MySIRH.DTOs.Collaborateur;
+using API_MySIRH.DTOs;
 using API_MySIRH.Entities;
 using API_MySIRH.Helpers;
 using API_MySIRH.Interfaces;
@@ -55,32 +55,46 @@ namespace API_MySIRH.Services
             if (!(string.IsNullOrWhiteSpace(filterParams.Search)))
                 query = query.Where(c => c.Nom.Contains(filterParams.Search) || c.Prenom.Contains(filterParams.Search));
 
-            query = filterParams.OrderBy switch
+            if (!string.IsNullOrWhiteSpace(filterParams.OrderByCertification))
             {
-                "nom_desc" => query.OrderByDescending(c => c.Nom),
-                "prenom_asc" => query.OrderBy(c => c.Prenom),
-                "prenom_desc" => query.OrderByDescending(c => c.Prenom),
-                "matricule_asc" => query.OrderBy(c => c.Matricule),
-                "matricule_desc" => query.OrderByDescending(c => c.Matricule),
-                "exp_asc" => query.OrderBy(c => c.DateEntreeSqli),
-                "exp_desc" => query.OrderByDescending(c => c.DateEntreeSqli),
-                "poste_asc" => query.OrderBy(c => c.Poste.Name),
-                "poste_desc" => query.OrderByDescending(c => c.Poste.Name),
-                "niveau_asc" => query.OrderBy(c => c.Niveau.Name),
-                "niveau_desc" => query.OrderByDescending(c => c.Niveau.Name),
-                _ => query.OrderBy(c => c.Nom)
-            };
+                query = query.OrderByDescending(
+                    x => x.Certifications.Where(x => x.Libelle == filterParams.OrderByCertification).Any());
+            }
+            else if (!string.IsNullOrWhiteSpace(filterParams.OrderByFormation))
+            {
+                query = query.OrderByDescending(
+                    x => x.Formations.Where(x => x.Libelle == filterParams.OrderByFormation).Any());
+            }
+            else
+            {
+                query = filterParams.OrderBy switch
+                {
+                    "nom_desc" => query.OrderByDescending(c => c.Nom),
+                    "prenom_asc" => query.OrderBy(c => c.Prenom),
+                    "prenom_desc" => query.OrderByDescending(c => c.Prenom),
+                    "matricule_asc" => query.OrderBy(c => c.Matricule),
+                    "matricule_desc" => query.OrderByDescending(c => c.Matricule),
+                    "exp_asc" => query.OrderBy(c => c.DateEntreeSqli),
+                    "exp_desc" => query.OrderByDescending(c => c.DateEntreeSqli),
+                    "poste_asc" => query.OrderBy(c => c.Poste.Name),
+                    "poste_desc" => query.OrderByDescending(c => c.Poste.Name),
+                    "niveau_asc" => query.OrderBy(c => c.Niveau.Name),
+                    "niveau_desc" => query.OrderByDescending(c => c.Niveau.Name),
+                    _ => query.OrderBy(c => c.Nom)
+                };
+            }
             return await PagedList<CollaborateurDTO>.CreateAsync(query.ProjectTo<CollaborateurDTO>(_mapper.ConfigurationProvider).AsNoTracking(), filterParams.pageNumber, filterParams.pageSize);
         }
 
         public IEnumerable<CollaborateurDTO> GetCollaborateurs()
         {
-            return _mapper.Map<IEnumerable<CollaborateurDTO>>(_collaborateurRepository.GetCollaborateurs());
+            var list = _collaborateurRepository.GetCollaborateurs().ProjectTo<CollaborateurDTO>(_mapper.ConfigurationProvider).AsNoTracking();
+            return list;
         }
 
-        public async Task UpdateCollaborateur(int id, CollaborateurDTO collaborateur)
+        public async Task UpdateCollaborateur(CollaborateurDTO collaborateur)
         {
-            await this._collaborateurRepository.UpdateCollaborateur(id, this._mapper.Map<Collaborateur>(collaborateur));
+            await this._collaborateurRepository.UpdateCollaborateur(this._mapper.Map<Collaborateur>(collaborateur));
         }
 
         public Task<bool> CollaborateurExistsById(int id)

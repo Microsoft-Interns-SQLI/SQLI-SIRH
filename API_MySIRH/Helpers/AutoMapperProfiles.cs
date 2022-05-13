@@ -1,6 +1,5 @@
 ﻿using API_MySIRH.DTOs;
 using API_MySIRH.DTOs.Auth;
-using API_MySIRH.DTOs.Collaborateur;
 using API_MySIRH.Entities;
 using API_MySIRH.Entities.Auth;
 using AutoMapper;
@@ -26,13 +25,14 @@ namespace API_MySIRH.Helpers
 
             CreateMap<Demission, DemissionDTO>().ReverseMap();
 
+            CreateMap<CollaborateurTypeContratDTO, CollaborateurTypeContrat>().ReverseMap();
             CreateMap<CollaborateurDTO, Collaborateur>().ReverseMap();
 
             CreateMap<Certification, CertificationDTO>().ReverseMap();
-            CreateMap<CollaborateurCertification, CollaborateurCertificationDTO>()
-                //.ForMember(ccdto=>ccdto.Nom, m=>m.MapFrom(cc=>cc.Collaborateur.Nom))
-                //.ForMember(ccdto=>ccdto.Prenom, m=>m.MapFrom(cc=>cc.Collaborateur.Prenom))
-                .ReverseMap();
+            CreateMap<CollaborateurCertification, CollaborateurCertificationDTO>().ReverseMap();
+
+            CreateMap<Formation, FormationDTO>().ReverseMap();
+            CreateMap<CollaborateurFormation, CollaborateurFormationDTO>().ReverseMap();
 
             CreateMap<EntityBase, DtoBase>().ReverseMap();
         }

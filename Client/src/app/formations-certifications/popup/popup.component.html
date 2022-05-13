@@ -1,0 +1,36 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Edit Cerification {{certification.id}} Collaborateur
+                {{certification.collaborateurId}}</h5>
+            <button type="button" class="btn-close" (click)="hideModal()"></button>
+        </div>
+
+        <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupStatus">Status</label>
+                    </div>
+                    <select class="custom-select" id="inputGroupStatus" name="status" (ngModelChange)="selectChange(selected)" [(ngModel)]="selected" required>
+                        <option value="AFAIRE">À Faire</option>
+                        <option value="FAIT" [disabled]="statusDisabled">Fait</option>
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Date Début</span>
+                    <input type="date" class="form-control" [ngModel]="certification.dateDebut | date: 'yyyy-MM-dd'" name="dateDebut" required>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Date Fin</span>
+                    <input type="date" class="form-control"[ngModel]="dateFin | date: 'yyyy-MM-dd'" (ngModelChange)="dateFin=$event" name="dateFin" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="hideModal()">Close</button>
+                <button type="submit" class="btn btn-primary" [disabled]="f.invalid">Save</button>
+            </div>
+
+        </form>
+    </div>
+</div>

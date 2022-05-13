@@ -146,7 +146,7 @@
               <mat-tab label="HR Incidents"> HR Incidents Content </mat-tab> 
             -->
             <mat-tab label="Contrat & Statut">
-              <app-contrats [collab]="collab"></app-contrats>
+              <app-contrats [collab]="collab" #contrats></app-contrats>
             </mat-tab>
             <mat-tab label="Cv & Documents">
               <app-download [collab]="collab"></app-download>
@@ -160,6 +160,8 @@
     </div>
   </div>
 
-  <app-upload class="modal fade" id="upload" tabindex="-1" aria-labelledby="uploadmodal" aria-hidden="true">
-  </app-upload>
+  <app-upload></app-upload>
+  <app-modal-ajout-diplome [collaborateur]="collab"></app-modal-ajout-diplome>
+  <app-modal-ajout-contrat [collaborateur]="collab" (updateAffectations)="updateAffectations()">
+  </app-modal-ajout-contrat>
 </form>

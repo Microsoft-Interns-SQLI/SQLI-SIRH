@@ -20,7 +20,7 @@ export class Site extends BaseMDM {
 
 export class RecruteMode extends BaseMDM {
   id: number = 0;
-  mode: string = '';
+  name: string = '';
 }
 
 export class SkillCenter extends BaseMDM {
@@ -31,6 +31,16 @@ export class SkillCenter extends BaseMDM {
 export class Contrat extends BaseMDM {
   id: number = 0;
   name: string = '';
+}
+
+export class CollabTypeContrat extends BaseMDM {
+  id: number = 0;
+  dateDebut: Date = new Date();
+  dateFin: Date = new Date();
+  isInSQLI: Boolean = true;
+  typeContratId: number = 0;
+  typeContrat?: Contrat;
+  collaborateurId: number = 0;
 }
 
 export class Diplome extends BaseMDM {
