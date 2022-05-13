@@ -111,7 +111,7 @@ export class AddEditCollaborateurComponent implements OnInit {
         .subscribe((res) => {
         });
       message = this.collab.prenom + " " + this.collab.nom + " a été modifier avec success";
-      this.toastServise.showToast("success", message);
+      this.toastServise.showToast("success", message,2);
     } else {
       this.sevice.addCollaborator(this.collab).subscribe((res) => {
         let collaborator: any = res;
@@ -120,7 +120,7 @@ export class AddEditCollaborateurComponent implements OnInit {
           ' ' +
           this.collab.nom +
           ' a été ajouter avec success';
-        this.toastServise.showToast('success', message);
+        this.toastServise.showToast('success', message,2);
         setTimeout(() => {
           routes;
           // window.location.href = `/addEditcollaborateur/${collaborator.id}`;

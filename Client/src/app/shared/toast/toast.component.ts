@@ -17,6 +17,8 @@ export class ToastComponent implements OnInit {
 
   message?: string;
 
+  durationInSec!:number;
+
   sub!: Subscription;
   ngOnInit(): void {
     this.sub = this.toastService.toast.subscribe((data: Toaster) => {
@@ -27,7 +29,7 @@ export class ToastComponent implements OnInit {
           this.typeMessage == 'success' ? this.title = "Success" : this.title = "Information";
       setTimeout(() => {
         this.close();
-      }, 2000);
+      }, this.durationInSec*1000);
     });
   }
 
