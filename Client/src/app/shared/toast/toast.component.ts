@@ -17,19 +17,20 @@ export class ToastComponent implements OnInit {
 
   message?: string;
 
-  durationInSec!:number;
+  toastDuration?: number;
 
   sub!: Subscription;
   ngOnInit(): void {
     this.sub = this.toastService.toast.subscribe((data: Toaster) => {
       this.typeMessage = data.typeMessage;
       this.message = data.message;
+      this.toastDuration=data.duration*1000
       this.typeMessage == 'danger' ? this.title = "Danger" :
         this.typeMessage == 'warning' ? this.title = "Warning" :
           this.typeMessage == 'success' ? this.title = "Success" : this.title = "Information";
       setTimeout(() => {
         this.close();
-      }, this.durationInSec*1000);
+      }, this.toastDuration);
     });
   }
 
