@@ -31,8 +31,9 @@ namespace API_MySIRH.DTOs.Collaborateur
         public DateTime DateNaissance { get; set; }
         public DateTime? DatePremiereExperience { get; set; }
         public DateTime? DateEntreeSqli { get; set; }
-        public DateTime? DateSortieSqli { get; set; }
         public DateTime? DateDebutStage { get; set; }
+        // demission ??
+        public List<DemissionDTO>? Demissions { get; set; }
 
         // Relations
         public int? PosteId { get; set; }

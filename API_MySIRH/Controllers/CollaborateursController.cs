@@ -175,8 +175,8 @@ namespace API_MySIRH.Controllers
                             collaborateur.DateEntreeSqli = Convert.ToDateTime(worksheet.Rows[i].Cells[13].Value);
                         if (worksheet.Rows[i].Cells[14].Value != "")
                             collaborateur.DateDebutStage = Convert.ToDateTime(worksheet.Rows[i].Cells[14].Value);
-                        if (worksheet.Rows[i].Cells[15].Value != "")
-                            collaborateur.DateSortieSqli = Convert.ToDateTime(worksheet.Rows[i].Cells[15].Value);
+                        //if (worksheet.Rows[i].Cells[15].Value != "")
+                        //    collaborateur.DateSortieSqli = Convert.ToDateTime(worksheet.Rows[i].Cells[15].Value); // ikhadem: TODO: use the .Add methode
 
                         //if (await InvokeOperation(collaborateur))
                         //{
@@ -257,7 +257,7 @@ namespace API_MySIRH.Controllers
                 worksheet[$"N{i}"].Value = collab.DatePremiereExperience == null ? "" : collab.DatePremiereExperience?.ToString("dd/MM/yyyy");
                 worksheet[$"O{i}"].Value = collab.DateEntreeSqli == null ? "" : collab.DateEntreeSqli?.ToString("dd/MM/yyyy");
                 worksheet[$"P{i}"].Value = collab.DateDebutStage == null ? "" : collab.DateDebutStage?.ToString("dd/MM/yyyy");
-                worksheet[$"Q{i}"].Value = collab.DateSortieSqli == null ? "" : collab.DateSortieSqli?.ToString("dd/MM/yyyy");
+                //worksheet[$"Q{i}"].Value = collab.DateSortieSqli == null ? "" : collab.DateSortieSqli?.ToString("dd/MM/yyyy"); // ikhadem : TODO: get last input in list !!
                 //worksheet[$"R{i}"].Value = collab.Diplomes;
 
                 worksheet[$"H{i}"].CellStyle.ShrinkToFit = true;

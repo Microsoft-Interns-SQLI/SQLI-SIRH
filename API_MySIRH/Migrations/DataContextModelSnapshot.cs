@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace API_MySIRH.Data.Migrations
+namespace API_MySIRH.Migrations
 {
     [DbContext(typeof(DataContext))]
     partial class DataContextModelSnapshot : ModelSnapshot
@@ -55,14 +55,14 @@ namespace API_MySIRH.Data.Migrations
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "69a1dda6-c6fb-4b77-a165-507a38364e5d",
+                            ConcurrencyStamp = "2bbbfb60-5eb2-4849-8425-d8653a64b502",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "2a26d107-89d4-462e-8b08-9bf9f70486a4",
+                            ConcurrencyStamp = "c7bdf4c1-48e7-4b57-a452-5de95d18e830",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -140,13 +140,13 @@ namespace API_MySIRH.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5b3239bc-a987-41c1-b0fe-252677346aef",
+                            ConcurrencyStamp = "833b50a2-b2f3-4f32-99a6-357541a55d65",
                             Email = "Admin@sqli.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@SQLI.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMVSTRDAbv9hhe7WjgO871CHDob/87mTyug2I2M1JQEfZMjXpYtw4A+YdvDp2Hm9jw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEM+2MQYC5Feso9YzReyZ2oMHJjRNvFlgoXPsqp4wxcqyuBnylbyFenDLDcBx944ziA==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "AdminUser"
@@ -231,9 +231,6 @@ namespace API_MySIRH.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DatePremiereExperience")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateSortieSqli")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -406,6 +403,43 @@ namespace API_MySIRH.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Dashboards");
+                });
+
+            modelBuilder.Entity("API_MySIRH.Entities.Demission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("CollaborateurId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateDemission")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateSortieSqli")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsCanceled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModificationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ReasonDemission")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CollaborateurId");
+
+                    b.ToTable("Demissions");
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.Diplome", b =>
@@ -890,6 +924,15 @@ namespace API_MySIRH.Data.Migrations
                     b.Navigation("TypeContrat");
                 });
 
+            modelBuilder.Entity("API_MySIRH.Entities.Demission", b =>
+                {
+                    b.HasOne("API_MySIRH.Entities.Collaborateur", "Collaborateur")
+                        .WithMany("Demission")
+                        .HasForeignKey("CollaborateurId");
+
+                    b.Navigation("Collaborateur");
+                });
+
             modelBuilder.Entity("API_MySIRH.Entities.Diplome", b =>
                 {
                     b.HasOne("API_MySIRH.Entities.Collaborateur", null)
@@ -973,6 +1016,8 @@ namespace API_MySIRH.Data.Migrations
             modelBuilder.Entity("API_MySIRH.Entities.Collaborateur", b =>
                 {
                     b.Navigation("CollaborateurCertifications");
+
+                    b.Navigation("Demission");
 
                     b.Navigation("Diplomes");
 

@@ -111,7 +111,7 @@ namespace API_MySIRH.Controllers
                     DateEntreeSqli = collaborateurJson["Date d'entrée"].ToString() != String.Empty ? DateTime.Parse(collaborateurJson["Date d'entrée"].ToString()) : null,
                     DateNaissance = collaborateurJson["Date Naissance"].ToString() != String.Empty ? DateTime.Parse(collaborateurJson["Date Naissance"].ToString()) : null,
                     DatePremiereExperience = collaborateurJson["Date 1ere expèrience"].ToString() != String.Empty ? DateTime.Parse(collaborateurJson["Date 1ere expèrience"].ToString()) : null,
-                    DateSortieSqli = collaborateurJson["Date de sortie"].ToString() != String.Empty ? DateTime.Parse(collaborateurJson["Date de sortie"].ToString()) : null,
+                    //DateSortieSqli = collaborateurJson["Date de sortie"].ToString() != String.Empty ? DateTime.Parse(collaborateurJson["Date de sortie"].ToString()) : null,
 
                     ModeRecrutement = this._dataContext.ModesRecrutements.Where(m => m.Mode == mode).FirstOrDefault(),
                     Niveau = this._dataContext.Niveaux.Where(n => n.Name == niveau).FirstOrDefault(),
@@ -136,6 +136,7 @@ namespace API_MySIRH.Controllers
                 collaborateurs.Add(collaborateur);
                 await DiplomesTraitement(collaborateur, collaborateurJson["Diplômes"].ToString());
                 await ContratsTraitement(collaborateur, collaborateurJson["Type de Contrat"].ToString());
+                DemissionTraitement(collaborateur, collaborateurJson["Date de sortie"].ToString());
             }
             return collaborateurs;
         }
@@ -282,6 +283,21 @@ namespace API_MySIRH.Controllers
                     TypeContrat = this._dataContext.TypeContrats.Where(tc => tc.Name == typeContrat).FirstOrDefault(),
                     IsInSQLI = true
                 });
+            }
+        }
+
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public void DemissionTraitement(Collaborateur collaborateur, string dateSortieSqli)
+        {
+            if (!string.IsNullOrEmpty(dateSortieSqli))
+            {
+                this._dataContext.Add(new Demission
+                {
+                    Collaborateur = collaborateur,
+                    DateSortieSqli = DateTime.Parse(dateSortieSqli),
+                    DateDemission = DateTime.Parse(dateSortieSqli),
+                    IsCanceled = false
+                }) ;
             }
         }
     }

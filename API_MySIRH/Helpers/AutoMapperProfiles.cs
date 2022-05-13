@@ -24,6 +24,8 @@ namespace API_MySIRH.Helpers
             CreateMap<ModeRecrutement, ModeRecrutementDTO>().ReverseMap();
             CreateMap<Document, FileDTO>().ReverseMap();
 
+            CreateMap<Demission, DemissionDTO>().ReverseMap();
+
             CreateMap<CollaborateurDTO, Collaborateur>().ReverseMap();
 
             CreateMap<Certification, CertificationDTO>().ReverseMap();
