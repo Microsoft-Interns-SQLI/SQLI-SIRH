@@ -154,4 +154,4 @@ import { ModalAjoutContratComponent } from './contrats/modal-ajout-contrat/modal
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

@@ -7,4 +7,5 @@
   <div *ngIf="ngControl.control?.errors?.['minlength']" class="invalid-feedback"> {{label}} has a min length of x</div>
   <div *ngIf="ngControl.control?.errors?.['maxlength']" class="invalid-feedback"> {{label}} has a max length of x</div>
   <div *ngIf="ngControl.control?.errors?.['email']" class="invalid-feedback"> {{label}} should a valid E-mail</div>
+  <div *ngIf="ngControl.control?.errors?.['min']" class="invalid-feedback"> {{label}} is invalid (minimum value)</div>
 </div>

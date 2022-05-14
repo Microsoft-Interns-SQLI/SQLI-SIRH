@@ -162,6 +162,6 @@
 
   <app-upload></app-upload>
   <app-modal-ajout-diplome [collaborateur]="collab"></app-modal-ajout-diplome>
-  <app-modal-ajout-contrat [collaborateur]="collab" (updateAffectations)="updateAffectations()">
+  <app-modal-ajout-contrat [collaborateur]="collab" (refreshAffectations)="refreshAffectations($event)">
   </app-modal-ajout-contrat>
 </form>

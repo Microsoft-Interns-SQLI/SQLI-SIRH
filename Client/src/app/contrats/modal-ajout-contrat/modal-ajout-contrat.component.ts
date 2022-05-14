@@ -2,8 +2,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectInputData, SelectInputObject } from 'src/app/collaborateurs/add-edit-collaborateur/add-edit-form-table/_form_inputs/select-input/select-input';
 import { Collaborator } from 'src/app/Models/Collaborator';
+import { CollabTypeContrat } from 'src/app/Models/MdmModel';
 import { ContratsService } from 'src/app/services/contrats.service';
 import { MdmService } from 'src/app/services/mdm.service';
+import { minDateValidator } from 'src/app/shared/custom-validators/min-date.validator';
+import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Component({
   selector: 'app-modal-ajout-contrat',
@@ -12,12 +15,22 @@ import { MdmService } from 'src/app/services/mdm.service';
 export class ModalAjoutContratComponent implements OnInit {
   form!: FormGroup;
   typesContratData: any = new SelectInputData();
-  @Output() updateAffectations = new EventEmitter();
+  @Output() refreshAffectations = new EventEmitter<CollabTypeContrat>();
   @Input() collaborateur?: Collaborator;
 
-  constructor(private contratService: ContratsService, private formBuilder: FormBuilder, private mdmService: MdmService) { }
+  constructor(
+    private contratService: ContratsService,
+    private formBuilder: FormBuilder,
+    private mdmService: MdmService,
+    private toastService: ToastService
+  ) { }
 
   ngOnInit(): void {
+    this.initForm();
+    this.loadTypesContrat();
+  }
+
+  initForm() {
     this.form = this.formBuilder.group({
       "dateDebut": ["", Validators.required],
       "dateFin": [""],
@@ -25,27 +38,42 @@ export class ModalAjoutContratComponent implements OnInit {
       "typeContratId": ["", Validators.required],
       "collaborateurId": this.collaborateur?.id,
     });
+  }
 
+  loadTypesContrat() {
     this.mdmService.getContrats().subscribe((typesContrats) => {
       this.typesContratData.data = typesContrats.map(
         (obj) => new SelectInputObject(obj.id, obj.name)
       )
-    })
+    });
   }
 
   affecteContrat(formGroup: FormGroup) {
+    this.form.markAllAsTouched();
     if (formGroup.valid) {
-      // this.contratService.affecteContrat(formGroup.value).pipe(
-      //   mergeMap(() => this.contratService.getContratsOfCollab(this.collaborateur!.id))
-      // ).subscribe((contrats) => {
-      // })
+      // trick : to close the modal
+      document.getElementById('btn-close-modal')?.click();
 
-      this.contratService.affecteContrat(formGroup.value).subscribe((result) => {
-        this.updateAffectations.emit();
-        console.log(result);
-      });
+      this.contratService.affecteContrat(formGroup.value).subscribe(
+        {
+          next: (addedContrat) => {
+            this.refreshAffectations.emit(addedContrat as CollabTypeContrat);
+            this.toastService.showToast("success", "Nouveau contrat affecté.");
+            this.initForm();
+          },
+          error: (erreur) => {
+            console.error(erreur);
+            // todo : extend the duration of the toast : from 2000ms to 10 000ms
+            this.toastService.showToast("danger", "contrat non affecté ! une erreur est survenue au sein du serveur distant.. Veuillez réessayer plus tard.");
+          }
+        }
+      );
     }
-    else
-      alert("form invalid !");
+  }
+
+  validateDateGap(event: Event) {
+    const minDate = (event.target as HTMLInputElement).value;
+    this.form.get("dateFin")?.setValidators(minDateValidator(new Date(minDate)));
+    this.form.get("dateFin")?.updateValueAndValidity({ onlySelf: true });
   }
 }
