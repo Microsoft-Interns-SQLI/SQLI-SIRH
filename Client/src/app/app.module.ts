@@ -41,7 +41,6 @@ import { ModalComponent } from './shared/modal/modal.component';
 import { ToastComponent } from './shared/toast/toast.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { UploadComponent } from './upload/upload.component';
-import { MatTabsModule } from '@angular/material/tabs';
 import { ImportCollabsComponent } from './collaborateurs/import-collabs/import-collabs.component';
 import { DownloadComponent } from './download/download.component';
 import { AddEditSummaryCardComponent } from './collaborateurs/add-edit-collaborateur/add-edit-summary-card/add-edit-summary-card.component';
@@ -144,7 +143,6 @@ import { ModalAjoutContratComponent } from './contrats/modal-ajout-contrat/modal
     PaginationModule.forRoot(),
     BrowserAnimationsModule,
     ngfModule,
-    MatTabsModule,
     NgxSpinnerModule,
   ],
   providers: [
