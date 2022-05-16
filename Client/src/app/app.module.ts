@@ -70,6 +70,8 @@ import { ModeComponent } from './mdm-panel/mode/mode.component';
 import { TypeContratComponent } from './mdm-panel/type-contrat/type-contrat.component';
 import { ModalAjoutDiplomeComponent } from './diplomes/modal-ajout-diplome/modal-ajout-diplome.component';
 import { ModalAjoutContratComponent } from './contrats/modal-ajout-contrat/modal-ajout-contrat.component';
+import { DemissionTabComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/_demission_tab/demission-tab/demission-tab.component';
+import { ModalAjoutDemissionComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/_demission_tab/modal-ajout-demission/modal-ajout-demission.component';
 
 @NgModule({
   declarations: [
@@ -127,6 +129,8 @@ import { ModalAjoutContratComponent } from './contrats/modal-ajout-contrat/modal
     TypeContratComponent,
     ModalAjoutDiplomeComponent,
     ModalAjoutContratComponent,
+    DemissionTabComponent,
+    ModalAjoutDemissionComponent,
   ],
   imports: [
     CommonModule,

@@ -30,7 +30,7 @@ namespace API_MySIRH.Services
 
         public double GetDemissionCount(IEnumerable<CollaborateurDTO> collaborateurs)
         {
-            return collaborateurs.Where(collaborateur => collaborateur.DateSortieSqli < DateTime.Now).Count();
+            return collaborateurs.Count(); // .Where(collaborateur => collaborateur.DateSortieSqli < DateTime.Now).Count(); // ikhadem: TODO: get data from related object
         }
 
         public double GetFemaleCount(IEnumerable<CollaborateurDTO> collaborateurs)

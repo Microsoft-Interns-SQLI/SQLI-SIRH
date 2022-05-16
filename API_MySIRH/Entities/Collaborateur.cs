@@ -25,7 +25,7 @@ namespace API_MySIRH.Entities
         public DateTime? DateEntreeSqli { get; set; } // cas exception
 
         // Demmision ?? 
-        public List<Demission> Demission { get; set; }
+        public ICollection<Demission> Demissions { get; set; }
 
         //Formations & Certifs Relationships
 

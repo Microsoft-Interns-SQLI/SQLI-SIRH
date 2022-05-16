@@ -9,7 +9,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { delay } from 'rxjs';
 import { routes } from 'src/app/app-routing.module';
-import { Collaborator } from 'src/app/Models/Collaborator';
+import { Collaborator, Demission } from 'src/app/Models/Collaborator';
 import { CollaboratorsService } from 'src/app/services/collaborators.service';
 import { ToastService } from 'src/app/shared/toast/toast.service';
 
@@ -23,6 +23,7 @@ export class AddEditCollaborateurComponent implements OnInit {
   datepipe: DatePipe = new DatePipe('en-US');
   collab: Collaborator = new Collaborator();
   formGroup!: FormGroup;
+  demission?: Demission;
 
   constructor(
     private actRoute: ActivatedRoute,
@@ -40,7 +41,9 @@ export class AddEditCollaborateurComponent implements OnInit {
         .getCollaboratorByMatricule(this.collab_id)
         .subscribe((res) => {
           this.collab = res;
+          this.demission = res.demissions ? res.demissions[res.demissions.length - 1] : undefined;
           this.initForm();
+          console.log(this.collab);
         });
     } else {
       this.collab = new Collaborator();
@@ -77,7 +80,7 @@ export class AddEditCollaborateurComponent implements OnInit {
         this.datepipe.transform(this.collab.dateEntreeSqli, 'yyyy-MM-dd'),
       ],
       dateSortieSqli: [
-        this.datepipe.transform(this.collab.dateSortieSqli, 'yyyy-MM-dd'),
+        this.datepipe.transform(this.demission?.dateSortieSqli, 'yyyy-MM-dd'),
       ],
       modeRecrutement: [
         this.collab.modeRecrutement ? this.collab.modeRecrutement.id : '',
@@ -109,6 +112,7 @@ export class AddEditCollaborateurComponent implements OnInit {
       this.sevice
         .updateCollaborator(this.collab_id, this.collab)
         .subscribe((res) => {
+          this.ngOnInit();
         });
       message = this.collab.prenom + " " + this.collab.nom + " a été modifier avec success";
       this.toastServise.showToast("success", message);
@@ -131,14 +135,9 @@ export class AddEditCollaborateurComponent implements OnInit {
   }
 
   updateCollab() {
-    // Object.keys(this.formGroup.value)
-    // .forEach(obj => {
-    //   this.collab[obj as keyof Collaborator] = this.formGroup.value[obj];
-    // })
     this.collab.civilite = this.formGroup.value.civilite;
     this.collab.nom = this.formGroup.value.nom;
     this.collab.prenom = this.formGroup.value.prenom;
-    // this.collab.username = this.formGroup.value.username;
     this.collab.matricule = this.formGroup.value.matricule;
     this.collab.emailPersonnel = this.formGroup.value.emailPersonnel;
     this.collab.email = this.formGroup.value.email;
@@ -150,15 +149,13 @@ export class AddEditCollaborateurComponent implements OnInit {
     this.collab.numCin = this.formGroup.value.numCin;
     this.collab.adresse = this.formGroup.value.adresse;
     this.collab.dateEntreeSqli = this.formGroup.value.dateEntreeSqli;
-    this.collab.dateSortieSqli = this.formGroup.value.dateSortieSqli;
     this.collab.modeRecrutementId = this.formGroup.value.modeRecrutement;
     this.collab.niveauId = this.formGroup.value.niveau;
     this.collab.posteId = this.formGroup.value.poste;
     this.collab.situationFamiliale = this.formGroup.value.situationFamiliale;
     this.collab.dateDebutStage = this.formGroup.value.dateDebutStage;
     this.collab.datePremiereExperience =
-      this.formGroup.value.datePremiereExperience;
-    // this.collab.diplomes = this.formGroup.value.diplomes;
+    this.formGroup.value.datePremiereExperience;
   }
 
   navigateBack() {

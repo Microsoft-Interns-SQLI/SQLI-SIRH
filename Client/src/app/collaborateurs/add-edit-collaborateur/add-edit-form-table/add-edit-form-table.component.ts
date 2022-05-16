@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ContratsComponent } from 'src/app/contrats/contrats.component';
-import { Collaborator } from 'src/app/Models/Collaborator';
+import { Collaborator, Demission } from 'src/app/Models/Collaborator';
 import { ContratsService } from 'src/app/services/contrats.service';
 import { MdmService } from 'src/app/services/mdm.service';
 import {
@@ -32,7 +32,6 @@ export class AddEditFormTableComponent implements OnInit {
       new SelectInputObject('F', 'Mme.'),
     ];
     this.service.getRecrutementMode().subscribe((res) => {
-      console.log(res);
       this.recruteModeData.data = res.map(
         (obj) => new SelectInputObject(obj.id, obj.name)
       );
@@ -60,4 +59,13 @@ export class AddEditFormTableComponent implements OnInit {
       this.contrats.affectations = contrats;
     })
   }
+
+  updateDemission(event: Demission) {
+    let data: Demission;
+
+    data = event;
+    this.collab.demissions = [data, ...this.collab.demissions]  
+    console.log(this.collab.demissions);
+  }
+
 }

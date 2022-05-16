@@ -71,14 +71,40 @@ namespace API_MySIRH.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    nbFemale = table.Column<int>(type: "int", nullable: false),
-                    nbMale = table.Column<int>(type: "int", nullable: false),
+                    HeadCount = table.Column<double>(type: "float", nullable: false),
+                    FemaleCount = table.Column<double>(type: "float", nullable: false),
+                    MaleCount = table.Column<double>(type: "float", nullable: false),
+                    DemissionCount = table.Column<double>(type: "float", nullable: false),
+                    AverageAge = table.Column<double>(type: "float", nullable: false),
+                    ICDCount = table.Column<double>(type: "float", nullable: false),
+                    ExpertTechCount = table.Column<double>(type: "float", nullable: false),
+                    ChefDeProjetCount = table.Column<double>(type: "float", nullable: false),
+                    ManagerCount = table.Column<double>(type: "float", nullable: false),
+                    JuniorCount = table.Column<double>(type: "float", nullable: false),
+                    OperationnelCount = table.Column<double>(type: "float", nullable: false),
+                    ConfirmeCount = table.Column<double>(type: "float", nullable: false),
+                    SeniorCount = table.Column<double>(type: "float", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModificationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Dashboards", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Formations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Libelle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModificationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Formations", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -103,7 +129,7 @@ namespace API_MySIRH.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Mode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModificationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -405,7 +431,7 @@ namespace API_MySIRH.Migrations
                 {
                     CollaborateurId = table.Column<int>(type: "int", nullable: false),
                     CertificationId = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: true),
                     DateDebut = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DateFin = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -422,6 +448,33 @@ namespace API_MySIRH.Migrations
                         name: "FK_CollaborateurCertifications_Collaborateurs_CollaborateurId",
                         column: x => x.CollaborateurId,
                         principalTable: "Collaborateurs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CollaborateurFormations",
+                columns: table => new
+                {
+                    CollaborateurId = table.Column<int>(type: "int", nullable: false),
+                    FormationId = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: true),
+                    DateDebut = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DateFin = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CollaborateurFormations", x => new { x.CollaborateurId, x.FormationId });
+                    table.ForeignKey(
+                        name: "FK_CollaborateurFormations_Collaborateurs_CollaborateurId",
+                        column: x => x.CollaborateurId,
+                        principalTable: "Collaborateurs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CollaborateurFormations_Formations_FormationId",
+                        column: x => x.FormationId,
+                        principalTable: "Formations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -465,7 +518,7 @@ namespace API_MySIRH.Migrations
                     DateDemission = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ReasonDemission = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsCanceled = table.Column<bool>(type: "bit", nullable: false),
-                    CollaborateurId = table.Column<int>(type: "int", nullable: true),
+                    CollaborateurId = table.Column<int>(type: "int", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModificationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -476,7 +529,8 @@ namespace API_MySIRH.Migrations
                         name: "FK_Demissions_Collaborateurs_CollaborateurId",
                         column: x => x.CollaborateurId,
                         principalTable: "Collaborateurs",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -489,7 +543,7 @@ namespace API_MySIRH.Migrations
                     Label = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Detail = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CollaborateurId = table.Column<int>(type: "int", nullable: true),
+                    CollaborateurId = table.Column<int>(type: "int", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModificationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -500,7 +554,8 @@ namespace API_MySIRH.Migrations
                         name: "FK_Diplomes_Collaborateurs_CollaborateurId",
                         column: x => x.CollaborateurId,
                         principalTable: "Collaborateurs",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -531,17 +586,17 @@ namespace API_MySIRH.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { 2, "2bbbfb60-5eb2-4849-8425-d8653a64b502", "Admin", "ADMIN" });
+                values: new object[] { 2, "3c882871-e2e5-4912-945d-91e7f6e8b724", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { 3, "c7bdf4c1-48e7-4b57-a452-5de95d18e830", "Manager", "MANAGER" });
+                values: new object[] { 3, "59d5771e-4471-414b-874f-f2af38c08d6f", "Manager", "MANAGER" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 1, 0, "833b50a2-b2f3-4f32-99a6-357541a55d65", "Admin@sqli.com", false, false, null, "ADMIN@SQLI.COM", "ADMINUSER", "AQAAAAEAACcQAAAAEM+2MQYC5Feso9YzReyZ2oMHJjRNvFlgoXPsqp4wxcqyuBnylbyFenDLDcBx944ziA==", null, false, null, false, "AdminUser" });
+                values: new object[] { 1, 0, "1172d92e-b5ee-4776-afd1-b3b4b14ad7cd", "Admin@sqli.com", false, false, null, "ADMIN@SQLI.COM", "ADMINUSER", "AQAAAAEAACcQAAAAEA7X7fxLf3a5rG31phm01mBCZYDm/U+LbeOvUiB/qvBJ6iz1+SlDIFJ9iwhK8wpP5A==", null, false, null, false, "AdminUser" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -591,6 +646,11 @@ namespace API_MySIRH.Migrations
                 name: "IX_CollaborateurCertifications_CertificationId",
                 table: "CollaborateurCertifications",
                 column: "CertificationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CollaborateurFormations_FormationId",
+                table: "CollaborateurFormations",
+                column: "FormationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Collaborateurs_ModeRecrutementId",
@@ -669,6 +729,9 @@ namespace API_MySIRH.Migrations
                 name: "CollaborateurCertifications");
 
             migrationBuilder.DropTable(
+                name: "CollaborateurFormations");
+
+            migrationBuilder.DropTable(
                 name: "CollaborateurTypeContrats");
 
             migrationBuilder.DropTable(
@@ -697,6 +760,9 @@ namespace API_MySIRH.Migrations
 
             migrationBuilder.DropTable(
                 name: "Certifications");
+
+            migrationBuilder.DropTable(
+                name: "Formations");
 
             migrationBuilder.DropTable(
                 name: "TypeContrats");

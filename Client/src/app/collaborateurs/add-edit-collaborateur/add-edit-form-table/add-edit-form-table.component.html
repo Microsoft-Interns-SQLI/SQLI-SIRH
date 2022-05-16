@@ -99,7 +99,7 @@
                           [label]="'Entree SQLI'" [type]="'date'"></app-text-input>
                       </div>
                       <div class="col-md-6 mt-3">
-                        <app-text-input [formControl]="$any(myFormGroup.controls?.['dateSortieSqli'])"
+                        <app-text-input [formControl]="$any(myFormGroup.controls?.['dateSortieSqli'])" [isReadOnly]='true'
                           [label]="'Sortie SQLI'" [type]="'date'"></app-text-input>
                       </div>
 
@@ -143,8 +143,11 @@
                 Manager & TLRHs Content
               </mat-tab>
               <mat-tab label="Materiels"> Materiels Content </mat-tab>
-              <mat-tab label="HR Incidents"> HR Incidents Content </mat-tab> 
+              <mat-tab label="HR Incidents"> HR Incidents Content </mat-tab>
             -->
+            <mat-tab label="Demssions">
+              <app-demission-tab [collab]="collab" #demission></app-demission-tab>
+            </mat-tab>
             <mat-tab label="Contrat & Statut">
               <app-contrats [collab]="collab" #contrats></app-contrats>
             </mat-tab>
@@ -164,4 +167,5 @@
   <app-modal-ajout-diplome [collaborateur]="collab"></app-modal-ajout-diplome>
   <app-modal-ajout-contrat [collaborateur]="collab" (updateAffectations)="updateAffectations()">
   </app-modal-ajout-contrat>
+  <app-modal-ajout-demission [collab]="collab" (addDemmision)="updateDemission($event)"></app-modal-ajout-demission>
 </form>

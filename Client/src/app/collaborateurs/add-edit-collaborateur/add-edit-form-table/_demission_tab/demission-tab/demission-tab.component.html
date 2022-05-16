@@ -1,0 +1,47 @@
+<div class="my-3">
+  <div class="card">
+      <div class="card-body">
+        <div class="card-header">
+          <div class="row">
+              <div class="col-md-8">
+                  <strong>
+                      <u>
+                          Demissions
+                      </u>
+                  </strong>
+              </div>
+              <div class="col-md-4 text-end">
+                <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#addDemission">
+                  <i class="bi bi-plus-square"></i>
+                    Demission
+                </button>
+              </div>
+          </div>
+      </div>
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="table-responsive">
+                      <table class="table w-100">
+                          <thead>
+                              <tr>
+                                <th></th>
+                                  <th>Date Demissions</th>
+                                  <th>Date Sortie SQLI</th>
+                                  <th>Reason</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let demission of collab.demissions">
+                                  <td>{{demission.isCanceled ?  "❌" : "✅"}}</td>
+                                  <td>{{demission.dateDemission | date: 'longDate'}}</td>
+                                  <td>{{demission.dateSortieSqli | date: 'longDate'}}</td>
+                                  <td>{{demission.reasonDemission}}</td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

@@ -14,7 +14,8 @@ export class Collaborator {
   modeRecrutement?: RecruteMode;
   datePremiereExperience: Date = new Date();
   dateEntreeSqli: Date = new Date();
-  dateSortieSqli: Date = new Date();
+  // dateSortieSqli: Date = new Date(); // ikhadem: changed to relation
+  demissions: Demission[] = [];
   dateDebutStage: Date = new Date();
   diplomes: Diplome[] = [];
 
@@ -41,4 +42,14 @@ export class Collaborator {
   numCin: string = '';
   documents?: CollabFile[];
   situationFamiliale: string = '';
+}
+
+export class Demission {
+  id: number = 0;
+  creationDate: Date = new Date();
+  modificationDate: Date = new Date();
+  dateSortieSqli: Date = new Date();
+  dateDemission: Date = new Date();
+  reasonDemission: string = "";
+  isCanceled: boolean = false;
 }

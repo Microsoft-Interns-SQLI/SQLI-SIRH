@@ -33,7 +33,7 @@ namespace API_MySIRH.DTOs
         public DateTime? DateEntreeSqli { get; set; }
         public DateTime? DateDebutStage { get; set; }
         // demission ??
-        public List<DemissionDTO>? Demissions { get; set; }
+        public ICollection<DemissionDTO>? Demissions { get; set; }
 
         // Relations
         public int? PosteId { get; set; }
