@@ -62,7 +62,6 @@ export class ModalAjoutContratComponent implements OnInit {
           },
           error: (erreur) => {
             console.error(erreur);
-            // todo : extend the duration of the toast : from 2000ms to 10 000ms
             this.toastService.showToast("danger", "contrat non affecté ! une erreur est survenue au sein du serveur distant.. Veuillez réessayer plus tard.", 10);
           }
         }

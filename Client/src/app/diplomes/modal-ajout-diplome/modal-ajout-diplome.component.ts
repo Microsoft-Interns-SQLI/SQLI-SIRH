@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { mergeMap } from 'rxjs';
 import { Collaborator } from 'src/app/Models/Collaborator';
+import { Diplome } from 'src/app/Models/MdmModel';
 import { DiplomesService } from 'src/app/services/diplomes.service';
+import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Component({
   selector: 'app-modal-ajout-diplome',
@@ -10,11 +11,21 @@ import { DiplomesService } from 'src/app/services/diplomes.service';
 })
 export class ModalAjoutDiplomeComponent implements OnInit {
   form!: FormGroup;
+  @Output() refreshDiplomes = new EventEmitter<Diplome>();
   @Input() collaborateur?: Collaborator;
 
-  constructor(private diplomesService: DiplomesService, private formBuilder: FormBuilder) { }
+
+  constructor(
+    private diplomesService: DiplomesService,
+    private formBuilder: FormBuilder,
+    private toastService: ToastService
+  ) { }
 
   ngOnInit(): void {
+    this.initForm();
+  }
+
+  initForm() {
     this.form = this.formBuilder.group({
       annee: ["", Validators.required],
       label: [""],
@@ -25,14 +36,23 @@ export class ModalAjoutDiplomeComponent implements OnInit {
   }
 
   addDiplome(formGroup: FormGroup) {
+    this.form.markAllAsTouched();
     if (formGroup.valid) {
-      this.diplomesService.addDiplome(formGroup.value).pipe(
-        mergeMap(() => this.diplomesService.getCollabDiplomes(this.collaborateur!.id))
-      ).subscribe((diplomes) => {
-        this.collaborateur!.diplomes = diplomes;
-      })
+      // trick : to close the modal
+      document.getElementById('btn-close-modal')?.click();
+
+      this.diplomesService.addDiplome(formGroup.value).subscribe(
+        {
+          next: (addedDiplome) => {
+            this.refreshDiplomes.emit(addedDiplome as Diplome);
+            this.initForm();
+          },
+          error: (erreur) => {
+            console.log(erreur);
+            this.toastService.showToast("danger", "diplome non affecté ! une erreur est survenue au sein du serveur distant.. Veuillez réessayer plus tard.", 10);
+          }
+        }
+      );
     }
-    else
-      alert("form invalid !");
   }
 }

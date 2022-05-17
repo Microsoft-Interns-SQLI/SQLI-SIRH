@@ -29,7 +29,7 @@ export class ContratsComponent implements OnInit {
 
   deleteAffectation(idAffectation: number) {
     // todo : need a confirm modal 
-    if (confirm("êtes-vous sûr de vouloir désaffecté ce contrat ?")) {
+    if (confirm("êtes-vous sûr de vouloir désaffecter ce contrat ?")) {
       this.contratsService.deleteAffectation(idAffectation).subscribe(() => {
         this.affectations = this.affectations.filter(aff => aff.id !== idAffectation);
         this.toastService.showToast("success", "Contrat supprimé avec succès.", 2);

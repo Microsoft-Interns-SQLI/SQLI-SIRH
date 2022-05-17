@@ -207,7 +207,7 @@
               <app-download [collab]="collab"></app-download>
             </div>
             <div id="skills" aria-labelledby="skills-tab" role="tabpanel" class="tab-pane fade">
-              <app-diplomes [collab]="collab"></app-diplomes>
+              <app-diplomes [collab]="collab" #diplomes></app-diplomes>
             </div>
           </div>
         </div>
@@ -216,7 +216,8 @@
   </div>
 
   <app-upload></app-upload>
-  <app-modal-ajout-diplome [collaborateur]="collab"></app-modal-ajout-diplome>
+  <app-modal-ajout-diplome [collaborateur]="collab" (refreshDiplomes)="refreshDiplomes($event)">
+  </app-modal-ajout-diplome>
   <app-modal-ajout-contrat [collaborateur]="collab" (refreshAffectations)="refreshAffectations($event)">
   </app-modal-ajout-contrat>
 </form>

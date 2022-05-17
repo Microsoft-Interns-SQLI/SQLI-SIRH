@@ -1,8 +1,9 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ContratsComponent } from 'src/app/contrats/contrats.component';
+import { DiplomesComponent } from 'src/app/diplomes/diplomes.component';
 import { Collaborator } from 'src/app/Models/Collaborator';
-import { CollabTypeContrat } from 'src/app/Models/MdmModel';
+import { CollabTypeContrat, Diplome } from 'src/app/Models/MdmModel';
 import { MdmService } from 'src/app/services/mdm.service';
 import {
   SelectInputData,
@@ -15,6 +16,7 @@ import {
 })
 export class AddEditFormTableComponent implements OnInit {
   @ViewChild('contrats') contrats!: ContratsComponent;
+  @ViewChild('diplomes') diplomes!: DiplomesComponent;
   @Input() collab!: Collaborator;
   @Input() myFormGroup!: FormGroup;
 
@@ -24,7 +26,9 @@ export class AddEditFormTableComponent implements OnInit {
   postesData: any = new SelectInputData();
   situationFamilialeData: any = new SelectInputData();
 
-  constructor(private service: MdmService) { }
+  constructor(
+    private service: MdmService
+  ) { }
 
   ngOnInit(): void {
     this.civiliteData.data = [
@@ -57,5 +61,9 @@ export class AddEditFormTableComponent implements OnInit {
 
   refreshAffectations(collabTypeContrat: CollabTypeContrat) {
     this.contrats.AddAffectation(collabTypeContrat);
+  }
+
+  refreshDiplomes(diplome: Diplome) {
+    this.diplomes.addDiplome(diplome);
   }
 }
