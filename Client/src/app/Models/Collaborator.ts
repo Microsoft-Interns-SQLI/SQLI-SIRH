@@ -38,6 +38,7 @@ export class Collaborator {
   numCin: string = '';
   documents?: CollabFile[];
   situationFamiliale: string = '';
+  imgPath: string ="";
 }
 
 export class CollabAddUpdate {

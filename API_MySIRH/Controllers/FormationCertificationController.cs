@@ -1,10 +1,8 @@
 ﻿
 
 using API_MySIRH.DTOs;
-using API_MySIRH.Entities;
 using API_MySIRH.Helpers;
 using API_MySIRH.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_MySIRH.Controllers

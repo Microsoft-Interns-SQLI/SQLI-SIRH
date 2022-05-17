@@ -44,7 +44,6 @@ export class AddEditCollaborateurComponent implements OnInit {
   }
 
   initForm(): void {
-    console.log(this.collab);
     this.formGroup = this.fb.group({
       civilite: [this.collab.civilite, [Validators.required, Validators.minLength(1), Validators.maxLength(1)]],
       nom: [this.collab.nom, Validators.required],

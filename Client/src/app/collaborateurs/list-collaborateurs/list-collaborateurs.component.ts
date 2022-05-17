@@ -5,8 +5,10 @@ import { Subscription } from 'rxjs';
 import { Collaborator } from 'src/app/Models/Collaborator';
 import { Pagination } from 'src/app/Models/pagination';
 import { CollaboratorsService } from 'src/app/services/collaborators.service';
+import { ImagesService } from 'src/app/services/images.service';
 import { SpinnerService } from 'src/app/services/spinner.service';
 import { ToastService } from 'src/app/shared/toast/toast.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-list-collaborateurs',
@@ -21,6 +23,7 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   //subscription
   exportSubscription!: Subscription;
   loadCollabSubscription!: Subscription;
+  imageSubscription!: Subscription;
 
   pageNumber = 1;
   pageSize = 10;
@@ -45,7 +48,11 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   trierParMatricule: boolean = false;
   trierParAnnee: boolean = false;
 
-  constructor(private service: CollaboratorsService, private toastService: ToastService, private spinnerService: SpinnerService) { }
+  constructor(
+    private service: CollaboratorsService, 
+    private imageService:ImagesService,
+    private toastService: ToastService, 
+    private spinnerService: SpinnerService) { }
 
 
   ngOnInit(): void {
@@ -72,8 +79,19 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
           this.pagination = resp.pagination;
         },
         complete: () => {
+          
         },
       });
+      this.collaboratorsArray = this.collaboratorsArray.map((collab:Collaborator) =>{
+        console.log(collab);
+        this.imageSubscription = this.imageService.checkImage(collab.id).subscribe({
+          next: d=>{
+            collab.imgPath = d ? `${environment.URL}api/Image/${collab.id}` : 'https://bootstrapious.com/i/snippets/sn-team/teacher-2.jpg';
+          },
+          error: er=> console.log(er)
+        });
+        return collab;
+      })
   }
 
   //Executed when filter select change
@@ -164,6 +182,7 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.exportSubscription.unsubscribe();
     this.loadCollabSubscription.unsubscribe();
+    this.imageSubscription.unsubscribe();
   }
   trier(value: string) {
     switch (value) {

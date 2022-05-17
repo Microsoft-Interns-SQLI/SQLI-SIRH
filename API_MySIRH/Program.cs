@@ -33,6 +33,8 @@ builder.Services.AddMemoryCache();
 //Add IoC Mapping 
 builder.Services.AddScoped<IFileRepository, FileRepository>();
 builder.Services.AddScoped<IFilesService, FilesService>();
+builder.Services.AddScoped<IImageRepository, ImageRepository>();
+builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IToDoItemsRepository, ToDoItemsRepository>();
 builder.Services.AddScoped<IToDoListRepository, ToDoListRepository>();
