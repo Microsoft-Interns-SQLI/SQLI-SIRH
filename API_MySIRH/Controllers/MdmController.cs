@@ -195,10 +195,10 @@ namespace API_MySIRH.Controllers
 
 
         [HttpPost("skillcenters")]
-        public async Task<ActionResult<SkillCenterDTO>> PostSkillCentert(SkillCenterDTO skillCenter)
+        public async Task<ActionResult<SkillCenterDTO>> PostSkillCenters(SkillCenterDTO skillCenter)
         {
             var returnedSkillCenter = await _mdmServiceSkillCenter.Add(skillCenter);
-            return CreatedAtAction(nameof(GetSkillCenter), new { id = returnedSkillCenter.Id }, returnedSkillCenter);
+            return CreatedAtAction(nameof(PostSkillCenters), new { id = returnedSkillCenter.Id }, returnedSkillCenter);
         }
 
         [HttpDelete("skillcenters/{id}")]
@@ -303,22 +303,8 @@ namespace API_MySIRH.Controllers
         [HttpPost("contrats")]
         public async Task<ActionResult<TypeContratDTO>> AddContrat([FromBody] TypeContratDTO type)
         {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    await _mdmServiceTypeContrat.Add(type);
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message);
-                }
-                return Ok($"Type de contrat : {type.Name} add successfully !");
-            }
-            else
-            {
-                return BadRequest();
-            }
+            var returnedTypeContrat = await _mdmServiceTypeContrat.Add(type);
+            return CreatedAtAction(nameof(AddContrat), new { id = returnedTypeContrat.Id }, returnedTypeContrat);
         }
 
         [HttpPut("contrats/{id}")]
@@ -354,7 +340,7 @@ namespace API_MySIRH.Controllers
                 return NotFound(ex.Message);
             }
 
-            return Ok($"Type of contract with id : {id} deleted successfully!");
+            return NoContent();
         }
 
         [HttpGet("modes/{id}")]

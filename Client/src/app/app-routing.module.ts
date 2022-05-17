@@ -16,6 +16,7 @@ import { ListFreelancesComponent } from './freelances/list-freelances/list-freel
 import { HomeComponent } from './home/home.component';
 import { IntegrationsComponent } from './integrations/integrations.component';
 import { LayoutComponent } from './layout/layout.component';
+import { MdmPanelComponent } from './mdm-panel/mdm-panel.component';
 import { AddEditMemosComponent } from './memos/add-edit-memos/add-edit-memos.component';
 import { MemoComponent } from './memos/memo/memo.component';
 import { ReportsComponent } from './reports/reports.component';
@@ -61,6 +62,7 @@ export const routes: Routes = [
       { path: 'not-found', component: NotFoundComponent },
       { path: 'server-error', component: ServerErrorComponent },
       { path: 'upload', component: UploadComponent },
+      { path: 'mdm', component: MdmPanelComponent },
     ],
   },
 
@@ -80,7 +82,7 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes,{onSameUrlNavigation:'reload'})],
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

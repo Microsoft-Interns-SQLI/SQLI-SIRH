@@ -38,22 +38,35 @@ builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IToDoItemsRepository, ToDoItemsRepository>();
 builder.Services.AddScoped<IToDoListRepository, ToDoListRepository>();
+
 builder.Services.AddScoped<IToDoListService, ToDoListService>();
 builder.Services.AddScoped<IToDoItemService, ToDoItemService>();
+
 builder.Services.AddScoped<IMemoService, MemoService>();
 builder.Services.AddScoped<IMemoRepository, MemoRepository>();
+
 builder.Services.AddScoped<ICollaborateurService, CollaborateurService>();
 builder.Services.AddScoped<ICollaborateurRepository, CollaborateurRepository>();
-builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
+
 builder.Services.AddScoped<IDashboardService, DashboardService>();
+builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
+
 builder.Services.AddScoped<ICertificationService, CertificationService>();
 builder.Services.AddScoped<ICertificationRepository, CertificationRepository>();
+
 builder.Services.AddScoped<ICollaborateurCertificationService, CollaborateurCertificationService>();
 builder.Services.AddScoped<ICollaborateurCertificationRepository, CollaborateurCertificationRepository>();
 builder.Services.AddScoped<IFormationService, FormationService>();
 builder.Services.AddScoped<IFormationRepository, FormationRepository>();
 builder.Services.AddScoped<ICollaborateurFormationService, CollaborateurFormationService>();
 builder.Services.AddScoped<ICollaborateurFormationRepository, CollaborateurFormationRepository>();
+
+builder.Services.AddScoped<ICollaborateurTypeContratService, CollaborateurTypeContratService>();
+builder.Services.AddScoped<ICollaborateurTypeContratRepository, CollaborateurTypeContratRepository>();
+
+builder.Services.AddScoped<IDiplomeService, DiplomeService>();
+builder.Services.AddScoped<IDiplomeRepository, DiplomeRepository>();
+
 builder.Services.AddScoped(typeof(IMdmRepository<>), typeof(MdmRepository<>));
 builder.Services.AddScoped(typeof(IMdmService<,>), typeof(MdmService<,>));
 

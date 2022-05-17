@@ -61,6 +61,13 @@ import { TableComponent } from './formations-certifications/table/table.componen
 import { DisplayItemDirective } from './formations-certifications/table/display-item.directive';
 import { HandleStatusDisplayPipe } from './formations-certifications/table/handle-status-display.pipe';
 import { PopupComponent } from './formations-certifications/popup/popup.component';
+import { MdmPanelComponent } from './mdm-panel/mdm-panel.component';
+import { SiteComponent } from './mdm-panel/site/site.component';
+import { SkillCenterComponent } from './mdm-panel/skill-center/skill-center.component';
+import { PosteComponent } from './mdm-panel/poste/poste.component';
+import { NiveauComponent } from './mdm-panel/niveau/niveau.component';
+import { ModeComponent } from './mdm-panel/mode/mode.component';
+import { TypeContratComponent } from './mdm-panel/type-contrat/type-contrat.component';
 import { HeaderFormationCertificationComponent } from './formations-certifications/header-formation-certification/header-formation-certification.component';
 
 @NgModule({
@@ -107,6 +114,14 @@ import { HeaderFormationCertificationComponent } from './formations-certificatio
     DiplomesComponent,
     ContratsComponent,
     TableComponent,
+    MdmPanelComponent,
+    SiteComponent,
+    SkillCenterComponent,
+    PosteComponent,
+    NiveauComponent,
+    ModeComponent,
+    TypeContratComponent,
+    HandleStatusDisplayPipe,
     DisplayItemDirective,
     HandleStatusDisplayPipe,
     PopupComponent,
@@ -129,11 +144,12 @@ import { HeaderFormationCertificationComponent } from './formations-certificatio
     BrowserAnimationsModule,
     ngfModule,
     MatTabsModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
   ],
-  providers: [DatePipe,
-    {provide : HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},
-    { provide: RouteReuseStrategy, useClass: CustomReuseStrategyService }
+  providers: [
+    DatePipe,
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+    { provide: RouteReuseStrategy, useClass: CustomReuseStrategyService },
   ],
   bootstrap: [AppComponent],
 })
