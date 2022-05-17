@@ -41,4 +41,5 @@ export class Collaborator {
   numCin: string = '';
   documents?: CollabFile[];
   situationFamiliale: string = '';
+  imgPath: string ="";
 }

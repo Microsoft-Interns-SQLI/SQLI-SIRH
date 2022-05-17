@@ -35,6 +35,7 @@
     <Folder Include="Archives\" />
     <Folder Include="Errors\" />
     <Folder Include="Logger\" />
+    <Folder Include="Upload\Images\" />
   </ItemGroup>
 
   <Target Name="PrePublishTarget" AfterTargets="Publish">

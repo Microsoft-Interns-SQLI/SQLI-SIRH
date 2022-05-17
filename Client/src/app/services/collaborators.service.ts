@@ -5,12 +5,13 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError, tap } from 'rxjs';
+import { catchError, Observable, throwError, tap, switchMap, Subscription } from 'rxjs';
 import { map } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { Collaborator } from '../Models/Collaborator';
 import { PaginatedResults } from '../Models/pagination';
+import { ImagesService } from './images.service';
 
 @Injectable({
   providedIn: 'root',
@@ -21,9 +22,9 @@ export class CollaboratorsService {
     Collaborator[]
   >();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private imageService: ImagesService) { }
 
-  getCollaboratorsList(itemsPerPage?: number, page?: number, filtrerPar?: string, search?: string, orderby?: string,orderbyFormation?:string, orderbyCertification?:string) {
+  getCollaboratorsList(itemsPerPage?: number, page?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyFormation?: string, orderbyCertification?: string) {
     //delay(50000);
     let params = new HttpParams();
     if (page != undefined && itemsPerPage != undefined) {
@@ -39,22 +40,31 @@ export class CollaboratorsService {
     if (search != undefined) {
       params = params.append("Search", search);
     }
-    if(orderbyFormation !=undefined){
+    if (orderbyFormation != undefined) {
       params = params.append("OrderByFormation", orderbyFormation);
     }
 
-    if(orderbyCertification !=undefined){
+    if (orderbyCertification != undefined) {
       params = params.append("OrderByCertification", orderbyCertification);
     }
-
+    let sub:Subscription;
     return this.http.get<any>(this.myUrl, { observe: 'response', params }).pipe(
       map((response) => {
-        this.paginatedResult.result = response.body;
+        this.paginatedResult.result = <Collaborator[]>response.body.map((collab: Collaborator) => {
+          sub = this.imageService.checkImage(collab.id).subscribe({
+            next: d => {
+              collab.imgPath = d ? `${environment.URL}api/Image/${collab.id}` : 'https://bootstrapious.com/i/snippets/sn-team/teacher-2.jpg';
+            },
+            error: er => console.log(er)
+          });
+          return collab;
+        });
         if (response.headers.get('Pagination') != null) {
           this.paginatedResult.pagination = JSON.parse(
             response.headers.get('Pagination') || ''
           );
         }
+        sub.unsubscribe();
         return this.paginatedResult;
       })
     );
@@ -85,8 +95,8 @@ export class CollaboratorsService {
       .pipe(catchError(this.handleError));
   }
 
-  exportCollaborateurs(){
-    return this.http.get(this.myUrl+ '/export', {
+  exportCollaborateurs() {
+    return this.http.get(this.myUrl + '/export', {
       responseType: 'blob'
     })
   }

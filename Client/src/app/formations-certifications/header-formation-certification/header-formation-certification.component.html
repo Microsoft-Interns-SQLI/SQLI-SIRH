@@ -1,0 +1,22 @@
+<div class="d-flex justify-content-between mb-3">
+    <div class="d-flex justify-content-start col-6">
+      <div class="col-2">
+        <select class="form-select form-select-sm" [(ngModel)]="year" (ngModelChange)="filter()">
+          <option [value]="annee" *ngFor="let annee of annees">{{annee}}</option>
+        </select>
+      </div>
+      <div class="col-2">
+        <select class="form-select form-select-sm" [(ngModel)]="status" (ngModelChange)="filter()">
+          <option value="0">All</option>
+          <option value="1">A Faire</option>
+          <option value="2">Fait</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="input-group input-group-sm">
+        <span class="input-group-text bi bi-search"></span> 
+        <input type="search" class="form-control" placeholder="Search..." aria-describedby="search" [(ngModel)]="searchInput" (ngModelChange)="onSearch()"> 
+      </div>
+    </div>
+  </div>

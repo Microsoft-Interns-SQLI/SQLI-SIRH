@@ -1,5 +1,6 @@
 ﻿using API_MySIRH.DTOs;
 using API_MySIRH.Entities;
+using API_MySIRH.Helpers;
 using API_MySIRH.Interfaces;
 using AutoMapper;
 
@@ -26,11 +27,26 @@ namespace API_MySIRH.Services
             throw new NotImplementedException();
         }
 
-        public async Task<List<CollaborateurCertificationDTO>> GetAll()
+        public async Task<List<CollaborateurCertificationDTO>> GetAll(FilterParamsForCertifAndFormation filter)
         {
-            return _mapper.Map<List<CollaborateurCertificationDTO>>(await _collaborateurCertificationRepository.GetAll());
-        }
+            var list = await _collaborateurCertificationRepository.GetAll();
 
+            if (filter.status != null && filter.status != 0)
+            {
+                list = list.Where(cc => cc.Status == filter.status).ToList();
+            }
+
+            if (filter.annee != null && filter.annee.ToString().Length >= 4 && filter.annee != 0)
+            {
+                list = list.Where(cc => cc.DateDebut.Value.Year == filter.annee).ToList();
+            }
+
+            return _mapper.Map<List<CollaborateurCertificationDTO>>(list);
+        }
+        public async Task<List<int>> GetAnnees()
+        {
+            return  await _collaborateurCertificationRepository.GetAnnees();
+        }
         public Task<List<CollaborateurCertificationDTO>> GetByCertification(int id)
         {
             throw new NotImplementedException();
