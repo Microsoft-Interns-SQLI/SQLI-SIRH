@@ -41,7 +41,6 @@ import { ModalComponent } from './shared/modal/modal.component';
 import { ToastComponent } from './shared/toast/toast.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { UploadComponent } from './upload/upload.component';
-import { MatTabsModule } from '@angular/material/tabs';
 import { ImportCollabsComponent } from './collaborateurs/import-collabs/import-collabs.component';
 import { DownloadComponent } from './download/download.component';
 import { AddEditSummaryCardComponent } from './collaborateurs/add-edit-collaborateur/add-edit-summary-card/add-edit-summary-card.component';
@@ -69,6 +68,8 @@ import { NiveauComponent } from './mdm-panel/niveau/niveau.component';
 import { ModeComponent } from './mdm-panel/mode/mode.component';
 import { TypeContratComponent } from './mdm-panel/type-contrat/type-contrat.component';
 import { HeaderFormationCertificationComponent } from './formations-certifications/header-formation-certification/header-formation-certification.component';
+import { ModalAjoutDiplomeComponent } from './diplomes/modal-ajout-diplome/modal-ajout-diplome.component';
+import { ModalAjoutContratComponent } from './contrats/modal-ajout-contrat/modal-ajout-contrat.component';
 
 @NgModule({
   declarations: [
@@ -126,6 +127,8 @@ import { HeaderFormationCertificationComponent } from './formations-certificatio
     HandleStatusDisplayPipe,
     PopupComponent,
     HeaderFormationCertificationComponent,
+    ModalAjoutDiplomeComponent,
+    ModalAjoutContratComponent,
   ],
   imports: [
     CommonModule,
@@ -143,7 +146,6 @@ import { HeaderFormationCertificationComponent } from './formations-certificatio
     PaginationModule.forRoot(),
     BrowserAnimationsModule,
     ngfModule,
-    MatTabsModule,
     NgxSpinnerModule,
   ],
   providers: [
@@ -153,4 +155,4 @@ import { HeaderFormationCertificationComponent } from './formations-certificatio
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

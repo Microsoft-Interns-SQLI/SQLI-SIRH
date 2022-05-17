@@ -1,10 +1,5 @@
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-  <div class="form-check form-switch">
-    <input class="form-check-input" [(ngModel)]="selected" (change)="onSwitch()" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-    <label class="form-check-label" for="flexSwitchCheckChecked">
-      {{selected ? 'Formations' : 'Certifications'}}
-    </label>
-  </div>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
+  <h2 class="h2">Formations & Certifications</h2>
   <div class="btn-toolbar mb-2 mb-md-0">
     <div class="btn-group me-2">
       <button type="button" class="btn btn-sm btn-outline-primary">Ajout</button>
@@ -31,3 +26,29 @@
 </div>
 
 
+<div class="card">
+  <div class="card-header">
+    <div class="form-check form-switch">
+      <input class="form-check-input" [(ngModel)]="selected" (change)="onSwitch()" type="checkbox" role="switch"
+        id="flexSwitchCheckChecked" checked>
+      <label class="form-check-label" for="flexSwitchCheckChecked">
+        <strong>
+          {{selected ? 'Formations' : 'Certifications'}}
+        </strong>
+      </label>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-scroll">
+          <app-table [type]='selected' [table]="tab" [rows]="rows" [cols]="cols" (sortValue)="sortData($event)">
+          </app-table>
+        </div>
+      </div>
+      <div class="col-md-12 mt-3">
+        <app-footer [pagination]="pagination" (pageNumber)="getCurrentPage($event)"></app-footer>
+      </div>
+    </div>
+  </div>
+</div>

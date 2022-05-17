@@ -155,7 +155,7 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
         this.loadCollaborators();
       });
     }
-    this.toastService.showToast("success", message);
+    this.toastService.showToast("success", message,2);
   }
   changeDisplay(event: any): void {
     if (event == 'table') {

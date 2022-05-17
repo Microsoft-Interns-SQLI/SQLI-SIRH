@@ -1,0 +1,43 @@
+<div class="modal fade" id="ajoutDiplome" tabindex="-1" aria-labelledby="ajoutDiplome" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Ajout d'un diplôme
+                </h5>
+                <button id="btn-close-modal" type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <form [formGroup]="form" (ngSubmit)="addDiplome(form)">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 mt-3">
+                            <!-- todo : review -->
+                            <app-text-input [formControl]="$any(form.controls?.['annee'])" [type]="'number'"
+                                [label]="'Année'"></app-text-input>
+                        </div>
+
+                        <div class="col-md-6 mt-3">
+                            <app-text-input [formControl]="$any(form.controls?.['label'])" [label]="'Label'">
+                            </app-text-input>
+                        </div>
+
+                        <div class="col-md-12 mt-3">
+                            <app-text-input [formControl]="$any(form.controls?.['detail'])" [label]="'Détail'">
+                            </app-text-input>
+                        </div>
+
+                        <div class="col-md-12 mt-3">
+                            <app-textarea-input [label]="'Description'" [rows]="4"
+                                [formControl]="$any(form.controls?.['description'])"></app-textarea-input>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Sauvegarder</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

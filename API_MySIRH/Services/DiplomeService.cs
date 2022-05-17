@@ -30,6 +30,12 @@ namespace API_MySIRH.Services
             return this._mapper.Map<List<DiplomeDTO>>(await this._diplomeRepository.GetAllDiplomes());
         }
 
+        public async Task<List<DiplomeDTO>> GetCollabDiplomes(int idCollab)
+        {
+            var collaborateur = await this._collaborateurRepository.GetCollaborateurById(idCollab);
+            return this._mapper.Map<List<DiplomeDTO>>(collaborateur!.Diplomes);
+        }
+
         public async Task<DiplomeDTO?> GetDiplome(int idDiplome)
         {
             return this._mapper.Map<DiplomeDTO>(await this._diplomeRepository.GetDiplome(idDiplome));
@@ -49,6 +55,11 @@ namespace API_MySIRH.Services
         public async Task DeleteDiplomeToCollab(int idDiplome)
         {
             await this._diplomeRepository.DeleteDiplomeToCollab(idDiplome);
+        }
+
+        public async Task<bool> Exists(int idDiplome)
+        {
+            return await this._diplomeRepository.Exists(idDiplome);
         }
     }
 }
