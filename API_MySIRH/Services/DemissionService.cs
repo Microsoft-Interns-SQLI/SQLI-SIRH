@@ -26,7 +26,7 @@ namespace API_MySIRH.Services
 
         public IEnumerable<CollaborateurDTO> GetCollaborateursDemissioned(FilterParams filterParams)
         {
-            var query = _collaborateurService.GetCollaborateurs().AsQueryable();
+            var query = _collaborateurService.GetCollaborateurs().Where(x => x.Demissions.Any()).AsQueryable();
             return query.AsEnumerable();
         }
 
