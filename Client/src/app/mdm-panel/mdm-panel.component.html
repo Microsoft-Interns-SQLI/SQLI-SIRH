@@ -3,7 +3,178 @@
 >
   <h2 class="h2">MDM Panel</h2>
 </div>
-<div class="container w-75 m-auto">
+
+<div class="accordion w-75 mx-auto" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button
+        class="accordion-button"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapseOne"
+        aria-expanded="true"
+        aria-controls="collapseOne"
+      >
+        Postes
+      </button>
+    </h2>
+    <div
+      id="collapseOne"
+      class="accordion-collapse collapse show"
+      aria-labelledby="headingOne"
+      data-bs-parent="#accordionExample"
+    >
+      <div class="accordion-body">
+        <app-poste
+          [postes]="postes"
+          (posteToDelete)="handleDeletePoste($event)"
+          (posteToAdd)="handleAddPoste($event)"
+        ></app-poste>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingTwo">
+      <button
+        class="accordion-button collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapseTwo"
+        aria-expanded="false"
+        aria-controls="collapseTwo"
+      >
+        Niveaux
+      </button>
+    </h2>
+    <div
+      id="collapseTwo"
+      class="accordion-collapse collapse"
+      aria-labelledby="headingTwo"
+      data-bs-parent="#accordionExample"
+    >
+      <div class="accordion-body">
+        <app-niveau
+          [niveaux]="niveaux"
+          (niveauToDelete)="handleDeleteNiveau($event)"
+          (niveauToAdd)="handleAddNiveau($event)"
+        ></app-niveau>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingThree">
+      <button
+        class="accordion-button collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapseThree"
+        aria-expanded="false"
+        aria-controls="collapseThree"
+      >
+        Modes de Recrutement
+      </button>
+    </h2>
+    <div
+      id="collapseThree"
+      class="accordion-collapse collapse"
+      aria-labelledby="headingThree"
+      data-bs-parent="#accordionExample"
+    >
+      <div class="accordion-body">
+        <app-mode
+          [modes]="modes"
+          (modeToDelete)="handleDeleteMode($event)"
+          (modeToAdd)="handleAddMode($event)"
+        ></app-mode>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingFour">
+      <button
+        class="accordion-button collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapseFour"
+        aria-expanded="false"
+        aria-controls="collapseFour"
+      >
+        Skill Centers
+      </button>
+    </h2>
+    <div
+      id="collapseFour"
+      class="accordion-collapse collapse"
+      aria-labelledby="headingFour"
+      data-bs-parent="#accordionExample"
+    >
+      <div class="accordion-body">
+        <app-skill-center
+          [skillCenters]="skillCenters"
+          (skillCenterToDelete)="handleDeleteSkillCenter($event)"
+          (skillCenterToAdd)="handleAddSkillCenter($event)"
+        ></app-skill-center>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingFive">
+      <button
+        class="accordion-button collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapseFive"
+        aria-expanded="false"
+        aria-controls="collapseFive"
+      >
+        Types de Contrats
+      </button>
+    </h2>
+    <div
+      id="collapseFive"
+      class="accordion-collapse collapse"
+      aria-labelledby="headingFive"
+      data-bs-parent="#accordionExample"
+    >
+      <div class="accordion-body">
+        <app-type-contrat
+          [contrats]="contrats"
+          (contratToDelete)="handleDeleteContrat($event)"
+          (contratToAdd)="handleAddContrat($event)"
+        ></app-type-contrat>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingSix">
+      <button
+        class="accordion-button collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapseSix"
+        aria-expanded="false"
+        aria-controls="collapseSix"
+      >
+        Sites
+      </button>
+    </h2>
+    <div
+      id="collapseSix"
+      class="accordion-collapse collapse"
+      aria-labelledby="headingSix"
+      data-bs-parent="#accordionExample"
+    >
+      <div class="accordion-body">
+        <app-site
+          [sites]="sites"
+          (siteToDelete)="handleDeleteSite($event)"
+          (siteToAdd)="handleAddSite($event)"
+        ></app-site>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div class="container w-75 m-auto">
   <app-poste
     [postes]="postes"
     (posteToDelete)="handleDeletePoste($event)"
@@ -39,4 +210,4 @@
     (contratToDelete)="handleDeleteContrat($event)"
     (contratToAdd)="handleAddContrat($event)"
   ></app-type-contrat>
-</div>
+</div> -->

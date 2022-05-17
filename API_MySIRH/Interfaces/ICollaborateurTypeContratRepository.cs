@@ -5,6 +5,7 @@ namespace API_MySIRH.Interfaces
     public interface ICollaborateurTypeContratRepository
     {
         Task<List<CollaborateurTypeContrat>> GetAllCollabsContrats();
+        Task<List<CollaborateurTypeContrat>> GetAllCollabsContratsByCollab(int idCollaborateur);
         Task<CollaborateurTypeContrat?> GetCollabContratById(int idCollabContrat);
         Task<CollaborateurTypeContrat> AddCollabContrat(CollaborateurTypeContrat collaborateurTypeContrat);
         Task UpdateCollabContrat(CollaborateurTypeContrat collaborateurTypeContrat);

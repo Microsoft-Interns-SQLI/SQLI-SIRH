@@ -1,17 +1,17 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
   <h2>DashBoard</h2>
-
 </div>
+
 <!--
   <div class="table-responsive">
     <table class="table table-striped table-hover">
       <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">Header</th>
-          <th scope="col">Header</th>
-          <th scope="col">Header</th>
-          <th scope="col">Header</th>
+          <th scope="col-md col-sm">#</th>
+          <th scope="col-md col-sm">Header</th>
+          <th scope="col-md col-sm">Header</th>
+          <th scope="col-md col-sm">Header</th>
+          <th scope="col-md col-sm">Header</th>
         </tr>
       </thead>
       <tbody>
@@ -142,43 +142,123 @@
 -->
 
 <div class="row">
-  <div class="col-md-9 text-white">
-    <div class="row">
-      <div class="col-md-4 text-center">
-        <label class="form-control border-0">Taux de </label>
-        <canvas id="donutChart" height="0"></canvas>
-        <a href="#" class="btn btn-primary">Go to</a>
-      </div>
-      <div class="col-md-4 text-center">
-        <label class="form-control border-0">Taux de </label>
-        <canvas id="pieChart" height="0"></canvas>
-        <a href="#" class="btn btn-primary">Go to</a>
-      </div>
-      <div class="col-md-4 text-center">
-        <label class="form-control border-0">Taux de </label>
-        <canvas id="barChart" height="300"></canvas>
-        <a href="#" class="btn btn-primary">Go to</a>
-      </div>
-      <div class="col-md-12 text-center mt-3">
-        <label class="form-control border-0">Taux de </label>
-        <canvas id="lineChart" height="155" width="500"></canvas>
-        <a href="#" class="btn btn-primary mb-3">Go to</a>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3 text-white text-center">
-    <div class="row">
-      <div class="col-md-12">
-        <label class="form-control border-0">Taux de </label>
-        <canvas id="donutChart2" height="0"></canvas>
-        <a href="#" class="btn btn-primary">Go to</a>
-      </div>
 
-      <div class="col-md-12">
-        <label class="form-control border-0">Taux de </label>
-        <canvas id="pieChart2" height="0"></canvas>
-        <a href="#" class="btn btn-primary">Go to</a>
+  <div class="col-md-4 text-center mt-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <label>
+              <u>
+                Moyenne d'experience :
+              </u>
+              <br>
+              <strong>
+                {{dashboard.averageExp | number: '1.1-2'}} an(s)
+              </strong>
+            </label>
+          </div>
+          <div class="col-md-6">
+            <label>
+              <u>
+                Moyenne d'age :
+              </u>
+              <br>
+              <strong>
+                {{dashboard.averageAge | number: '1.1-2'}} an(s)
+              </strong>
+            </label>
+          </div>
+          <div class="col-md-12 mt-3">
+            <label>
+              <u>
+                Niveau Chart
+              </u>
+            </label>
+            <canvas id="niveauChart" height="0"></canvas>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+
+  <div class="col-md-4 text-center mt-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <label>
+              <u>
+                Taux d'encadrement :
+              </u>
+              <br>
+              <strong>
+                {{dashboard.tauxEncadrement | number: '1.1-2'}}%
+              </strong>
+            </label>
+          </div>
+          <div class="col-md-6">
+            <label>
+              <u>
+                Taux de soustraitant :
+              </u>
+              <br>
+              <strong>
+                {{dashboard.tauxSoustraitant | number: '1.1-2'}}%
+              </strong>
+            </label>
+          </div>
+          <div class="col-md-12 mt-3">
+            <label>
+              <u>
+                Post Chart
+              </u>
+            </label>
+            <canvas id="postChart" height="0"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4 text-center mt-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <label>
+              <u>
+                Nombre de collaborateurs :
+              </u>
+              <br>
+              <strong>
+                {{dashboard.headCount}}
+              </strong>
+            </label>
+          </div>
+          <div class="col-md-6">
+            <label>
+              <u>
+                Nombre de démission :
+              </u>
+              <br>
+              <strong>
+                {{dashboard.demissionCount == undefined || dashboard.demissionCount == null ||
+                dashboard.demissionCount == 0 ? "Aucune démission":dashboard.demissionCount}}
+              </strong>
+            </label>
+          </div>
+          <div class="col-md-12">
+            <label>
+              <u>
+                Niveau Chart
+              </u>
+            </label>
+            <canvas id="headChart" height="0"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
