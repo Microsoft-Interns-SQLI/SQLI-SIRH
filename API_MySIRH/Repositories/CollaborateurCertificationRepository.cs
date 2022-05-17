@@ -33,6 +33,14 @@ namespace API_MySIRH.Repositories
                 .ToListAsync();
         }
 
+        public async Task<List<int>> GetAnnees()
+        {
+            return await _context.CollaborateurCertifications
+                                .Select(x => x.DateDebut.Value.Year)
+                                .Distinct()
+                                .ToListAsync();
+        }
+
         public Task<List<CollaborateurCertification>> GetByCertification(int id)
         {
             throw new NotImplementedException();

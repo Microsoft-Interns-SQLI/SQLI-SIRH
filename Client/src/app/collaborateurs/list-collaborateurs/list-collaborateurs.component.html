@@ -162,9 +162,15 @@
     <div *ngFor="let item of collaboratorsArray">
       <div class="card m-2" style="width: 17.5rem">
         <div class="text-center px-4 py-5">
-          <img src="https://bootstrapious.com/i/snippets/sn-team/teacher-2.jpg" alt="" width="100"
-            class="img-fluid rounded-circle mb-3 mx-auto img-thumbnail shadow-sm" /><a
-            [routerLink]="['/addEditcollaborateur', item.id]" style="text-decoration: none; color: black">
+          <img
+            [src]="item.imgPath"
+            alt=""
+            style="width: 100px; height:100px"
+            class="img-fluid rounded-circle mb-3 mx-auto img-thumbnail shadow-sm"
+          /><a
+            [routerLink]="['/addEditcollaborateur', item.id]"
+            style="text-decoration: none; color: black"
+          >
             <div class="fw-bold">
               {{ item.civilite == "M" ? "Mr" : "Mme" }}. {{ item?.nom }}
               {{ item?.prenom }}

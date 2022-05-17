@@ -67,6 +67,7 @@ import { PosteComponent } from './mdm-panel/poste/poste.component';
 import { NiveauComponent } from './mdm-panel/niveau/niveau.component';
 import { ModeComponent } from './mdm-panel/mode/mode.component';
 import { TypeContratComponent } from './mdm-panel/type-contrat/type-contrat.component';
+import { HeaderFormationCertificationComponent } from './formations-certifications/header-formation-certification/header-formation-certification.component';
 import { ModalAjoutDiplomeComponent } from './diplomes/modal-ajout-diplome/modal-ajout-diplome.component';
 import { ModalAjoutContratComponent } from './contrats/modal-ajout-contrat/modal-ajout-contrat.component';
 
@@ -114,9 +115,6 @@ import { ModalAjoutContratComponent } from './contrats/modal-ajout-contrat/modal
     DiplomesComponent,
     ContratsComponent,
     TableComponent,
-    DisplayItemDirective,
-    HandleStatusDisplayPipe,
-    PopupComponent,
     MdmPanelComponent,
     SiteComponent,
     SkillCenterComponent,
@@ -124,6 +122,11 @@ import { ModalAjoutContratComponent } from './contrats/modal-ajout-contrat/modal
     NiveauComponent,
     ModeComponent,
     TypeContratComponent,
+    HandleStatusDisplayPipe,
+    DisplayItemDirective,
+    HandleStatusDisplayPipe,
+    PopupComponent,
+    HeaderFormationCertificationComponent,
     ModalAjoutDiplomeComponent,
     ModalAjoutContratComponent,
   ],
