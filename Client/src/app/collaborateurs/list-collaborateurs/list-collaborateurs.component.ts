@@ -79,19 +79,18 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
           this.pagination = resp.pagination;
         },
         complete: () => {
-          
+          this.collaboratorsArray = this.collaboratorsArray.map((collab:Collaborator) =>{
+            
+            this.imageSubscription = this.imageService.checkImage(collab.id).subscribe({
+              next: d=>{
+                collab.imgPath = d ? `${environment.URL}api/Image/${collab.id}` : 'https://www.pngfind.com/pngs/m/676-6764065_default-profile-picture-transparent-hd-png-download.png';
+              },
+              error: er=> console.log(er)
+            });
+            return collab;
+          })
         },
       });
-      this.collaboratorsArray = this.collaboratorsArray.map((collab:Collaborator) =>{
-        console.log(collab);
-        this.imageSubscription = this.imageService.checkImage(collab.id).subscribe({
-          next: d=>{
-            collab.imgPath = d ? `${environment.URL}api/Image/${collab.id}` : 'https://bootstrapious.com/i/snippets/sn-team/teacher-2.jpg';
-          },
-          error: er=> console.log(er)
-        });
-        return collab;
-      })
   }
 
   //Executed when filter select change

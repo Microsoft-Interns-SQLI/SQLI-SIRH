@@ -1,3 +1,13 @@
 img {
   border-radius: 50%;
 }
+
+#image-btn{
+  position: absolute;
+  bottom: 20px;
+  right: 50px;
+  border-radius: 50%;
+  background-color: rgba(63, 63, 63, 0.950);
+  border-color: transparent;
+  color: white;
+}
