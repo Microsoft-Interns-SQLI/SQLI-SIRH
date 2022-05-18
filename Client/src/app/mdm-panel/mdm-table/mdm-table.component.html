@@ -1,24 +1,24 @@
-<div>
-  <p class="h2">Sites</p>
+<div class="my-4">
+  <p class="h2">{{ title }}</p>
   <table class="table mx-auto my-2">
     <thead>
       <tr>
-        <th class="col" scope="col">#</th>
+        <th scope="col">#</th>
         <th class="col-10" scope="col">Name</th>
-        <th class="col" scope="col">Actions</th>
+        <th scope="col">Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let site of sites">
-        <th scope="row">{{ site.id }}</th>
-        <td>{{ site.name }}</td>
+      <tr *ngFor="let item of Data">
+        <th scope="row">{{ item.id }}</th>
+        <td>{{ item.name }}</td>
         <td>
           <button
             class="col btn btn-sm btn-danger me-2 mb-1"
             data-bs-toggle="modal"
-            data-bs-target="#deleteSiteModal"
+            data-bs-target="#deleteNiveauModal"
             aria-label="delete"
-            (click)="onDelete(site.id)"
+            (click)="onDelete(item.id)"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@
       </tr>
       <tr [ngClass]="isAdding ? '' : 'isHidden'">
         <td></td>
-        <td><input type="text" [(ngModel)]="site" /></td>
+        <td><input type="text" [(ngModel)]="item" /></td>
         <td>
           <button
             class="col btn btn-sm btn-success me-2 mb-1"
@@ -66,7 +66,7 @@
 <!--Modal-->
 <div
   class="modal fade center"
-  id="deleteSiteModal"
+  id="deleteNiveauModal"
   tabindex="-1"
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"

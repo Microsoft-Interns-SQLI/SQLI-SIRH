@@ -5,58 +5,37 @@
                 <h5 class="modal-title" id="exampleModalLabel">
                     Ajout d'un diplôme
                 </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button id="btn-close-modal-diplome" type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
             </div>
             <form [formGroup]="form" (ngSubmit)="addDiplome(form)">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6 mt-3">
-                            <label>
-                                Année :
-                            </label>
-                            <input type="number" step="1" formControlName="annee" placeholder="Année d'obtention"
-                                class="form-control form-control-sm">
-                            <small class="text-red"
-                                *ngIf="form.get('annee')?.invalid && (form.get('annee')?.dirty || form.get('annee')?.touched)">
-                                Champs obligatoire.
-                            </small>
+                            <!-- todo : review -->
+                            <app-text-input [formControl]="$any(form.controls?.['annee'])" [type]="'number'"
+                                [label]="'Année'"></app-text-input>
                         </div>
+
                         <div class="col-md-6 mt-3">
-                            <label>
-                                Label :
-                            </label>
-                            <input formControlName="label" placeholder="Label" class="form-control form-control-sm">
-                            <small class="text-red"
-                                *ngIf="form.get('label')?.invalid && (form.get('label')?.dirty || form.get('label')?.touched)">
-                                Champs obligatoire.
-                            </small>
+                            <app-text-input [formControl]="$any(form.controls?.['label'])" [label]="'Label'">
+                            </app-text-input>
                         </div>
+
                         <div class="col-md-12 mt-3">
-                            <label>
-                                Détail :
-                            </label>
-                            <input formControlName="detail" placeholder="Détail" class="form-control form-control-sm">
-                            <small class="text-red"
-                                *ngIf="form.get('detail')?.invalid && (form.get('detail')?.dirty || form.get('detail')?.touched)">
-                                Champs obligatoire.
-                            </small>
+                            <app-text-input [formControl]="$any(form.controls?.['detail'])" [label]="'Détail'">
+                            </app-text-input>
                         </div>
+
                         <div class="col-md-12 mt-3">
-                            <label>
-                                Description :
-                            </label>
-                            <textarea formControlName="description" placeholder="Description" rows="3"
-                                class="form-control form-control-sm"></textarea>
-                            <small class="text-red"
-                                *ngIf="form.get('description')?.invalid && (form.get('description')?.dirty || form.get('description')?.touched)">
-                                Champs obligatoire.
-                            </small>
+                            <app-textarea-input [label]="'Description'" [rows]="4"
+                                [formControl]="$any(form.controls?.['description'])"></app-textarea-input>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Annuler</button>
-                    <button type="submit" class="btn btn-outline-success" data-bs-dismiss="modal">Confirmer</button>
+                    <button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-sm btn-primary">Sauvegarder</button>
                 </div>
             </form>
         </div>

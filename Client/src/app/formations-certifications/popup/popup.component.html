@@ -1,8 +1,8 @@
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title">Edit Cerification {{certification.id}} Collaborateur
-                {{certification.collaborateurId}}</h5>
+            <h5 class="modal-title">Edit {{type}} {{model.id}} collaborateur
+                {{model.collaborateurId}}</h5>
             <button type="button" class="btn-close" (click)="hideModal()"></button>
         </div>
 
@@ -19,7 +19,7 @@
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">Date Début</span>
-                    <input type="date" class="form-control" [ngModel]="certification.dateDebut | date: 'yyyy-MM-dd'" name="dateDebut" required>
+                    <input type="date" class="form-control" [ngModel]="model.dateDebut | date: 'yyyy-MM-dd'" name="dateDebut" required>
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">Date Fin</span>

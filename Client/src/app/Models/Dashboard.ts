@@ -12,4 +12,7 @@ export interface Dashboard {
     operationnelCount: number
     confirmeCount: number
     seniorCount: number
+    tauxEncadrement: number
+    tauxSoustraitant : number   
+    averageExp:number
 }

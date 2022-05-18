@@ -5,7 +5,8 @@ import { CollabFormationCertif } from '../Models/collaborationCertificationForma
 import { Collaborator } from '../Models/Collaborator';
 import { Pagination } from '../Models/pagination';
 import { CollaboratorsService } from '../services/collaborators.service';
-import { FormationCertificationsService } from '../services/formation-certifications.service';
+import { FormationCertificationResponse, FormationCertificationsService } from '../services/formation-certifications.service';
+import { SpinnerService } from '../services/spinner.service';
 
 @Component({
   selector: 'app-formations',
@@ -14,10 +15,13 @@ import { FormationCertificationsService } from '../services/formation-certificat
 })
 export class FormationsComponent implements OnInit, OnDestroy {
 
-  selected: boolean = true;
+
   tab: CollabFormationCertif[] = [];
   cols: CertificationOrFormation[] = [];
   rows: Collaborator[] = [];
+  annees: number[] = [];
+  
+  selected: boolean = true;
 
   //Subscription
   subCollab!: Subscription;
@@ -32,7 +36,9 @@ export class FormationsComponent implements OnInit, OnDestroy {
     currentPage: this.pageNumber,
   } as Pagination;
 
-  constructor(private formationCertifService: FormationCertificationsService, private collaborateurService: CollaboratorsService) { }
+  constructor(private formationCertifService: FormationCertificationsService, 
+    private collaborateurService: CollaboratorsService,
+    private spinnerService: SpinnerService) { }
 
 
   ngOnInit(): void {
@@ -40,6 +46,7 @@ export class FormationsComponent implements OnInit, OnDestroy {
   }
 
   onSwitch() {
+
     this.loadCollaborators(this.pageSize, this.pageNumber);
 
     if (this.selected) {
@@ -50,8 +57,9 @@ export class FormationsComponent implements OnInit, OnDestroy {
       );
 
       this.subCollabCertif = this.formationCertifService.getCollabFormation().subscribe(
-        (data: CollabFormationCertif[])=>{
-          this.tab = data;
+        (data: FormationCertificationResponse)=>{
+          this.tab = data.list;
+          this.annees = data.annees;
         }
       )
 
@@ -63,8 +71,9 @@ export class FormationsComponent implements OnInit, OnDestroy {
       );
 
       this.subCollabCertif = this.formationCertifService.getCollabCertif().subscribe(
-        (data: CollabFormationCertif[])=>{
-          this.tab = data;
+        (data: FormationCertificationResponse)=>{
+          this.tab = data.list;
+          this.annees = data.annees;
         }
       )
     }
@@ -79,6 +88,11 @@ export class FormationsComponent implements OnInit, OnDestroy {
     orderbyFormation?:string,
     orderbyCertification?:string
   ) {
+    if (search != undefined) {
+      this.spinnerService.isSearch.next(true);
+    } else {
+      this.spinnerService.isSearch.next(false);
+    }
     this.subCollab = this.collaborateurService
       .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby,orderbyFormation, orderbyCertification)
       .subscribe(
@@ -106,6 +120,41 @@ export class FormationsComponent implements OnInit, OnDestroy {
       undefined, 
       this.selected ? libelle : undefined,
       !this.selected ? libelle : undefined);
+  }
+  onSearch(search:string){
+    this.loadCollaborators(
+      this.pageSize,
+      1,
+      undefined,
+      search === '' ? undefined : search,
+      undefined,
+      undefined,
+      undefined
+    )
+  }
+
+  filter(data:{status:number, year:number}){
+    this.filterTable(+data.status, data.year);
+  }
+
+  private filterTable(status?: number, annee?:number){
+    const s : number|undefined = status === 0 ? undefined : status;
+
+    if (this.selected) {
+
+      this.subCollabCertif = this.formationCertifService.getCollabFormation(s, annee).subscribe(
+        (data: FormationCertificationResponse)=>{
+          this.tab = data.list;
+        }
+      )
+
+    } else {
+      this.subCollabCertif = this.formationCertifService.getCollabCertif(s, annee).subscribe(
+        (data: FormationCertificationResponse)=>{
+          this.tab = data.list;
+        }
+      )
+    }
   }
 
   ngOnDestroy(): void {

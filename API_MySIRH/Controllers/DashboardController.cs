@@ -27,6 +27,7 @@ namespace API_MySIRH.Controllers
             dashboard.MaleCount = _dashboardService.GetMaleCount(collection);
             dashboard.DemissionCount = _dashboardService.GetDemissionCount(_collaborateurService.GetCollaborateurs());
             dashboard.AverageAge = _dashboardService.GetAverageAge(collection);
+            dashboard.AverageExp = _dashboardService.GetAverageExp(collection);
             dashboard.ICDCount = _dashboardService.GetHeadCountPerPoste(collection, "Ingénieur Concepteur développeur");
             dashboard.ExpertTechCount = _dashboardService.GetHeadCountPerPoste(collection, "Expert technique");
             dashboard.ChefDeProjetCount = _dashboardService.GetHeadCountPerPoste(collection, "Chef de projet technique");
@@ -35,6 +36,8 @@ namespace API_MySIRH.Controllers
             dashboard.OperationnelCount = _dashboardService.GetHeadCountPerNiveaux(collection, "Opérationnel");
             dashboard.ConfirmeCount = _dashboardService.GetHeadCountPerNiveaux(collection, "Confirmé");
             dashboard.SeniorCount = _dashboardService.GetHeadCountPerNiveaux(collection, "Sénior");
+            dashboard.TauxSoustraitant = _dashboardService.GetTauxSoustraitant(collection) * 100;
+            dashboard.TauxEncadrement = ((dashboard.ChefDeProjetCount + dashboard.ExpertTechCount + dashboard.ManagerCount)/dashboard.HeadCount)*100;
             return dashboard;
         }
 

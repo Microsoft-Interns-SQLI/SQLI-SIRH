@@ -1,8 +1,26 @@
 <div class="card sticky-top">
   <div class="card-body">
     <div class="card title text-center mb-3 px-4 py-5">
-      <img src="https://bootstrapious.com/i/snippets/sn-team/teacher-2.jpg" alt="" width="100"
-        class="img-fluid rounded-circle mb-3 mx-auto img-thumbnail shadow-sm" />
+      <div class="mb-3 shadow-sm alert"
+        [ngClass]="errorMessage ? 'alert-danger' : 'alert-white'">
+        <div class="text-danger" *ngIf="errorMessage"> {{errorMessage}} </div>
+        <div>
+          <img 
+          [src]="imgPath" 
+          alt=""
+          style="width: 120px; height:120px"
+          class="img-fluid rounded-circle img-thumbnail mx-auto mb-1" />
+          
+          <input type="file" style="display: none;" (change)="uploadImage($event)" #pictureInput>
+          <button id="image-btn" class="btn btn-sm mb-1" (click)="pictureInput.click()"><span class="bi bi-card-image" ></span></button>
+        </div>
+        <div *ngIf="selected">
+          <div class="progress" style="height: 2px;">
+            <div [style.width]="progress + '%'" class="progress-bar bg-success"  role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+
       <div class="fw-bold">
         {{ collab.civilite == 'M' ? "Mr" : "Mme" }}. {{ collab?.nom }}
         {{ collab?.prenom }}

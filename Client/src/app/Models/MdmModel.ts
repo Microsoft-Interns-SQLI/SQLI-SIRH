@@ -20,7 +20,7 @@ export class Site extends BaseMDM {
 
 export class RecruteMode extends BaseMDM {
   id: number = 0;
-  mode: string = '';
+  name: string = '';
 }
 
 export class SkillCenter extends BaseMDM {

@@ -36,8 +36,8 @@ export class TableComponent implements OnInit, OnDestroy, OnChanges {
     this.subPopup = this.popupService.isShow.subscribe(data => this.displayed = data);
   }
 
-  details(certif: CollabFormationCertif) {
-    this.popupService.show(certif);
+  details(model: CollabFormationCertif) {
+    this.popupService.show(model);
   }
 
   boxUpdated(value: CollabFormationCertif) {
@@ -68,7 +68,7 @@ export class TableComponent implements OnInit, OnDestroy, OnChanges {
         if (collabFormCert != undefined) {
           certificates.push(collabFormCert);
         } else {
-          certificates.push({ status: '' } as CollabFormationCertif);
+          certificates.push({ status: '', collaborateurId:collab.id, id: certif.id } as CollabFormationCertif);
         }
       });
 

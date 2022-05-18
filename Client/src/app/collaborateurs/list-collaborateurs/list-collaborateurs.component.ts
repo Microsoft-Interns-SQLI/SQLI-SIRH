@@ -5,8 +5,10 @@ import { Subscription } from 'rxjs';
 import { Collaborator } from 'src/app/Models/Collaborator';
 import { Pagination } from 'src/app/Models/pagination';
 import { CollaboratorsService } from 'src/app/services/collaborators.service';
+import { ImagesService } from 'src/app/services/images.service';
 import { SpinnerService } from 'src/app/services/spinner.service';
 import { ToastService } from 'src/app/shared/toast/toast.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-list-collaborateurs',
@@ -21,6 +23,7 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   //subscription
   exportSubscription!: Subscription;
   loadCollabSubscription!: Subscription;
+  imageSubscription!: Subscription;
 
   pageNumber = 1;
   pageSize = 10;
@@ -45,7 +48,11 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   trierParMatricule: boolean = false;
   trierParAnnee: boolean = false;
 
-  constructor(private service: CollaboratorsService, private toastService: ToastService, private spinnerService: SpinnerService) { }
+  constructor(
+    private service: CollaboratorsService, 
+    private imageService:ImagesService,
+    private toastService: ToastService, 
+    private spinnerService: SpinnerService) { }
 
 
   ngOnInit(): void {
@@ -72,6 +79,16 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
           this.pagination = resp.pagination;
         },
         complete: () => {
+          this.collaboratorsArray = this.collaboratorsArray.map((collab:Collaborator) =>{
+            
+            this.imageSubscription = this.imageService.checkImage(collab.id).subscribe({
+              next: d=>{
+                collab.imgPath = d ? `${environment.URL}api/Image/${collab.id}` : 'https://www.pngfind.com/pngs/m/676-6764065_default-profile-picture-transparent-hd-png-download.png';
+              },
+              error: er=> console.log(er)
+            });
+            return collab;
+          })
         },
       });
   }
@@ -137,7 +154,7 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
         this.loadCollaborators();
       });
     }
-    this.toastService.showToast("success", message);
+    this.toastService.showToast("success", message,2);
   }
   changeDisplay(event: any): void {
     if (event == 'table') {
@@ -164,6 +181,7 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.exportSubscription.unsubscribe();
     this.loadCollabSubscription.unsubscribe();
+    this.imageSubscription.unsubscribe();
   }
   trier(value: string) {
     switch (value) {
