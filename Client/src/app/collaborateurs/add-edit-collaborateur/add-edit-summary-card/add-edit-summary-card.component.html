@@ -4,18 +4,17 @@
       <div class="mb-3 shadow-sm alert"
         [ngClass]="errorMessage ? 'alert-danger' : 'alert-white'">
         <div class="text-danger" *ngIf="errorMessage"> {{errorMessage}} </div>
-        <img 
-            [src]="imgPath" 
-            alt=""
-            style="width: 100px; height:100px"
-            class="img-fluid rounded-circle img-thumbnail mx-auto mb-1" /><br>
         <div>
+          <img 
+          [src]="imgPath" 
+          alt=""
+          style="width: 120px; height:120px"
+          class="img-fluid rounded-circle img-thumbnail mx-auto mb-1" />
+          
           <input type="file" style="display: none;" (change)="uploadImage($event)" #pictureInput>
-          <button class="btn btn-sm btn-primary mb-1"><span class="bi bi-card-image" (click)="pictureInput.click()"></span></button>
+          <button id="image-btn" class="btn btn-sm mb-1" (click)="pictureInput.click()"><span class="bi bi-card-image" ></span></button>
         </div>
         <div *ngIf="selected">
-          <button class="btn btn-sm btn-success mx-1 mb-2"  (click)="onUpload()"><span class="bi bi-check"></span></button>
-          
           <div class="progress" style="height: 2px;">
             <div [style.width]="progress + '%'" class="progress-bar bg-success"  role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
           </div>

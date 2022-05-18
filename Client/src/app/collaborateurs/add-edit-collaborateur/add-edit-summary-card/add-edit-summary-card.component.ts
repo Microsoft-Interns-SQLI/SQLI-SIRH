@@ -18,7 +18,7 @@ export class AddEditSummaryCardComponent implements OnInit, OnDestroy, OnChanges
   selectedImage!: File;
   progress: number = 0;
   errorMessage: string = "";
-  imgPath: string = 'https://bootstrapious.com/i/snippets/sn-team/teacher-2.jpg';
+  imgPath: string = 'https://www.pngfind.com/pngs/m/676-6764065_default-profile-picture-transparent-hd-png-download.png';
 
   sub!: Subscription;
   subImage!: Subscription;
@@ -35,15 +35,20 @@ export class AddEditSummaryCardComponent implements OnInit, OnDestroy, OnChanges
     if (this.collab.id !== 0)
       this.subImage = this.imagesService.checkImage(this.collab.id).subscribe({
         next: d=>{
-          this.imgPath = d ? `${environment.URL}api/Image/${this.collab.id}` : 'https://bootstrapious.com/i/snippets/sn-team/teacher-2.jpg';
+          this.imgPath = d ? `${environment.URL}api/Image/${this.collab.id}` : 'https://www.pngfind.com/pngs/m/676-6764065_default-profile-picture-transparent-hd-png-download.png';
         },
         error: er=> console.log(er)
       });
   }
 
   uploadImage(image: any) {
-    this.selected = true;
     this.selectedImage = <File>image.target.files[0];
+    if(this.selectedImage)
+    {
+      this.selected = true;
+      this.onUpload();
+    }
+    else this.selected = false;
   }
   onUpload() {
     this.spinnerService.isSearch.next(true);
