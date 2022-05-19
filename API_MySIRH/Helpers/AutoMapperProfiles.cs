@@ -24,6 +24,7 @@ namespace API_MySIRH.Helpers
             CreateMap<Document, FileDTO>().ReverseMap();
 
             CreateMap<Demission, DemissionDTO>().ReverseMap();
+            CreateMap<ReasonDemission, ReasonDemissionDTO>().ReverseMap();
 
             CreateMap<CollaborateurTypeContratDTO, CollaborateurTypeContrat>().ReverseMap();
             CreateMap<CollaborateurDTO, Collaborateur>().ReverseMap();

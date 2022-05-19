@@ -153,4 +153,27 @@ export class MdmService {
   deleteContrat(id: number) {
     return this.http.delete(`${this.myUrl}contrats/${id}`);
   }
+
+  // Reasons Demission
+
+  getReasonDemissions() {
+    return this.http.get<Contrat[]>(this.myUrl + 'reasondemission');
+  }
+
+  getReasonDemission(id: number): Observable<Contrat> {
+    return this.http.get<Contrat>(`${this.myUrl}reasondemission/${id}`);
+  }
+
+  addReasonDemission(contrat: any) {
+    return this.http.post<Contrat>(`${this.myUrl}reasondemission/`, contrat);
+  }
+
+  updateReasonDemission(id: number, contrat: any) {
+    return this.http.put<Contrat>(`${this.myUrl}reasondemission/${id}`, contrat);
+  }
+
+  deleteReasonDemission(id: number) {
+    return this.http.delete(`${this.myUrl}reasondemission/${id}`);
+  }
+
 }

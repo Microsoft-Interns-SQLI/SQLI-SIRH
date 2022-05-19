@@ -40,6 +40,7 @@ namespace API_MySIRH.Data
         public DbSet<Demission> Demissions { get; set; }
         public DbSet<Formation> Formations { get; set; }
         public DbSet<CollaborateurFormation> CollaborateurFormations { get; set; }
+        public DbSet<ReasonDemission> ReasonDemissions { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

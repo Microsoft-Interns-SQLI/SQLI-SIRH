@@ -64,6 +64,7 @@ namespace API_MySIRH.Controllers
             await this._dataContext.ModesRecrutements.AddRangeAsync(this.SeedModeRecrutement());
             await this._dataContext.Certifications.AddRangeAsync(this.SeedCertifications());
             await this._dataContext.Formations.AddRangeAsync(this.SeedFormations());
+            await this._dataContext.ReasonDemissions.AddRangeAsync(this.SeedReasonsDemission());
             this._dataContext.SaveChanges();
 
             this._dataContext.Collaborateurs.AddRange(await this.SeedCollaborateurs());
@@ -305,6 +306,17 @@ namespace API_MySIRH.Controllers
                 new ModeRecrutement{ Name="Stage PFE"},
                 new ModeRecrutement{ Name="Cooptation"},
                 new ModeRecrutement{ Name="Autre"},
+            };
+        }
+
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public List<ReasonDemission> SeedReasonsDemission()
+        {
+            return new List<ReasonDemission>
+            {
+                new ReasonDemission { Name = "Reason 1" },
+                new ReasonDemission { Name = "Reason 2" },
+                new ReasonDemission { Name = "Reason 3" }
             };
         }
 

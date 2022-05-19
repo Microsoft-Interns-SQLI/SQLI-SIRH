@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Collaborator } from 'src/app/Models/Collaborator';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Collaborator, Demission } from 'src/app/Models/Collaborator';
 
 @Component({
   selector: 'app-demission-tab',
@@ -7,9 +7,15 @@ import { Collaborator } from 'src/app/Models/Collaborator';
 })
 export class DemissionTabComponent implements OnInit {
   @Input() collab!: Collaborator;
+  @Output() updateDemission = new EventEmitter<number>();
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  submitDemission(id: number) {
+    this.updateDemission.emit(id);
   }
 
 }

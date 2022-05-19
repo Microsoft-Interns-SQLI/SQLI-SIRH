@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace API_MySIRH.Migrations
 {
-    public partial class migrateDb : Migration
+    public partial class migrateDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -166,6 +166,21 @@ namespace API_MySIRH.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Posts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ReasonDemissions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModificationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReasonDemissions", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -516,7 +531,8 @@ namespace API_MySIRH.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DateSortieSqli = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DateDemission = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ReasonDemission = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ReasonDemissionId = table.Column<int>(type: "int", nullable: true),
+                    Comment = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsCanceled = table.Column<bool>(type: "bit", nullable: false),
                     CollaborateurId = table.Column<int>(type: "int", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -531,6 +547,11 @@ namespace API_MySIRH.Migrations
                         principalTable: "Collaborateurs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Demissions_ReasonDemissions_ReasonDemissionId",
+                        column: x => x.ReasonDemissionId,
+                        principalTable: "ReasonDemissions",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -586,17 +607,17 @@ namespace API_MySIRH.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { 2, "3c882871-e2e5-4912-945d-91e7f6e8b724", "Admin", "ADMIN" });
+                values: new object[] { 2, "073f039b-3a12-4c54-9af8-47ee33cf93f0", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { 3, "59d5771e-4471-414b-874f-f2af38c08d6f", "Manager", "MANAGER" });
+                values: new object[] { 3, "6c62d17f-e7e7-4f41-be5a-f10ddf31ade2", "Manager", "MANAGER" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 1, 0, "1172d92e-b5ee-4776-afd1-b3b4b14ad7cd", "Admin@sqli.com", false, false, null, "ADMIN@SQLI.COM", "ADMINUSER", "AQAAAAEAACcQAAAAEA7X7fxLf3a5rG31phm01mBCZYDm/U+LbeOvUiB/qvBJ6iz1+SlDIFJ9iwhK8wpP5A==", null, false, null, false, "AdminUser" });
+                values: new object[] { 1, 0, "2614b0d3-04b0-47b1-932b-b6b30ac1e80f", "Admin@sqli.com", false, false, null, "ADMIN@SQLI.COM", "ADMINUSER", "AQAAAAEAACcQAAAAECRM7w9c0oA72v51N3BUnPzdm72nQpwLCSLGjVjwDxfWIvG/Yhbsj8+Q6NoHYtjDgQ==", null, false, null, false, "AdminUser" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -693,6 +714,11 @@ namespace API_MySIRH.Migrations
                 column: "CollaborateurId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Demissions_ReasonDemissionId",
+                table: "Demissions",
+                column: "ReasonDemissionId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Diplomes_CollaborateurId",
                 table: "Diplomes",
                 column: "CollaborateurId");
@@ -766,6 +792,9 @@ namespace API_MySIRH.Migrations
 
             migrationBuilder.DropTable(
                 name: "TypeContrats");
+
+            migrationBuilder.DropTable(
+                name: "ReasonDemissions");
 
             migrationBuilder.DropTable(
                 name: "Collaborateurs");

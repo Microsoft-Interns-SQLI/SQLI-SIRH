@@ -11,32 +11,51 @@
     </button>
   </div>
 </div>
+
+<div>
+  <app-header (pageSize)="changePageSize($event)" (search)="search($event)"></app-header>
+</div>
+
+<hr />
+
 <div>
   <table class="table">
     <thead>
-      <th>PLACE HOLDER 0</th>
-      <th>PLACE HOLDER 1</th>
-      <th>PLACE HOLDER 2</th>
-      <th>PLACE HOLDER 3</th>
-      <th>PLACE HOLDER 4</th>
-      <th>PLACE HOLDER 5</th>
-      <th>PLACE HOLDER 6</th>
-      <th>PLACE HOLDER 7</th>
-      <th>PLACE HOLDER 8</th>
-      <th>PLACE HOLDER 9</th>
-      <th>PLACE HOLDER 10</th>
+      <th>#MATRICULE</th>
+      <th>nom & prenom</th>
+      <th>site</th>
+      <th>Skill Center</th>
+      <th>poste & niveau</th>
+      <th>Date entree sqli</th>
+      <th>XP</th>
+      <th>Date demission</th>
+      <th>Date sortie</th>
+      <th>Motive</th>
       <th style="text-align:right">Options</th>
     </thead>
     <tbody>
-      <!-- <tr class="shadow-sm p-3 mb-5 bg-body rounded align-baseline" *ngFor="let item of toDoListArray">
-        <td><a [routerLink]="" (click)="modalEdit(item)" data-bs-toggle="modal" data-bs-target="#staticBackdrop" > {{item.titre}} </a></td>
-        <td>{{item.description}}</td>
-        <td>{{item.creationDate | date }}</td>
-        <td>{{item.itemsNumerDone}}/{{item.itemsNumber}}</td>
-        <td id="options">
+      <tr class="shadow-sm p-3 mb-5 bg-body rounded align-baseline" id="{{ item.id }}"
+        *ngFor="let item of demissionsArray">
+        <td class="text-start">{{ item.matricule }}</td>
+        <td>
+          {{ item.nom }} <br />
+          {{ item.prenom }}
+        </td>
+        <td>{{ item.site?.name }}</td>
+        <td>{{ item.skillCenter?.name }}</td>
+        <td>
+          {{ item.poste?.name }} <br>
+          {{ item.niveau?.name }}
+        </td>
+        <td>{{ item.dateEntreeSqli | date: 'longDate' }}</td>
+        <td>{{ calculateYears(item.datePremiereExperience) }}</td>
+        <td>{{ item.demissions[item.demissions.length - 1].dateDemission | date: 'longDate' }}</td>
+        <td>{{ item.demissions[item.demissions.length - 1].dateSortieSqli | date: 'longDate' }}</td>
+        <td>{{ item.demissions[item.demissions.length - 1].reasonDemission?.name || 'N/A' }}</td>
+        <td id="options" class="text-end">
           <div class="container justify-content-end">
-            <button class="btn btn-sm btn-primary me-2 mb-1" (click)="modalEdit(item)" data-bs-toggle="modal"
-              data-bs-target="#staticBackdrop" aria-label="edit">
+            <button [routerLink]="['/addEditcollaborateur', item.id]" class="btn btn-sm btn-primary me-2 mb-1"
+              aria-label="edit">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                 class="bi bi-pencil-square" viewBox="0 0 16 16">
                 <path
@@ -45,7 +64,8 @@
                   d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
               </svg>
             </button>
-            <button class="btn btn-sm btn-danger me-2 mb-1" (click)="deleteItem(item)" aria-label="delete">
+            <!-- <button (click)="deleteCollab(item)" class="btn btn-sm btn-danger me-2 mb-1" data-bs-toggle="modal"
+              data-bs-target="#deleteModal" aria-label="delete">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
                 viewBox="0 0 16 16">
                 <path
@@ -53,11 +73,14 @@
                 <path fill-rule="evenodd"
                   d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
               </svg>
-            </button>
+            </button> -->
           </div>
         </td>
-
-      </tr> -->
+      </tr>
     </tbody>
   </table>
+</div>
+
+<div>
+  <app-footer [pagination]="pagination" (pageNumber)="getCurrentPage($event)"></app-footer>
 </div>

@@ -4,6 +4,7 @@ import { ContratsComponent } from 'src/app/contrats/contrats.component';
 import { Collaborator, Demission } from 'src/app/Models/Collaborator';
 import { ContratsService } from 'src/app/services/contrats.service';
 import { MdmService } from 'src/app/services/mdm.service';
+import { ModalAjoutDemissionComponent } from './_demission_tab/modal-ajout-demission/modal-ajout-demission.component';
 import {
   SelectInputData,
   SelectInputObject,
@@ -15,6 +16,7 @@ import {
 })
 export class AddEditFormTableComponent implements OnInit {
   @ViewChild('contrats') contrats!: ContratsComponent;
+  @ViewChild(ModalAjoutDemissionComponent) triggerUpdate!:ModalAjoutDemissionComponent;
   @Input() collab!: Collaborator;
   @Input() myFormGroup!: FormGroup;
 
@@ -23,6 +25,7 @@ export class AddEditFormTableComponent implements OnInit {
   niveauxData: any = new SelectInputData();
   postesData: any = new SelectInputData();
   situationFamilialeData: any = new SelectInputData();
+  demission?: Demission = undefined;
 
   constructor(private service: MdmService, private contratService: ContratsService) { }
 
@@ -60,12 +63,28 @@ export class AddEditFormTableComponent implements OnInit {
     })
   }
 
-  updateDemission(event: Demission) {
+  addDemission(event: Demission) {
     let data: Demission;
 
     data = event;
-    this.collab.demissions = [data, ...this.collab.demissions]  
-    console.log(this.collab.demissions);
+    if (data.id != 0) {
+      this.collab.demissions.forEach((el) => {
+        if (el.id == data.id) {
+          el = data;
+        }
+      })
+      return ;
+    }
+    this.collab.demissions = [...this.collab.demissions, data]
+  }
+
+  updateDemission(event: number) {
+    this.collab.demissions.forEach((el) => {
+      if (el.id == event) {
+        this.triggerUpdate.demission = el as Demission;
+        this.triggerUpdate.constructForm();
+      }
+    })
   }
 
 }

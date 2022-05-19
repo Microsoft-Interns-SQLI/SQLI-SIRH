@@ -1,4 +1,6 @@
 ﻿using API_MySIRH.DTOs;
+using API_MySIRH.Extentions;
+using API_MySIRH.Helpers;
 using API_MySIRH.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,9 +19,10 @@ namespace API_MySIRH.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CollaborateurDTO>>> GetDemissions()
+        public async Task<ActionResult<IEnumerable<CollaborateurDTO>>> GetDemissions([FromQuery] FilterParams filterParams)
         {
-            var res = _demissionService.GetCollaborateursDemissioned();
+            var res = await _demissionService.GetCollaborateursDemissioned(filterParams);
+            Response.AddPaginationHeader(res.CurrentPage, res.PageSize, res.TotalCount, res.TotalPages);
             return Ok(res);
         }
         [HttpPost]

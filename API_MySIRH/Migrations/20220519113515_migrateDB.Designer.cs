@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_MySIRH.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220513112305_migrateDb")]
-    partial class migrateDb
+    [Migration("20220519113515_migrateDB")]
+    partial class migrateDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -57,14 +57,14 @@ namespace API_MySIRH.Migrations
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "3c882871-e2e5-4912-945d-91e7f6e8b724",
+                            ConcurrencyStamp = "073f039b-3a12-4c54-9af8-47ee33cf93f0",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "59d5771e-4471-414b-874f-f2af38c08d6f",
+                            ConcurrencyStamp = "6c62d17f-e7e7-4f41-be5a-f10ddf31ade2",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -142,13 +142,13 @@ namespace API_MySIRH.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1172d92e-b5ee-4776-afd1-b3b4b14ad7cd",
+                            ConcurrencyStamp = "2614b0d3-04b0-47b1-932b-b6b30ac1e80f",
                             Email = "Admin@sqli.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@SQLI.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEA7X7fxLf3a5rG31phm01mBCZYDm/U+LbeOvUiB/qvBJ6iz1+SlDIFJ9iwhK8wpP5A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECRM7w9c0oA72v51N3BUnPzdm72nQpwLCSLGjVjwDxfWIvG/Yhbsj8+Q6NoHYtjDgQ==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "AdminUser"
@@ -475,6 +475,10 @@ namespace API_MySIRH.Migrations
                     b.Property<int>("CollaborateurId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
@@ -490,13 +494,14 @@ namespace API_MySIRH.Migrations
                     b.Property<DateTime>("ModificationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ReasonDemission")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("ReasonDemissionId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CollaborateurId");
+
+                    b.HasIndex("ReasonDemissionId");
 
                     b.ToTable("Demissions");
                 });
@@ -693,6 +698,29 @@ namespace API_MySIRH.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("API_MySIRH.Entities.ReasonDemission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ModificationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ReasonDemissions");
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.Site", b =>
@@ -1028,12 +1056,18 @@ namespace API_MySIRH.Migrations
             modelBuilder.Entity("API_MySIRH.Entities.Demission", b =>
                 {
                     b.HasOne("API_MySIRH.Entities.Collaborateur", "Collaborateur")
-                        .WithMany("Demission")
+                        .WithMany("Demissions")
                         .HasForeignKey("CollaborateurId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("API_MySIRH.Entities.ReasonDemission", "ReasonDemission")
+                        .WithMany()
+                        .HasForeignKey("ReasonDemissionId");
+
                     b.Navigation("Collaborateur");
+
+                    b.Navigation("ReasonDemission");
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.Diplome", b =>
@@ -1126,7 +1160,7 @@ namespace API_MySIRH.Migrations
 
                     b.Navigation("CollaborateurFormations");
 
-                    b.Navigation("Demission");
+                    b.Navigation("Demissions");
 
                     b.Navigation("Diplomes");
 

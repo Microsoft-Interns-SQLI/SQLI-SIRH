@@ -6,25 +6,38 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="container">
-          <div class="mb-3">
-            <label class="form-label">{{'Date Demission' | titlecase}} :</label>
-            <input class="form-control" type="date" [valueAsDate]="demission.dateDemission" (change)="demission.dateDemission = $any($event.target).valueAsDate"/>
+        <form [formGroup]="form">
+          <div class="row">
+            <div class="col-md-6 mt3">
+              <app-text-input
+                [formControl]="$any(form.controls?.['dateDemission'])"
+                [label]="'Date Demission'"
+                [type]="'date'"></app-text-input>
+            </div>
+            <div class="col-md-6 mt3">
+              <app-text-input
+                [formControl]="$any(form.controls?.['dateSortieSqli'])"
+                [label]="'Date Sortie'"
+                [type]="'date'"></app-text-input>
+            </div>
+            <div class="col-md-12 mt3">
+              <app-select-input
+                [formControl]="$any(form.controls?.['reasonDemission'])"
+                [data]="data"
+                [label]="'Reason'"></app-select-input>
+            </div>
+            <div class="col-md-12 mt3">
+              <app-textarea-input
+                [formControl]="$any(form.controls?.['comment'])"
+                [label]="'comment'"></app-textarea-input>
+            </div>
           </div>
-          <div class="mb-3">
-            <label class="form-label">{{'Date Sortie' | titlecase}} :</label>
-            <input class="form-control" type="date" [valueAsDate]="demission.dateSortieSqli" (change)="demission.dateSortieSqli = $any($event.target).valueAsDate" />
-          </div>
-          <div class="mb-3">
-            <label class="form-label">{{'Reason' | titlecase}} :</label>
-            <input class="form-control" type="text" [(ngModel)]="demission.reasonDemission" />
-          </div>
-        </div>
+        </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" (click)="submitDemission()" data-bs-dismiss="modal">Save changes</button>
+        <button type="button" class="btn btn-secondary" (click)="resetFrom()" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="submitDemission()" data-bs-dismiss="modal">Save
+          changes</button>
       </div>
     </div>
   </div>
-</div>

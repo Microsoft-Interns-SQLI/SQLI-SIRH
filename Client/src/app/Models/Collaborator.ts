@@ -1,5 +1,5 @@
 import { CollabFile } from './collabFile';
-import { Diplome, Site } from './MdmModel';
+import { Diplome, ReasonDemission, Site, SkillCenter } from './MdmModel';
 import { Niveau, Poste, RecruteMode } from './MdmModel';
 export class Collaborator {
   id: number = 0;
@@ -27,7 +27,7 @@ export class Collaborator {
   niveau?: Niveau;
   siteId?: number;
   site?: Site;
-  skillCenter: string = '';
+  skillCenter?: SkillCenter;
   emailPersonnel: string = '';
   email: string = '';
   competencePrincipale: string = '';
@@ -50,6 +50,8 @@ export class Demission {
   modificationDate: Date = new Date();
   dateSortieSqli: Date = new Date();
   dateDemission: Date = new Date();
-  reasonDemission: string = "";
+  reasonDemissionId: number = 0;
+  reasonDemission?: ReasonDemission;
+  comment: string = "";
   isCanceled: boolean = false;
 }
