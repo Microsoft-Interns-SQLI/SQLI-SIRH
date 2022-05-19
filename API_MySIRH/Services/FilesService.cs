@@ -25,7 +25,7 @@ namespace API_MySIRH.Services
             throw new NotImplementedException();
         }
 
-        public async Task<ICollection<FileDTO>> UploadFile(IFormFileCollection files, int collabId)
+        public async Task<ICollection<FileDTO>> UploadFile(IFormFileCollection files, string type, int collabId)
         {
             var folderName = Path.Combine(_env.ContentRootPath, "Upload\\files");
             ICollection<FileDTO> Paths = new List<FileDTO>();
@@ -49,10 +49,10 @@ namespace API_MySIRH.Services
                     fileToAdd.URL = fullPath;
                     fileToAdd.FileName = fileName;
                     fileToAdd.FileId = fileId;
+                    fileToAdd.Type = type;
                     fileToAdd.CollaborateurId = collabId;
                     await _fileRepository.Upload(_mapper.Map<Document>(fileToAdd));
                     Paths.Add(fileToAdd);
-
                 }
                 else
                 {
