@@ -26,26 +26,24 @@ export class AddEditFormTableComponent implements OnInit {
   postesData: any = new SelectInputData();
   situationFamilialeData: any = new SelectInputData();
 
-  constructor(
-    private service: MdmService
-  ) { }
+  constructor(private service: MdmService) {}
 
   ngOnInit(): void {
     this.civiliteData.data = [
       new SelectInputObject('M', 'Mr.'),
       new SelectInputObject('F', 'Mme.'),
     ];
-    this.service.getRecrutementMode().subscribe((res) => {
+    this.service.getAll('modes').subscribe((res) => {
       this.recruteModeData.data = res.map(
         (obj) => new SelectInputObject(obj.id, obj.name)
       );
     });
-    this.service.getNiveaux().subscribe((res) => {
+    this.service.getAll('niveaux').subscribe((res) => {
       this.niveauxData.data = res.map(
         (obj) => new SelectInputObject(obj.id, obj.name)
       );
     });
-    this.service.getPostes().subscribe((res) => {
+    this.service.getAll('postes').subscribe((res) => {
       this.postesData.data = res.map(
         (obj) => new SelectInputObject(obj.id, obj.name)
       );
