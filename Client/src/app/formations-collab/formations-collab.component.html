@@ -1,0 +1,18 @@
+<table class="table text-center">
+    <thead>
+        <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Statut</th>
+            <th scope="col">Date de début</th>
+            <th scope="col">Date de fin</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of table">
+            <td scope="row" >{{item.formation.libelle}}</td>
+            <td [appDisplayItem]="item.intersection.status">{{item.intersection.status | handleStatusDisplay}}</td>
+            <td>{{item.intersection.dateDebut | date: 'fullDate'}}</td>
+            <td>{{item.intersection.dateFin | date: 'fullDate'}}</td>
+        </tr>
+    </tbody>
+</table>

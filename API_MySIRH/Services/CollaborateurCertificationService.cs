@@ -17,9 +17,9 @@ namespace API_MySIRH.Services
             _mapper = mapper;
         }
 
-        public Task Add(CollaborateurCertificationDTO collaborateurCertification)
+        public async Task Add(CollaborateurCertificationDTO collaborateurCertification)
         {
-            throw new NotImplementedException();
+            await _collaborateurCertificationRepository.Add(_mapper.Map<CollaborateurCertification>(collaborateurCertification));
         }
 
         public Task Delete(CollaborateurCertificationDTO collaborateurCertification)
@@ -27,7 +27,7 @@ namespace API_MySIRH.Services
             throw new NotImplementedException();
         }
 
-        public async Task<List<CollaborateurCertificationDTO>> GetAll(FilterParamsForCertifAndFormation filter)
+        public async Task<CollaborateurCertificationResponse> GetAll(FilterParamsForCertifAndFormation filter)
         {
             var list = await _collaborateurCertificationRepository.GetAll();
 
@@ -41,7 +41,9 @@ namespace API_MySIRH.Services
                 list = list.Where(cc => cc.DateDebut.Value.Year == filter.annee).ToList();
             }
 
-            return _mapper.Map<List<CollaborateurCertificationDTO>>(list);
+            var cfDto = _mapper.Map<List<CollaborateurCertificationDTO>>(list);
+
+            return cfDto.GroupBy(x => x.DateDebut.Value.Year).Select(grp => new CollaborateurCertificationResponse { Annee = grp.Key, List = grp.ToList() }).FirstOrDefault();
         }
         public async Task<List<int>> GetAnnees()
         {

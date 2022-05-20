@@ -70,6 +70,7 @@ import { TypeContratComponent } from './mdm-panel/type-contrat/type-contrat.comp
 import { HeaderFormationCertificationComponent } from './formations-certifications/header-formation-certification/header-formation-certification.component';
 import { ModalAjoutDiplomeComponent } from './diplomes/modal-ajout-diplome/modal-ajout-diplome.component';
 import { ModalAjoutContratComponent } from './contrats/modal-ajout-contrat/modal-ajout-contrat.component';
+import { FormationsCollabComponent } from './formations-collab/formations-collab.component';
 
 @NgModule({
   declarations: [
@@ -129,6 +130,7 @@ import { ModalAjoutContratComponent } from './contrats/modal-ajout-contrat/modal
     HeaderFormationCertificationComponent,
     ModalAjoutDiplomeComponent,
     ModalAjoutContratComponent,
+    FormationsCollabComponent,
   ],
   imports: [
     CommonModule,

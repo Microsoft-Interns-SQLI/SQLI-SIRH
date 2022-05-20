@@ -8,4 +8,10 @@
         public int CollaborateurId { get; set; }
         public int FormationId { get; set; }
     }
+
+    public class CollaborateurFormationResponse
+    {
+        public int Annee { get; set; }
+        public List<CollaborateurFormationDTO> List { get; set; }
+    }
 }

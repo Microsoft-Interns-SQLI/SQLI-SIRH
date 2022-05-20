@@ -9,4 +9,10 @@
 
         public int CertificationId { get; set; }
     }
+
+    public class CollaborateurCertificationResponse
+    {
+        public int Annee { get; set; }
+        public List<CollaborateurCertificationDTO> List { get; set; }
+    }
 }

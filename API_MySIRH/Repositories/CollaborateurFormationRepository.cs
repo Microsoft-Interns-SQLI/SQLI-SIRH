@@ -14,9 +14,11 @@ namespace API_MySIRH.Repositories
             _context = context;
         }
 
-        public Task Add(CollaborateurFormation collaborateurFormation)
+        public async Task Add(CollaborateurFormation collaborateurFormation)
         {
-            throw new NotImplementedException();
+            await _context.CollaborateurFormations.AddAsync(collaborateurFormation);
+            await _context.SaveChangesAsync();
+
         }
 
         public Task Delete(CollaborateurFormation collaborateurFormation)
@@ -42,9 +44,9 @@ namespace API_MySIRH.Repositories
                                 .ToListAsync();
         }
 
-        public Task<List<CollaborateurFormation>> GetByCollaborateur(int id)
+        public async Task<List<CollaborateurFormation>> GetByCollaborateur(int id)
         {
-            throw new NotImplementedException();
+            return await _context.CollaborateurFormations.Where(x => x.CollaborateurId == id).ToListAsync();
         }
 
         public Task<List<CollaborateurFormation>> GetByFormation(int id)

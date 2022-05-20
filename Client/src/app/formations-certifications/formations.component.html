@@ -18,12 +18,12 @@
       (searchEvent)="onSearch($event)">
   </app-header-formation-certification>
 </div>
-<div class="table-scroll">
+<!-- <div class="table-scroll">
   <app-table [type]='selected' [table] ="tab" [rows]="rows" [cols]="cols" (sortValue)="sortData($event)"></app-table>
 </div>
 <div>
   <app-footer [pagination]="pagination" (pageNumber)="getCurrentPage($event)"></app-footer>
-</div>
+</div> -->
 
 
 <div class="card">
@@ -42,7 +42,14 @@
     <div class="row">
       <div class="col-md-12">
         <div class="table-scroll">
-          <app-table [type]='selected' [table]="tab" [rows]="rows" [cols]="cols" (sortValue)="sortData($event)">
+          <app-table 
+            [type]='selected' 
+            [table]="tab" 
+            [rows]="rows" 
+            [cols]="cols" 
+            [yearSelected]="yearSelected"
+            (sortValue)="sortData($event)" 
+            (yearChanged)="updateYears($event)">
           </app-table>
         </div>
       </div>

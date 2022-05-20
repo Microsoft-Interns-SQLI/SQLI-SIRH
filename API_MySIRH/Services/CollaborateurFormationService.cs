@@ -3,7 +3,6 @@ using API_MySIRH.Entities;
 using API_MySIRH.Helpers;
 using API_MySIRH.Interfaces;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 
 namespace API_MySIRH.Services
 {
@@ -18,9 +17,9 @@ namespace API_MySIRH.Services
             _mapper = mapper;
         }
 
-        public Task Add(CollaborateurFormationDTO collaborateurFormation)
+        public async Task Add(CollaborateurFormationDTO collaborateurFormation)
         {
-            throw new NotImplementedException();
+            await _collaborateurFormationRepository.Add(_mapper.Map<CollaborateurFormation>(collaborateurFormation));
         }
 
         public Task Delete(CollaborateurFormationDTO collaborateurFormation)
@@ -28,30 +27,29 @@ namespace API_MySIRH.Services
             throw new NotImplementedException();
         }
 
-        public async Task<List<CollaborateurFormationDTO>> GetAll(FilterParamsForCertifAndFormation filter)
+        public async Task<CollaborateurFormationResponse> GetAll(FilterParamsForCertifAndFormation filter)
         {
             var list = await _collaborateurFormationRepository.GetAll();
 
-            if (filter.status != null && filter.status != 0)
-            {
-                list = list.Where(cf => cf.Status == filter.status).ToList();
-            }
+            list = FiltrerTable(filter, list);
 
-            if (filter.annee != null && filter.annee.ToString().Length >= 4 && filter.annee != 0)
-            {
-                list = list.Where(cc => cc.DateDebut.Value.Year == filter.annee).ToList();
-            }
+            var cfDto = _mapper.Map<List<CollaborateurFormationDTO>>(list);
 
-            return _mapper.Map<List<CollaborateurFormationDTO>>(list);
+            return cfDto.GroupBy(x => x.DateDebut.Value.Year).Select(grp => new CollaborateurFormationResponse { Annee = grp.Key, List = grp.ToList() }).FirstOrDefault();
         }
+        
         public async Task<List<int>> GetAnnees()
         {
             return await _collaborateurFormationRepository.GetAnnees();
 
         }
-        public Task<List<CollaborateurFormationDTO>> GetByCollaborateur(int id)
+        public async Task<CollaborateurFormationResponse> GetByCollaborateur(int id, FilterParamsForCertifAndFormation filter)
         {
-            throw new NotImplementedException();
+            var list = FiltrerTable(filter,await _collaborateurFormationRepository.GetByCollaborateur(id));
+
+            var cfDTO = _mapper.Map<List<CollaborateurFormationDTO>>(list);
+
+            return cfDTO.GroupBy(x => x.DateDebut.Value.Year).Select(g => new CollaborateurFormationResponse { Annee = g.Key, List = g.ToList() }).FirstOrDefault();
         }
 
         public Task<List<CollaborateurFormationDTO>> GetByFormation(int id)
@@ -67,6 +65,22 @@ namespace API_MySIRH.Services
         public async Task Update(CollaborateurFormationDTO collaborateurFormation)
         {
             await _collaborateurFormationRepository.Update(_mapper.Map<CollaborateurFormation>(collaborateurFormation));
+        }
+
+
+        private List<CollaborateurFormation> FiltrerTable(FilterParamsForCertifAndFormation filter, List<CollaborateurFormation> list)
+        {
+            if (filter.status != null && filter.status != 0)
+            {
+                list = list.Where(cf => cf.Status == filter.status).ToList();
+            }
+
+            if (filter.annee != null && filter.annee.ToString().Length >= 4 && filter.annee != 0)
+            {
+                list = list.Where(cc => cc.DateDebut.Value.Year == filter.annee).ToList();
+            }
+
+            return list;
         }
     }
 }

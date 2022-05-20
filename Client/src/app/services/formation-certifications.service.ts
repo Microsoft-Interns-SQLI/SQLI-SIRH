@@ -7,7 +7,7 @@ import { CertificationOrFormation } from '../Models/certification-formation';
 
 export interface FormationCertificationResponse{
   list: CollabFormationCertif[];
-  annees: number[];
+  annees: number;
 }
 @Injectable({
   providedIn: 'root'
@@ -65,7 +65,7 @@ export class FormationCertificationsService {
       params = params.append("annee", annee);
 
     return this.http.get<FormationCertificationResponse>(this.url_collab_formation, { params }).pipe(
-      map(data => {
+      map((data: FormationCertificationResponse) => {
         data.list = data.list.map((item: any) => {
           const cc: CollabFormationCertif = {
             status: item.status,
@@ -81,7 +81,36 @@ export class FormationCertificationsService {
       })
     );
   }
+  getFormationByCollab(id:number, status?: number, annee?: number): Observable<FormationCertificationResponse>{
+    let params: HttpParams = new HttpParams();
+    if (status != undefined)
+      params = params.append("status", status);
+    if (annee != undefined)
+      params = params.append("annee", annee);
 
+      return this.http.get<FormationCertificationResponse>(`${this.url_collab_formation}/${id}`, { params }).pipe(
+        map((data: FormationCertificationResponse) => {
+          data.list = data.list.map((item: any) => {
+            const cc: CollabFormationCertif = {
+              status: item.status,
+              dateDebut: item.dateDebut,
+              dateFin: item.dateFin,
+              collaborateurId: item.collaborateurId,
+              id: item['formationId']
+            } as CollabFormationCertif
+            return cc;
+          });
+  
+          return data;
+        })
+      );
+  }
+  getFormationYears(): Observable<number[]>{
+    return this.http.get<number[]>(`${this.url_collab_formation}/years`)
+  }
+  getCertificationYears(): Observable<number[]>{
+    return this.http.get<number[]>(`${this.url_collab_certif}/years`)
+  }
   updateCollabCertif(data: CollabFormationCertif) {
     const opts: any = {
       responseType: 'text'

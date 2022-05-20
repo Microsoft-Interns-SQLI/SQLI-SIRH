@@ -51,6 +51,12 @@
             Skills
           </button>
         </li>
+        <li class="nav-item" role="presentation">
+          <button id="formations-tab" data-bs-target="#formations" aria-controls="formations" class="nav-link" data-bs-toggle="tab"
+            type="button" role="tab" aria-selected="false">
+            Formations
+          </button>
+        </li>
       </ul>
 
     </div>
@@ -208,6 +214,9 @@
             </div>
             <div id="skills" aria-labelledby="skills-tab" role="tabpanel" class="tab-pane fade">
               <app-diplomes [collab]="collab" #diplomes></app-diplomes>
+            </div>
+            <div id="formations" aria-labelledby="formations-tab" role="tabpanel" class="tab-pane fade">
+              <app-formations-collab [collab]="collab"></app-formations-collab>
             </div>
           </div>
         </div>

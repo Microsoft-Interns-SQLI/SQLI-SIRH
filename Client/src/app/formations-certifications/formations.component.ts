@@ -20,13 +20,15 @@ export class FormationsComponent implements OnInit, OnDestroy {
   cols: CertificationOrFormation[] = [];
   rows: Collaborator[] = [];
   annees: number[] = [];
-  
+  yearSelected: number = new Date(Date.now()).getFullYear();
+
   selected: boolean = true;
 
   //Subscription
   subCollab!: Subscription;
   subCertif!: Subscription;
-  subCollabCertif!: Subscription;  
+  subCollabCertif!: Subscription;
+  subAnnees!: Subscription;
 
   //pagination params
   pageNumber = 1;
@@ -36,7 +38,7 @@ export class FormationsComponent implements OnInit, OnDestroy {
     currentPage: this.pageNumber,
   } as Pagination;
 
-  constructor(private formationCertifService: FormationCertificationsService, 
+  constructor(private formationCertifService: FormationCertificationsService,
     private collaborateurService: CollaboratorsService,
     private spinnerService: SpinnerService) { }
 
@@ -57,11 +59,12 @@ export class FormationsComponent implements OnInit, OnDestroy {
       );
 
       this.subCollabCertif = this.formationCertifService.getCollabFormation().subscribe(
-        (data: FormationCertificationResponse)=>{
+        (data: FormationCertificationResponse) => {
           this.tab = data.list;
-          this.annees = data.annees;
         }
-      )
+      );
+      
+      this.subAnnees = this.formationCertifService.getFormationYears().subscribe(data => this.annees = data);
 
     } else {
       this.subCertif = this.formationCertifService.getCertifications().subscribe(
@@ -71,11 +74,12 @@ export class FormationsComponent implements OnInit, OnDestroy {
       );
 
       this.subCollabCertif = this.formationCertifService.getCollabCertif().subscribe(
-        (data: FormationCertificationResponse)=>{
+        (data: FormationCertificationResponse) => {
           this.tab = data.list;
-          this.annees = data.annees;
         }
-      )
+      );
+
+      this.subAnnees = this.formationCertifService.getCertificationYears().subscribe(data => this.annees = data);
     }
   }
 
@@ -85,8 +89,8 @@ export class FormationsComponent implements OnInit, OnDestroy {
     filtrerPar?: string,
     search?: string,
     orderby?: string,
-    orderbyFormation?:string,
-    orderbyCertification?:string
+    orderbyFormation?: string,
+    orderbyCertification?: string
   ) {
     if (search != undefined) {
       this.spinnerService.isSearch.next(true);
@@ -94,7 +98,7 @@ export class FormationsComponent implements OnInit, OnDestroy {
       this.spinnerService.isSearch.next(false);
     }
     this.subCollab = this.collaborateurService
-      .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby,orderbyFormation, orderbyCertification)
+      .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby, orderbyFormation, orderbyCertification)
       .subscribe(
         resp => {
           this.rows = resp.result;
@@ -111,17 +115,17 @@ export class FormationsComponent implements OnInit, OnDestroy {
     );
   }
 
-  sortData(libelle:string){
+  sortData(libelle: string) {
     this.loadCollaborators(
-      this.pageSize, 
+      this.pageSize,
       this.pageNumber,
-      undefined, 
-      undefined, 
-      undefined, 
+      undefined,
+      undefined,
+      undefined,
       this.selected ? libelle : undefined,
       !this.selected ? libelle : undefined);
   }
-  onSearch(search:string){
+  onSearch(search: string) {
     this.loadCollaborators(
       this.pageSize,
       1,
@@ -132,25 +136,34 @@ export class FormationsComponent implements OnInit, OnDestroy {
       undefined
     )
   }
+  updateYears(year: number) {
+    let yearExist: boolean = false;
+    this.annees.forEach((value: number) => {
+      if (value === year) yearExist = true;
+    });
 
-  filter(data:{status:number, year:number}){
-    this.filterTable(+data.status, data.year);
+    this.annees = yearExist ? this.annees.sort((a, b) => a - b) : this.annees.concat(year).sort((a, b) => a - b);
   }
 
-  private filterTable(status?: number, annee?:number){
-    const s : number|undefined = status === 0 ? undefined : status;
+  filter(data: { status: number, year: number }) {
+    this.filterTable(+data.status, data.year);
+    this.yearSelected = data.year;
+  }
+
+  private filterTable(status?: number, annee?: number) {
+    const s: number | undefined = status === 0 ? undefined : status;
 
     if (this.selected) {
 
       this.subCollabCertif = this.formationCertifService.getCollabFormation(s, annee).subscribe(
-        (data: FormationCertificationResponse)=>{
+        (data: FormationCertificationResponse) => {
           this.tab = data.list;
         }
       )
 
     } else {
       this.subCollabCertif = this.formationCertifService.getCollabCertif(s, annee).subscribe(
-        (data: FormationCertificationResponse)=>{
+        (data: FormationCertificationResponse) => {
           this.tab = data.list;
         }
       )
@@ -161,6 +174,7 @@ export class FormationsComponent implements OnInit, OnDestroy {
     this.subCertif.unsubscribe();
     this.subCollab.unsubscribe();
     this.subCollabCertif.unsubscribe();
+    this.subAnnees.unsubscribe();
   }
 
 }
