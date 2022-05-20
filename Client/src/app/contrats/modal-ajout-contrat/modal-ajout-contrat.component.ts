@@ -52,7 +52,7 @@ export class ModalAjoutContratComponent implements OnInit {
     this.form.markAllAsTouched();
     if (formGroup.valid) {
       // trick : to close the modal
-      document.getElementById('btn-close-modal')?.click();
+      document.getElementById('btn-close-modal-contrat')?.click();
 
       this.contratService.affecteContrat(formGroup.value).subscribe(
         {

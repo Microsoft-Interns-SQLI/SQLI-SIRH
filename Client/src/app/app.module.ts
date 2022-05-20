@@ -61,16 +61,11 @@ import { DisplayItemDirective } from './formations-certifications/table/display-
 import { HandleStatusDisplayPipe } from './formations-certifications/table/handle-status-display.pipe';
 import { PopupComponent } from './formations-certifications/popup/popup.component';
 import { MdmPanelComponent } from './mdm-panel/mdm-panel.component';
-import { SiteComponent } from './mdm-panel/site/site.component';
-import { SkillCenterComponent } from './mdm-panel/skill-center/skill-center.component';
-import { PosteComponent } from './mdm-panel/poste/poste.component';
-import { NiveauComponent } from './mdm-panel/niveau/niveau.component';
-import { ModeComponent } from './mdm-panel/mode/mode.component';
-import { TypeContratComponent } from './mdm-panel/type-contrat/type-contrat.component';
 import { HeaderFormationCertificationComponent } from './formations-certifications/header-formation-certification/header-formation-certification.component';
 import { ModalAjoutDiplomeComponent } from './diplomes/modal-ajout-diplome/modal-ajout-diplome.component';
 import { ModalAjoutContratComponent } from './contrats/modal-ajout-contrat/modal-ajout-contrat.component';
 import { FormationsCollabComponent } from './formations-collab/formations-collab.component';
+import { MdmTableComponent } from './mdm-panel/mdm-table/mdm-table.component';
 
 @NgModule({
   declarations: [
@@ -117,12 +112,6 @@ import { FormationsCollabComponent } from './formations-collab/formations-collab
     ContratsComponent,
     TableComponent,
     MdmPanelComponent,
-    SiteComponent,
-    SkillCenterComponent,
-    PosteComponent,
-    NiveauComponent,
-    ModeComponent,
-    TypeContratComponent,
     HandleStatusDisplayPipe,
     DisplayItemDirective,
     HandleStatusDisplayPipe,
@@ -131,6 +120,7 @@ import { FormationsCollabComponent } from './formations-collab/formations-collab
     ModalAjoutDiplomeComponent,
     ModalAjoutContratComponent,
     FormationsCollabComponent,
+    MdmTableComponent,
   ],
   imports: [
     CommonModule,
@@ -157,4 +147,4 @@ import { FormationsCollabComponent } from './formations-collab/formations-collab
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

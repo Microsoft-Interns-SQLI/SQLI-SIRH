@@ -5,7 +5,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">
                     Ajout d'un diplôme
                 </h5>
-                <button id="btn-close-modal" type="button" class="btn-close" data-bs-dismiss="modal"
+                <button id="btn-close-modal-diplome" type="button" class="btn-close" data-bs-dismiss="modal"
                     aria-label="Close"></button>
             </div>
             <form [formGroup]="form" (ngSubmit)="addDiplome(form)">
@@ -35,7 +35,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Annuler</button>
-                    <button type="submit" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Sauvegarder</button>
+                    <button type="submit" class="btn btn-sm btn-primary">Sauvegarder</button>
                 </div>
             </form>
         </div>
