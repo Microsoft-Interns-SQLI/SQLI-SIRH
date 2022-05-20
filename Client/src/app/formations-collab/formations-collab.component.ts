@@ -9,40 +9,21 @@ import { FormationCertificationResponse, FormationCertificationsService } from '
   templateUrl: './formations-collab.component.html',
   styleUrls: ['./formations-collab.component.css']
 })
-export class FormationsCollabComponent implements OnInit, DoCheck {
+export class FormationsCollabComponent implements OnInit {
 
   @Input() collab: Collaborator = {} as Collaborator;
-  formations!: CertificationOrFormation[];
   intersections!: CollabFormationCertif[];
 
-  table: { formation: CertificationOrFormation, intersection: CollabFormationCertif }[] = [];
-  ok:boolean = false;
 
   year: number = new Date(Date.now()).getFullYear();
 
   constructor(private formationCertifService: FormationCertificationsService) { }
 
-  ngDoCheck(): void {
-    if (this.formations != undefined && this.intersections != undefined && !this.ok)
-      this.prepareTable();
-  }
+
 
   ngOnInit(): void {
-    this.formationCertifService.getFormationByCollab(this.collab.id).subscribe(data => this.intersections = data.list);
-    this.formationCertifService.getFormations().subscribe({
-      next: data => this.formations = data
-    });
+    this.formationCertifService.getFormationByCollab(this.collab.id).subscribe(data => {this.intersections = data.list});
   }
 
-  prepareTable() {
-      this.intersections.forEach(item => {
-        const value = this.formations.find(x => x.id === item.id);
-
-        if (value != undefined) {
-          this.table = this.table.concat({ formation: value, intersection: item });
-        }
-      });
-      this.ok = true;
-  }
 
 }

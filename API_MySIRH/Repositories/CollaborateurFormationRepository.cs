@@ -46,7 +46,10 @@ namespace API_MySIRH.Repositories
 
         public async Task<List<CollaborateurFormation>> GetByCollaborateur(int id)
         {
-            return await _context.CollaborateurFormations.Where(x => x.CollaborateurId == id).ToListAsync();
+            return await _context.CollaborateurFormations.Where(x => x.CollaborateurId == id)
+                .Include(x=>x.Collaborateur)
+                .Include(x=>x.Formation)
+                .ToListAsync();
         }
 
         public Task<List<CollaborateurFormation>> GetByFormation(int id)

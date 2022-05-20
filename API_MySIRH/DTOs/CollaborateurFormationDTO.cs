@@ -7,6 +7,7 @@
         public DateTime? DateFin { get; set; }
         public int CollaborateurId { get; set; }
         public int FormationId { get; set; }
+        public string FormationLibelle { get; set; }
     }
 
     public class CollaborateurFormationResponse

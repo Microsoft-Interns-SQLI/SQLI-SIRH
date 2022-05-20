@@ -47,7 +47,8 @@ export class FormationCertificationsService {
             dateDebut: item.dateDebut,
             dateFin: item.dateFin,
             collaborateurId: item.collaborateurId,
-            id: item['certificationId']
+            id: item['certificationId'],
+            name: item['certificationLibelle']
           } as CollabFormationCertif
           return cc;
         });
@@ -72,7 +73,8 @@ export class FormationCertificationsService {
             dateDebut: item.dateDebut,
             dateFin: item.dateFin,
             collaborateurId: item.collaborateurId,
-            id: item['formationId']
+            id: item['formationId'],
+            name: item['formationLibelle']
           } as CollabFormationCertif
           return cc;
         });
@@ -90,13 +92,15 @@ export class FormationCertificationsService {
 
       return this.http.get<FormationCertificationResponse>(`${this.url_collab_formation}/${id}`, { params }).pipe(
         map((data: FormationCertificationResponse) => {
+          
           data.list = data.list.map((item: any) => {
             const cc: CollabFormationCertif = {
               status: item.status,
               dateDebut: item.dateDebut,
               dateFin: item.dateFin,
               collaborateurId: item.collaborateurId,
-              id: item['formationId']
+              id: item['formationId'],
+              name: item['formationLibelle']
             } as CollabFormationCertif
             return cc;
           });
