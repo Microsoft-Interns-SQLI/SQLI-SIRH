@@ -26,7 +26,7 @@ export class AddEditFormTableComponent implements OnInit {
   postesData: any = new SelectInputData();
   situationFamilialeData: any = new SelectInputData();
 
-  demission?: Demission = undefined;
+  demis?: Demission = undefined;
 
   constructor(private service: MdmService, private contratService: ContratsService) { }
 
@@ -82,10 +82,9 @@ export class AddEditFormTableComponent implements OnInit {
   updateDemission(event: number) {
     this.collab.demissions.forEach((el) => {
       if (el.id == event) {
-        this.demission = el as Demission;
-        this.demissionUpdate.demission = el as Demission;
-        this.demissionUpdate.constructForm();
-        console.log(this.demissionUpdate.demission);
+        this.demis = el as Demission;
+        // this.demissionUpdate.demission = el as Demission;
+        // this.demissionUpdate.constructForm();
       }
     })
   }

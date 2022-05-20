@@ -21,11 +21,13 @@ export class ModalAjoutDemissionComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.constructForm();
-    console.log('dd', this.demission);
+    this.service.getReasonDemissions().subscribe((res) => {
+      this.data.data = res.map((obj) => new SelectInputObject(obj.id, obj.name))
+    })
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('changes');
+    this.constructForm();
   }
 
   constructForm() {
@@ -33,11 +35,8 @@ export class ModalAjoutDemissionComponent implements OnInit, OnChanges {
       dateSortieSqli: [this.datepipe.transform(this.demission?.dateSortieSqli, 'yyyy-MM-dd'), Validators.required],
       dateDemission: [this.datepipe.transform(this.demission?.dateDemission, 'yyyy-MM-dd'), Validators.required],
       comment: [this.demission?.comment],
-      reasonDemission: [this.demission?.reasonDemissionId]
+      reasonDemission: [this.demission?.reasonDemissionId || '']
     });
-    this.service.getReasonDemissions().subscribe((res) => {
-      this.data.data = res.map((obj) => new SelectInputObject(obj.id, obj.name))
-    })
   }
 
   submitDemission() {
