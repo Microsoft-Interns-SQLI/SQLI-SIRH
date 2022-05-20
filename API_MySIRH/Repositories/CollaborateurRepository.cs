@@ -66,7 +66,7 @@ namespace API_MySIRH.Repositories
                         .Include(c => c.ModeRecrutement)
                         .Include(c => c.Documents)
                         .Include(c => c.Diplomes)
-                        .Include(c => c.Demissions)
+                        .Include(c => c.Demissions).ThenInclude(d => d.ReasonDemission)
                         .FirstOrDefaultAsync(c => c.Id == id);
         }
 
