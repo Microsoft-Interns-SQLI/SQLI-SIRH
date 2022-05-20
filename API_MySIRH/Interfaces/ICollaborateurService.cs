@@ -19,5 +19,7 @@ namespace API_MySIRH.Interfaces
         Task<bool> CollaborateurExistsById(int id);
         Task<bool> CollaborateurExistsByMatricule(string matricule);
         Task<bool> CollaborateurExistsByEmail(string email);
+        Task<IEnumerable<DateTime>> GetIntegrationsYearsRange();
+        Task<PagedList<CollaborateurDTO>> GetIntegrations(FilterParams filterParams);
     }
 }

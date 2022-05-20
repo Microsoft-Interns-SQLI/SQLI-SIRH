@@ -18,5 +18,7 @@ namespace API_MySIRH.Helpers
         public string OrderByCertification { get; set; } =String.Empty;
         public string OrderByFormation { get; set; } =String.Empty;
 
+        public int Year { get; set; } = DateTime.Now.Year;
+
     }
 }

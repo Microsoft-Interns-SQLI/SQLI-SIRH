@@ -37,6 +37,20 @@ namespace API_MySIRH.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet("IntrgrationsRange")]
+        public async Task<ActionResult<IEnumerable<DateTime>>> GetIntegrationsRange()
+        {
+            var res = await _collaborateurService.GetIntegrationsYearsRange();
+            return Ok(res);
+        }
+
+        [HttpGet("integrations")]
+        public async Task<ActionResult<IEnumerable<CollaborateurDTO>>> GetIntegrations([FromQuery] FilterParams filterParams)
+        {
+            var res = await _collaborateurService.GetIntegrations(filterParams);
+            return Ok(res);
+        }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CollaborateurDTO>>> GetCollaborateurs([FromQuery] FilterParams filterParams)
         {
