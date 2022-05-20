@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Collaborator } from '../Models/Collaborator';
 import { Pagination } from '../Models/pagination';
-import { DemissionService } from '../services/demission.service';
+import { CollaboratorsService } from '../services/collaborators.service';
 import { SpinnerService } from '../services/spinner.service';
 import { ToastService } from '../shared/toast/toast.service';
 
@@ -34,7 +34,7 @@ export class DemissionsComponent implements OnInit {
   trierParMatricule: boolean = false;
   trierParAnnee: boolean = false;
 
-  constructor(private service: DemissionService, private toastService: ToastService, private spinnerService: SpinnerService) { }
+  constructor(private service: CollaboratorsService, private toastService: ToastService, private spinnerService: SpinnerService) { }
 
   ngOnInit(): void {
     this.loadDemissions(this.pageSize, this.pageNumber);

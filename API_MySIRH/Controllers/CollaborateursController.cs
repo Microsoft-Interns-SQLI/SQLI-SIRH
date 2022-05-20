@@ -46,6 +46,14 @@ namespace API_MySIRH.Controllers
             //return Ok(list.OrderByDescending(x => x.Certifications.Where(x => x.Libelle == "AZ-104").Any() ? x.Certifications.Where(x => x.Libelle == "AZ-104").FirstOrDefault().Libelle : null));
         }
 
+        [HttpGet("demission")]
+        public async Task<ActionResult<IEnumerable<CollaborateurDTO>>> GetDemissions([FromQuery] FilterParams filterParams)
+        {
+            var collabs = await _collaborateurService.GetDemissions(filterParams);
+            Response.AddPaginationHeader(collabs.CurrentPage, collabs.PageSize, collabs.TotalCount, collabs.TotalPages);
+            return Ok(collabs);
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<CollaborateurDTO>> GetCollaborateur(int id)
         {

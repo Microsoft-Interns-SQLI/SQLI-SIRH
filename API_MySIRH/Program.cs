@@ -70,9 +70,6 @@ builder.Services.AddScoped<IDiplomeRepository, DiplomeRepository>();
 builder.Services.AddScoped(typeof(IMdmRepository<>), typeof(MdmRepository<>));
 builder.Services.AddScoped(typeof(IMdmService<,>), typeof(MdmService<,>));
 
-builder.Services.AddScoped<IDemissionService, DemissionService>();
-builder.Services.AddScoped<IDemissionRepository, DemissionRepository>();
-
 
 
 //DBContext Config 

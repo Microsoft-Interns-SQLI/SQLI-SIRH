@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Collaborator, Demission } from 'src/app/Models/Collaborator';
 import { MdmService } from 'src/app/services/mdm.service';
@@ -9,9 +9,9 @@ import { SelectInputData, SelectInputObject } from '../../_form_inputs/select-in
   selector: 'app-modal-ajout-demission',
   templateUrl: './modal-ajout-demission.component.html'
 })
-export class ModalAjoutDemissionComponent implements OnInit {
+export class ModalAjoutDemissionComponent implements OnInit, OnChanges {
   @Output() addDemmision = new EventEmitter<Demission>();
-  demission?: Demission = undefined;
+  @Input() demission?: any = undefined;
   datepipe: DatePipe = new DatePipe('en-US');
 
   form!: FormGroup;
@@ -21,6 +21,11 @@ export class ModalAjoutDemissionComponent implements OnInit {
 
   ngOnInit(): void {
     this.constructForm();
+    console.log('dd', this.demission);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('changes');
   }
 
   constructForm() {
@@ -61,5 +66,4 @@ export class ModalAjoutDemissionComponent implements OnInit {
     this.demission = undefined;
     this.constructForm();
   }
-
 }

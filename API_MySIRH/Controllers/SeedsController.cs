@@ -314,9 +314,11 @@ namespace API_MySIRH.Controllers
         {
             return new List<ReasonDemission>
             {
-                new ReasonDemission { Name = "Reason 1" },
-                new ReasonDemission { Name = "Reason 2" },
-                new ReasonDemission { Name = "Reason 3" }
+                new ReasonDemission { Name = "Opportunité etranger" },
+                new ReasonDemission { Name = "Salaire et avantages" },
+                new ReasonDemission { Name = "Insatisfait des projets" },
+                new ReasonDemission { Name = "carrière" },
+                new ReasonDemission { Name = "conflit" }
             };
         }
 

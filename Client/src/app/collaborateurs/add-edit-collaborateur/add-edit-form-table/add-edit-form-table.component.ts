@@ -16,7 +16,7 @@ import {
 })
 export class AddEditFormTableComponent implements OnInit {
   @ViewChild('contrats') contrats!: ContratsComponent;
-  @ViewChild(ModalAjoutDemissionComponent) triggerUpdate!:ModalAjoutDemissionComponent;
+  @ViewChild(ModalAjoutDemissionComponent) demissionUpdate!: ModalAjoutDemissionComponent;
   @Input() collab!: Collaborator;
   @Input() myFormGroup!: FormGroup;
 
@@ -25,6 +25,7 @@ export class AddEditFormTableComponent implements OnInit {
   niveauxData: any = new SelectInputData();
   postesData: any = new SelectInputData();
   situationFamilialeData: any = new SelectInputData();
+
   demission?: Demission = undefined;
 
   constructor(private service: MdmService, private contratService: ContratsService) { }
@@ -81,8 +82,10 @@ export class AddEditFormTableComponent implements OnInit {
   updateDemission(event: number) {
     this.collab.demissions.forEach((el) => {
       if (el.id == event) {
-        this.triggerUpdate.demission = el as Demission;
-        this.triggerUpdate.constructForm();
+        this.demission = el as Demission;
+        this.demissionUpdate.demission = el as Demission;
+        this.demissionUpdate.constructForm();
+        console.log(this.demissionUpdate.demission);
       }
     })
   }

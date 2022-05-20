@@ -86,6 +86,47 @@ namespace API_MySIRH.Services
             return await PagedList<CollaborateurDTO>.CreateAsync(query.ProjectTo<CollaborateurDTO>(_mapper.ConfigurationProvider).AsNoTracking(), filterParams.pageNumber, filterParams.pageSize);
         }
 
+        public async Task<PagedList<CollaborateurDTO>> GetDemissions(FilterParams filterParams)
+        {
+            var query = this._collaborateurRepository.GetCollaborateurs().Where(x => x.Demissions.Any()).AsQueryable();
+
+            if (!string.IsNullOrEmpty(filterParams.Site))
+                query = query.Where(c => c.Site.Name == filterParams.Site);
+
+            if (!(string.IsNullOrWhiteSpace(filterParams.Search)))
+                query = query.Where(c => c.Nom.Contains(filterParams.Search) || c.Prenom.Contains(filterParams.Search));
+
+            if (!string.IsNullOrWhiteSpace(filterParams.OrderByCertification))
+            {
+                query = query.OrderByDescending(
+                    x => x.Certifications.Where(x => x.Libelle == filterParams.OrderByCertification).Any());
+            }
+            else if (!string.IsNullOrWhiteSpace(filterParams.OrderByFormation))
+            {
+                query = query.OrderByDescending(
+                    x => x.Formations.Where(x => x.Libelle == filterParams.OrderByFormation).Any());
+            }
+            else
+            {
+                query = filterParams.OrderBy switch
+                {
+                    "nom_desc" => query.OrderByDescending(c => c.Nom),
+                    "prenom_asc" => query.OrderBy(c => c.Prenom),
+                    "prenom_desc" => query.OrderByDescending(c => c.Prenom),
+                    "matricule_asc" => query.OrderBy(c => c.Matricule),
+                    "matricule_desc" => query.OrderByDescending(c => c.Matricule),
+                    "exp_asc" => query.OrderBy(c => c.DateEntreeSqli),
+                    "exp_desc" => query.OrderByDescending(c => c.DateEntreeSqli),
+                    "poste_asc" => query.OrderBy(c => c.Poste.Name),
+                    "poste_desc" => query.OrderByDescending(c => c.Poste.Name),
+                    "niveau_asc" => query.OrderBy(c => c.Niveau.Name),
+                    "niveau_desc" => query.OrderByDescending(c => c.Niveau.Name),
+                    _ => query.OrderBy(c => c.Nom)
+                };
+            }
+            return await PagedList<CollaborateurDTO>.CreateAsync(query.ProjectTo<CollaborateurDTO>(_mapper.ConfigurationProvider).AsNoTracking(), filterParams.pageNumber, filterParams.pageSize);
+        }
+
         public IEnumerable<CollaborateurDTO> GetCollaborateurs()
         {
             var list = _collaborateurRepository.GetCollaborateurs().ProjectTo<CollaborateurDTO>(_mapper.ConfigurationProvider).AsNoTracking();
