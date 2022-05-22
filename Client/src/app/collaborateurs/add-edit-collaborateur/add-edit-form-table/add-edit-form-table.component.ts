@@ -3,6 +3,8 @@ import { FormGroup } from '@angular/forms';
 import { ContratsComponent } from 'src/app/contrats/contrats.component';
 import { Collaborator, Demission } from 'src/app/Models/Collaborator';
 import { ContratsService } from 'src/app/services/contrats.service';
+import { DiplomesComponent } from 'src/app/diplomes/diplomes.component';
+import { CollabTypeContrat, Diplome } from 'src/app/Models/MdmModel';
 import { MdmService } from 'src/app/services/mdm.service';
 import { ModalAjoutDemissionComponent } from './_demission_tab/modal-ajout-demission/modal-ajout-demission.component';
 import {
@@ -17,6 +19,7 @@ import {
 export class AddEditFormTableComponent implements OnInit {
   @ViewChild('contrats') contrats!: ContratsComponent;
   @ViewChild(ModalAjoutDemissionComponent) demissionUpdate!: ModalAjoutDemissionComponent;
+  @ViewChild('diplomes') diplomes!: DiplomesComponent;
   @Input() collab!: Collaborator;
   @Input() myFormGroup!: FormGroup;
 
@@ -35,17 +38,17 @@ export class AddEditFormTableComponent implements OnInit {
       new SelectInputObject('M', 'Mr.'),
       new SelectInputObject('F', 'Mme.'),
     ];
-    this.service.getRecrutementMode().subscribe((res) => {
+    this.service.getAll('modes').subscribe((res) => {
       this.recruteModeData.data = res.map(
         (obj) => new SelectInputObject(obj.id, obj.name)
       );
     });
-    this.service.getNiveaux().subscribe((res) => {
+    this.service.getAll('niveaux').subscribe((res) => {
       this.niveauxData.data = res.map(
         (obj) => new SelectInputObject(obj.id, obj.name)
       );
     });
-    this.service.getPostes().subscribe((res) => {
+    this.service.getAll('postes').subscribe((res) => {
       this.postesData.data = res.map(
         (obj) => new SelectInputObject(obj.id, obj.name)
       );
@@ -58,10 +61,12 @@ export class AddEditFormTableComponent implements OnInit {
     ];
   }
 
-  updateAffectations() {
-    this.contratService.getContratsOfCollab(this.collab.id).subscribe((contrats) => {
-      this.contrats.affectations = contrats;
-    })
+  refreshAffectations(collabTypeContrat: CollabTypeContrat) {
+    this.contrats.AddAffectation(collabTypeContrat);
+  }
+
+  refreshDiplomes(diplome: Diplome) {
+    this.diplomes.addDiplome(diplome);
   }
 
   addDemission(event: Demission) {
@@ -74,7 +79,7 @@ export class AddEditFormTableComponent implements OnInit {
           el = data;
         }
       })
-      return ;
+      return;
     }
     this.collab.demissions = [...this.collab.demissions, data]
   }

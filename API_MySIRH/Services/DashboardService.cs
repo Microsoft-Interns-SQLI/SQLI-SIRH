@@ -10,22 +10,23 @@ namespace API_MySIRH.Services
 {
     public class DashboardService : IDashboardService
     {
-        private readonly IMapper _mapper;
-        private readonly ICollaborateurRepository _collaborateurRepository;
         private readonly IMdmService<Post,PostDTO> _postService;
         private readonly IMdmService<Niveau, NiveauDTO> _niveauService;
 
-        public DashboardService(IMdmService<Post,PostDTO> postService, IMapper mapper,ICollaborateurRepository collaborateurRepository, IMdmService<Niveau, NiveauDTO> niveauService)
+        public DashboardService(IMdmService<Post,PostDTO> postService, IMdmService<Niveau, NiveauDTO> niveauService)
         {
-            _mapper = mapper;
             _postService = postService;
             _niveauService = niveauService;
-            _collaborateurRepository = collaborateurRepository;
         }
 
         public double GetAverageAge(IEnumerable<CollaborateurDTO> collaborateurs)
         {
             return collaborateurs.Average(collaborateur => DateNaissanceCalcule(collaborateur.DateNaissance));                 
+        }
+
+        public double GetAverageExp(IEnumerable<CollaborateurDTO> collaborateurs)
+        {
+            return collaborateurs.Average(collaborateur => ExperienceCalcule((DateTime)collaborateur.DateEntreeSqli));
         }
 
         public double GetDemissionCount(IEnumerable<CollaborateurDTO> collaborateurs)
@@ -61,10 +62,21 @@ namespace API_MySIRH.Services
         {
             return collaborateurs.Where(collaborateur => collaborateur.Civilite.Equals("M")).Count();
         }
-        
+
+        public double GetTauxSoustraitant(IEnumerable<CollaborateurDTO> collaborateurs)
+        {
+            double freelanceCount = collaborateurs.Where(collaborateur => collaborateur.Matricule.Equals("0")).Count();
+            return freelanceCount/GetHeadCount(collaborateurs);
+        }
+
         private int DateNaissanceCalcule(DateTime dateNaissance)
         {
             return (int)((DateTime.Now - dateNaissance).TotalDays / 365);
+        }
+
+        private int ExperienceCalcule(DateTime dateEntreeSQli)
+        {
+            return (int)((DateTime.Now - dateEntreeSQli).TotalDays / 365);
         }
 
     }

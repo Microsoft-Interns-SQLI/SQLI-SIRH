@@ -27,6 +27,7 @@ namespace API_MySIRH.DTOs
         public string Adresse { get; set; } = String.Empty;
         public string Langues { get; set; } = String.Empty;
         public string Note { get; set; } = String.Empty;
+
         [Required(ErrorMessage = "la date de naissance est obligatoire")]
         public DateTime DateNaissance { get; set; }
         public DateTime? DatePremiereExperience { get; set; }

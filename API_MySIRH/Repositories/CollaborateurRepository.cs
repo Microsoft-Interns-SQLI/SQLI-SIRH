@@ -16,7 +16,7 @@ namespace API_MySIRH.Repositories
             this._context = context;
         }
 
-        public async Task<Collaborateur> AddCollaborateur(Collaborateur collaborateur)
+        public async Task<Collaborateur?> AddCollaborateur(Collaborateur collaborateur)
         {
             await this._context.Collaborateurs.AddAsync(collaborateur);
             await this._context.SaveChangesAsync();
@@ -50,7 +50,7 @@ namespace API_MySIRH.Repositories
 
         public IQueryable<Collaborateur> GetCollaborateurs()
         {
-            var query = _context.Collaborateurs.Include(x=>x.Certifications).AsNoTracking();
+            var query = _context.Collaborateurs.Include(x => x.Certifications).AsNoTracking();
             return query;
         }
 
@@ -62,7 +62,6 @@ namespace API_MySIRH.Repositories
                         .Include(c => c.SkillCenter)
                         .Include(c => c.Site)
                         .Include(c => c.Niveau)
-                        // .Include(c => c.TypeContrat) // todo : config entity to get all it's typeContrat
                         .Include(c => c.ModeRecrutement)
                         .Include(c => c.Documents)
                         .Include(c => c.Diplomes)

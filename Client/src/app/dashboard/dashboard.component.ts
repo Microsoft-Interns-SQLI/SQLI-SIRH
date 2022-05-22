@@ -17,100 +17,25 @@ export class DashboardComponent implements OnInit {
   constructor(private dahsboardService: DashboardService) { }
 
   ngOnInit() {
-    /* this.showBar('barChart');
-     this.showDonut("donutChart");
-     this.showDonut("donutChart2");
-     this.showPie('pieChart2');
-     this.showPie("pieChart");
-     this.showLine("lineChart")*/
     this.dahsboardService.getDashboard().subscribe((data: Dashboard) => {
       this.dashboard = data;
       console.log(data);
       this.NiveauPieChart("niveauChart", this.dashboard.juniorCount, this.dashboard.operationnelCount, this.dashboard.confirmeCount, this.dashboard.seniorCount);
       this.PostsDonutChart("postChart", this.dashboard.icdCount, this.dashboard.expertTechCount, this.dashboard.chefDeProjetCount, this.dashboard.managerCount);
+      this.HeadDonutChart("headChart", this.dashboard.maleCount, this.dashboard.femaleCount);
     });
 
   }
 
-  showDonut() {
-
-  }
-  showPie(elementId: string) {
-
-  }
-  showBar(elementId: string, male: number, female: number) {
-    Chart.register(...registerables);
-    const ctx = document.getElementById(elementId) as HTMLCanvasElement
-    const myChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Female', 'Male'],
-        datasets: [{
-          label: '# of Votes',
-          data: [female, male],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)'
-          ],
-          borderWidth: 1,
-
-        }]
-      },
-      options: {
-        scales: {
-          yAxes: {
-            beginAtZero: true,
-            max: 100,
-
-          }
-        }
-      }
-    });
-  }
-  showLine(elementId: string) {
-    Chart.register(...registerables);
-    const ctx = document.getElementById(elementId) as HTMLCanvasElement
-    const myChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          borderWidth: 1,
-          borderColor: 'rgba(255, 70, 0, 1)',
-          pointBorderColor: 'rgba(255, 223, 0, 1)'
-        }]
-      },
-      options: {
-        plugins: {
-          title: {
-            display: true,
-            text: 'Chart Title',
-          }
-        },
-        scales: {
-          y: {
-            beginAtZero: true,
-
-          }
-        }
-      }
-    });
-
-  }
 
   PostsDonutChart(elementId: string, icd: number, expertTech: number, chefDeProjet: number, manager: number) {
     Chart.register(...registerables);
-    const ctx = document.getElementById(elementId) as HTMLCanvasElement
+    const ctx = document.getElementById(elementId) as HTMLCanvasElement;
+    Chart.defaults.font.weight = 'bold';
     const myChart = new Chart(ctx, {
       type: 'doughnut',
       data: {
-        labels: ['ICD', 'ET', 'Chef de projet', 'Manager'],
+        labels: [icd + ' ICD', expertTech + ' ET', chefDeProjet + ' Chef de projet', manager + ' Manager'],
         datasets: [{
           label: '# of Votes',
           data: [icd, expertTech, chefDeProjet, manager],
@@ -138,12 +63,17 @@ export class DashboardComponent implements OnInit {
         plugins: {
           legend: {
             display: true,
-            position: 'top'
+            position: 'top',
+            labels: {
+              font: {
+                size: 13,
+              },
+            },
           },
         },
         scales: {
           y: {
-            display:false
+            display: false
           }
         },
         responsive: true,
@@ -153,11 +83,12 @@ export class DashboardComponent implements OnInit {
 
   NiveauPieChart(elementId: string, junior: number, operationnel: number, confirme: number, senior: number) {
     Chart.register(...registerables);
-    const ctx = document.getElementById(elementId) as HTMLCanvasElement
+    const ctx = document.getElementById(elementId) as HTMLCanvasElement;
+    Chart.defaults.font.weight = 'bold';
     const myChart = new Chart(ctx, {
       type: 'pie',
       data: {
-        labels: ['Junior', 'Opérationnel', 'Confirmé', 'Sénior'],
+        labels: [junior + ' Junior', operationnel + ' Opérationnel', confirme + ' Confirmé', senior + ' Sénior'],
         datasets: [{
           label: '# of Votes',
           data: [junior, operationnel, confirme, senior],
@@ -185,12 +116,17 @@ export class DashboardComponent implements OnInit {
         plugins: {
           legend: {
             display: true,
-            position: 'top'
+            position: 'top',
+            labels: {
+              font: {
+                size: 13,
+              },
+            },
           },
         },
         scales: {
           y: {
-            display:false
+            display: false
           }
         },
         responsive: true,
@@ -198,6 +134,55 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  HeadDonutChart(elementId: string, males: number, females: number) {
+    Chart.register(...registerables);
+    const ctx = document.getElementById(elementId) as HTMLCanvasElement;
+    Chart.defaults.font.weight = 'bold';
+    const myChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: [males + ' Males', females + ' Females'],
+        datasets: [{
+          label: '# of Votes',
+          data: [males, females],
+          backgroundColor: [
+            'rgba(71, 235, 164, 0.5)',
+            'rgba(240, 117, 136, 0.5)'
+          ],
+          borderColor: [
+            'rgba(71, 235, 164, 1)',
+            'rgba(240, 117, 136, 1)'
+          ],
+          borderWidth: 1,
+          hoverOffset: 4
+        }]
+      },
+      options: {
+        animation: {
+          duration: 1000,
+          easing: 'linear',//display: true, position: 'top',
+
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+            labels: {
+              font: {
+                size: 13,
+              }
+            }
+          },
+        },
+        scales: {
+          y: {
+            display: false
+          },
+        },
+        responsive: true,
+      }
+    });
+  }
 
 
 }

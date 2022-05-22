@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NiveauComponent } from './niveau.component';
+import { MdmTableComponent } from './mdm-table.component';
 
-describe('NiveauComponent', () => {
-  let component: NiveauComponent;
-  let fixture: ComponentFixture<NiveauComponent>;
+describe('MdmTableComponent', () => {
+  let component: MdmTableComponent;
+  let fixture: ComponentFixture<MdmTableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NiveauComponent ]
+      declarations: [ MdmTableComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NiveauComponent);
+    fixture = TestBed.createComponent(MdmTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

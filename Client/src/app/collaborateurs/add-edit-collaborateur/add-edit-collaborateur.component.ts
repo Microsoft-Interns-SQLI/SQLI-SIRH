@@ -2,12 +2,10 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { delay } from 'rxjs';
 import { routes } from 'src/app/app-routing.module';
 import { Collaborator, Demission } from 'src/app/Models/Collaborator';
 import { CollaboratorsService } from 'src/app/services/collaborators.service';
@@ -115,7 +113,7 @@ export class AddEditCollaborateurComponent implements OnInit {
           this.ngOnInit();
         });
       message = this.collab.prenom + " " + this.collab.nom + " a été modifier avec success";
-      this.toastServise.showToast("success", message);
+      this.toastServise.showToast("success", message, 2);
     } else {
       this.sevice.addCollaborator(this.collab).subscribe((res) => {
         let collaborator: any = res;
@@ -124,7 +122,7 @@ export class AddEditCollaborateurComponent implements OnInit {
           ' ' +
           this.collab.nom +
           ' a été ajouter avec success';
-        this.toastServise.showToast('success', message);
+        this.toastServise.showToast('success', message, 2);
         setTimeout(() => {
           routes;
           // window.location.href = `/addEditcollaborateur/${collaborator.id}`;

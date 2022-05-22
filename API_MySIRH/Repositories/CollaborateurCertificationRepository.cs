@@ -14,9 +14,10 @@ namespace API_MySIRH.Repositories
             _context = context;
         }
 
-        public Task Add(CollaborateurCertification collaborateurCertification)
+        public async Task Add(CollaborateurCertification collaborateurCertification)
         {
-            throw new NotImplementedException();
+            await _context.CollaborateurCertifications.AddAsync(collaborateurCertification);
+            await _context.SaveChangesAsync();
         }
 
         public Task Delete(CollaborateurCertification collaborateurCertification)
@@ -31,6 +32,14 @@ namespace API_MySIRH.Repositories
                 .Include(cc => cc.Collaborateur)
                 .AsNoTracking()
                 .ToListAsync();
+        }
+
+        public async Task<List<int>> GetAnnees()
+        {
+            return await _context.CollaborateurCertifications
+                                .Select(x => x.DateDebut.Value.Year)
+                                .Distinct()
+                                .ToListAsync();
         }
 
         public Task<List<CollaborateurCertification>> GetByCertification(int id)

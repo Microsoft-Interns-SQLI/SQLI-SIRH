@@ -1,10 +1,72 @@
 <form [formGroup]="myFormGroup" *ngIf="myFormGroup">
-  <div class="card h-fit">
+  <div class="row">
+    <div class="col-md-12">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button id="info-tab" data-bs-target="#info" aria-controls="info" class="nav-link active" data-bs-toggle="tab"
+            type="button" role="tab" aria-selected="true">
+            Info
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button id="carriere-past-jobs-tab" data-bs-target="#carriere-past-jobs" aria-controls="carriere-past-jobs"
+            class="nav-link" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
+            carrière & Past Jobs
+          </button>
+        </li>
+        <!-- <li class="nav-item" role="presentation">
+          <button id="manager-tlrhs-tab" data-bs-target="#manager-tlrhs" aria-controls="manager-tlrhs"
+            class="nav-link" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
+            Manager & TLRHs
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button id="materiels-tab" data-bs-target="#materiels" aria-controls="materiels" class="nav-link"
+            data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
+            Materiels
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button id="hr-incidents-tab" data-bs-target="#hr-incidents" aria-controls="hr-incidents" class="nav-link"
+            data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
+            HR Incidents
+          </button>
+        </li> -->
+        <li class="nav-item" role="presentation">
+          <button id="contrat-statut-tab" data-bs-target="#contrat-statut" aria-controls="contrat-statut"
+            class="nav-link" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
+            Contrat & Statut
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button id="cv-documents-tab" data-bs-target="#cv-documents" aria-controls="cv-documents" class="nav-link"
+            data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
+            Cv & Documents
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button id="skills-tab" data-bs-target="#skills" aria-controls="skills" class="nav-link" data-bs-toggle="tab"
+            type="button" role="tab" aria-selected="false">
+            Skills
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button id="formations-tab" data-bs-target="#formations" aria-controls="formations" class="nav-link"
+            data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
+            Formations
+          </button>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+  <div class="card border-top-0 rounded-0">
     <div class="card-body">
       <div class="row">
         <div class="col-md-12">
-          <mat-tab-group>
-            <mat-tab label="Info">
+          <div class="tab-content" id="myTabContent">
+            <div id="info" aria-labelledby="info-tab" role="tabpanel" class="tab-pane fade show active">
+
               <div class="my-3">
                 <div class="card">
                   <div class="card-header">
@@ -99,8 +161,8 @@
                           [label]="'Entree SQLI'" [type]="'date'"></app-text-input>
                       </div>
                       <div class="col-md-6 mt-3">
-                        <app-text-input [formControl]="$any(myFormGroup.controls?.['dateSortieSqli'])" [isReadOnly]='true'
-                          [label]="'Sortie SQLI'" [type]="'date'"></app-text-input>
+                        <app-text-input [formControl]="$any(myFormGroup.controls?.['dateSortieSqli'])"
+                          [isReadOnly]='true' [label]="'Sortie SQLI'" [type]="'date'"></app-text-input>
                       </div>
 
                       <div class="col-md-6 mt-3">
@@ -124,48 +186,46 @@
                         <app-select-input [formControl]="$any(myFormGroup.controls?.['poste'])" [data]="postesData"
                           [label]="'poste'"></app-select-input>
                       </div>
-
-                      <!-- <div class="col-md-12 mt-3">
-                        <app-text-input [formControl]="$any(myFormGroup.controls?.['diplomes'])" [label]="'diplomes'">
-                        </app-text-input>
-                      </div> -->
-
                     </div>
                   </div>
                 </div>
               </div>
-            </mat-tab>
-            <!--
-              <mat-tab label="Education & Past Jobs">
-                Education & Past Jobs Content
-              </mat-tab>
-              <mat-tab label="Manager & TLRHs">
-                Manager & TLRHs Content
-              </mat-tab>
-              <mat-tab label="Materiels"> Materiels Content </mat-tab>
-              <mat-tab label="HR Incidents"> HR Incidents Content </mat-tab>
-            -->
-            <mat-tab label="Demssions">
-              <app-demission-tab (updateDemission)="updateDemission($event)" [collab]="collab" #demission></app-demission-tab>
-            </mat-tab>
-            <mat-tab label="Contrat & Statut">
+
+            </div>
+            <div id="carriere-past-jobs" aria-labelledby="carriere-past-jobs-tab" role="tabpanel" class="tab-pane fade">
+              Carrière & Past Jobs Content
+            </div>
+            <!-- <div id="manager-tlrhs" aria-labelledby="manager-tlrhs-tab" role="tabpanel" class="tab-pane fade">
+                <app-demission-tab (updateDemission)="updateDemission($event)" [collab]="collab" #demission></app-demission-tab>
+            </div>
+            <div id="materiels" aria-labelledby="materiels-tab" role="tabpanel" class="tab-pane fade">
+              Materiels Content
+            </div>
+            <div id="hr-incidents" aria-labelledby="hr-incidents-tab" role="tabpanel" class="tab-pane fade">
+              HR Incidents Content
+            </div> -->
+            <div id="contrat-statut" aria-labelledby="contrat-statut-tab" role="tabpanel" class="tab-pane fade">
               <app-contrats [collab]="collab" #contrats></app-contrats>
-            </mat-tab>
-            <mat-tab label="Cv & Documents">
+            </div>
+            <div id="cv-documents" aria-labelledby="cv-documents-tab" role="tabpanel" class="tab-pane fade">
               <app-download [collab]="collab"></app-download>
-            </mat-tab>
-            <mat-tab label="Skills">
-              <app-diplomes [collab]="collab"></app-diplomes>
-            </mat-tab>
-          </mat-tab-group>
+            </div>
+            <div id="skills" aria-labelledby="skills-tab" role="tabpanel" class="tab-pane fade">
+              <app-diplomes [collab]="collab" #diplomes></app-diplomes>
+            </div>
+            <div id="formations" aria-labelledby="formations-tab" role="tabpanel" class="tab-pane fade">
+              <app-formations-collab [collab]="collab"></app-formations-collab>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <app-upload></app-upload>
-  <app-modal-ajout-diplome [collaborateur]="collab"></app-modal-ajout-diplome>
-  <app-modal-ajout-contrat [collaborateur]="collab" (updateAffectations)="updateAffectations()">
+  <app-modal-ajout-diplome [collaborateur]="collab" (refreshDiplomes)="refreshDiplomes($event)">
+  </app-modal-ajout-diplome>
+  <app-modal-ajout-contrat [collaborateur]="collab" (refreshAffectations)="refreshAffectations($event)">
   </app-modal-ajout-contrat>
   <app-modal-ajout-demission [demission]="demis" (addDemmision)="addDemission($event)"></app-modal-ajout-demission>
 </form>

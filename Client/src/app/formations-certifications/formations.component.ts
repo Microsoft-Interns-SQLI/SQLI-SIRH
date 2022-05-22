@@ -5,7 +5,8 @@ import { CollabFormationCertif } from '../Models/collaborationCertificationForma
 import { Collaborator } from '../Models/Collaborator';
 import { Pagination } from '../Models/pagination';
 import { CollaboratorsService } from '../services/collaborators.service';
-import { FormationCertificationsService } from '../services/formation-certifications.service';
+import { FormationCertificationResponse, FormationCertificationsService } from '../services/formation-certifications.service';
+import { SpinnerService } from '../services/spinner.service';
 
 @Component({
   selector: 'app-formations',
@@ -14,15 +15,20 @@ import { FormationCertificationsService } from '../services/formation-certificat
 })
 export class FormationsComponent implements OnInit, OnDestroy {
 
-  selected: boolean = true;
+
   tab: CollabFormationCertif[] = [];
   cols: CertificationOrFormation[] = [];
   rows: Collaborator[] = [];
+  annees: number[] = [];
+  yearSelected: number = new Date(Date.now()).getFullYear();
+
+  selected: boolean = true;
 
   //Subscription
   subCollab!: Subscription;
   subCertif!: Subscription;
-  subCollabCertif!: Subscription;  
+  subCollabCertif!: Subscription;
+  subAnnees!: Subscription;
 
   //pagination params
   pageNumber = 1;
@@ -32,7 +38,9 @@ export class FormationsComponent implements OnInit, OnDestroy {
     currentPage: this.pageNumber,
   } as Pagination;
 
-  constructor(private formationCertifService: FormationCertificationsService, private collaborateurService: CollaboratorsService) { }
+  constructor(private formationCertifService: FormationCertificationsService,
+    private collaborateurService: CollaboratorsService,
+    private spinnerService: SpinnerService) { }
 
 
   ngOnInit(): void {
@@ -40,6 +48,7 @@ export class FormationsComponent implements OnInit, OnDestroy {
   }
 
   onSwitch() {
+
     this.loadCollaborators(this.pageSize, this.pageNumber);
 
     if (this.selected) {
@@ -50,10 +59,12 @@ export class FormationsComponent implements OnInit, OnDestroy {
       );
 
       this.subCollabCertif = this.formationCertifService.getCollabFormation().subscribe(
-        (data: CollabFormationCertif[])=>{
-          this.tab = data;
+        (data: FormationCertificationResponse) => {
+          this.tab = data.list;
         }
-      )
+      );
+      
+      this.subAnnees = this.formationCertifService.getFormationYears().subscribe(data => this.annees = data);
 
     } else {
       this.subCertif = this.formationCertifService.getCertifications().subscribe(
@@ -63,10 +74,12 @@ export class FormationsComponent implements OnInit, OnDestroy {
       );
 
       this.subCollabCertif = this.formationCertifService.getCollabCertif().subscribe(
-        (data: CollabFormationCertif[])=>{
-          this.tab = data;
+        (data: FormationCertificationResponse) => {
+          this.tab = data.list;
         }
-      )
+      );
+
+      this.subAnnees = this.formationCertifService.getCertificationYears().subscribe(data => this.annees = data);
     }
   }
 
@@ -76,11 +89,16 @@ export class FormationsComponent implements OnInit, OnDestroy {
     filtrerPar?: string,
     search?: string,
     orderby?: string,
-    orderbyFormation?:string,
-    orderbyCertification?:string
+    orderbyFormation?: string,
+    orderbyCertification?: string
   ) {
+    if (search != undefined) {
+      this.spinnerService.isSearch.next(true);
+    } else {
+      this.spinnerService.isSearch.next(false);
+    }
     this.subCollab = this.collaborateurService
-      .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby,orderbyFormation, orderbyCertification)
+      .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby, orderbyFormation, orderbyCertification)
       .subscribe(
         resp => {
           this.rows = resp.result;
@@ -97,21 +115,66 @@ export class FormationsComponent implements OnInit, OnDestroy {
     );
   }
 
-  sortData(libelle:string){
+  sortData(libelle: string) {
     this.loadCollaborators(
-      this.pageSize, 
+      this.pageSize,
       this.pageNumber,
-      undefined, 
-      undefined, 
-      undefined, 
+      undefined,
+      undefined,
+      undefined,
       this.selected ? libelle : undefined,
       !this.selected ? libelle : undefined);
+  }
+  onSearch(search: string) {
+    this.loadCollaborators(
+      this.pageSize,
+      1,
+      undefined,
+      search === '' ? undefined : search,
+      undefined,
+      undefined,
+      undefined
+    )
+  }
+  updateYears(year: number) {
+    let yearExist: boolean = false;
+    this.annees.forEach((value: number) => {
+      if (value === year) yearExist = true;
+    });
+
+    this.annees = yearExist ? this.annees.sort((a, b) => a - b) : this.annees.concat(year).sort((a, b) => a - b);
+  }
+
+  filter(data: { status: number, year: number }) {
+    this.filterTable(+data.status, data.year);
+    this.yearSelected = data.year;
+  }
+
+  private filterTable(status?: number, annee?: number) {
+    const s: number | undefined = status === 0 ? undefined : status;
+
+    if (this.selected) {
+
+      this.subCollabCertif = this.formationCertifService.getCollabFormation(s, annee).subscribe(
+        (data: FormationCertificationResponse) => {
+          this.tab = data.list;
+        }
+      )
+
+    } else {
+      this.subCollabCertif = this.formationCertifService.getCollabCertif(s, annee).subscribe(
+        (data: FormationCertificationResponse) => {
+          this.tab = data.list;
+        }
+      )
+    }
   }
 
   ngOnDestroy(): void {
     this.subCertif.unsubscribe();
     this.subCollab.unsubscribe();
     this.subCollabCertif.unsubscribe();
+    this.subAnnees.unsubscribe();
   }
 
 }

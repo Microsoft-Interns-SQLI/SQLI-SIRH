@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 export interface Toaster {
   typeMessage: string;
   message: string;
+  duration:number;
 }
 
 @Injectable({
@@ -15,10 +16,11 @@ export class ToastService {
   myToast!: Toaster;
   constructor() { }
 
-  showToast(typeMessage: string, message: string) {
+  showToast(typeMessage: string, message: string, durationInSec:number) {
     this.myToast = {
       typeMessage: typeMessage,
-      message: message
+      message: message,
+      duration : durationInSec
     }
     this.toast.next(this.myToast);
   }
