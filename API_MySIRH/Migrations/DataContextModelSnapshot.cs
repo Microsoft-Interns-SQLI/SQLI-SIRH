@@ -55,14 +55,14 @@ namespace API_MySIRH.Migrations
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "0a32290e-690c-4020-81fe-46f2a472717b",
+                            ConcurrencyStamp = "4341df2c-6614-4132-8ca0-8410e9e28906",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "b846b21c-3257-40fd-908b-ff278b54a35d",
+                            ConcurrencyStamp = "398f9c78-ef94-4ed4-9d08-a966a221f449",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -140,13 +140,13 @@ namespace API_MySIRH.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "87d0935d-c700-4217-8037-ac6a8db1364b",
+                            ConcurrencyStamp = "fff37190-7a23-47da-801f-7763204fbd3c",
                             Email = "Admin@sqli.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@SQLI.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAENTCzIGH1HPstNJmih0VrvvucBTRRj+PAFaOy+E5I0QwC50714kzkFFu4wP0TtbOQw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEF64dj6LBnd8coA5Zow6HUzlkcGFt6/l/cCmT5WCEcVZwlGZAI603DbxnCfIOiIVkA==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "AdminUser"
@@ -415,6 +415,9 @@ namespace API_MySIRH.Migrations
                     b.Property<double>("AverageAge")
                         .HasColumnType("float");
 
+                    b.Property<double>("AverageExp")
+                        .HasColumnType("float");
+
                     b.Property<double>("ChefDeProjetCount")
                         .HasColumnType("float");
 
@@ -455,6 +458,12 @@ namespace API_MySIRH.Migrations
                         .HasColumnType("float");
 
                     b.Property<double>("SeniorCount")
+                        .HasColumnType("float");
+
+                    b.Property<double>("TauxEncadrement")
+                        .HasColumnType("float");
+
+                    b.Property<double>("TauxSoustraitant")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
@@ -600,6 +609,30 @@ namespace API_MySIRH.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Formations");
+                });
+
+            modelBuilder.Entity("API_MySIRH.Entities.Image", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("CollaborateurId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("URL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CollaborateurId");
+
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.Memo", b =>
@@ -1083,6 +1116,17 @@ namespace API_MySIRH.Migrations
                 {
                     b.HasOne("API_MySIRH.Entities.Collaborateur", "Collaborateur")
                         .WithMany("Documents")
+                        .HasForeignKey("CollaborateurId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Collaborateur");
+                });
+
+            modelBuilder.Entity("API_MySIRH.Entities.Image", b =>
+                {
+                    b.HasOne("API_MySIRH.Entities.Collaborateur", "Collaborateur")
+                        .WithMany()
                         .HasForeignKey("CollaborateurId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

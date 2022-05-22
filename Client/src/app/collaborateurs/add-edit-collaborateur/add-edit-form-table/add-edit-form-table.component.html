@@ -14,6 +14,12 @@
             carrière & Past Jobs
           </button>
         </li>
+        <li class="nav-item" role="presentation">
+          <button id="demissions-tab" data-bs-target="#demissions" aria-controls="demissions" class="nav-link"
+            data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
+            Démissions
+          </button>
+        </li>
         <!-- <li class="nav-item" role="presentation">
           <button id="manager-tlrhs-tab" data-bs-target="#manager-tlrhs" aria-controls="manager-tlrhs"
             class="nav-link" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
@@ -195,9 +201,14 @@
             <div id="carriere-past-jobs" aria-labelledby="carriere-past-jobs-tab" role="tabpanel" class="tab-pane fade">
               Carrière & Past Jobs Content
             </div>
-            <!-- <div id="manager-tlrhs" aria-labelledby="manager-tlrhs-tab" role="tabpanel" class="tab-pane fade">
-                <app-demission-tab (updateDemission)="updateDemission($event)" [collab]="collab" #demission></app-demission-tab>
+            <div id="demissions" aria-labelledby="demissions-tab" role="tabpanel" class="tab-pane fade">
+              <app-demission-tab (updateDemission)="updateDemission($event)" [collab]="collab" #demission>
+              </app-demission-tab>
             </div>
+            <!--
+              <div id="manager-tlrhs" aria-labelledby="manager-tlrhs-tab" role="tabpanel" class="tab-pane fade">
+                manager & tlrhs content
+              </div>
             <div id="materiels" aria-labelledby="materiels-tab" role="tabpanel" class="tab-pane fade">
               Materiels Content
             </div>

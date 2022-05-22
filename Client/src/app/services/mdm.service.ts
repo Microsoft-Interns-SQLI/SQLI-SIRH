@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Contrat } from '../Models/MdmModel';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class MdmService {
   readonly myUrl: string = `${environment.URL}api/mdm/`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAll(mdmItem: string) {
     return this.http.get<any[]>(`${this.myUrl}${mdmItem}/`);

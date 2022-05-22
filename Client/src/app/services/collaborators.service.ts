@@ -47,7 +47,7 @@ export class CollaboratorsService {
     if (orderbyCertification != undefined) {
       params = params.append("OrderByCertification", orderbyCertification);
     }
-    let sub:Subscription;
+    let sub: Subscription;
     return this.http.get<any>(this.myUrl, { observe: 'response', params }).pipe(
       map((response) => {
         this.paginatedResult.result = <Collaborator[]>response.body.map((collab: Collaborator) => {
@@ -70,7 +70,7 @@ export class CollaboratorsService {
     );
   }
 
-  getDemissionsList(itemsPerPage?: number, page?: number, filtrerPar?: string, search?: string, orderby?: string,orderbyFormation?:string, orderbyCertification?:string) {
+  getDemissionsList(itemsPerPage?: number, page?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyFormation?: string, orderbyCertification?: string) {
     //delay(50000);
     let params = new HttpParams();
     if (page != undefined && itemsPerPage != undefined) {
@@ -86,11 +86,11 @@ export class CollaboratorsService {
     if (search != undefined) {
       params = params.append("Search", search);
     }
-    if(orderbyFormation !=undefined){
+    if (orderbyFormation != undefined) {
       params = params.append("OrderByFormation", orderbyFormation);
     }
 
-    if(orderbyCertification !=undefined){
+    if (orderbyCertification != undefined) {
       params = params.append("OrderByCertification", orderbyCertification);
     }
 
