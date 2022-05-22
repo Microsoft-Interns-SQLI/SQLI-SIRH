@@ -43,6 +43,11 @@ namespace API_MySIRH.Services
             return await _collaborateurFormationRepository.GetAnnees();
 
         }
+        public async Task<List<int>> GetAnneesByCollaborateur(int id)
+        {
+            return await _collaborateurFormationRepository.GetAnneesByCollaborateur(id);
+
+        }
         public async Task<CollaborateurFormationResponse> GetByCollaborateur(int id, FilterParamsForCertifAndFormation filter)
         {
             var list = FiltrerTable(filter,await _collaborateurFormationRepository.GetByCollaborateur(id));
