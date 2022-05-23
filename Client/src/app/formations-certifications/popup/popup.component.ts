@@ -42,13 +42,15 @@ export class PopupComponent implements OnInit, OnDestroy {
     this.popupService.hide();
   }
   onSubmit(form: NgForm) {
-    let item: CollabFormationCertif = {
-      collaborateurId: this.model.collaborateurId,
-      id: this.model.id,
-      status: form.controls['status'].value,
-      dateDebut: form.controls['dateDebut'].value,
-      dateFin: form.controls['dateFin'].value
-    } as CollabFormationCertif
+    if(this.type === "formation"){
+      let item: CollabFormationCertif = {
+        id: this.model.id,
+        collaborateurId: this.model.collaborateurId,
+        idFormationCertif: this.model.idFormationCertif,
+        status: form.controls['status'].value,
+        dateDebut: form.controls['dateDebut'].value,
+        dateFin: form.controls['dateFin'].value
+      } as CollabFormationCertif
 
       this.sub = this.formationCertifService.updateCollabFormation(item).subscribe(
         {
@@ -58,6 +60,25 @@ export class PopupComponent implements OnInit, OnDestroy {
           }
         }
       )
+    }else if(this.type === "certification"){
+      let item: CollabFormationCertif = {
+        id: this.model.id,
+        collaborateurId: this.model.collaborateurId,
+        idFormationCertif: this.model.idFormationCertif,
+        status: form.controls['status'].value,
+        dateDebut: form.controls['dateDebut'].value,
+        dateFin: form.controls['dateFin'].value
+      } as CollabFormationCertif
+
+      this.sub = this.formationCertifService.updateCollabCertif(item).subscribe(
+        {
+          complete: () => {
+            this.hideModal();
+            this.certificationEvent.emit(item);
+          }
+        }
+      )
+    }
   }
 
   selectChange(value: string) {

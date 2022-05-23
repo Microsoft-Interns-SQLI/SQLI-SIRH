@@ -82,8 +82,6 @@ namespace API_MySIRH.Controllers
             return StatusCode(StatusCodes.Status201Created, "Collaborateur cerification updated successfully!");
         }
         [HttpPut("certifications/{collabId}")]
-
-
         public async Task<IActionResult> PutCertifications(int collabId, List<CollaborateurCertificationDTO> collaborateurCertifications)
         {
             foreach (var collaborateurCertification in collaborateurCertifications)
@@ -103,6 +101,8 @@ namespace API_MySIRH.Controllers
 
             return StatusCode(StatusCodes.Status201Created, "Collaborateur certification updated successfully!");
         }
+        
+        
         [HttpGet("formations")]
         public async Task<IActionResult> GetFormations([FromQuery] FilterParamsForCertifAndFormation filter)
         {

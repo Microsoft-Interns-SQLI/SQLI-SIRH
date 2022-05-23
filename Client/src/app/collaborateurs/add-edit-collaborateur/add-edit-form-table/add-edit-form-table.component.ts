@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ContratsComponent } from 'src/app/contrats/contrats.component';
 import { Collaborator, Demission } from 'src/app/Models/Collaborator';
@@ -26,8 +27,8 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
   @Input() collab!: Collaborator;
   @Input() myFormGroup!: FormGroup;
 
-  intersectionsFormations!: CollabFormationCertif[];
-  intersectionsCertifications!: CollabFormationCertif[];
+  intersectionsFormations: CollabFormationCertif[] = [];
+  intersectionsCertifications: CollabFormationCertif[] = [];
 
   subIntersectionF!: Subscription;
   subIntersectionC!: Subscription;
