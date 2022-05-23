@@ -46,19 +46,16 @@ namespace API_MySIRH.Services
 
         public double GetHeadCountPerNiveaux(IEnumerable<CollaborateurDTO> collaborateurs, string niveauName)
         {
-            // NiveauDTO myNiveau = _niveauService.GetAll().Result.Where(niveau => niveau.Name.Equals(niveauName)).FirstOrDefault();
-            // if (myNiveau == null) return 0;
-            // return collaborateurs.Where(collab => collab.NiveauId == myNiveau.Id).ToList().Count(); // todo : transform niveau to relation
-
-            throw new NotImplementedException();
+            NiveauDTO myNiveau = _niveauService.GetAll().Result.Where(niveau => niveau.Name.Equals(niveauName)).FirstOrDefault();
+            if (myNiveau == null) return 0;
+            return collaborateurs.Where(collab => collab.Carrieres?.OrderByDescending(carr => carr.Annee).First().NiveauId == myNiveau.Id).ToList().Count();
         }
 
         public double GetHeadCountPerPoste(IEnumerable<CollaborateurDTO> collaborateurs, string postName)
         {
-            // PostDTO myPost = _postService.GetAll().Result.Where(post => post.Name.Equals(postName)).FirstOrDefault();
-            // if (myPost == null) return 0;
-            // return collaborateurs.Where(collab => collab.PosteId == myPost.Id).ToList().Count(); // todo : transform poste to relation
-            throw new NotImplementedException();
+            PostDTO myPost = _postService.GetAll().Result.Where(post => post.Name.Equals(postName)).FirstOrDefault();
+            if (myPost == null) return 0;
+            return collaborateurs.Where(collab => collab.Carrieres?.OrderByDescending(carr => carr.Annee).First().PosteId == myPost.Id).ToList().Count();
         }
 
         public double GetMaleCount(IEnumerable<CollaborateurDTO> collaborateurs)

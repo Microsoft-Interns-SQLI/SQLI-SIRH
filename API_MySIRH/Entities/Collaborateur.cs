@@ -33,20 +33,20 @@ namespace API_MySIRH.Entities
         public virtual Site? Site { get; set; }
         public virtual int? SkillCenterId { get; set; }
         public virtual SkillCenter? SkillCenter { get; set; }
-        public virtual ICollection<Diplome> Diplomes { get; set; }
+        public virtual ICollection<Diplome>? Diplomes { get; set; }
         public virtual ICollection<Document>? Documents { get; set; }
         public virtual ICollection<Certification> Certifications { get; set; }
         public List<CollaborateurCertification> CollaborateurCertifications { get; set; }
         public virtual ICollection<Formation> Formations { get; set; }
         public List<CollaborateurFormation> CollaborateurFormations { get; set; }
+        public virtual ICollection<Carriere>? Carrieres { get; set; }
 
         // Demmision ?? 
         public ICollection<Demission> Demissions { get; set; }
 
-
-        public Collaborateur()
+        public Carriere? GetCurrentCarriere()
         {
-            this.Diplomes = new List<Diplome>();
+            return this.Carrieres?.OrderByDescending(carr => carr.Annee).First();
         }
     }
 }

@@ -44,8 +44,9 @@ namespace API_MySIRH.DTOs
         public SiteDTO? Site { get; set; }
         public int? ModeRecrutementId { get; set; }
         public ModeRecrutementDTO? ModeRecrutement { get; set; }
-        public ICollection<DiplomeDTO> Diplomes { get; set; }
+        public ICollection<DiplomeDTO>? Diplomes { get; set; }
         public ICollection<FileDTO>? Documents { get; set; }
+        public ICollection<CarriereDTO>? Carrieres { get; set; }
 
         //public ICollection<CertificationDTO>? Certifications { get; set; }
     }

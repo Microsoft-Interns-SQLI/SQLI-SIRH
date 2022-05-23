@@ -21,7 +21,7 @@ namespace API_MySIRH.Repositories
             await this._context.Collaborateurs.AddAsync(collaborateur);
             await this._context.SaveChangesAsync();
 
-            return await this.GetCollaborateurById(collaborateur.Id); // todo-review : is it necessary to fetch by id after insert ?
+            return await this.GetCollaborateurById(collaborateur.Id);
         }
 
         public async Task<bool> CollaborateurExistsById(int id)
@@ -58,10 +58,9 @@ namespace API_MySIRH.Repositories
         {
             return await
                     this._context.Collaborateurs
-                        // .Include(c => c.Poste) todo : return last/current poste
+                        .Include(c => c.Carrieres)
                         .Include(c => c.SkillCenter)
                         .Include(c => c.Site)
-                        // .Include(c => c.Niveau) todo : return last/current niveau
                         .Include(c => c.ModeRecrutement)
                         .Include(c => c.Documents)
                         .Include(c => c.Diplomes)

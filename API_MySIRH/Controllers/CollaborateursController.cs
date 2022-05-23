@@ -15,6 +15,7 @@ namespace API_MySIRH.Controllers
     public class CollaborateursController : ControllerBase
     {
         private readonly ICollaborateurService _collaborateurService;
+        private readonly ICarriereService _carriereService;
         private readonly IMdmService<Niveau, NiveauDTO> _mdmServiceNiveau;
         private readonly IMdmService<Site, SiteDTO> _mdmServiceSite;
         private readonly IMdmService<Post, PostDTO> _mdmServicePoste;
@@ -23,9 +24,10 @@ namespace API_MySIRH.Controllers
         private readonly IMdmService<ModeRecrutement, ModeRecrutementDTO> _mdmServiceModeRecrutement;
         private readonly IMapper _mapper;
 
-        public CollaborateursController(ICollaborateurService collaborateurService, IMdmService<Niveau, NiveauDTO> mdmServiceNiveau, IMdmService<Site, SiteDTO> mdmServiceSite, IMdmService<Post, PostDTO> mdmServicePoste, IMdmService<TypeContrat, TypeContratDTO> mdmServiceTypeContrat, IMdmService<SkillCenter, SkillCenterDTO> mdmServiceSkillCenter, IMdmService<ModeRecrutement, ModeRecrutementDTO> mdmServiceModeRecrutement, IMapper mapper)
+        public CollaborateursController(ICollaborateurService collaborateurService, ICarriereService carriereService, IMdmService<Niveau, NiveauDTO> mdmServiceNiveau, IMdmService<Site, SiteDTO> mdmServiceSite, IMdmService<Post, PostDTO> mdmServicePoste, IMdmService<TypeContrat, TypeContratDTO> mdmServiceTypeContrat, IMdmService<SkillCenter, SkillCenterDTO> mdmServiceSkillCenter, IMdmService<ModeRecrutement, ModeRecrutementDTO> mdmServiceModeRecrutement, IMapper mapper)
         {
             _collaborateurService = collaborateurService;
+            _carriereService = carriereService;
             _mdmServiceNiveau = mdmServiceNiveau;
             _mdmServiceSite = mdmServiceSite;
             _mdmServicePoste = mdmServicePoste;
@@ -207,12 +209,24 @@ namespace API_MySIRH.Controllers
                         //Mode recrutement
                         var modeRecrutement = await _mdmServiceModeRecrutement.GetByName(worksheet.Rows[i].Cells[11].Value.ToString());
                         collaborateur.ModeRecrutement = _mapper.Map<ModeRecrutement>(modeRecrutement);
-                        //Poste : todo : transform to relation
-                        // var poste = await _mdmServicePoste.GetByName(worksheet.Rows[i].Cells[8].Value.ToString());
-                        // collaborateur.Poste = _mapper.Map<Post>(poste);
-                        //Niveau : todo : transform to relation
-                        // var niveau = await _mdmServiceNiveau.GetByName(worksheet.Rows[i].Cells[9].Value.ToString());
-                        // collaborateur.Niveau = _mapper.Map<Niveau>(niveau);
+
+                        //Poste & Niveau
+                        var poste = await _mdmServicePoste.GetByName(worksheet.Rows[i].Cells[8].Value.ToString());
+                        var niveau = await _mdmServiceNiveau.GetByName(worksheet.Rows[i].Cells[9].Value.ToString());
+                        await this._carriereService.Add(new CarriereDTO
+                        {
+                            Collaborateur = this._mapper.Map<CollaborateurDTO>(collaborateur),
+                            Annee = DateTime.Now.Year,
+                            Niveau = niveau,
+                            Poste = poste,
+                            ProfilDeCout = "ST0",
+                            SalaireNet = 15000,
+                            VariableNet = 15000,
+                            SalaireBrut = 5000,
+                            VariableBrut = 5000,
+                            TLRH = "TEMP DATA", // todo : will the excel sheet contain the TLRH's info ??
+                        });
+
                         //Site
                         var site = await _mdmServiceSite.GetByName(worksheet.Rows[i].Cells[4].Value.ToString());
                         collaborateur.Site = _mapper.Map<Site>(site);
@@ -325,9 +339,9 @@ namespace API_MySIRH.Controllers
                 worksheet[$"G{i}"].Value = collab.Civilite;
                 worksheet[$"H{i}"].Value = collab.DateNaissance.ToString("dd/MM/yyyy");
                 worksheet[$"I{i}"].Value = collab.SkillCenter.Name;
-                // worksheet[$"J{i}"].Value = collab.Poste.Name;
-                // worksheet[$"K{i}"].Value = collab.Niveau.Name;
-                //worksheet[$"L{i}"].Value = collab.TypeContrat;
+                worksheet[$"J{i}"].Value = this._mapper.Map<Collaborateur>(collab).GetCurrentCarriere()?.Poste?.Name;
+                worksheet[$"K{i}"].Value = this._mapper.Map<Collaborateur>(collab).GetCurrentCarriere()?.Niveau?.Name;
+                //worksheet[$"L{i}"].Value = collab.TypeContrat; // todo : fix type contrat export
                 worksheet[$"M{i}"].Value = collab.ModeRecrutement == null ? "" : collab.ModeRecrutement.Name;
                 worksheet[$"N{i}"].Value = collab.DatePremiereExperience == null ? "" : collab.DatePremiereExperience?.ToString("dd/MM/yyyy");
                 worksheet[$"O{i}"].Value = collab.DateEntreeSqli == null ? "" : collab.DateEntreeSqli?.ToString("dd/MM/yyyy");

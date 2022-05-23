@@ -14,5 +14,6 @@ namespace API_MySIRH.Entities
         public float? SalaireBrut { get; set; }
         public float? VariableBrut { get; set; }
         public string? TLRH { get; set; }
+        public int Annee { get; set; }
     }
 }

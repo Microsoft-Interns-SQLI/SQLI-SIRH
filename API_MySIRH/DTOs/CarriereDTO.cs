@@ -16,5 +16,6 @@ namespace API_MySIRH.DTOs
         public float? SalaireBrut { get; set; }
         public float? VariableBrut { get; set; }
         public string? TLRH { get; set; }
+        public int Annee { get; set; }
     }
 }
