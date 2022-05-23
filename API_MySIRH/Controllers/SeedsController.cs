@@ -213,11 +213,54 @@ namespace API_MySIRH.Controllers
         {
             return new List<CollaborateurFormation>
             {
-                new CollaborateurFormation{ Collaborateur=this._dataContext.Collaborateurs.First(), Formation=this._dataContext.Formations.Where(form=> form.Libelle == ".NetCore").First(), Status = Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
-                new CollaborateurFormation{ Collaborateur=this._dataContext.Collaborateurs.First(), Formation=this._dataContext.Formations.Where(form=> form.Libelle == "Azure").First(), Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
-                new CollaborateurFormation{ Collaborateur=this._dataContext.Collaborateurs.First(), Formation=this._dataContext.Formations.Where(form=> form.Libelle == "InRiver").First(), Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
-                new CollaborateurFormation{ Collaborateur=this._dataContext.Collaborateurs.ToList()[80], Formation=this._dataContext.Formations.Where(form=> form.Libelle == "DevOPS").First(), Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
-                new CollaborateurFormation{ Collaborateur=this._dataContext.Collaborateurs.ToList()[80], Formation=this._dataContext.Formations.Where(form=> form.Libelle == "PWA").First(), Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
+                new CollaborateurFormation
+                {
+                    CollaborateurId=_dataContext.Collaborateurs.ToList().FirstOrDefault().Id,
+                    FormationId=_dataContext.Formations.ToList().FirstOrDefault().Id,
+                    Status = Status.AFAIRE,
+                    DateDebut = DateTime.Now,
+                    DateFin = DateTime.Now.AddDays(7)
+                },
+                new CollaborateurFormation
+                {
+                    CollaborateurId=_dataContext.Collaborateurs.ToList().Skip(1).FirstOrDefault().Id,
+                    FormationId=_dataContext.Formations.ToList().Skip(1).FirstOrDefault().Id,
+                    Status = Status.AFAIRE,
+                    DateDebut = DateTime.Now,
+                    DateFin = DateTime.Now.AddDays(7)
+                },
+                new CollaborateurFormation
+                {
+                    CollaborateurId=_dataContext.Collaborateurs.ToList().Skip(2).FirstOrDefault().Id,
+                    FormationId=_dataContext.Formations.ToList().Skip(2).FirstOrDefault().Id,
+                    Status = Status.AFAIRE,
+                    DateDebut = DateTime.Now,
+                    DateFin = DateTime.Now.AddDays(7)
+                },
+                new CollaborateurFormation
+                {
+                    CollaborateurId=_dataContext.Collaborateurs.ToList().Skip(3).FirstOrDefault().Id,
+                    FormationId=_dataContext.Formations.ToList().Skip(3).FirstOrDefault().Id,
+                    Status = Status.AFAIRE,
+                    DateDebut = DateTime.Now,
+                    DateFin = DateTime.Now.AddDays(7)
+                },
+                new CollaborateurFormation
+                {
+                    CollaborateurId=_dataContext.Collaborateurs.ToList().Skip(4).FirstOrDefault().Id,
+                    FormationId=_dataContext.Formations.ToList().Skip(4).FirstOrDefault().Id,
+                    Status = Status.AFAIRE,
+                    DateDebut = DateTime.Now,
+                    DateFin = DateTime.Now.AddDays(7)
+                },
+                new CollaborateurFormation
+                {
+                    CollaborateurId=_dataContext.Collaborateurs.ToList().Skip(5).FirstOrDefault().Id,
+                    FormationId=_dataContext.Formations.ToList().Skip(5).FirstOrDefault().Id,
+                    Status = Status.AFAIRE,
+                    DateDebut = DateTime.Now,
+                    DateFin = DateTime.Now.AddDays(7)
+                }
             };
         }
 
@@ -226,11 +269,54 @@ namespace API_MySIRH.Controllers
         {
             return new List<CollaborateurCertification>
             {
-                new CollaborateurCertification{ Collaborateur=this._dataContext.Collaborateurs.First(), Certification=this._dataContext.Certifications.Where(cert=> cert.Libelle == "AZ-104").First(), Status = Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
-                new CollaborateurCertification{ Collaborateur=this._dataContext.Collaborateurs.First(), Certification=this._dataContext.Certifications.Where(cert=> cert.Libelle == "MS-900").First(), Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
-                new CollaborateurCertification{ Collaborateur=this._dataContext.Collaborateurs.First(), Certification=this._dataContext.Certifications.Where(cert=> cert.Libelle == "MS300").First(), Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
-                new CollaborateurCertification{ Collaborateur=this._dataContext.Collaborateurs.ToList()[80], Certification=this._dataContext.Certifications.Where(cert=> cert.Libelle == "AI-900").First(), Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
-                new CollaborateurCertification{ Collaborateur=this._dataContext.Collaborateurs.ToList()[80], Certification=this._dataContext.Certifications.Where(cert=> cert.Libelle == "DP-100").First(), Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
+                new CollaborateurCertification
+                {
+                    CollaborateurId=_dataContext.Collaborateurs.ToList().FirstOrDefault().Id,
+                    CertificationId=_dataContext.Certifications.ToList().FirstOrDefault().Id,
+                    Status = Status.AFAIRE,
+                    DateDebut = DateTime.Now,
+                    DateFin = DateTime.Now.AddDays(7)
+                },
+                new CollaborateurCertification
+                {
+                    CollaborateurId=_dataContext.Collaborateurs.ToList().Skip(1).FirstOrDefault().Id,
+                    CertificationId=_dataContext.Certifications.ToList().Skip(1).FirstOrDefault().Id,
+                    Status = Status.AFAIRE,
+                    DateDebut = DateTime.Now,
+                    DateFin = DateTime.Now.AddDays(7)
+                },
+                new CollaborateurCertification
+                {
+                    CollaborateurId=_dataContext.Collaborateurs.ToList().Skip(2).FirstOrDefault().Id,
+                    CertificationId=_dataContext.Certifications.ToList().Skip(2).FirstOrDefault().Id,
+                    Status = Status.AFAIRE,
+                    DateDebut = DateTime.Now,
+                    DateFin = DateTime.Now.AddDays(7)
+                },
+                new CollaborateurCertification
+                {
+                    CollaborateurId=_dataContext.Collaborateurs.ToList().Skip(3).FirstOrDefault().Id,
+                    CertificationId=_dataContext.Certifications.ToList().Skip(3).FirstOrDefault().Id,
+                    Status = Status.AFAIRE,
+                    DateDebut = DateTime.Now,
+                    DateFin = DateTime.Now.AddDays(7)
+                },
+                new CollaborateurCertification
+                {
+                    CollaborateurId=_dataContext.Collaborateurs.ToList().Skip(4).FirstOrDefault().Id,
+                    CertificationId=_dataContext.Certifications.ToList().Skip(4).FirstOrDefault().Id,
+                    Status = Status.AFAIRE,
+                    DateDebut = DateTime.Now,
+                    DateFin = DateTime.Now.AddDays(7)
+                },
+                new CollaborateurCertification
+                {
+                    CollaborateurId=_dataContext.Collaborateurs.ToList().Skip(5).FirstOrDefault().Id,
+                    CertificationId=_dataContext.Certifications.ToList().Skip(5).FirstOrDefault().Id,
+                    Status = Status.AFAIRE,
+                    DateDebut = DateTime.Now,
+                    DateFin = DateTime.Now.AddDays(7)
+                },
             };
         }
 

@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 
 namespace API_MySIRH.Entities
 {
-    public class CollaborateurCertification
+    public class CollaborateurCertification : EntityBase
     {
         public Status? Status { get; set; }
         public DateTime? DateDebut { get; set; } 

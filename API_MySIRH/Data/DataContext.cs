@@ -104,11 +104,7 @@ namespace API_MySIRH.Data
                     j => j
                         .HasOne(cf => cf.Collaborateur)
                         .WithMany(c => c.CollaborateurFormations)
-                        .HasForeignKey(cc => cc.CollaborateurId),
-                    j =>
-                    {
-                        j.HasKey(cc => new { cc.CollaborateurId, cc.FormationId });
-                    }
+                        .HasForeignKey(cc => cc.CollaborateurId)
                 );
             modelBuilder.Entity<CollaborateurFormation>()
                 .Property(cf => cf.Status)
@@ -130,11 +126,7 @@ namespace API_MySIRH.Data
                     j => j
                         .HasOne(cc => cc.Collaborateur)
                         .WithMany(cf => cf.CollaborateurCertifications)
-                        .HasForeignKey(cc => cc.CollaborateurId),
-                    j =>
-                    {
-                        j.HasKey(cc => new { cc.CollaborateurId, cc.CertificationId });
-                    }
+                        .HasForeignKey(cc => cc.CollaborateurId)
                 );
             modelBuilder.Entity<CollaborateurCertification>()
                 .Property(cc => cc.Status)
