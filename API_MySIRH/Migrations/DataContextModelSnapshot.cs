@@ -55,14 +55,14 @@ namespace API_MySIRH.Migrations
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "4341df2c-6614-4132-8ca0-8410e9e28906",
+                            ConcurrencyStamp = "b56ba270-d8e7-4d93-aa76-fe1b1e879eee",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "398f9c78-ef94-4ed4-9d08-a966a221f449",
+                            ConcurrencyStamp = "b11348ba-26f6-440a-b684-e8e4e6fd3cba",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -140,13 +140,13 @@ namespace API_MySIRH.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fff37190-7a23-47da-801f-7763204fbd3c",
+                            ConcurrencyStamp = "a8f92603-e240-4e35-acab-62689db35e45",
                             Email = "Admin@sqli.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@SQLI.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEF64dj6LBnd8coA5Zow6HUzlkcGFt6/l/cCmT5WCEcVZwlGZAI603DbxnCfIOiIVkA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBrC+CU8GN2UZJdx4p8zLlICvD/UFDLcf8eKrIsBNyOOZ97waTQIRrs6vhaBx3KOng==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "AdminUser"

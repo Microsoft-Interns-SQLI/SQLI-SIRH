@@ -21,6 +21,8 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   collaboratorsArray: Collaborator[] = [];
   displayTable: boolean = true;
   collabToDelete?: Collaborator = new Collaborator();
+  exportList: number[] = [];
+  exportAll: boolean = false;
 
   //subscription
   exportSubscription!: Subscription;
@@ -179,12 +181,48 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   }
 
   export() {
-    this.exportSubscription = this.service
+    if (this.exportAll) {
+      this.exportSubscription = this.service
       .exportCollaborateurs()
       .subscribe((data) => {
         const buffer = new Blob([data], { type: data.type });
         FileSaver.saveAs(buffer, 'Collaborateurs.xlsx');
       });
+    } else if (this.exportList.length > 0) {
+      this.exportSubscription = this.service
+      .exportCollaborateurs(this.exportList)
+      .subscribe((data) => {
+        const buffer = new Blob([data], { type: data.type });
+        FileSaver.saveAs(buffer, 'Collaborateurs.xlsx');
+      });
+    } else {
+      alert('empty export options!');
+    }
+  }
+
+  checkedExport(id: number) : boolean {
+    if (this.exportList.includes(id) || this.exportAll)
+      return true;
+    return false;
+  }
+
+  addToExportList(id: number, el: any) {
+    if (this.exportAll) {
+      this.exportAll = false;
+      this.exportList = [];
+    }
+    if (this.exportList.includes(id)) {
+      this.exportList.splice( this.exportList.indexOf(id), 1);
+      el.checked = false;
+    } else {
+      this.exportList.push(id);
+      el.checked = true;
+    }
+  }
+
+  globalExport() {
+    this.exportList = [];
+    this.exportAll = !this.exportAll;
   }
 
   download(documents: any) {

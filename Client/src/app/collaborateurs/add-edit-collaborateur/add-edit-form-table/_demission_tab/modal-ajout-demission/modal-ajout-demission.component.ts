@@ -21,7 +21,7 @@ export class ModalAjoutDemissionComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.constructForm();
-    this.service.getReasonDemissions().subscribe((res) => {
+    this.service.getAll('reasondemission').subscribe((res) => {
       this.data.data = res.map((obj) => new SelectInputObject(obj.id, obj.name))
     })
   }

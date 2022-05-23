@@ -38,7 +38,7 @@ namespace API_MySIRH.Controllers
         }
 
         [HttpGet("IntrgrationsRange")]
-        public async Task<ActionResult<IEnumerable<DateTime>>> GetIntegrationsRange()
+        public async Task<ActionResult<IEnumerable<int>>> GetIntegrationsRange()
         {
             var res = await _collaborateurService.GetIntegrationsYearsRange();
             return Ok(res);
@@ -48,6 +48,7 @@ namespace API_MySIRH.Controllers
         public async Task<ActionResult<IEnumerable<CollaborateurDTO>>> GetIntegrations([FromQuery] FilterParams filterParams)
         {
             var res = await _collaborateurService.GetIntegrations(filterParams);
+            Response.AddPaginationHeader(res.CurrentPage, res.PageSize, res.TotalCount, res.TotalPages);
             return Ok(res);
         }
 
@@ -127,9 +128,9 @@ namespace API_MySIRH.Controllers
         }
 
         [HttpGet("export")]
-        public IActionResult Export()
+        public async Task<IActionResult> Export([FromQuery] List<int> ids)
         {
-            var exportfile = export();
+            var exportfile = await export(ids);
             return exportfile;
         }
 
@@ -274,10 +275,19 @@ namespace API_MySIRH.Controllers
             return resultDiplomes;
         }
 
-        private FileContentResult export()
+        private async Task<FileContentResult> export(List<int> ids)
         {
-
-            var collabs = _collaborateurService.GetCollaborateurs();
+            var collabs = new List<CollaborateurDTO>();
+            if (!ids.Any())
+                collabs = _collaborateurService.GetCollaborateurs().ToList();
+            else
+            {
+                for (int index = 0; index < ids.Count; index++)
+                {
+                    var en = await _collaborateurService.GetCollaborateurById(ids[index]);
+                    collabs.Add(en);
+                }
+            }
 
             ExcelEngine excelEngine = new ExcelEngine();
 
@@ -334,7 +344,7 @@ namespace API_MySIRH.Controllers
                 worksheet[$"N{i}"].Value = collab.DatePremiereExperience == null ? "" : collab.DatePremiereExperience?.ToString("dd/MM/yyyy");
                 worksheet[$"O{i}"].Value = collab.DateEntreeSqli == null ? "" : collab.DateEntreeSqli?.ToString("dd/MM/yyyy");
                 worksheet[$"P{i}"].Value = collab.DateDebutStage == null ? "" : collab.DateDebutStage?.ToString("dd/MM/yyyy");
-                // worksheet[$"Q{i}"].Value = collab.DateSortieSqli == null ? "" : collab.DateSortieSqli?.ToString("dd/MM/yyyy");
+                worksheet[$"Q{i}"].Value = collab.Demissions.Any() ? collab.Demissions.Last().DateSortieSqli?.ToString("dd/MM/yyyy") : "";
                 
                 var diplomes = "";
                 if (collab.Diplomes != null)

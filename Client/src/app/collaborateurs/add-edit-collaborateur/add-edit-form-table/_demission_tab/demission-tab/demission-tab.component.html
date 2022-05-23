@@ -27,7 +27,6 @@
                   <th></th>
                   <th>Date Demissions</th>
                   <th>Date Sortie SQLI</th>
-                  <th>Reason</th>
                   <th></th>
                 </tr>
               </thead>
@@ -36,7 +35,6 @@
                   <td>{{demission.isCanceled ? "❌" : "✅"}}</td>
                   <td>{{demission.dateDemission | date: 'longDate'}}</td>
                   <td>{{demission.dateSortieSqli | date: 'longDate'}}</td>
-                  <td>{{demission.reasonDemission?.name || 'N/A'}}</td>
                   <td>
                     <div class="container justify-content-end">
                       <button (click)="submitDemission(demission.id)" class="btn btn-sm btn-primary me-2 mb-1"
