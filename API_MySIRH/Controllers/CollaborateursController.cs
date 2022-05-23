@@ -38,7 +38,7 @@ namespace API_MySIRH.Controllers
         }
 
         [HttpGet("IntrgrationsRange")]
-        public async Task<ActionResult<IEnumerable<DateTime>>> GetIntegrationsRange()
+        public async Task<ActionResult<IEnumerable<int>>> GetIntegrationsRange()
         {
             var res = await _collaborateurService.GetIntegrationsYearsRange();
             return Ok(res);
@@ -48,6 +48,7 @@ namespace API_MySIRH.Controllers
         public async Task<ActionResult<IEnumerable<CollaborateurDTO>>> GetIntegrations([FromQuery] FilterParams filterParams)
         {
             var res = await _collaborateurService.GetIntegrations(filterParams);
+            Response.AddPaginationHeader(res.CurrentPage, res.PageSize, res.TotalCount, res.TotalPages);
             return Ok(res);
         }
 

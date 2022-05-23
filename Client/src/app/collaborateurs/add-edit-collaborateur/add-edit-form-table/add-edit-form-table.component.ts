@@ -73,6 +73,7 @@ export class AddEditFormTableComponent implements OnInit {
     let data: Demission;
 
     data = event;
+    this.myFormGroup.markAsDirty();
     if (data.id != 0) {
       this.collab.demissions.forEach((el) => {
         if (el.id == data.id) {
@@ -88,6 +89,7 @@ export class AddEditFormTableComponent implements OnInit {
     this.collab.demissions.forEach((el) => {
       if (el.id == event) {
         this.demis = el as Demission;
+        this.myFormGroup.markAsDirty();
         // this.demissionUpdate.demission = el as Demission;
         // this.demissionUpdate.constructForm();
       }

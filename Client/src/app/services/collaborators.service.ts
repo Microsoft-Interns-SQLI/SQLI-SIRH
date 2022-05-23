@@ -137,6 +137,50 @@ export class CollaboratorsService {
       responseType: 'blob'
     })
   }
+
+  getIntegrationsYearRange() : Observable<number[]> {
+    return this.http.get<number[]>(this.myUrl + '/IntrgrationsRange');
+  }
+
+  getIntegrationsList(itemsPerPage?: number, page?: number, year?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyFormation?: string, orderbyCertification?: string) {
+    //delay(50000);
+    let params = new HttpParams();
+    if (year != undefined)
+      params = params.append('year', year);
+    if (page != undefined && itemsPerPage != undefined) {
+      params = params.append('pageNumber', page.toString());
+      params = params.append('pageSize', itemsPerPage.toString());
+    }
+    if (filtrerPar != undefined) {
+      params = params.append("Site", filtrerPar)
+    }
+    if (orderby != undefined)
+      params = params.append('OrderBy', orderby.toString());
+
+    if (search != undefined) {
+      params = params.append("Search", search);
+    }
+    if (orderbyFormation != undefined) {
+      params = params.append("OrderByFormation", orderbyFormation);
+    }
+
+    if (orderbyCertification != undefined) {
+      params = params.append("OrderByCertification", orderbyCertification);
+    }
+
+    return this.http.get<any>(this.myUrl + '/integrations', { observe: 'response', params }).pipe(
+      map((response) => {
+        this.paginatedResult.result = response.body;
+        if (response.headers.get('Pagination') != null) {
+          this.paginatedResult.pagination = JSON.parse(
+            response.headers.get('Pagination') || ''
+          );
+        }
+        return this.paginatedResult;
+      })
+    );
+  }
+
   private handleError(error: HttpErrorResponse): Observable<never> {
     if (error.status === 0 || error.status === 500)
       return throwError(() => 'Something went wrong!');

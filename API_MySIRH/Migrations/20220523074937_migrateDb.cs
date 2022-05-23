@@ -76,6 +76,7 @@ namespace API_MySIRH.Migrations
                     MaleCount = table.Column<double>(type: "float", nullable: false),
                     DemissionCount = table.Column<double>(type: "float", nullable: false),
                     AverageAge = table.Column<double>(type: "float", nullable: false),
+                    AverageExp = table.Column<double>(type: "float", nullable: false),
                     ICDCount = table.Column<double>(type: "float", nullable: false),
                     ExpertTechCount = table.Column<double>(type: "float", nullable: false),
                     ChefDeProjetCount = table.Column<double>(type: "float", nullable: false),
@@ -84,6 +85,8 @@ namespace API_MySIRH.Migrations
                     OperationnelCount = table.Column<double>(type: "float", nullable: false),
                     ConfirmeCount = table.Column<double>(type: "float", nullable: false),
                     SeniorCount = table.Column<double>(type: "float", nullable: false),
+                    TauxEncadrement = table.Column<double>(type: "float", nullable: false),
+                    TauxSoustraitant = table.Column<double>(type: "float", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModificationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -604,20 +607,40 @@ namespace API_MySIRH.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { 2, "0a32290e-690c-4020-81fe-46f2a472717b", "Admin", "ADMIN" });
+            migrationBuilder.CreateTable(
+                name: "Images",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    URL = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CollaborateurId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Images", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Images_Collaborateurs_CollaborateurId",
+                        column: x => x.CollaborateurId,
+                        principalTable: "Collaborateurs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { 3, "b846b21c-3257-40fd-908b-ff278b54a35d", "Manager", "MANAGER" });
+                values: new object[] { 2, "b56ba270-d8e7-4d93-aa76-fe1b1e879eee", "Admin", "ADMIN" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { 3, "b11348ba-26f6-440a-b684-e8e4e6fd3cba", "Manager", "MANAGER" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 1, 0, "87d0935d-c700-4217-8037-ac6a8db1364b", "Admin@sqli.com", false, false, null, "ADMIN@SQLI.COM", "ADMINUSER", "AQAAAAEAACcQAAAAENTCzIGH1HPstNJmih0VrvvucBTRRj+PAFaOy+E5I0QwC50714kzkFFu4wP0TtbOQw==", null, false, null, false, "AdminUser" });
+                values: new object[] { 1, 0, "a8f92603-e240-4e35-acab-62689db35e45", "Admin@sqli.com", false, false, null, "ADMIN@SQLI.COM", "ADMINUSER", "AQAAAAEAACcQAAAAEBrC+CU8GN2UZJdx4p8zLlICvD/UFDLcf8eKrIsBNyOOZ97waTQIRrs6vhaBx3KOng==", null, false, null, false, "AdminUser" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -729,6 +752,11 @@ namespace API_MySIRH.Migrations
                 column: "CollaborateurId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Images_CollaborateurId",
+                table: "Images",
+                column: "CollaborateurId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ToDoItems_ToDoListId",
                 table: "ToDoItems",
                 column: "ToDoListId");
@@ -771,6 +799,9 @@ namespace API_MySIRH.Migrations
 
             migrationBuilder.DropTable(
                 name: "Documents");
+
+            migrationBuilder.DropTable(
+                name: "Images");
 
             migrationBuilder.DropTable(
                 name: "Memos");
