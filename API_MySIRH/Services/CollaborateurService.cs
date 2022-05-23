@@ -19,10 +19,11 @@ namespace API_MySIRH.Services
             this._mapper = mapper;
         }
 
-        public async Task<IEnumerable<DateTime>> GetIntegrationsYearsRange()
+        public async Task<IEnumerable<int>> GetIntegrationsYearsRange()
         {
             var res = this._collaborateurRepository.GetCollaborateurs()
                                 .Select(c => c.DateEntreeSqli.HasValue ? new DateTime(c.DateEntreeSqli.Value.Year, 1, 1) : new DateTime(1, 1, 1)) /* Work Around Nullable Dates */
+                                .Select(c => c.Year)
                                 .Distinct();
             return (res);
         }

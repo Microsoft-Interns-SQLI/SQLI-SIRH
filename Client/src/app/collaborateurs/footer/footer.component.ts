@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Pagination } from 'src/app/Models/pagination';
 
 @Component({
@@ -7,7 +7,7 @@ import { Pagination } from 'src/app/Models/pagination';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent implements OnInit {
-  
+
   @Input() pagination!: Pagination;
   @Output() pageNumber:EventEmitter<number> = new EventEmitter<number>()
   constructor() { }

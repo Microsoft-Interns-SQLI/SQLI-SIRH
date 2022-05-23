@@ -15,7 +15,9 @@ export class IntegrationsComponent implements OnInit {
 
   pageNumber = 1;
   pageSize = 10;
-  pageYear = Date.now;
+  pageYear = new Date().getFullYear();
+  yearsRange:number[] = []
+
   //Initalize pagination to avert undefined error value in the child component
   pagination: Pagination = {
     pageSize: this.pageSize,
@@ -39,12 +41,20 @@ export class IntegrationsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.loadIntegrations(this.pageSize, this.pageNumber, )
+    this.loadIntegrationsRange();
+    this.loadIntegrations(this.pageSize, this.pageNumber, this.pageYear);
+  }
+
+  loadIntegrationsRange() {
+    this.service.getIntegrationsYearRange().subscribe((res) => {
+      this.yearsRange = res;
+    })
   }
 
   loadIntegrations(
     pageSize?: number,
     pageNumber?: number,
+    year?: number,
     filtrerPar?: string,
     search?: string,
     orderby?: string
@@ -54,14 +64,13 @@ export class IntegrationsComponent implements OnInit {
     } else {
       this.spinnerService.isSearch.next(false);
     }
-    this.service.getDemissionsList(pageSize, pageNumber, filtrerPar, search, orderby)
+    this.service.getIntegrationsList(pageSize, pageNumber, year, filtrerPar, search, orderby)
       .subscribe({
         next: (resp) => {
           this.demissionsArray = resp.result;
           this.pagination = resp.pagination;
         },
         complete: () =>{
-          console.log(this.demissionsArray);
         },
       });
   }
@@ -72,7 +81,7 @@ export class IntegrationsComponent implements OnInit {
     return Math.abs(now.getFullYear() - date.getFullYear());
   }
 
-      // get pageSize value from header child component
+  // get pageSize value from header child component
   // update number of collab per page
   // update collab table
   changePageSize(pageSize: number) {
@@ -81,6 +90,7 @@ export class IntegrationsComponent implements OnInit {
     this.loadIntegrations(
       this.pageSize,
       this.pageNumber,
+      this.pageYear,
       this.selected === '' ? undefined : this.selected,
       this.searchInput === '' ? undefined : this.searchInput
     );
@@ -94,19 +104,25 @@ export class IntegrationsComponent implements OnInit {
     this.loadIntegrations(
       this.pageSize,
       1,
+      this.pageYear,
       this.selected === '' ? undefined : this.selected,
       this.searchInput === '' ? undefined : value
     );
   }
 
-  getCurrentPage(page: number) {
+  getCurrentPage(page: any) {
     this.pageNumber = page;
     this.loadIntegrations(
       this.pageSize,
       this.pageNumber,
+      this.pageYear,
       this.selected === '' ? undefined : this.selected,
       this.searchInput === '' ? undefined : this.searchInput
     );
+  }
+
+  onSelect() {
+    this.loadIntegrations(this.pageSize, this.pageNumber, this.pageYear);
   }
 
 }
