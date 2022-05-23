@@ -30,9 +30,9 @@ namespace API_MySIRH.Services
             return  _mapper.Map<List<FormationDTO>>(await _formationRepository.GetAll());
         }
 
-        public Task<FormationDTO> GetById()
+        public async Task<FormationDTO> GetById(int id)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<FormationDTO>(await _formationRepository.GetById(id));
         }
 
         public Task<FormationDTO> GetByLibelle()

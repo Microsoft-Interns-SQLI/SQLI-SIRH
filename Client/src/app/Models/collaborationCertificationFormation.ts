@@ -3,6 +3,5 @@ export interface CollabFormationCertif{
     dateDebut: Date,
     dateFin: Date,
     collaborateurId: number,
-    id: number,
-    name: string
+    id: number
 }

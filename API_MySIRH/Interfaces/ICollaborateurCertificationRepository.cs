@@ -13,5 +13,6 @@ namespace API_MySIRH.Interfaces
         Task Delete(CollaborateurCertification collaborateurCertification);
 
         Task<List<int>> GetAnnees();
+        Task<List<int>> GetAnneesByCollaborateur(int id);
     }
 }

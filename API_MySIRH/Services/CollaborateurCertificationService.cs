@@ -31,15 +31,7 @@ namespace API_MySIRH.Services
         {
             var list = await _collaborateurCertificationRepository.GetAll();
 
-            if (filter.status != null && filter.status != 0)
-            {
-                list = list.Where(cc => cc.Status == filter.status).ToList();
-            }
-
-            if (filter.annee != null && filter.annee.ToString().Length >= 4 && filter.annee != 0)
-            {
-                list = list.Where(cc => cc.DateDebut.Value.Year == filter.annee).ToList();
-            }
+            list = FiltrerTable(filter, list);
 
             var cfDto = _mapper.Map<List<CollaborateurCertificationDTO>>(list);
 
@@ -49,14 +41,22 @@ namespace API_MySIRH.Services
         {
             return  await _collaborateurCertificationRepository.GetAnnees();
         }
+        public async Task<List<int>> GetAnneesByCollaborateur(int id)
+        {
+            return await _collaborateurCertificationRepository.GetAnneesByCollaborateur(id);
+        }
         public Task<List<CollaborateurCertificationDTO>> GetByCertification(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<CollaborateurCertificationDTO>> GetByCollaborateur(int id)
+        public async Task<CollaborateurCertificationResponse> GetByCollaborateur(int id, FilterParamsForCertifAndFormation filter)
         {
-            throw new NotImplementedException();
+            var list = FiltrerTable(filter, await _collaborateurCertificationRepository.GetByCollaborateur(id));
+
+            var cfDTO = _mapper.Map<List<CollaborateurCertificationDTO>>(list);
+
+            return cfDTO.GroupBy(x => x.DateDebut.Value.Year).Select(g => new CollaborateurCertificationResponse { Annee = g.Key, List = g.ToList() }).FirstOrDefault();
         }
 
         public async Task<CollaborateurCertificationDTO> GetOne(int collaborateurId, int certificationId)
@@ -67,6 +67,20 @@ namespace API_MySIRH.Services
         public async Task Update(CollaborateurCertificationDTO collaborateurCertification)
         {
             await _collaborateurCertificationRepository.Update(_mapper.Map<CollaborateurCertification>(collaborateurCertification));
+        }
+        private List<CollaborateurCertification> FiltrerTable(FilterParamsForCertifAndFormation filter, List<CollaborateurCertification> list)
+        {
+            if (filter.status != null && filter.status != 0)
+            {
+                list = list.Where(cf => cf.Status == filter.status).ToList();
+            }
+
+            if (filter.annee != null && filter.annee.ToString().Length >= 4 && filter.annee != 0)
+            {
+                list = list.Where(cc => cc.DateDebut.Value.Year == filter.annee).ToList();
+            }
+
+            return list;
         }
     }
 }

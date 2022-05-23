@@ -44,6 +44,15 @@ namespace API_MySIRH.Repositories
                                 .ToListAsync();
         }
 
+        public async Task<List<int>> GetAnneesByCollaborateur(int id)
+        {
+            return await _context.CollaborateurFormations
+                                .Where(x=> x.CollaborateurId == id)
+                                .Select(x => x.DateDebut.Value.Year)
+                                .Distinct()
+                                .ToListAsync();
+        }
+
         public async Task<List<CollaborateurFormation>> GetByCollaborateur(int id)
         {
             return await _context.CollaborateurFormations.Where(x => x.CollaborateurId == id)

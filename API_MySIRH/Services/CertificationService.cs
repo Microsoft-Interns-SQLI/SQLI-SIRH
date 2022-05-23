@@ -30,9 +30,9 @@ namespace API_MySIRH.Services
             return _mapper.Map<List<CertificationDTO>>(await _certificationRepository.GetAll());
         }
 
-        public Task<CertificationDTO> GetById()
+        public async Task<CertificationDTO> GetById(int id)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<CertificationDTO>(await _certificationRepository.GetById(id));
         }
 
         public Task<CertificationDTO> GetByLibelle()

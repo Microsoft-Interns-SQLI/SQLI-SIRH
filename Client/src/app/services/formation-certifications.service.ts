@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import { map, Observable, tap } from 'rxjs';
 import { CertificationOrFormation } from '../Models/certification-formation';
 
-export interface FormationCertificationResponse{
+export interface FormationCertificationResponse {
   list: CollabFormationCertif[];
   annees: number;
 }
@@ -57,6 +57,31 @@ export class FormationCertificationsService {
       })
     );
   }
+  getCertificationByCollab(id: number, status?: number, annee?: number): Observable<FormationCertificationResponse> {
+    let params: HttpParams = new HttpParams();
+    if (status != undefined)
+      params = params.append("status", status);
+    if (annee != undefined)
+      params = params.append("annee", annee);
+
+    return this.http.get<FormationCertificationResponse>(`${this.url_collab_certif}/${id}`, { params }).pipe(
+      map((data: FormationCertificationResponse) => {
+        if (data.list.length != 0)
+          data.list = data.list.map((item: any) => {
+            const cc: CollabFormationCertif = {
+              status: item.status,
+              dateDebut: item.dateDebut,
+              dateFin: item.dateFin,
+              collaborateurId: item.collaborateurId,
+              id: item['certificationId']
+            } as CollabFormationCertif
+            return cc;
+          });
+
+        return data;
+      })
+    );
+  }
   getCollabFormation(status?: number, annee?: number): Observable<FormationCertificationResponse> {
 
     let params: HttpParams = new HttpParams();
@@ -67,53 +92,59 @@ export class FormationCertificationsService {
 
     return this.http.get<FormationCertificationResponse>(this.url_collab_formation, { params }).pipe(
       map((data: FormationCertificationResponse) => {
-        data.list = data.list.map((item: any) => {
-          const cc: CollabFormationCertif = {
-            status: item.status,
-            dateDebut: item.dateDebut,
-            dateFin: item.dateFin,
-            collaborateurId: item.collaborateurId,
-            id: item['formationId'],
-            name: item['formationLibelle']
-          } as CollabFormationCertif
-          return cc;
-        });
-
-        return data;
-      })
-    );
-  }
-  getFormationByCollab(id:number, status?: number, annee?: number): Observable<FormationCertificationResponse>{
-    let params: HttpParams = new HttpParams();
-    if (status != undefined)
-      params = params.append("status", status);
-    if (annee != undefined)
-      params = params.append("annee", annee);
-
-      return this.http.get<FormationCertificationResponse>(`${this.url_collab_formation}/${id}`, { params }).pipe(
-        map((data: FormationCertificationResponse) => {
-          
+        if (data.list.length != 0) {
           data.list = data.list.map((item: any) => {
             const cc: CollabFormationCertif = {
               status: item.status,
               dateDebut: item.dateDebut,
               dateFin: item.dateFin,
               collaborateurId: item.collaborateurId,
-              id: item['formationId'],
-              name: item['formationLibelle']
+              id: item['formationId']
             } as CollabFormationCertif
             return cc;
           });
-  
-          return data;
-        })
-      );
+        }
+
+        return data;
+      })
+    );
   }
-  getFormationYears(): Observable<number[]>{
+  getFormationByCollab(id: number, status?: number, annee?: number): Observable<FormationCertificationResponse> {
+    let params: HttpParams = new HttpParams();
+    if (status != undefined)
+      params = params.append("status", status);
+    if (annee != undefined)
+      params = params.append("annee", annee);
+
+    return this.http.get<FormationCertificationResponse>(`${this.url_collab_formation}/${id}`, { params }).pipe(
+      map((data: FormationCertificationResponse) => {
+        if (data.list.length != 0)
+          data.list = data.list.map((item: any) => {
+            const cc: CollabFormationCertif = {
+              status: item.status,
+              dateDebut: item.dateDebut,
+              dateFin: item.dateFin,
+              collaborateurId: item.collaborateurId,
+              id: item['formationId']
+            } as CollabFormationCertif
+            return cc;
+          });
+
+        return data;
+      })
+    );
+  }
+  getFormationYears(): Observable<number[]> {
     return this.http.get<number[]>(`${this.url_collab_formation}/years`)
   }
-  getCertificationYears(): Observable<number[]>{
+  getFormationYearsByCollab(id:number): Observable<number[]> {
+    return this.http.get<number[]>(`${this.url_collab_formation}/years/${id}`)
+  }
+  getCertificationYears(): Observable<number[]> {
     return this.http.get<number[]>(`${this.url_collab_certif}/years`)
+  }
+  getCertificationYearsByCollab(id:number): Observable<number[]> {
+    return this.http.get<number[]>(`${this.url_collab_certif}/years/${id}`)
   }
   updateCollabCertif(data: CollabFormationCertif) {
     const opts: any = {
@@ -131,6 +162,28 @@ export class FormationCertificationsService {
       opts
     );
   }
+  updateCollabCertifs(collaborateurId:number ,data: CollabFormationCertif[]) {
+
+    const result = data.map(item=>{
+      return {
+        status: item.status,
+        dateDebut: item.dateDebut,
+        dateFin: item.dateFin,
+        collaborateurId: item.collaborateurId,
+        certificationId: item.id
+      }
+    })
+
+    const opts: any = {
+      responseType: 'text'
+    };
+
+    return this.http.put<CollabFormationCertif>(
+      `${this.url_collab_certif}/${collaborateurId}`,
+      result,
+      opts
+    );
+  }
   updateCollabFormation(data: CollabFormationCertif) {
     const opts: any = {
       responseType: 'text'
@@ -145,6 +198,29 @@ export class FormationCertificationsService {
         collaborateurId: data.collaborateurId,
         formationId: data.id
       },
+      opts
+    );
+  }
+
+  updateCollabFormations(collaborateurId:number ,data: CollabFormationCertif[]) {
+
+    const result = data.map(item=>{
+      return {
+        status: item.status,
+        dateDebut: item.dateDebut,
+        dateFin: item.dateFin,
+        collaborateurId: item.collaborateurId,
+        formationId: item.id
+      }
+    })
+
+    const opts: any = {
+      responseType: 'text'
+    };
+
+    return this.http.put<CollabFormationCertif>(
+      `${this.url_collab_formation}/${collaborateurId}`,
+      result,
       opts
     );
   }
