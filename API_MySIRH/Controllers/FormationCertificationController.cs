@@ -14,12 +14,14 @@ namespace API_MySIRH.Controllers
         private readonly ICollaborateurCertificationService _collaborateurCertificationService;
         private readonly ICollaborateurFormationService _collaborateurFormationService;
         private readonly IFormationService _formationService;
+        private readonly ICertificationService _certificationService;
 
-        public FormationCertificationController(ICollaborateurCertificationService collaborateurCertificationService, ICollaborateurFormationService collaborateurFormationService, IFormationService formationService)
+        public FormationCertificationController(ICollaborateurCertificationService collaborateurCertificationService, ICollaborateurFormationService collaborateurFormationService, IFormationService formationService, ICertificationService certificationService)
         {
             _collaborateurCertificationService = collaborateurCertificationService;
             _collaborateurFormationService = collaborateurFormationService;
             _formationService = formationService;
+            _certificationService = certificationService;
         }
 
         [HttpGet("certifications")]
@@ -36,6 +38,13 @@ namespace API_MySIRH.Controllers
 
             return Ok(years);
         }
+        [HttpGet("certifications/years/{id}")]
+        public async Task<IActionResult> GetCertificationYears(int id)
+        {
+            var years = await _collaborateurCertificationService.GetAnneesByCollaborateur(id);
+
+            return Ok(years);
+        }
         [HttpGet("certifications/{collabId}/{certifId}")]
         public async Task<IActionResult> GetCertification(int collabId, int certifId)
         {
@@ -44,26 +53,56 @@ namespace API_MySIRH.Controllers
             return Ok(cc);
         }
 
+        [HttpGet("certifications/{collabId}")]
+        public async Task<IActionResult> GetCertification(int collabId, [FromQuery] FilterParamsForCertifAndFormation filter)
+        {
+            var cc = await _collaborateurCertificationService.GetByCollaborateur(collabId, filter);
+
+            return cc == null ? Ok(new CollaborateurCertificationResponse { List = new List<CollaborateurCertificationDTO>() }) : Ok(cc);
+        }
+
         [HttpPut("certifications/{collabId}/{certifId}")]
         public async Task<IActionResult> PutCertification(int collabId, int certifId, CollaborateurCertificationDTO collaborateurCertification)
         {
-            var cc = await _collaborateurCertificationService.GetOne(collabId, certifId);
+            if (collaborateurCertification.CollaborateurId != collabId || certifId != collaborateurCertification.CertificationId)
+                return BadRequest("Something went wrong!");
 
-            if (cc == null)
-            {
-                await _collaborateurCertificationService.Add(collaborateurCertification);
-            }
-            else
-            {
-                if (cc.CollaborateurId != collaborateurCertification.CollaborateurId || collaborateurCertification.CertificationId != cc.CertificationId)
-                    return BadRequest("Collaborateur certification unfound!");
+            var formationExist = await _certificationService.GetById(certifId);
 
-                await _collaborateurCertificationService.Update(collaborateurCertification);
+            if (formationExist == null)
+                return BadRequest("Certificate unfound");
+
+            if (DateTime.Compare((DateTime)collaborateurCertification.DateDebut, (DateTime)collaborateurCertification.DateFin) > 0)
+                return BadRequest("The Start date must be earlier than the end date!");
+
+            var cf = await _collaborateurCertificationService.GetOne(collabId, certifId);
+
+            await addOrUpdateCertification(cf, collaborateurCertification);
+
+            return StatusCode(StatusCodes.Status201Created, "Collaborateur cerification updated successfully!");
+        }
+        [HttpPut("certifications/{collabId}")]
+
+
+        public async Task<IActionResult> PutCertifications(int collabId, List<CollaborateurCertificationDTO> collaborateurCertifications)
+        {
+            foreach (var collaborateurCertification in collaborateurCertifications)
+            {
+                var certificationExist = await _formationService.GetById(collaborateurCertification.CertificationId);
+
+                if (certificationExist == null)
+                    return BadRequest("Certificate unfound");
+
+                if (collaborateurCertification.CollaborateurId != collabId)
+                    return BadRequest("Something went wrong!");
+
+                var cf = await _collaborateurCertificationService.GetOne(collabId, collaborateurCertification.CertificationId);
+
+                await addOrUpdateCertification(cf, collaborateurCertification);
             }
 
             return StatusCode(StatusCodes.Status201Created, "Collaborateur certification updated successfully!");
         }
-
         [HttpGet("formations")]
         public async Task<IActionResult> GetFormations([FromQuery] FilterParamsForCertifAndFormation filter)
         {
@@ -118,7 +157,7 @@ namespace API_MySIRH.Controllers
 
             var cf = await _collaborateurFormationService.GetOne(collabId, formationId);
 
-            await addOrUpdate(cf, collaborateurFormation);
+            await addOrUpdateFormation(cf, collaborateurFormation);
 
             return StatusCode(StatusCodes.Status201Created, "Collaborateur formation updated successfully!");
         }
@@ -138,13 +177,14 @@ namespace API_MySIRH.Controllers
 
                 var cf = await _collaborateurFormationService.GetOne(collabId, collaborateurFormation.FormationId);
 
-                await addOrUpdate(cf, collaborateurFormation);
+                await addOrUpdateFormation(cf, collaborateurFormation);
             }
 
             return StatusCode(StatusCodes.Status201Created, "Collaborateur formation updated successfully!");
         }
 
-        private async Task addOrUpdate(CollaborateurFormationDTO oldcf, CollaborateurFormationDTO newcf)
+
+        private async Task addOrUpdateFormation(CollaborateurFormationDTO oldcf, CollaborateurFormationDTO newcf)
         {
             if (oldcf == null)
             {
@@ -153,6 +193,17 @@ namespace API_MySIRH.Controllers
             else if (oldcf.DateDebut != newcf.DateDebut || oldcf.DateFin != newcf.DateFin || oldcf.Status != newcf.Status)
             {
                 await _collaborateurFormationService.Update(newcf);
+            }
+        }
+        private async Task addOrUpdateCertification(CollaborateurCertificationDTO oldcf, CollaborateurCertificationDTO newcf)
+        {
+            if (oldcf == null)
+            {
+                await _collaborateurCertificationService.Add(newcf);
+            }
+            else if (oldcf.DateDebut != newcf.DateDebut || oldcf.DateFin != newcf.DateFin || oldcf.Status != newcf.Status)
+            {
+                await _collaborateurCertificationService.Update(newcf);
             }
         }
     }

@@ -23,9 +23,12 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
   @Input() collab!: Collaborator;
   @Input() myFormGroup!: FormGroup;
 
-  intersections!: CollabFormationCertif[];
+  intersectionsFormations!: CollabFormationCertif[];
+  intersectionsCertifications!: CollabFormationCertif[];
 
-  subIntersection!: Subscription;
+  subIntersectionF!: Subscription;
+  subIntersectionC!: Subscription;
+
   civiliteData: any = new SelectInputData();
   recruteModeData: any = new SelectInputData();
   niveauxData: any = new SelectInputData();
@@ -38,9 +41,12 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.collab.id != 0)
-      this.subIntersection = this.formationCertifService.getFormationByCollab(this.collab.id)
-        .subscribe(data => this.intersections = data.list);
+    if (this.collab.id != 0) {
+      this.subIntersectionF = this.formationCertifService.getFormationByCollab(this.collab.id)
+        .subscribe(data => this.intersectionsFormations = data.list);
+      this.subIntersectionC = this.formationCertifService.getCertificationByCollab(this.collab.id)
+        .subscribe(data => this.intersectionsCertifications = data.list);
+    }
   }
 
   ngOnInit(): void {
@@ -82,6 +88,7 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subIntersection.unsubscribe();
+    this.subIntersectionF.unsubscribe();
+    this.subIntersectionC.unsubscribe();
   }
 }

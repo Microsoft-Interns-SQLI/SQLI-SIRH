@@ -56,6 +56,12 @@
             Formations
           </button>
         </li>
+        <li class="nav-item" role="presentation">
+          <button id="certifications-tab" data-bs-target="#certifications" aria-controls="certifications" class="nav-link" data-bs-toggle="tab"
+            type="button" role="tab" aria-selected="false">
+            Certificats
+          </button>
+        </li>
       </ul>
 
     </div>
@@ -214,7 +220,10 @@
               <app-diplomes [collab]="collab" #diplomes></app-diplomes>
             </div>
             <div id="formations" aria-labelledby="formations-tab" role="tabpanel" class="tab-pane fade">
-              <app-formations-collab [collab]="collab" [intersections]="intersections"></app-formations-collab>
+              <app-formations-collab [collab]="collab" [intersections]="intersectionsFormations"></app-formations-collab>
+            </div>
+            <div id="certifications" aria-labelledby="certifications-tab" role="tabpanel" class="tab-pane fade">
+              <app-certifications-collab [collab]="collab" [intersections]="intersectionsCertifications"></app-certifications-collab>
             </div>
           </div>
         </div>

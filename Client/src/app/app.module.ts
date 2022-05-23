@@ -66,6 +66,7 @@ import { ModalAjoutDiplomeComponent } from './diplomes/modal-ajout-diplome/modal
 import { ModalAjoutContratComponent } from './contrats/modal-ajout-contrat/modal-ajout-contrat.component';
 import { FormationsCollabComponent } from './formations-collab/formations-collab.component';
 import { MdmTableComponent } from './mdm-panel/mdm-table/mdm-table.component';
+import { CertificationsCollabComponent } from './certifications-collab/certifications-collab.component';
 
 @NgModule({
   declarations: [
@@ -121,6 +122,7 @@ import { MdmTableComponent } from './mdm-panel/mdm-table/mdm-table.component';
     ModalAjoutContratComponent,
     FormationsCollabComponent,
     MdmTableComponent,
+    CertificationsCollabComponent,
   ],
   imports: [
     CommonModule,
