@@ -65,6 +65,24 @@ namespace API_MySIRH.Services
                 query = query.OrderByDescending(
                     x => x.Formations.Where(x => x.Libelle == filterParams.OrderByFormation).Any());
             }
+            /*else if(filterParams.postesId.Count() > 0) 
+            {
+                List<Collaborateur> listOfCollab = new List<Collaborateur>();
+                foreach (int i in filterParams.postesId)
+                {
+                    listOfCollab.AddRange(query.Where(collab => collab.PosteId == i).ToList());
+                }
+                query= listOfCollab.AsQueryable();
+            }
+            else if (filterParams.niveauxId.Count() > 0)
+            {
+                List<Collaborateur> listOfCollab = new List<Collaborateur>();
+                foreach (int i in filterParams.niveauxId)
+                {
+                    listOfCollab.AddRange(query.Where(collab => collab.NiveauId == i).ToList());
+                }
+                query = listOfCollab.AsQueryable();
+            }*/
             else
             {
                 query = filterParams.OrderBy switch
