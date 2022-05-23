@@ -20,11 +20,11 @@
                 {{error}}
             </div>
         </div>
-        <div formArrayName="formations" *ngFor="let f of controls.controls; let i = index" >
+        <div formArrayName="certifications" *ngFor="let f of controls.controls; let i = index" >
             <div class="d-flex justify-content-between mb-2" style="height: 30px;"  [formGroupName]="i">
                 <select class="form-select form-select-sm w-25 mx-1" formControlName="name">
                     <option value="0">Select formation</option>
-                    <option [ngValue]="formation.id" *ngFor="let formation of formations">{{formation.libelle}}</option>
+                    <option [ngValue]="certification.id" *ngFor="let certification of certifications">{{certification.libelle}}</option>
                 </select>
                 
                 <select class="form-select form-select-sm w-25 mx-1" formControlName="status">
@@ -74,4 +74,4 @@
 
 </table>
 
-<app-popup class="popup" [type]="'formation'" *ngIf="displayed" (certificationEvent)="boxUpdated($event)"></app-popup>
+<app-popup class="popup" [type]="'certification'" *ngIf="displayed" (certificationEvent)="boxUpdated($event)"></app-popup>

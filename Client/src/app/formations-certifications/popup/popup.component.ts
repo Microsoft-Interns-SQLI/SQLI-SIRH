@@ -47,18 +47,9 @@ export class PopupComponent implements OnInit, OnDestroy {
       id: this.model.id,
       status: form.controls['status'].value,
       dateDebut: form.controls['dateDebut'].value,
-      dateFin: form.controls['dateFin'].value,
+      dateFin: form.controls['dateFin'].value
     } as CollabFormationCertif
-    if (this.type === 'certification')
-      this.sub = this.formationCertifService.updateCollabCertif(item).subscribe(
-        {
-          complete: () => {
-            this.hideModal();
-            this.certificationEvent.emit(item);
-          }
-        }
-      );
-    else if(this.type ==='formation'){
+
       this.sub = this.formationCertifService.updateCollabFormation(item).subscribe(
         {
           complete: () => {
@@ -67,7 +58,6 @@ export class PopupComponent implements OnInit, OnDestroy {
           }
         }
       )
-    }
   }
 
   selectChange(value: string) {

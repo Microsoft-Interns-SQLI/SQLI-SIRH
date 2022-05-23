@@ -29,9 +29,9 @@ namespace API_MySIRH.Repositories
             return await _context.Certifications.AsNoTracking().ToListAsync();
         }
 
-        public Task<Certification> GetById()
+        public async Task<Certification> GetById(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Certifications.FindAsync(id);
         }
 
         public Task<Certification> GetByLibelle()

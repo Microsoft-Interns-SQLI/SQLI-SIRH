@@ -24,7 +24,7 @@ export class CollaboratorsService {
 
   constructor(private http: HttpClient, private imageService: ImagesService) { }
 
-  getCollaboratorsList(itemsPerPage?: number, page?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyFormation?: string, orderbyCertification?: string) {
+  getCollaboratorsList(itemsPerPage?: number, page?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyFormation?: string, orderbyCertification?: string, year?: number, status?: number) {
     //delay(50000);
     let params = new HttpParams();
     if (page != undefined && itemsPerPage != undefined) {
@@ -47,6 +47,17 @@ export class CollaboratorsService {
     if (orderbyCertification != undefined) {
       params = params.append("OrderByCertification", orderbyCertification);
     }
+    if (orderbyCertification != undefined) {
+      params = params.append("OrderByCertification", orderbyCertification);
+    }
+    if (year != undefined) {
+      params = params.append("Year", year);
+    }
+
+    if (status != undefined) {
+      params = params.append("Status", status);
+    }
+
     let sub: Subscription;
     return this.http.get<any>(this.myUrl, { observe: 'response', params }).pipe(
       map((response) => {
@@ -137,14 +148,14 @@ export class CollaboratorsService {
     if (lstIds) {
       for (let i = 0; i < lstIds.length; i++)
         params = params.append('ids', lstIds[i]);
-      }
+    }
     return this.http.get(this.myUrl + '/export', {
       responseType: 'blob',
       params
     })
   }
 
-  getIntegrationsYearRange() : Observable<number[]> {
+  getIntegrationsYearRange(): Observable<number[]> {
     return this.http.get<number[]>(this.myUrl + '/IntrgrationsRange');
   }
 

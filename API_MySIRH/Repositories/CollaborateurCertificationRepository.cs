@@ -41,15 +41,25 @@ namespace API_MySIRH.Repositories
                                 .Distinct()
                                 .ToListAsync();
         }
-
+        public async Task<List<int>> GetAnneesByCollaborateur(int id)
+        {
+            return await _context.CollaborateurCertifications
+                                .Where(x => x.CollaborateurId == id)
+                                .Select(x => x.DateDebut.Value.Year)
+                                .Distinct()
+                                .ToListAsync();
+        }
         public Task<List<CollaborateurCertification>> GetByCertification(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<CollaborateurCertification>> GetByCollaborateur(int id)
+        public async Task<List<CollaborateurCertification>> GetByCollaborateur(int id)
         {
-            throw new NotImplementedException();
+            return await _context.CollaborateurCertifications.Where(x => x.CollaborateurId == id)
+                .Include(x => x.Collaborateur)
+                .Include(x => x.Certification)
+                .ToListAsync();
         }
 
         public async Task<CollaborateurCertification> GetOne(int collaborateurId, int certificationId)
