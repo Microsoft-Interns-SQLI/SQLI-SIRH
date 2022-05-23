@@ -43,11 +43,12 @@ export class FormationCertificationsService {
       map(data => {
         data.list = data.list.map((item: any) => {
           const cc: CollabFormationCertif = {
+            id: item.id,
             status: item.status,
             dateDebut: item.dateDebut,
             dateFin: item.dateFin,
             collaborateurId: item.collaborateurId,
-            id: item['certificationId'],
+            idFormationCertif: item['certificationId'],
             name: item['certificationLibelle']
           } as CollabFormationCertif
           return cc;
@@ -69,11 +70,12 @@ export class FormationCertificationsService {
         if (data.list.length != 0)
           data.list = data.list.map((item: any) => {
             const cc: CollabFormationCertif = {
+              id: item.id,
               status: item.status,
               dateDebut: item.dateDebut,
               dateFin: item.dateFin,
               collaborateurId: item.collaborateurId,
-              id: item['certificationId']
+              idFormationCertif: item['certificationId']
             } as CollabFormationCertif
             return cc;
           });
@@ -95,11 +97,12 @@ export class FormationCertificationsService {
         if (data.list.length != 0) {
           data.list = data.list.map((item: any) => {
             const cc: CollabFormationCertif = {
+              id: item.id,
               status: item.status,
               dateDebut: item.dateDebut,
               dateFin: item.dateFin,
               collaborateurId: item.collaborateurId,
-              id: item['formationId']
+              idFormationCertif: item['formationId']
             } as CollabFormationCertif
             return cc;
           });
@@ -121,11 +124,12 @@ export class FormationCertificationsService {
         if (data.list.length != 0)
           data.list = data.list.map((item: any) => {
             const cc: CollabFormationCertif = {
+              id: item.id,
               status: item.status,
               dateDebut: item.dateDebut,
               dateFin: item.dateFin,
               collaborateurId: item.collaborateurId,
-              id: item['formationId']
+              idFormationCertif: item['formationId']
             } as CollabFormationCertif
             return cc;
           });
@@ -137,13 +141,13 @@ export class FormationCertificationsService {
   getFormationYears(): Observable<number[]> {
     return this.http.get<number[]>(`${this.url_collab_formation}/years`)
   }
-  getFormationYearsByCollab(id:number): Observable<number[]> {
+  getFormationYearsByCollab(id: number): Observable<number[]> {
     return this.http.get<number[]>(`${this.url_collab_formation}/years/${id}`)
   }
   getCertificationYears(): Observable<number[]> {
     return this.http.get<number[]>(`${this.url_collab_certif}/years`)
   }
-  getCertificationYearsByCollab(id:number): Observable<number[]> {
+  getCertificationYearsByCollab(id: number): Observable<number[]> {
     return this.http.get<number[]>(`${this.url_collab_certif}/years/${id}`)
   }
   updateCollabCertif(data: CollabFormationCertif) {
@@ -151,26 +155,28 @@ export class FormationCertificationsService {
       responseType: 'text'
     };
     return this.http.put<CollabFormationCertif>(
-      `${this.url_collab_certif}/${data.collaborateurId}/${data.id}`,
+      `${this.url_collab_certif}/${data.collaborateurId}/${data.idFormationCertif}`,
       {
+        id: data.id,
         status: data.status,
         dateDebut: data.dateDebut,
         dateFin: data.dateFin,
         collaborateurId: data.collaborateurId,
-        certificationId: data.id
+        certificationId: data.idFormationCertif
       },
       opts
     );
   }
-  updateCollabCertifs(collaborateurId:number ,data: CollabFormationCertif[]) {
+  updateCollabCertifs(collaborateurId: number, data: CollabFormationCertif[]) {
 
-    const result = data.map(item=>{
+    const result = data.map(item => {
       return {
+        id: item.id,
         status: item.status,
         dateDebut: item.dateDebut,
         dateFin: item.dateFin,
         collaborateurId: item.collaborateurId,
-        certificationId: item.id
+        certificationId: item.idFormationCertif
       }
     })
 
@@ -190,27 +196,29 @@ export class FormationCertificationsService {
     };
 
     return this.http.put<CollabFormationCertif>(
-      `${this.url_collab_formation}/${data.collaborateurId}/${data.id}`,
+      `${this.url_collab_formation}/${data.collaborateurId}/${data.idFormationCertif}`,
       {
+        id: data.id,
         status: data.status,
         dateDebut: data.dateDebut,
         dateFin: data.dateFin,
         collaborateurId: data.collaborateurId,
-        formationId: data.id
+        formationId: data.idFormationCertif
       },
       opts
     );
   }
 
-  updateCollabFormations(collaborateurId:number ,data: CollabFormationCertif[]) {
+  updateCollabFormations(collaborateurId: number, data: CollabFormationCertif[]) {
 
-    const result = data.map(item=>{
+    const result = data.map(item => {
       return {
+        id: item.id,
         status: item.status,
         dateDebut: item.dateDebut,
         dateFin: item.dateFin,
         collaborateurId: item.collaborateurId,
-        formationId: item.id
+        formationId: item.idFormationCertif
       }
     })
 

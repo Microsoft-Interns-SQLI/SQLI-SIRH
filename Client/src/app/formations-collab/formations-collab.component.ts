@@ -13,7 +13,7 @@ import { ToastService } from '../shared/toast/toast.service';
   templateUrl: './formations-collab.component.html',
   styleUrls: ['./formations-collab.component.css']
 })
-export class FormationsCollabComponent implements OnInit, OnDestroy {
+export class FormationsCollabComponent implements OnInit, OnChanges , OnDestroy {
 
   form!: FormGroup;
 
@@ -39,30 +39,34 @@ export class FormationsCollabComponent implements OnInit, OnDestroy {
 
   constructor(private formationCertifService: FormationCertificationsService, private popupService: PopupService) { }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if(this.intersections.length > 0){
+      this.sub = this.formationCertifService.getFormations().subscribe({
+        next: data => this.formations = data,
+        complete: () => this.prepareData()
+      });
+  
+      this.subYear = this.formationCertifService.getFormationYearsByCollab(this.collab.id).subscribe({
+        next: data => {
+          this.years = data.sort((a, b) => b - a);
+          if (data.length > 0) {
+            this.year = data[0];
+          }
+        },
+        complete: () => {
+          if (+this.year !== new Date(Date.now()).getFullYear())
+            this.fetchIntersection();
+        }
+      });
+    }
+  }
+
   ngOnInit(): void {
     this.subPopup = this.popupService.isShow.subscribe(data => this.displayed = data);
 
     this.form = new FormGroup({
       'formations': new FormArray([])
     })
-
-    this.sub = this.formationCertifService.getFormations().subscribe({
-      next: data => this.formations = data,
-      complete: () => this.prepareData()
-    });
-
-    this.subYear = this.formationCertifService.getFormationYearsByCollab(this.collab.id).subscribe({
-      next: data => {
-        this.years = data.sort((a, b) => b - a);
-        if (data.length > 0) {
-          this.year = data[0];
-        }
-      },
-      complete: () => {
-        if (+this.year !== new Date(Date.now()).getFullYear())
-          this.fetchIntersection();
-      }
-    });
 
 
   }
@@ -186,9 +190,11 @@ export class FormationsCollabComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    if(this.sub != undefined)
+      this.sub.unsubscribe();
     this.subPopup.unsubscribe();
-    this.subYear.unsubscribe();
+    if(this.subYear != undefined)
+      this.subYear.unsubscribe();
     if (this.subAdd != undefined)
       this.subAdd.unsubscribe();
     if (this.subIntersection != undefined)

@@ -1,7 +1,8 @@
 export interface CollabFormationCertif{
+    id: number
     status:string,
     dateDebut: Date,
     dateFin: Date,
     collaborateurId: number,
-    id: number
+    idFormationCertif:number
 }

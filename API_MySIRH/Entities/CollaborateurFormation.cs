@@ -1,11 +1,12 @@
-﻿namespace API_MySIRH.Entities
+﻿using System.ComponentModel;
+
+namespace API_MySIRH.Entities
 {
-    public class CollaborateurFormation
+    public class CollaborateurFormation : EntityBase
     {
         public Status? Status { get; set; }
         public DateTime? DateDebut { get; set; }
         public DateTime? DateFin { get; set; }
-
         public int CollaborateurId { get; set; }
         public virtual Collaborateur Collaborateur { get; set; }
 

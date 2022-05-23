@@ -1,6 +1,6 @@
 ﻿namespace API_MySIRH.DTOs
 {
-    public class CollaborateurCertificationDTO
+    public class CollaborateurCertificationDTO : DtoBase
     {
         public string? Status { get; set; }
         public DateTime? DateDebut { get; set; }

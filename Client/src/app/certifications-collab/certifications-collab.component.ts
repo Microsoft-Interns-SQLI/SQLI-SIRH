@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { PopupService } from '../formations-certifications/popup/popup.service';
@@ -12,7 +12,7 @@ import { FormationCertificationsService } from '../services/formation-certificat
   templateUrl: './certifications-collab.component.html',
   styleUrls: ['./certifications-collab.component.css']
 })
-export class CertificationsCollabComponent implements OnInit, OnDestroy {
+export class CertificationsCollabComponent implements OnInit,OnChanges, OnDestroy {
 
   form!: FormGroup;
 
@@ -36,6 +36,30 @@ export class CertificationsCollabComponent implements OnInit, OnDestroy {
   error: string = "";
 
   constructor(private formationCertifService: FormationCertificationsService, private popupService: PopupService) { }
+  ngOnChanges(changes: SimpleChanges): void {
+    if(this.intersections.length > 0){
+
+      this.sub = this.formationCertifService.getCertifications().subscribe({
+        next: data => this.certifications = data,
+        complete: () => this.prepareData()
+      });
+
+      this.subYear = this.formationCertifService.getCertificationYearsByCollab(this.collab.id).subscribe({
+        next: data => {
+          this.years = data.sort((a, b) => b - a);
+          if (data.length > 0) {
+            this.year = data[0];
+          }
+        },
+        complete: () => {
+          if (+this.year !== new Date(Date.now()).getFullYear())
+            this.fetchIntersection();
+        }
+      });
+    }
+  }
+
+  
 
   ngOnInit(): void {
     this.subPopup = this.popupService.isShow.subscribe(data => this.displayed = data);
@@ -43,25 +67,8 @@ export class CertificationsCollabComponent implements OnInit, OnDestroy {
     this.form = new FormGroup({
       'certifications': new FormArray([])
     });
-
-    this.sub = this.formationCertifService.getCertifications().subscribe({
-      next: data => this.certifications = data,
-      complete: () => this.prepareData()
-    });
-
-    this.subYear = this.formationCertifService.getCertificationYearsByCollab(this.collab.id).subscribe({
-      next: data => {
-        this.years = data.sort((a, b) => b - a);
-        if (data.length > 0) {
-          this.year = data[0];
-        }
-      },
-      complete: () => {
-        if (+this.year !== new Date(Date.now()).getFullYear())
-          this.fetchIntersection();
-      }
-    });
   }
+
   selectYear() {
     this.fetchIntersection();
   }
@@ -182,9 +189,11 @@ export class CertificationsCollabComponent implements OnInit, OnDestroy {
 
   }
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    if(this.sub != undefined)
+      this.sub.unsubscribe();
     this.subPopup.unsubscribe();
-    this.subYear.unsubscribe();
+    if(this.subYear != undefined)
+      this.subYear.unsubscribe();
     if (this.subAdd != undefined)
       this.subAdd.unsubscribe();
     if (this.subIntersection != undefined)
