@@ -344,7 +344,7 @@ namespace API_MySIRH.Controllers
                 worksheet[$"N{i}"].Value = collab.DatePremiereExperience == null ? "" : collab.DatePremiereExperience?.ToString("dd/MM/yyyy");
                 worksheet[$"O{i}"].Value = collab.DateEntreeSqli == null ? "" : collab.DateEntreeSqli?.ToString("dd/MM/yyyy");
                 worksheet[$"P{i}"].Value = collab.DateDebutStage == null ? "" : collab.DateDebutStage?.ToString("dd/MM/yyyy");
-                // worksheet[$"Q{i}"].Value = collab.DateSortieSqli == null ? "" : collab.DateSortieSqli?.ToString("dd/MM/yyyy");
+                worksheet[$"Q{i}"].Value = collab.Demissions.Any() ? collab.Demissions.Last().DateSortieSqli?.ToString("dd/MM/yyyy") : "";
                 
                 var diplomes = "";
                 if (collab.Diplomes != null)
