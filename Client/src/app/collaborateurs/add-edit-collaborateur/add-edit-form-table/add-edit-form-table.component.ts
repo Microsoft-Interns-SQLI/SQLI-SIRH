@@ -6,7 +6,7 @@ import { Collaborator, Demission } from 'src/app/Models/Collaborator';
 import { ContratsService } from 'src/app/services/contrats.service';
 import { DiplomesComponent } from 'src/app/diplomes/diplomes.component';
 import { CollabFormationCertif } from 'src/app/Models/collaborationCertificationFormation';
-import { CollabTypeContrat, Diplome } from 'src/app/Models/MdmModel';
+import { Diplome } from 'src/app/Models/MdmModel';
 import { FormationCertificationsService } from 'src/app/services/formation-certifications.service';
 import { MdmService } from 'src/app/services/mdm.service';
 import { ModalAjoutDemissionComponent } from './_demission_tab/modal-ajout-demission/modal-ajout-demission.component';
@@ -14,6 +14,7 @@ import {
   SelectInputData,
   SelectInputObject,
 } from './_form_inputs/select-input/select-input';
+import { CollabTypeContrat } from 'src/app/Models/CollabTypeContrat';
 
 @Component({
   selector: 'app-add-edit-form-table',

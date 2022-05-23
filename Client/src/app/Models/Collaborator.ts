@@ -1,3 +1,4 @@
+import { Carriere } from './Carriere';
 import { CollabFile } from './collabFile';
 import { Diplome, ReasonDemission, Site, SkillCenter } from './MdmModel';
 import { Niveau, Poste, RecruteMode } from './MdmModel';
@@ -24,8 +25,6 @@ export class Collaborator {
   phoneProfesionnel: string = '';
   autreTechnos: string = '';
   niveauId: number = 0;
-  niveau?: Niveau;
-  siteId?: number;
   site?: Site;
   skillCenter?: SkillCenter;
   emailPersonnel: string = '';
@@ -35,14 +34,17 @@ export class Collaborator {
   technos: string = '';
   certifications: string = '';
   langues: string = '';
+  niveau?: Niveau;
+  siteId?: number;
   posteId: number = 0;
   poste?: Poste;
+  carrieres?: Carriere[];
   nationnalite: string = '';
   lieuNaissance: string = '';
   numCin: string = '';
   documents?: CollabFile[];
   situationFamiliale: string = '';
-  imgPath: string ="";
+  imgPath: string = "";
 }
 
 export class Demission {

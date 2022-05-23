@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Collaborator } from '../Models/Collaborator';
-import { CollabTypeContrat } from '../Models/MdmModel';
+import { CollabTypeContrat } from '../Models/CollabTypeContrat';
 import { ContratsService } from '../services/contrats.service';
 import { ToastService } from '../shared/toast/toast.service';
 

@@ -5,7 +5,7 @@ import {
   SelectInputObject,
 } from 'src/app/collaborateurs/add-edit-collaborateur/add-edit-form-table/_form_inputs/select-input/select-input';
 import { Collaborator } from 'src/app/Models/Collaborator';
-import { CollabTypeContrat } from 'src/app/Models/MdmModel';
+import { CollabTypeContrat } from 'src/app/Models/CollabTypeContrat';
 import { ContratsService } from 'src/app/services/contrats.service';
 import { MdmService } from 'src/app/services/mdm.service';
 import { minDateValidator } from 'src/app/shared/custom-validators/min-date.validator';
@@ -26,7 +26,7 @@ export class ModalAjoutContratComponent implements OnInit {
     private formBuilder: FormBuilder,
     private mdmService: MdmService,
     private toastService: ToastService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.initForm();

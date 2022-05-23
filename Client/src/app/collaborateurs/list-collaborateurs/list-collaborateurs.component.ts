@@ -58,7 +58,7 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
     private fileService: FilesService,
     private toastService: ToastService,
     private spinnerService: SpinnerService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadCollaborators(this.pageSize, this.pageNumber);
@@ -81,6 +81,9 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (resp) => {
           this.collaboratorsArray = resp.result;
+          console.log(
+            this.collaboratorsArray[0].carrieres?.sort((a, b) => a.annee - b.annee).pop()
+          );
           this.pagination = resp.pagination;
         },
         complete: () => {
@@ -183,24 +186,24 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   export() {
     if (this.exportAll) {
       this.exportSubscription = this.service
-      .exportCollaborateurs()
-      .subscribe((data) => {
-        const buffer = new Blob([data], { type: data.type });
-        FileSaver.saveAs(buffer, 'Collaborateurs.xlsx');
-      });
+        .exportCollaborateurs()
+        .subscribe((data) => {
+          const buffer = new Blob([data], { type: data.type });
+          FileSaver.saveAs(buffer, 'Collaborateurs.xlsx');
+        });
     } else if (this.exportList.length > 0) {
       this.exportSubscription = this.service
-      .exportCollaborateurs(this.exportList)
-      .subscribe((data) => {
-        const buffer = new Blob([data], { type: data.type });
-        FileSaver.saveAs(buffer, 'Collaborateurs.xlsx');
-      });
+        .exportCollaborateurs(this.exportList)
+        .subscribe((data) => {
+          const buffer = new Blob([data], { type: data.type });
+          FileSaver.saveAs(buffer, 'Collaborateurs.xlsx');
+        });
     } else {
       alert('empty export options!');
     }
   }
 
-  checkedExport(id: number) : boolean {
+  checkedExport(id: number): boolean {
     if (this.exportList.includes(id) || this.exportAll)
       return true;
     return false;
@@ -212,7 +215,7 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
       this.exportList = [];
     }
     if (this.exportList.includes(id)) {
-      this.exportList.splice( this.exportList.indexOf(id), 1);
+      this.exportList.splice(this.exportList.indexOf(id), 1);
       el.checked = false;
     } else {
       this.exportList.push(id);

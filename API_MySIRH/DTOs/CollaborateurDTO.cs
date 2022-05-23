@@ -49,5 +49,11 @@ namespace API_MySIRH.DTOs
         public ICollection<CarriereDTO>? Carrieres { get; set; }
 
         //public ICollection<CertificationDTO>? Certifications { get; set; }
+
+
+        // *** todo : to remove
+        // public PostDTO? Poste { get; set; }
+        // public NiveauDTO? Niveau { get; set; }
+        /****/
     }
 }
