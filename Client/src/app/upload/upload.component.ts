@@ -1,8 +1,7 @@
-import { HttpClient, HttpEventType } from '@angular/common/http';
+import { HttpEventType } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FilesService } from '../services/files.service';
-import { concatMap, last, map, Subscription, switchMap } from 'rxjs';
-import { CollaboratorsService } from '../services/collaborators.service';
+import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -26,6 +25,7 @@ export class UploadComponent implements OnInit, OnDestroy {
   progress: number = 0;
   formData: FormData = new FormData();
   path: string = '';
+  docType: string = 'CV';
   constructor(
     private filesService: FilesService,
     private route: ActivatedRoute
@@ -34,6 +34,10 @@ export class UploadComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.route.params.subscribe(({ id }) => (this.collabId = id));
+  }
+  onChange(value: any) {
+    this.docType = value.target.value;
+    console.log(this.docType);
   }
   public readFiles(files: any) {
     this.files = files;
@@ -46,32 +50,32 @@ export class UploadComponent implements OnInit, OnDestroy {
       }
 
       for (let fileToUpload of this.files) {
-        this.formData.append('file', fileToUpload, fileToUpload.name);
-      }
-      this.subscription = this.filesService
-        .upload(this.formData, this.collabId)
-        .subscribe({
-          next: (event) => {
-            if (event.type === HttpEventType.UploadProgress) {
-              let total = event.total || 1;
-              this.progress = Math.round(event.loaded / total) * 100;
-            } else if (event.type === HttpEventType.Response) {
-              if (event.ok) {
-                this.error = '';
+        this.formData.set('file', fileToUpload, fileToUpload.name);
+        this.subscription = this.filesService
+          .upload(this.formData, this.docType, this.collabId)
+          .subscribe({
+            next: (event) => {
+              if (event.type === HttpEventType.UploadProgress) {
+                let total = event.total || 1;
+                this.progress = Math.round(event.loaded / total) * 100;
+              } else if (event.type === HttpEventType.Response) {
+                if (event.ok) {
+                  this.error = '';
+                }
+                this.path = event.body[0];
               }
-              this.path = event.body[0];
-            }
-          },
-          error: (err) => {
-            this.error = err;
-            this.isDone = true;
-            this.isLoading = false;
-          },
-          complete: () => {
-            this.isDone = true;
-            this.isLoading = false;
-          },
-        });
+            },
+            error: (err) => {
+              this.error = err;
+              this.isDone = true;
+              this.isLoading = false;
+            },
+            complete: () => {
+              this.isDone = true;
+              this.isLoading = false;
+            },
+          });
+      }
     }
   }
 }

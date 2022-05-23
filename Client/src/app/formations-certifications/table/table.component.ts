@@ -18,7 +18,9 @@ export class TableComponent implements OnInit, OnDestroy, OnChanges {
   @Input() rows: Collaborator[] = [];
   @Input() cols: CertificationOrFormation[] = [];
   @Input() type!: boolean;
+  @Input() yearSelected!:number;
   @Output() sortValue: EventEmitter<string> = new EventEmitter<string>();
+  @Output() yearChanged: EventEmitter<number> = new EventEmitter<number>();
   
   subPopup!: Subscription;
 
@@ -36,16 +38,17 @@ export class TableComponent implements OnInit, OnDestroy, OnChanges {
     this.subPopup = this.popupService.isShow.subscribe(data => this.displayed = data);
   }
 
-  details(certif: CollabFormationCertif) {
-    this.popupService.show(certif);
+  details(model: CollabFormationCertif) {
+    this.popupService.show(model);
   }
 
   boxUpdated(value: CollabFormationCertif) {
+    this.yearChanged.emit(new Date(value.dateDebut).getFullYear());
     this.newRows = this.newRows.map(item => {
       return {
         collaborateur: item.collaborateur,
         certificates: item.certificates.map(certif => {
-          if (certif.id === value.id && certif.collaborateurId === value.collaborateurId) {
+          if (certif.id === value.id && certif.collaborateurId === value.collaborateurId && new Date(value.dateDebut).getFullYear() === this.yearSelected) {
             return value;
           }
           return certif;
@@ -68,7 +71,7 @@ export class TableComponent implements OnInit, OnDestroy, OnChanges {
         if (collabFormCert != undefined) {
           certificates.push(collabFormCert);
         } else {
-          certificates.push({ status: '' } as CollabFormationCertif);
+          certificates.push({ status: '', collaborateurId:collab.id, id: certif.id } as CollabFormationCertif);
         }
       });
 

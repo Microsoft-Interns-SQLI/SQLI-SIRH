@@ -17,13 +17,13 @@ namespace API_MySIRH.Controllers
 
         }
         [HttpPost("upload/{id}")]
-        public async Task<ActionResult> Upload(int id)
+        public async Task<ActionResult> Upload([FromQuery] string type, int id)
         {
             try
             {
                 try
                 {
-                    ICollection<FileDTO> Paths = await _filesService.UploadFile(Request.Form.Files, id);
+                    ICollection<FileDTO> Paths = await _filesService.UploadFile(Request.Form.Files, type, id);
                     return Ok(Paths);
                 }
                 catch (Exception e)

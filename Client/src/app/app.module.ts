@@ -61,15 +61,14 @@ import { DisplayItemDirective } from './formations-certifications/table/display-
 import { HandleStatusDisplayPipe } from './formations-certifications/table/handle-status-display.pipe';
 import { PopupComponent } from './formations-certifications/popup/popup.component';
 import { MdmPanelComponent } from './mdm-panel/mdm-panel.component';
-import { SiteComponent } from './mdm-panel/site/site.component';
-import { SkillCenterComponent } from './mdm-panel/skill-center/skill-center.component';
-import { PosteComponent } from './mdm-panel/poste/poste.component';
-import { NiveauComponent } from './mdm-panel/niveau/niveau.component';
-import { ModeComponent } from './mdm-panel/mode/mode.component';
-import { TypeContratComponent } from './mdm-panel/type-contrat/type-contrat.component';
+import { HeaderFormationCertificationComponent } from './formations-certifications/header-formation-certification/header-formation-certification.component';
 import { ModalAjoutDiplomeComponent } from './diplomes/modal-ajout-diplome/modal-ajout-diplome.component';
 import { ModalAjoutContratComponent } from './contrats/modal-ajout-contrat/modal-ajout-contrat.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { DemissionTabComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/_demission_tab/demission-tab/demission-tab.component';
+import { ModalAjoutDemissionComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/_demission_tab/modal-ajout-demission/modal-ajout-demission.component';
+import { FormationsCollabComponent } from './formations-collab/formations-collab.component';
+import { MdmTableComponent } from './mdm-panel/mdm-table/mdm-table.component';
 
 @NgModule({
   declarations: [
@@ -115,18 +114,18 @@ import { NgSelectModule } from '@ng-select/ng-select';
     DiplomesComponent,
     ContratsComponent,
     TableComponent,
+    MdmPanelComponent,
+    HandleStatusDisplayPipe,
     DisplayItemDirective,
     HandleStatusDisplayPipe,
     PopupComponent,
-    MdmPanelComponent,
-    SiteComponent,
-    SkillCenterComponent,
-    PosteComponent,
-    NiveauComponent,
-    ModeComponent,
-    TypeContratComponent,
+    HeaderFormationCertificationComponent,
     ModalAjoutDiplomeComponent,
     ModalAjoutContratComponent,
+    DemissionTabComponent,
+    ModalAjoutDemissionComponent,
+    FormationsCollabComponent,
+    MdmTableComponent,
   ],
   imports: [
     CommonModule,
@@ -154,4 +153,4 @@ import { NgSelectModule } from '@ng-select/ng-select';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

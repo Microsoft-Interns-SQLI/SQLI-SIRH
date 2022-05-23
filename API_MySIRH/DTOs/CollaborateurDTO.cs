@@ -27,12 +27,14 @@ namespace API_MySIRH.DTOs
         public string Adresse { get; set; } = String.Empty;
         public string Langues { get; set; } = String.Empty;
         public string Note { get; set; } = String.Empty;
+
         [Required(ErrorMessage = "la date de naissance est obligatoire")]
         public DateTime DateNaissance { get; set; }
         public DateTime? DatePremiereExperience { get; set; }
         public DateTime? DateEntreeSqli { get; set; }
-        public DateTime? DateSortieSqli { get; set; }
         public DateTime? DateDebutStage { get; set; }
+        // demission ??
+        public ICollection<DemissionDTO>? Demissions { get; set; }
 
         // Relations
         public int? PosteId { get; set; }

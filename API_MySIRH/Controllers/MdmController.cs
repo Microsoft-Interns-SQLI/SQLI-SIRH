@@ -17,9 +17,10 @@ namespace API_MySIRH.Controllers
         private readonly IMdmService<TypeContrat, TypeContratDTO> _mdmServiceTypeContrat;
         private readonly IMdmService<SkillCenter, SkillCenterDTO> _mdmServiceSkillCenter;
         private readonly IMdmService<ModeRecrutement, ModeRecrutementDTO> _mdmServiceModeRecrutement;
+        private readonly IMdmService<ReasonDemission, ReasonDemissionDTO> _mdmServiceReasonDemission;
         private readonly string niveauxKey = "niveauxKey";
 
-        public MdmController(IMemoryCache memoryCache, IMdmService<Niveau, NiveauDTO> mdmServiceNiveau, IMdmService<Site, SiteDTO> mdmServiceSite, IMdmService<Post, PostDTO> mdmServicePoste, IMdmService<TypeContrat, TypeContratDTO> mdmServiceTypeContrat, IMdmService<SkillCenter, SkillCenterDTO> mdmServiceSkillCenter, IMdmService<ModeRecrutement, ModeRecrutementDTO> mdmServiceModeRecrutement)
+        public MdmController(IMemoryCache memoryCache, IMdmService<Niveau, NiveauDTO> mdmServiceNiveau, IMdmService<Site, SiteDTO> mdmServiceSite, IMdmService<Post, PostDTO> mdmServicePoste, IMdmService<TypeContrat, TypeContratDTO> mdmServiceTypeContrat, IMdmService<SkillCenter, SkillCenterDTO> mdmServiceSkillCenter, IMdmService<ModeRecrutement, ModeRecrutementDTO> mdmServiceModeRecrutement, IMdmService<ReasonDemission, ReasonDemissionDTO> mdmServiceReasonDemission)
         {
             _memoryCache = memoryCache;
             _mdmServiceNiveau = mdmServiceNiveau;
@@ -28,6 +29,7 @@ namespace API_MySIRH.Controllers
             _mdmServiceTypeContrat = mdmServiceTypeContrat;
             _mdmServiceSkillCenter = mdmServiceSkillCenter;
             _mdmServiceModeRecrutement = mdmServiceModeRecrutement;
+            _mdmServiceReasonDemission = mdmServiceReasonDemission;
         }
 
         [HttpGet("niveaux")]
@@ -370,22 +372,8 @@ namespace API_MySIRH.Controllers
         [HttpPost("modes")]
         public async Task<ActionResult<ModeRecrutementDTO>> AddMode([FromBody] ModeRecrutementDTO mode)
         {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    await _mdmServiceModeRecrutement.Add(mode);
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message);
-                }
-                return Ok($"Name de Recrutement : {mode.Name} added successfully !");
-            }
-            else
-            {
-                return BadRequest();
-            }
+            var returnedMode = await _mdmServiceModeRecrutement.Add(mode);
+            return CreatedAtAction(nameof(AddContrat), new { id = returnedMode.Id }, returnedMode);
         }
 
         [HttpPut("modes/{id}")]
@@ -412,6 +400,7 @@ namespace API_MySIRH.Controllers
         [HttpDelete("modes/{id}")]
         public async Task<IActionResult> DeleteMode(int id)
         {
+
             try
             {
                 await _mdmServiceModeRecrutement.Delete(id);
@@ -421,7 +410,69 @@ namespace API_MySIRH.Controllers
                 return NotFound(ex.Message);
             }
 
-            return Ok($"Name de Recrutement with id : {id} deleted successfully!");
+            return NoContent();
+        }
+
+        [HttpGet("reasondemission")]
+        public async Task<ActionResult<IEnumerable<ReasonDemissionDTO>>> GetReasonDemissions()
+        {
+            var result = await _mdmServiceReasonDemission.GetAll();
+            return Ok(result);
+        }
+
+        [HttpGet("reasondemission/{id}")]
+        public async Task<ActionResult<ReasonDemissionDTO>> GetReasonDemission(int id)
+        {
+            var result = await _mdmServiceReasonDemission.GetById(id);
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return result;
+        }
+
+        [HttpPut("reasondemission/{id}")]
+        public async Task<IActionResult> PutReasonDemission(int id, ReasonDemissionDTO reason)
+        {
+            if (id != reason.Id)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                await _mdmServiceReasonDemission.Update(id, reason);
+            }
+            catch
+            {
+                throw;
+            }
+
+            return NoContent();
+        }
+
+
+        [HttpPost("reasondemission")]
+        public async Task<ActionResult<ReasonDemissionDTO>> PostReasonDemission(ReasonDemissionDTO reason)
+        {
+            var result = await _mdmServiceReasonDemission.Add(reason);
+            return CreatedAtAction(nameof(PostSkillCenters), new { id = result.Id }, result);
+        }
+
+        [HttpDelete("reasondemission/{id}")]
+        public async Task<IActionResult> DeleteReasonDemission(int id)
+        {
+            var result = await _mdmServiceReasonDemission.GetById(id);
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            await _mdmServiceReasonDemission.Delete(id);
+
+            return NoContent();
         }
     }
 }

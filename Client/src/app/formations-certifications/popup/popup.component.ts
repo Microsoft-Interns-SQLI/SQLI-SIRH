@@ -19,7 +19,7 @@ export class PopupComponent implements OnInit, OnDestroy {
 
   @Output() certificationEvent: EventEmitter<CollabFormationCertif> = new EventEmitter<CollabFormationCertif>();
 
-  certification: CollabFormationCertif = {} as CollabFormationCertif;
+  model: CollabFormationCertif = {} as CollabFormationCertif;
 
   sub!: Subscription;
 
@@ -31,11 +31,11 @@ export class PopupComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    this.certification = this.popupService.certification;
-    this.selected = this.certification.status;
-    this.dateFin = this.certification.dateFin;
+    this.model = this.popupService.object;
+    this.selected = this.model.status;
+    this.dateFin = this.model.dateFin;
 
-    this.statusDisabled = new Date().getTime() < new Date(this.certification.dateDebut).getTime();
+    this.statusDisabled = new Date().getTime() < new Date(this.model.dateDebut).getTime();
   }
 
   hideModal() {
@@ -43,8 +43,8 @@ export class PopupComponent implements OnInit, OnDestroy {
   }
   onSubmit(form: NgForm) {
     let item: CollabFormationCertif = {
-      collaborateurId: this.certification.collaborateurId,
-      id: this.certification.id,
+      collaborateurId: this.model.collaborateurId,
+      id: this.model.id,
       status: form.controls['status'].value,
       dateDebut: form.controls['dateDebut'].value,
       dateFin: form.controls['dateFin'].value,
@@ -74,7 +74,7 @@ export class PopupComponent implements OnInit, OnDestroy {
     if (value == "AFAIRE") {
       this.dateFin = new Date();
     } else {
-      this.dateFin = this.certification.dateFin;
+      this.dateFin = this.model.dateFin;
     }
   }
 

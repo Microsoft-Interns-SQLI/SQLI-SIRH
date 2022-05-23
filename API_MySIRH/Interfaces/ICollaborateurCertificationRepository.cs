@@ -11,5 +11,7 @@ namespace API_MySIRH.Interfaces
         Task Add(CollaborateurCertification collaborateurCertification);
         Task Update(CollaborateurCertification collaborateurCertification);
         Task Delete(CollaborateurCertification collaborateurCertification);
+
+        Task<List<int>> GetAnnees();
     }
 }
