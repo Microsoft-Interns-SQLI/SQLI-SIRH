@@ -21,9 +21,11 @@ namespace API_MySIRH.Entities
         public string Langues { get; set; } = String.Empty; //todo : table relation one-to-many
         public string Note { get; set; } = String.Empty; //todo : table relation one-to-many
         public DateTime? DatePremiereExperience { get; set; } // cas exception
-        public DateTime? DateEntreeSqli { get; set; } // cas exception
-        public DateTime? DateSortieSqli { get; set; } // cas exception
         public DateTime? DateDebutStage { get; set; } // cas exception
+        public DateTime? DateEntreeSqli { get; set; } // cas exception
+
+        // Demmision ?? 
+        public ICollection<Demission> Demissions { get; set; }
 
         //Formations & Certifs Relationships
 

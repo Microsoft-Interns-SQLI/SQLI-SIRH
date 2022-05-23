@@ -37,6 +37,20 @@ namespace API_MySIRH.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet("IntrgrationsRange")]
+        public async Task<ActionResult<IEnumerable<DateTime>>> GetIntegrationsRange()
+        {
+            var res = await _collaborateurService.GetIntegrationsYearsRange();
+            return Ok(res);
+        }
+
+        [HttpGet("integrations")]
+        public async Task<ActionResult<IEnumerable<CollaborateurDTO>>> GetIntegrations([FromQuery] FilterParams filterParams)
+        {
+            var res = await _collaborateurService.GetIntegrations(filterParams);
+            return Ok(res);
+        }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CollaborateurDTO>>> GetCollaborateurs([FromQuery] FilterParams filterParams)
         {
@@ -46,10 +60,19 @@ namespace API_MySIRH.Controllers
             //return Ok(list.OrderByDescending(x => x.Certifications.Where(x => x.Libelle == "AZ-104").Any() ? x.Certifications.Where(x => x.Libelle == "AZ-104").FirstOrDefault().Libelle : null));
         }
 
+        [HttpGet("demission")]
+        public async Task<ActionResult<IEnumerable<CollaborateurDTO>>> GetDemissions([FromQuery] FilterParams filterParams)
+        {
+            var collabs = await _collaborateurService.GetDemissions(filterParams);
+            Response.AddPaginationHeader(collabs.CurrentPage, collabs.PageSize, collabs.TotalCount, collabs.TotalPages);
+            return Ok(collabs);
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<CollaborateurDTO>> GetCollaborateur(int id)
         {
-            return Ok(await this._collaborateurService.GetCollaborateurById(id));
+            var entity = await this._collaborateurService.GetCollaborateurById(id);
+            return Ok(entity);
         }
 
         [HttpPost]
@@ -209,8 +232,8 @@ namespace API_MySIRH.Controllers
                             collaborateur.DateEntreeSqli = Convert.ToDateTime(worksheet.Rows[i].Cells[13].Value);
                         if (worksheet.Rows[i].Cells[14].Value != "")
                             collaborateur.DateDebutStage = Convert.ToDateTime(worksheet.Rows[i].Cells[14].Value);
-                        if (worksheet.Rows[i].Cells[15].Value != "")
-                            collaborateur.DateSortieSqli = Convert.ToDateTime(worksheet.Rows[i].Cells[15].Value);
+                        //if (worksheet.Rows[i].Cells[15].Value != "")
+                        //    collaborateur.DateSortieSqli = Convert.ToDateTime(worksheet.Rows[i].Cells[15].Value); // ikhadem: TODO: use the .Add methode
 
                         if (await InvokeOperation(collaborateur))
                         {
@@ -311,7 +334,7 @@ namespace API_MySIRH.Controllers
                 worksheet[$"N{i}"].Value = collab.DatePremiereExperience == null ? "" : collab.DatePremiereExperience?.ToString("dd/MM/yyyy");
                 worksheet[$"O{i}"].Value = collab.DateEntreeSqli == null ? "" : collab.DateEntreeSqli?.ToString("dd/MM/yyyy");
                 worksheet[$"P{i}"].Value = collab.DateDebutStage == null ? "" : collab.DateDebutStage?.ToString("dd/MM/yyyy");
-                worksheet[$"Q{i}"].Value = collab.DateSortieSqli == null ? "" : collab.DateSortieSqli?.ToString("dd/MM/yyyy");
+                // worksheet[$"Q{i}"].Value = collab.DateSortieSqli == null ? "" : collab.DateSortieSqli?.ToString("dd/MM/yyyy");
                 
                 var diplomes = "";
                 if (collab.Diplomes != null)

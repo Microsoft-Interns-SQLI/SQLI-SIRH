@@ -33,6 +33,11 @@ export class Contrat extends BaseMDM {
   name: string = '';
 }
 
+export class ReasonDemission extends BaseMDM {
+  id: number = 0;
+  name: string = '';
+}
+
 export class CollabTypeContrat extends BaseMDM {
   id: number = 0;
   dateDebut: Date = new Date();

@@ -4,44 +4,62 @@
       <div class="row">
         <div class="col-md-9">
           <strong>
-            <u>
-              CVs et Documents
-            </u>
+            <u> CVs et Documents </u>
           </strong>
         </div>
         <div class="col-md-3 text-end">
-          <button type="button" class="btn btn-sm btn-outline-secondary " data-bs-toggle="modal"
-            data-bs-target="#upload">
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-secondary"
+            data-bs-toggle="modal"
+            data-bs-target="#upload"
+          >
             Upload Document
             <i class="bi bi-file-earmark-arrow-up"></i>
           </button>
         </div>
       </div>
     </div>
+
     <div class="card-body">
       <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto nulla assumenda magni. Vero, rem perferendis.
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto nulla
+        assumenda magni. Vero, rem perferendis.
       </p>
-      <div class="row justify-content-center" *ngIf="collab?.documents?.length !== 0">
-        <div class="col-md-5 shadow p-2 m-1 bg-body rounded" *ngFor="let document of collab?.documents">
-          <div class="row">
-            <div class="col-md-10">
-              <strong>
-                {{ document?.fileName }}
-              </strong>
-              <br>
-              <small>
-                Type :
-                {{ document?.type }}
-              </small>
+      <div
+        class="justify-content-center"
+        *ngIf="collab?.documents?.length !== 0"
+      >
+        <table class="table">
+          <tbody>
+            <div
+              class="col shadow p-2 m-1 bg-body rounded"
+              *ngFor="let document of collab?.documents"
+            >
+              <div class="row">
+                <div class="col-md-10">
+                  <strong>
+                    {{ document?.fileName }}
+                  </strong>
+                  <br />
+                  <small>
+                    Type :
+                    {{ document?.type }}
+                  </small>
+                </div>
+                <div class="col-md-2 text-end">
+                  <a
+                    class="btn btn-sm btn-primary me-2 mb-1"
+                    (click)="download(document)"
+                    aria-label="download"
+                  >
+                    <i class="bi bi-file-earmark-arrow-down"></i>
+                  </a>
+                </div>
+              </div>
             </div>
-            <div class="col-md-2 text-end">
-              <a class="btn btn-sm btn-primary me-2 mb-1" (click)="download(document)" aria-label="download">
-                <i class="bi bi-file-earmark-arrow-down"></i>
-              </a>
-            </div>
-          </div>
-        </div>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

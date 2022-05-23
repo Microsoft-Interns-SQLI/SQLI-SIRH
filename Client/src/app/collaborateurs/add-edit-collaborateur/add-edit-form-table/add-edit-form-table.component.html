@@ -14,6 +14,12 @@
             carrière & Past Jobs
           </button>
         </li>
+        <li class="nav-item" role="presentation">
+          <button id="demissions-tab" data-bs-target="#demissions" aria-controls="demissions" class="nav-link"
+            data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
+            Démissions
+          </button>
+        </li>
         <!-- <li class="nav-item" role="presentation">
           <button id="manager-tlrhs-tab" data-bs-target="#manager-tlrhs" aria-controls="manager-tlrhs"
             class="nav-link" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
@@ -51,8 +57,8 @@
           </button>
         </li>
         <li class="nav-item" role="presentation">
-          <button id="formations-tab" data-bs-target="#formations" aria-controls="formations" class="nav-link" data-bs-toggle="tab"
-            type="button" role="tab" aria-selected="false">
+          <button id="formations-tab" data-bs-target="#formations" aria-controls="formations" class="nav-link"
+            data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
             Formations
           </button>
         </li>
@@ -168,7 +174,7 @@
                       </div>
                       <div class="col-md-6 mt-3">
                         <app-text-input [formControl]="$any(myFormGroup.controls?.['dateSortieSqli'])"
-                          [label]="'Sortie SQLI'" [type]="'date'"></app-text-input>
+                          [isReadOnly]='true' [label]="'Sortie SQLI'" [type]="'date'"></app-text-input>
                       </div>
 
                       <div class="col-md-6 mt-3">
@@ -201,9 +207,14 @@
             <div id="carriere-past-jobs" aria-labelledby="carriere-past-jobs-tab" role="tabpanel" class="tab-pane fade">
               Carrière & Past Jobs Content
             </div>
-            <!-- <div id="manager-tlrhs" aria-labelledby="manager-tlrhs-tab" role="tabpanel" class="tab-pane fade">
-              Manager & TLRHs Content
+            <div id="demissions" aria-labelledby="demissions-tab" role="tabpanel" class="tab-pane fade">
+              <app-demission-tab (updateDemission)="updateDemission($event)" [collab]="collab" #demission>
+              </app-demission-tab>
             </div>
+            <!--
+              <div id="manager-tlrhs" aria-labelledby="manager-tlrhs-tab" role="tabpanel" class="tab-pane fade">
+                manager & tlrhs content
+              </div>
             <div id="materiels" aria-labelledby="materiels-tab" role="tabpanel" class="tab-pane fade">
               Materiels Content
             </div>
@@ -236,4 +247,5 @@
   </app-modal-ajout-diplome>
   <app-modal-ajout-contrat [collaborateur]="collab" (refreshAffectations)="refreshAffectations($event)">
   </app-modal-ajout-contrat>
+  <app-modal-ajout-demission [demission]="demis" (addDemmision)="addDemission($event)"></app-modal-ajout-demission>
 </form>

@@ -65,7 +65,7 @@ namespace API_MySIRH.Repositories
                         .Include(c => c.ModeRecrutement)
                         .Include(c => c.Documents)
                         .Include(c => c.Diplomes)
-                        .AsNoTracking()
+                        .Include(c => c.Demissions).ThenInclude(d => d.ReasonDemission)
                         .FirstOrDefaultAsync(c => c.Id == id);
         }
 
@@ -81,7 +81,13 @@ namespace API_MySIRH.Repositories
 
         public async Task UpdateCollaborateur(Collaborateur collaborateur)
         {
-            this._context.Entry(collaborateur).State = EntityState.Modified;
+            //if (collaborateur.Demissions.Any())
+            //{
+            //    foreach (Demission d in collaborateur.Demissions)
+            //        await this._context.AddAsync(d);
+            //}
+            // this._context.Entry(collaborateur).State = EntityState.Modified;
+            this._context.Update(collaborateur);
             await this._context.SaveChangesAsync();
         }
     }

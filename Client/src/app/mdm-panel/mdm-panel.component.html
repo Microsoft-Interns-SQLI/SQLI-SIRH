@@ -13,7 +13,9 @@
       id="mdmSelect"
     >
       <option disabled selected>Select</option>
-      <option *ngFor="let item of mdmItems">{{ item }}</option>
+      <option *ngFor="let item of mdmKeys" [value]="item">
+        {{ mdm[item] }}
+      </option>
     </select>
   </div>
   <div class="card-body">
@@ -32,3 +34,23 @@
     </h5>
   </div>
 </div>
+<!-- <h1>TEST MDM</h1>
+
+<select
+  class="form-select my-2"
+  aria-label="Default select example"
+  (change)="onChangeTest($event)"
+  id="mdmSelect"
+>
+  <option disabled selected>Select</option>
+  <option *ngFor="let item of mdmKeys" [value]="item">
+    {{ mdm[item] }}
+  </option>
+</select>
+
+<app-mdm-table
+  [title]="selectedItem"
+  [Data]="currentItem"
+  (itemToAdd)="handleAddTest($event)"
+  (itemToDelete)="handleDeleteTest($event)"
+></app-mdm-table> -->

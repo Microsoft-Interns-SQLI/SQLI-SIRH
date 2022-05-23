@@ -38,8 +38,10 @@ namespace API_MySIRH.Data
 
         public DbSet<Certification> Certifications { get; set; }
         public DbSet<CollaborateurCertification> CollaborateurCertifications { get; set; }
+        public DbSet<Demission> Demissions { get; set; }
         public DbSet<Formation> Formations { get; set; }
         public DbSet<CollaborateurFormation> CollaborateurFormations { get; set; }
+        public DbSet<ReasonDemission> ReasonDemissions { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

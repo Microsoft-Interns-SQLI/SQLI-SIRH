@@ -64,6 +64,8 @@ import { MdmPanelComponent } from './mdm-panel/mdm-panel.component';
 import { HeaderFormationCertificationComponent } from './formations-certifications/header-formation-certification/header-formation-certification.component';
 import { ModalAjoutDiplomeComponent } from './diplomes/modal-ajout-diplome/modal-ajout-diplome.component';
 import { ModalAjoutContratComponent } from './contrats/modal-ajout-contrat/modal-ajout-contrat.component';
+import { DemissionTabComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/_demission_tab/demission-tab/demission-tab.component';
+import { ModalAjoutDemissionComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/_demission_tab/modal-ajout-demission/modal-ajout-demission.component';
 import { FormationsCollabComponent } from './formations-collab/formations-collab.component';
 import { MdmTableComponent } from './mdm-panel/mdm-table/mdm-table.component';
 import { CertificationsCollabComponent } from './certifications-collab/certifications-collab.component';
@@ -120,6 +122,8 @@ import { CertificationsCollabComponent } from './certifications-collab/certifica
     HeaderFormationCertificationComponent,
     ModalAjoutDiplomeComponent,
     ModalAjoutContratComponent,
+    DemissionTabComponent,
+    ModalAjoutDemissionComponent,
     FormationsCollabComponent,
     MdmTableComponent,
     CertificationsCollabComponent,
