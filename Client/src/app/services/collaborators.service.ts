@@ -132,9 +132,15 @@ export class CollaboratorsService {
       .pipe(catchError(this.handleError));
   }
 
-  exportCollaborateurs() {
+  exportCollaborateurs(lstIds?: number[]) {
+    let params = new HttpParams();
+    if (lstIds) {
+      for (let i = 0; i < lstIds.length; i++)
+        params = params.append('ids', lstIds[i]);
+      }
     return this.http.get(this.myUrl + '/export', {
-      responseType: 'blob'
+      responseType: 'blob',
+      params
     })
   }
 

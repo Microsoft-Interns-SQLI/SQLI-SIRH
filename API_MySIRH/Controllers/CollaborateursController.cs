@@ -128,9 +128,9 @@ namespace API_MySIRH.Controllers
         }
 
         [HttpGet("export")]
-        public IActionResult Export()
+        public async Task<IActionResult> Export([FromQuery] List<int> ids)
         {
-            var exportfile = export();
+            var exportfile = await export(ids);
             return exportfile;
         }
 
@@ -275,10 +275,19 @@ namespace API_MySIRH.Controllers
             return resultDiplomes;
         }
 
-        private FileContentResult export()
+        private async Task<FileContentResult> export(List<int> ids)
         {
-
-            var collabs = _collaborateurService.GetCollaborateurs();
+            var collabs = new List<CollaborateurDTO>();
+            if (!ids.Any())
+                collabs = _collaborateurService.GetCollaborateurs().ToList();
+            else
+            {
+                for (int index = 0; index < ids.Count; index++)
+                {
+                    var en = await _collaborateurService.GetCollaborateurById(ids[index]);
+                    collabs.Add(en);
+                }
+            }
 
             ExcelEngine excelEngine = new ExcelEngine();
 
