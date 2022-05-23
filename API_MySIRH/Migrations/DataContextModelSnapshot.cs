@@ -55,14 +55,14 @@ namespace API_MySIRH.Migrations
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "4341df2c-6614-4132-8ca0-8410e9e28906",
+                            ConcurrencyStamp = "dc9c0c1b-baa3-4f82-9b16-7cd05cd5ce64",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "398f9c78-ef94-4ed4-9d08-a966a221f449",
+                            ConcurrencyStamp = "4de0671c-8e29-4521-85df-e0669bec0382",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -140,13 +140,13 @@ namespace API_MySIRH.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fff37190-7a23-47da-801f-7763204fbd3c",
+                            ConcurrencyStamp = "4cdc41d1-5840-4f3d-817d-09a6cd4478bc",
                             Email = "Admin@sqli.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@SQLI.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEF64dj6LBnd8coA5Zow6HUzlkcGFt6/l/cCmT5WCEcVZwlGZAI603DbxnCfIOiIVkA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEO/bpjUi9NdlWgKGlx/tnpIN/6c3OBC7NT0PVsckiaXBrtqV4X8AaD/cH8mN+sT1NQ==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "AdminUser"
@@ -173,6 +173,58 @@ namespace API_MySIRH.Migrations
                             UserId = 1,
                             RoleId = 2
                         });
+                });
+
+            modelBuilder.Entity("API_MySIRH.Entities.Carriere", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("CollaborateurId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ModificationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("NiveauId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PosteId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProfilDeCout")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float?>("SalaireBrut")
+                        .HasColumnType("real");
+
+                    b.Property<float?>("SalaireNet")
+                        .HasColumnType("real");
+
+                    b.Property<string>("TLRH")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float?>("VariableBrut")
+                        .HasColumnType("real");
+
+                    b.Property<float?>("VariableNet")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CollaborateurId");
+
+                    b.HasIndex("NiveauId");
+
+                    b.HasIndex("PosteId");
+
+                    b.ToTable("Carrieres");
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.Certification", b =>
@@ -996,6 +1048,27 @@ namespace API_MySIRH.Migrations
                     b.Navigation("Role");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("API_MySIRH.Entities.Carriere", b =>
+                {
+                    b.HasOne("API_MySIRH.Entities.Collaborateur", "Collaborateur")
+                        .WithMany()
+                        .HasForeignKey("CollaborateurId");
+
+                    b.HasOne("API_MySIRH.Entities.Niveau", "Niveau")
+                        .WithMany()
+                        .HasForeignKey("NiveauId");
+
+                    b.HasOne("API_MySIRH.Entities.Post", "Poste")
+                        .WithMany()
+                        .HasForeignKey("PosteId");
+
+                    b.Navigation("Collaborateur");
+
+                    b.Navigation("Niveau");
+
+                    b.Navigation("Poste");
                 });
 
             modelBuilder.Entity("API_MySIRH.Entities.Collaborateur", b =>

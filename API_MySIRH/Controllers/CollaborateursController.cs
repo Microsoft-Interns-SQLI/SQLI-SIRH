@@ -4,10 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using API_MySIRH.Helpers;
 using API_MySIRH.Extentions;
 using Syncfusion.XlsIO;
-using System.Collections;
 using AutoMapper;
 using API_MySIRH.Entities;
-using Microsoft.AspNetCore.JsonPatch;
 
 namespace API_MySIRH.Controllers
 {
@@ -209,12 +207,12 @@ namespace API_MySIRH.Controllers
                         //Mode recrutement
                         var modeRecrutement = await _mdmServiceModeRecrutement.GetByName(worksheet.Rows[i].Cells[11].Value.ToString());
                         collaborateur.ModeRecrutement = _mapper.Map<ModeRecrutement>(modeRecrutement);
-                        //Poste
-                        var poste = await _mdmServicePoste.GetByName(worksheet.Rows[i].Cells[8].Value.ToString());
-                        collaborateur.Poste = _mapper.Map<Post>(poste);
-                        //Niveau
-                        var niveau = await _mdmServiceNiveau.GetByName(worksheet.Rows[i].Cells[9].Value.ToString());
-                        collaborateur.Niveau = _mapper.Map<Niveau>(niveau);
+                        //Poste : todo : transform to relation
+                        // var poste = await _mdmServicePoste.GetByName(worksheet.Rows[i].Cells[8].Value.ToString());
+                        // collaborateur.Poste = _mapper.Map<Post>(poste);
+                        //Niveau : todo : transform to relation
+                        // var niveau = await _mdmServiceNiveau.GetByName(worksheet.Rows[i].Cells[9].Value.ToString());
+                        // collaborateur.Niveau = _mapper.Map<Niveau>(niveau);
                         //Site
                         var site = await _mdmServiceSite.GetByName(worksheet.Rows[i].Cells[4].Value.ToString());
                         collaborateur.Site = _mapper.Map<Site>(site);
@@ -327,18 +325,18 @@ namespace API_MySIRH.Controllers
                 worksheet[$"G{i}"].Value = collab.Civilite;
                 worksheet[$"H{i}"].Value = collab.DateNaissance.ToString("dd/MM/yyyy");
                 worksheet[$"I{i}"].Value = collab.SkillCenter.Name;
-                worksheet[$"J{i}"].Value = collab.Poste.Name;
-                worksheet[$"K{i}"].Value = collab.Niveau.Name;
+                // worksheet[$"J{i}"].Value = collab.Poste.Name;
+                // worksheet[$"K{i}"].Value = collab.Niveau.Name;
                 //worksheet[$"L{i}"].Value = collab.TypeContrat;
                 worksheet[$"M{i}"].Value = collab.ModeRecrutement == null ? "" : collab.ModeRecrutement.Name;
                 worksheet[$"N{i}"].Value = collab.DatePremiereExperience == null ? "" : collab.DatePremiereExperience?.ToString("dd/MM/yyyy");
                 worksheet[$"O{i}"].Value = collab.DateEntreeSqli == null ? "" : collab.DateEntreeSqli?.ToString("dd/MM/yyyy");
                 worksheet[$"P{i}"].Value = collab.DateDebutStage == null ? "" : collab.DateDebutStage?.ToString("dd/MM/yyyy");
                 // worksheet[$"Q{i}"].Value = collab.DateSortieSqli == null ? "" : collab.DateSortieSqli?.ToString("dd/MM/yyyy");
-                
+
                 var diplomes = "";
                 if (collab.Diplomes != null)
-                    diplomes = String.Join(" | ",collab.Diplomes.Select(x => $"{x.Annee} : {x.Detail}"));
+                    diplomes = String.Join(" | ", collab.Diplomes.Select(x => $"{x.Annee} : {x.Detail}"));
                 worksheet[$"R{i}"].Value = diplomes;
 
                 worksheet[$"H{i}"].CellStyle.ShrinkToFit = true;

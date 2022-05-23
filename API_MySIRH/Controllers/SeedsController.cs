@@ -126,8 +126,8 @@ namespace API_MySIRH.Controllers
                     //DateSortieSqli = collaborateurJson["Date de sortie"].ToString() != String.Empty ? DateTime.Parse(collaborateurJson["Date de sortie"].ToString()) : null,
 
                     ModeRecrutement = this._dataContext.ModesRecrutements.Where(m => m.Name == mode).FirstOrDefault(),
-                    Niveau = this._dataContext.Niveaux.Where(n => n.Name == niveau).FirstOrDefault(),
-                    Poste = this._dataContext.Posts.Where(p => p.Name == post).FirstOrDefault(),
+                    // Niveau = this._dataContext.Niveaux.Where(n => n.Name == niveau).FirstOrDefault(),
+                    // Poste = this._dataContext.Posts.Where(p => p.Name == post).FirstOrDefault(),
                     SkillCenter = this._dataContext.SkillCenters.Where(sc => sc.Name == skillCenter).FirstOrDefault(),
                     Site = this._dataContext.Sites.Where(s => s.Name == site).FirstOrDefault(),
 

@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace API_MySIRH.Entities
 {
     public class Collaborateur : EntityBase
@@ -20,38 +18,31 @@ namespace API_MySIRH.Entities
         public string Adresse { get; set; } = String.Empty;
         public string Langues { get; set; } = String.Empty; //todo : table relation one-to-many
         public string Note { get; set; } = String.Empty; //todo : table relation one-to-many
-        public DateTime? DatePremiereExperience { get; set; } // cas exception
-        public DateTime? DateDebutStage { get; set; } // cas exception
-        public DateTime? DateEntreeSqli { get; set; } // cas exception
+        public DateTime? DatePremiereExperience { get; set; }
+        public DateTime? DateDebutStage { get; set; }
+        public DateTime? DateEntreeSqli { get; set; }
+        public string SituationFamiliale { get; set; } = String.Empty; //todo : table relation
 
-        // Demmision ?? 
-        public ICollection<Demission> Demissions { get; set; }
-
-        //Formations & Certifs Relationships
-
-        public virtual ICollection<Certification> Certifications { get; set; }
-        public List<CollaborateurCertification> CollaborateurCertifications { get; set; }
-
-        public virtual ICollection<Formation> Formations { get; set; }
-        public List<CollaborateurFormation> CollaborateurFormations { get; set; }
 
         /**
         *  Foreign key & navigabilité
         */
-        public string SituationFamiliale { get; set; } = String.Empty; //todo : table relation
-
         public virtual int? ModeRecrutementId { get; set; }
         public virtual ModeRecrutement? ModeRecrutement { get; set; }
         public virtual int? SiteId { get; set; }
         public virtual Site? Site { get; set; }
         public virtual int? SkillCenterId { get; set; }
         public virtual SkillCenter? SkillCenter { get; set; }
-        public virtual int? PosteId { get; set; }
-        public virtual Post? Poste { get; set; }
-        public virtual int? NiveauId { get; set; }
-        public virtual Niveau? Niveau { get; set; }
         public virtual ICollection<Diplome> Diplomes { get; set; }
         public virtual ICollection<Document>? Documents { get; set; }
+        public virtual ICollection<Certification> Certifications { get; set; }
+        public List<CollaborateurCertification> CollaborateurCertifications { get; set; }
+        public virtual ICollection<Formation> Formations { get; set; }
+        public List<CollaborateurFormation> CollaborateurFormations { get; set; }
+
+        // Demmision ?? 
+        public ICollection<Demission> Demissions { get; set; }
+
 
         public Collaborateur()
         {

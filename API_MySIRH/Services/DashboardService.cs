@@ -10,10 +10,10 @@ namespace API_MySIRH.Services
 {
     public class DashboardService : IDashboardService
     {
-        private readonly IMdmService<Post,PostDTO> _postService;
+        private readonly IMdmService<Post, PostDTO> _postService;
         private readonly IMdmService<Niveau, NiveauDTO> _niveauService;
 
-        public DashboardService(IMdmService<Post,PostDTO> postService, IMdmService<Niveau, NiveauDTO> niveauService)
+        public DashboardService(IMdmService<Post, PostDTO> postService, IMdmService<Niveau, NiveauDTO> niveauService)
         {
             _postService = postService;
             _niveauService = niveauService;
@@ -21,7 +21,7 @@ namespace API_MySIRH.Services
 
         public double GetAverageAge(IEnumerable<CollaborateurDTO> collaborateurs)
         {
-            return collaborateurs.Average(collaborateur => DateNaissanceCalcule(collaborateur.DateNaissance));                 
+            return collaborateurs.Average(collaborateur => DateNaissanceCalcule(collaborateur.DateNaissance));
         }
 
         public double GetAverageExp(IEnumerable<CollaborateurDTO> collaborateurs)
@@ -46,16 +46,19 @@ namespace API_MySIRH.Services
 
         public double GetHeadCountPerNiveaux(IEnumerable<CollaborateurDTO> collaborateurs, string niveauName)
         {
-            NiveauDTO myNiveau = _niveauService.GetAll().Result.Where(niveau => niveau.Name.Equals(niveauName)).FirstOrDefault();
-            if (myNiveau == null) return 0;
-            return collaborateurs.Where(collab => collab.NiveauId == myNiveau.Id).ToList().Count();
+            // NiveauDTO myNiveau = _niveauService.GetAll().Result.Where(niveau => niveau.Name.Equals(niveauName)).FirstOrDefault();
+            // if (myNiveau == null) return 0;
+            // return collaborateurs.Where(collab => collab.NiveauId == myNiveau.Id).ToList().Count(); // todo : transform niveau to relation
+
+            throw new NotImplementedException();
         }
 
-        public double GetHeadCountPerPoste(IEnumerable<CollaborateurDTO> collaborateurs,string postName)
+        public double GetHeadCountPerPoste(IEnumerable<CollaborateurDTO> collaborateurs, string postName)
         {
-            PostDTO myPost= _postService.GetAll().Result.Where(post => post.Name.Equals(postName)).FirstOrDefault();
-            if (myPost == null) return 0;
-            return collaborateurs.Where(collab => collab.PosteId == myPost.Id).ToList().Count();
+            // PostDTO myPost = _postService.GetAll().Result.Where(post => post.Name.Equals(postName)).FirstOrDefault();
+            // if (myPost == null) return 0;
+            // return collaborateurs.Where(collab => collab.PosteId == myPost.Id).ToList().Count(); // todo : transform poste to relation
+            throw new NotImplementedException();
         }
 
         public double GetMaleCount(IEnumerable<CollaborateurDTO> collaborateurs)
@@ -66,7 +69,7 @@ namespace API_MySIRH.Services
         public double GetTauxSoustraitant(IEnumerable<CollaborateurDTO> collaborateurs)
         {
             double freelanceCount = collaborateurs.Where(collaborateur => collaborateur.Matricule.Equals("0")).Count();
-            return freelanceCount/GetHeadCount(collaborateurs);
+            return freelanceCount / GetHeadCount(collaborateurs);
         }
 
         private int DateNaissanceCalcule(DateTime dateNaissance)

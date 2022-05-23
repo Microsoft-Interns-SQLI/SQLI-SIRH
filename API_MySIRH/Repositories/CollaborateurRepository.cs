@@ -58,10 +58,10 @@ namespace API_MySIRH.Repositories
         {
             return await
                     this._context.Collaborateurs
-                        .Include(c => c.Poste)
+                        // .Include(c => c.Poste) todo : return last/current poste
                         .Include(c => c.SkillCenter)
                         .Include(c => c.Site)
-                        .Include(c => c.Niveau)
+                        // .Include(c => c.Niveau) todo : return last/current niveau
                         .Include(c => c.ModeRecrutement)
                         .Include(c => c.Documents)
                         .Include(c => c.Diplomes)
