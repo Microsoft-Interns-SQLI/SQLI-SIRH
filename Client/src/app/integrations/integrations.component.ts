@@ -69,10 +69,8 @@ export class IntegrationsComponent implements OnInit {
         next: (resp) => {
           this.demissionsArray = resp.result;
           this.pagination = resp.pagination;
-          console.log(resp.pagination)
         },
         complete: () =>{
-          console.log(this.demissionsArray);
         },
       });
   }

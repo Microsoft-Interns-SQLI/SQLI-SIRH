@@ -74,10 +74,12 @@ export class AddEditFormTableComponent implements OnInit {
 
     data = event;
     this.myFormGroup.markAsDirty();
+    console.log(data)
     if (data.id != 0) {
       this.collab.demissions.forEach((el) => {
         if (el.id == data.id) {
           el = data;
+          el.reasonDemission = undefined;
         }
       })
       return;

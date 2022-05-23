@@ -6,17 +6,13 @@ import { Pagination } from 'src/app/Models/pagination';
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css']
 })
-export class FooterComponent implements OnInit, OnChanges {
+export class FooterComponent implements OnInit {
 
   @Input() pagination!: Pagination;
   @Output() pageNumber:EventEmitter<number> = new EventEmitter<number>()
   constructor() { }
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.pagination);
-  }
 
   ngOnInit(): void {
-
   }
 
   pageChanged(even: any) {
