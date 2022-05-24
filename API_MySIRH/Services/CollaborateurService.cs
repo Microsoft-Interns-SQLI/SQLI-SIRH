@@ -5,6 +5,7 @@ using API_MySIRH.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace API_MySIRH.Services
 {
@@ -105,6 +106,26 @@ namespace API_MySIRH.Services
             if (!(string.IsNullOrWhiteSpace(filterParams.Search)))
                 query = query.Where(c => c.Nom.Contains(filterParams.Search) || c.Prenom.Contains(filterParams.Search));
 
+            if (filterParams.postesId.Count() > 0)
+            {
+                var listCollabs = query.Where(c => c.Id == -1);
+                foreach (int i in filterParams.postesId)
+                {
+                   listCollabs = listCollabs.Union(query.Where(c => c.PosteId == i));
+                }
+                query = listCollabs.AsQueryable();
+            }
+
+            if (filterParams.niveauxId.Count() > 0)
+            {
+                var listCollabs = query.Where(c => c.Id == -1);
+                foreach (int i in filterParams.niveauxId)
+                {
+                    listCollabs = listCollabs.Union(query.Where(c => c.NiveauId == i));
+                }
+                query = listCollabs.AsQueryable();
+            }
+
             if (!string.IsNullOrWhiteSpace(filterParams.OrderByCertification))
             {
                 query = query.OrderByDescending(
@@ -115,24 +136,6 @@ namespace API_MySIRH.Services
                 query = query.OrderByDescending(
                     x => x.Formations.Where(x => x.Libelle == filterParams.OrderByFormation).Any());
             }
-            /*else if(filterParams.postesId.Count() > 0) 
-            {
-                List<Collaborateur> listOfCollab = new List<Collaborateur>();
-                foreach (int i in filterParams.postesId)
-                {
-                    listOfCollab.AddRange(query.Where(collab => collab.PosteId == i).ToList());
-                }
-                query= listOfCollab.AsQueryable();
-            }
-            else if (filterParams.niveauxId.Count() > 0)
-            {
-                List<Collaborateur> listOfCollab = new List<Collaborateur>();
-                foreach (int i in filterParams.niveauxId)
-                {
-                    listOfCollab.AddRange(query.Where(collab => collab.NiveauId == i).ToList());
-                }
-                query = listOfCollab.AsQueryable();
-            }*/
             else
             {
                 query = filterParams.OrderBy switch

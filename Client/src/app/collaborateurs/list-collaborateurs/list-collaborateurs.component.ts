@@ -50,13 +50,17 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   trierParMatricule: boolean = false;
   trierParAnnee: boolean = false;
 
+  postesId: number[] = [];
+  niveauxId: number[] = [];
+
+
   constructor(
     private service: CollaboratorsService,
     private imageService: ImagesService,
     private fileService: FilesService,
     private toastService: ToastService,
     private spinnerService: SpinnerService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadCollaborators(this.pageSize, this.pageNumber);
@@ -67,7 +71,9 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
     pageNumber?: number,
     filtrerPar?: string,
     search?: string,
-    orderby?: string
+    orderby?: string,
+    postesId?: number[],
+    niveauxId?: number[]
   ) {
     if (search != undefined) {
       this.spinnerService.isSearch.next(true);
@@ -75,9 +81,10 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
       this.spinnerService.isSearch.next(false);
     }
     this.loadCollabSubscription = this.service
-      .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby)
+      .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby,undefined,undefined,postesId,niveauxId)
       .subscribe({
         next: (resp) => {
+          console.log(resp);
           this.collaboratorsArray = resp.result;
           this.pagination = resp.pagination;
         },
@@ -125,6 +132,35 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
     );
   }
 
+  onChangePostes(postes: number[]) {
+    this.postesId = postes;
+
+    console.log("poste = "+this.postesId.toString());
+    this.loadCollaborators(
+      this.pageSize,
+      this.pageNumber,
+      this.selected === '' ? undefined : this.selected,
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesId,
+      this.niveauxId.length==0 ? undefined : this.niveauxId
+    )
+  }
+
+  onChangeNiveaux(niveaux: number[]) {
+    this.niveauxId = niveaux;
+    console.log("niveau = "+this.niveauxId.toString());
+    this.loadCollaborators(
+      this.pageSize,
+      this.pageNumber,
+      this.selected === '' ? undefined : this.selected,
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesId.length==0 ? undefined : this.postesId,
+      this.niveauxId
+    )
+  }  
+
   // get search value from header child component
   // update collab table
   search(value: string) {
@@ -154,6 +190,7 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   deleteCollab(id: any): void {
     this.collabToDelete = id;
   }
+
   confirmDelete(id: any): void {
     let message =
       'Collaborateur ' +

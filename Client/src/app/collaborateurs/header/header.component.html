@@ -22,16 +22,16 @@
                     <label class="form-label">Postes</label>
                 </div>
                 <div class="col-5">
-                    <ng-select [items]="postes" bindLabel="name" bindValue="id" [(ngModel)]="selectedPost"
-                        [multiple]="true" >
+                    <ng-select [items]="postes" bindLabel="name" bindValue="id" [(ngModel)]="chosenPost"
+                        (change)="onPostesChange(chosenPost)" [multiple]="true">
                     </ng-select>
                 </div>
                 <div class="col-1">
                     <label class="form-label">Niveaux</label>
                 </div>
                 <div class="col-4">
-                    <ng-select [items]="niveaux" bindLabel="name" bindValue="id" (change)="cll(selectedNiveau)" [(ngModel)]="selectedNiveau"
-                        [multiple]="true" >
+                    <ng-select [items]="niveaux" bindLabel="name" bindValue="id"
+                        (change)="onNiveauxChange(chosenNiveau)" [(ngModel)]="chosenNiveau" [multiple]="true">
                     </ng-select>
                 </div>
             </div>

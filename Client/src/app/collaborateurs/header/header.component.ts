@@ -16,20 +16,23 @@ export class HeaderComponent implements OnInit {
   @Output() pageSize = new EventEmitter<number>();
   @Output() search = new EventEmitter<string>();
   
-  selectedPost:number | undefined;
-  postFilter:number[] = [];
+  chosenPost!:number;
+  selectedPostes : number[]=[];
   postes!:Poste[];
-  selectedNiveau:number | undefined;
+  chosenNiveau!:number;
+  selectedNiveaux : number[]=[];
   niveaux!:Niveau[];
+  @Output() postesId = new EventEmitter<number[]>();
+  @Output() niveauxId = new EventEmitter<number[]>();
   
   constructor(private mdmService:MdmService) { }
 
   ngOnInit(): void {
-    this.mdmService.getPostes().subscribe((data)=>{
+    this.mdmService.getAll("Postes").subscribe((data)=>{
       console.log(data);
       this.postes = data;
     });
-    this.mdmService.getNiveaux().subscribe((data)=>{
+    this.mdmService.getAll("Niveaux").subscribe((data)=>{
       console.log(data);
       this.niveaux = data;
     });
@@ -39,14 +42,22 @@ export class HeaderComponent implements OnInit {
     this.pageSize.emit(this.selected);
   }
 
-  cll(string:any)
-  {
-    this.postFilter.push(string);
-    console.log(this.postFilter);
-  }
-
   onSearchChange(){
     this.search.emit(this.value);
   }
+
+  
+  onPostesChange(postId:number){
+    this.selectedPostes=[]
+    this.selectedPostes.push(postId);
+    this.postesId.emit(this.selectedPostes);
+  }
+
+  onNiveauxChange(niveauId:number){
+    this.selectedNiveaux=[]
+    this.selectedNiveaux.push(niveauId);
+    this.niveauxId.emit(this.selectedNiveaux);
+  }
+
 
 }

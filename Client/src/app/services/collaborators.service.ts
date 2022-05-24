@@ -24,7 +24,7 @@ export class CollaboratorsService {
 
   constructor(private http: HttpClient, private imageService: ImagesService) { }
 
-  getCollaboratorsList(itemsPerPage?: number, page?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyFormation?: string, orderbyCertification?: string) {
+  getCollaboratorsList(itemsPerPage?: number, page?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyFormation?: string, orderbyCertification?: string, postesId?: number[], niveauId?: number[]) {
     //delay(50000);
     let params = new HttpParams();
     if (page != undefined && itemsPerPage != undefined) {
@@ -47,6 +47,18 @@ export class CollaboratorsService {
     if (orderbyCertification != undefined) {
       params = params.append("OrderByCertification", orderbyCertification);
     }
+    if (postesId != undefined) {
+     /* postesId.forEach(poste=>{
+        params.append("postesId",poste);
+      })*/
+      params.appendAll({"postesId":postesId})
+    }
+    if (niveauId != undefined && niveauId.length >0) {
+      niveauId.forEach(niveau=>{
+        params.append("postesId",niveau);
+      })
+    }
+    
     let sub: Subscription;
     return this.http.get<any>(this.myUrl, { observe: 'response', params }).pipe(
       map((response) => {

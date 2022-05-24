@@ -54,6 +54,18 @@ namespace API_MySIRH.Repositories
             return query;
         }
 
+        public IQueryable<Collaborateur> GetCollaborateursByPostId(IQueryable collaborateurs,int postId) 
+        {
+            var query = ((List<Collaborateur>)collaborateurs).Where(x => x.PosteId == postId);
+            return query.AsQueryable();
+        }
+
+        public IQueryable<Collaborateur> GetCollaborateursByNiveauId(IQueryable collaborateurs,int niveauId) 
+        {
+            var query = ((List<Collaborateur>)collaborateurs).Where(x => x.NiveauId == niveauId);
+            return query.AsQueryable();
+        }
+
         public async Task<Collaborateur?> GetCollaborateurById(int id)
         {
             return await
