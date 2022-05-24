@@ -86,7 +86,7 @@ namespace API_MySIRH.Controllers
         {
             foreach (var collaborateurCertification in collaborateurCertifications)
             {
-                var certificationExist = await _formationService.GetById(collaborateurCertification.CertificationId);
+                var certificationExist = await _certificationService.GetById(collaborateurCertification.CertificationId);
 
                 if (certificationExist == null)
                     return BadRequest("Certificate unfound");

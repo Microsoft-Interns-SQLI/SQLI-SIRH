@@ -6,14 +6,13 @@ import { CertificationOrFormation } from '../Models/certification-formation';
 import { CollabFormationCertif } from '../Models/collaborationCertificationFormation';
 import { Collaborator } from '../Models/Collaborator';
 import { FormationCertificationsService } from '../services/formation-certifications.service';
-import { ToastService } from '../shared/toast/toast.service';
 
 @Component({
   selector: 'app-formations-collab',
   templateUrl: './formations-collab.component.html',
   styleUrls: ['./formations-collab.component.css']
 })
-export class FormationsCollabComponent implements OnInit, OnChanges , OnDestroy {
+export class FormationsCollabComponent implements OnInit, OnChanges, OnDestroy {
 
   form!: FormGroup;
 
@@ -40,12 +39,13 @@ export class FormationsCollabComponent implements OnInit, OnChanges , OnDestroy 
   constructor(private formationCertifService: FormationCertificationsService, private popupService: PopupService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(this.intersections.length > 0){
+    
+    if (this.intersections.length > 0) {
       this.sub = this.formationCertifService.getFormations().subscribe({
         next: data => this.formations = data,
-        complete: () => this.prepareData()
+        complete: ()=> this.prepareData()
       });
-  
+      
       this.subYear = this.formationCertifService.getFormationYearsByCollab(this.collab.id).subscribe({
         next: data => {
           this.years = data.sort((a, b) => b - a);
@@ -57,6 +57,11 @@ export class FormationsCollabComponent implements OnInit, OnChanges , OnDestroy 
           if (+this.year !== new Date(Date.now()).getFullYear())
             this.fetchIntersection();
         }
+      });
+    }
+    else{
+      this.sub = this.formationCertifService.getFormations().subscribe({
+        next: data => this.formations = data
       });
     }
   }
@@ -85,7 +90,8 @@ export class FormationsCollabComponent implements OnInit, OnChanges , OnDestroy 
   }
 
   boxUpdated(value: CollabFormationCertif) {
-    const index = this.table.findIndex(x => x.intersection.id === value.id && x.intersection.collaborateurId === value.collaborateurId);
+    
+    const index = this.table.findIndex(x => x.intersection.id === value.id);
     const intersection = this.table[index];
     if (index !== -1) {
       if (new Date(value.dateDebut).getFullYear() === new Date(intersection.intersection.dateDebut).getFullYear())
@@ -133,7 +139,7 @@ export class FormationsCollabComponent implements OnInit, OnChanges , OnDestroy 
       result.push({
         collaborateurId: this.collab.id,
         status: item.status,
-        id: item.name,
+        idFormationCertif: item.name,
         dateDebut: item.dateDebut,
         dateFin: item.dateFin
       } as CollabFormationCertif);
@@ -179,21 +185,26 @@ export class FormationsCollabComponent implements OnInit, OnChanges , OnDestroy 
   }
 
   private prepareData() {
+    
     this.table = [];
     this.intersections.forEach(item => {
-      const formation = this.formations.find(x => x.id === item.id);
-      if (formation != undefined) {
+      const formation = this.formations.find(x => x.id === item.idFormationCertif);
+      if (formation != undefined && new Date(item.dateDebut).getFullYear() === +this.year) {
         this.table = this.table.concat({ name: formation.libelle, intersection: item });
+      }
+      if (this.years.findIndex(x => x === new Date(item.dateDebut).getFullYear()) === -1) {
+        this.years.push(new Date(item.dateDebut).getFullYear());
+        this.years.sort((a, b) => b - a);
       }
     });
 
   }
 
   ngOnDestroy(): void {
-    if(this.sub != undefined)
+    if (this.sub != undefined)
       this.sub.unsubscribe();
     this.subPopup.unsubscribe();
-    if(this.subYear != undefined)
+    if (this.subYear != undefined)
       this.subYear.unsubscribe();
     if (this.subAdd != undefined)
       this.subAdd.unsubscribe();
