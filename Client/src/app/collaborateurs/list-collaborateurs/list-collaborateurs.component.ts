@@ -1,7 +1,7 @@
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as FileSaver from 'file-saver';
-import { Subscription } from 'rxjs';
+import { map, Subscription } from 'rxjs';
 
 import { Collaborator } from 'src/app/Models/Collaborator';
 import { Pagination } from 'src/app/Models/pagination';
@@ -80,10 +80,12 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
       .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby)
       .subscribe({
         next: (resp) => {
-          this.collaboratorsArray = resp.result;
-          console.log(
-            this.collaboratorsArray[0].carrieres?.sort((a, b) => a.annee - b.annee).pop()
-          );
+          this.collaboratorsArray = resp.result.map(function (collab) {
+            // let currentCarriere = collab.carrieres?.sort((a, b) => a.annee - b.annee).pop();
+            // collab.niveau = currentCarriere?.niveau;
+            // collab.poste = currentCarriere?.poste;
+            return collab;
+          });
           this.pagination = resp.pagination;
         },
         complete: () => {

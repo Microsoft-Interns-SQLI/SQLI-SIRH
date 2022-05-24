@@ -68,6 +68,9 @@ export class CollaboratorsService {
             },
             error: er => console.log(er)
           });
+          let currentCarriere = collab.carrieres?.sort((a, b) => a.annee - b.annee).pop();
+          collab.niveau = currentCarriere?.niveau;
+          collab.poste = currentCarriere?.poste;
           return collab;
         });
         if (response.headers.get('Pagination') != null) {
@@ -105,21 +108,35 @@ export class CollaboratorsService {
       params = params.append("OrderByCertification", orderbyCertification);
     }
 
-    return this.http.get<any>(this.myUrl + '/demission', { observe: 'response', params }).pipe(
-      map((response) => {
-        this.paginatedResult.result = response.body;
-        if (response.headers.get('Pagination') != null) {
-          this.paginatedResult.pagination = JSON.parse(
-            response.headers.get('Pagination') || ''
-          );
-        }
-        return this.paginatedResult;
-      })
-    );
+    return this.http.get<any>(this.myUrl + '/demission', { observe: 'response', params })
+      .pipe(
+        map((response) => {
+          this.paginatedResult.result = <Collaborator[]>response.body.map((collab: Collaborator) => {
+            let currentCarriere = collab.carrieres?.sort((a, b) => a.annee - b.annee).pop();
+            collab.niveau = currentCarriere?.niveau;
+            collab.poste = currentCarriere?.poste;
+            return collab;
+          });
+          if (response.headers.get('Pagination') != null) {
+            this.paginatedResult.pagination = JSON.parse(
+              response.headers.get('Pagination') || ''
+            );
+          }
+          return this.paginatedResult;
+        })
+      );
   }
 
   getCollaboratorByMatricule(id: number | string): Observable<Collaborator> {
-    return this.http.get<any>(this.myUrl + '/' + id, { responseType: 'json' });
+    return this.http.get<any>(this.myUrl + '/' + id, { responseType: 'json' })
+      .pipe(
+        map((collab: Collaborator) => {
+          let currentCarriere = collab.carrieres?.sort((a, b) => a.annee - b.annee).pop();
+          collab.niveau = currentCarriere?.niveau;
+          collab.poste = currentCarriere?.poste;
+          return collab;
+        })
+      );
   }
 
   addCollaborator(collabToAdd: any) {
@@ -187,7 +204,13 @@ export class CollaboratorsService {
 
     return this.http.get<any>(this.myUrl + '/integrations', { observe: 'response', params }).pipe(
       map((response) => {
-        this.paginatedResult.result = response.body;
+        this.paginatedResult.result = <Collaborator[]>response.body.map((collab: Collaborator) => {
+          let currentCarriere = collab.carrieres?.sort((a, b) => a.annee - b.annee).pop();
+          collab.niveau = currentCarriere?.niveau;
+          collab.poste = currentCarriere?.poste;
+          return collab;
+        });
+
         if (response.headers.get('Pagination') != null) {
           this.paginatedResult.pagination = JSON.parse(
             response.headers.get('Pagination') || ''

@@ -51,10 +51,12 @@ namespace API_MySIRH.Repositories
         public IQueryable<Collaborateur> GetCollaborateurs()
         {
             var query = _context.Collaborateurs
+
             .Include(c => c.Carrieres)! // todo : to remove
             .ThenInclude(carr => carr.Poste)
             .Include(c => c.Carrieres)!
             .ThenInclude(carr => carr.Niveau)
+
             .AsSplitQuery() // todo : good practice ?
             .Include(x => x.Certifications).AsNoTracking();
             return query;

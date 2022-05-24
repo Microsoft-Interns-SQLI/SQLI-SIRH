@@ -24,7 +24,6 @@ export class Collaborator {
   phonePersonnel: string = '';
   phoneProfesionnel: string = '';
   autreTechnos: string = '';
-  niveauId: number = 0;
   site?: Site;
   skillCenter?: SkillCenter;
   emailPersonnel: string = '';
@@ -34,12 +33,13 @@ export class Collaborator {
   technos: string = '';
   certifications: string = '';
   langues: string = '';
+  niveauId: number = 0;
   niveau?: Niveau;
-  siteId?: number;
   posteId: number = 0;
   poste?: Poste;
   carrieres?: Carriere[];
   nationnalite: string = '';
+  siteId?: number;
   lieuNaissance: string = '';
   numCin: string = '';
   documents?: CollabFile[];
