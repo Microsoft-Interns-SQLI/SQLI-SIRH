@@ -75,10 +75,14 @@ namespace API_MySIRH.Controllers
             if (DateTime.Compare((DateTime)collaborateurCertification.DateDebut, (DateTime)collaborateurCertification.DateFin) > 0)
                 return BadRequest("The Start date must be earlier than the end date!");
 
-            var cf = await _collaborateurCertificationService.GetOne(collabId, certifId);
+            if (collaborateurCertification.Id == 0)
+                await _collaborateurCertificationService.Add(collaborateurCertification);
+            else
+            {
+                var cf = await _collaborateurCertificationService.GetOne(collabId, certifId);
 
-            await addOrUpdateCertification(cf, collaborateurCertification);
-
+                await addOrUpdateCertification(cf, collaborateurCertification);
+            }
             return StatusCode(StatusCodes.Status201Created, "Collaborateur cerification updated successfully!");
         }
         [HttpPut("certifications/{collabId}")]
