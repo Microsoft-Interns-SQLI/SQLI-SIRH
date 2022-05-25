@@ -12,7 +12,7 @@ import { FormationCertificationsService } from '../services/formation-certificat
   templateUrl: './certifications-collab.component.html',
   styleUrls: ['./certifications-collab.component.css']
 })
-export class CertificationsCollabComponent implements OnInit,OnChanges, OnDestroy {
+export class CertificationsCollabComponent implements OnInit, OnChanges, OnDestroy {
 
   form!: FormGroup;
 
@@ -36,12 +36,14 @@ export class CertificationsCollabComponent implements OnInit,OnChanges, OnDestro
   error: string = "";
 
   constructor(private formationCertifService: FormationCertificationsService, private popupService: PopupService) { }
+  
   ngOnChanges(changes: SimpleChanges): void {
-    if(this.intersections.length > 0){
+
+    if (this.intersections.length > 0) {
 
       this.sub = this.formationCertifService.getCertifications().subscribe({
         next: data => this.certifications = data,
-        complete: () => this.prepareData()
+        complete: ()=> this.prepareData()
       });
 
       this.subYear = this.formationCertifService.getCertificationYearsByCollab(this.collab.id).subscribe({
@@ -56,10 +58,14 @@ export class CertificationsCollabComponent implements OnInit,OnChanges, OnDestro
             this.fetchIntersection();
         }
       });
+    } else {
+      this.sub = this.formationCertifService.getCertifications().subscribe({
+        next: data => this.certifications = data
+      });
     }
   }
 
-  
+
 
   ngOnInit(): void {
     this.subPopup = this.popupService.isShow.subscribe(data => this.displayed = data);
@@ -72,20 +78,19 @@ export class CertificationsCollabComponent implements OnInit,OnChanges, OnDestro
   selectYear() {
     this.fetchIntersection();
   }
+
   onEdit(item: CollabFormationCertif) {
     this.popupService.show(item);
   }
+
   boxUpdated(value: CollabFormationCertif) {
-    const index = this.table.findIndex(x => x.intersection.id === value.id && x.intersection.collaborateurId === value.collaborateurId);
+    const index = this.table.findIndex(x => x.intersection.id === value.id);
     const intersection = this.table[index];
     if (index !== -1) {
       if (new Date(value.dateDebut).getFullYear() === new Date(intersection.intersection.dateDebut).getFullYear())
         this.table.splice(index, 1, { name: intersection.name, intersection: value });
       else {
-        if (this.years.findIndex(x => x === new Date(value.dateDebut).getFullYear()) === -1) {
-          this.years.push(new Date(value.dateDebut).getFullYear());
-          this.years.sort((a, b) => b - a);
-        }
+        this.changeYearsDropDown(value);
         this.table.splice(index, 1);
       }
     }
@@ -124,8 +129,8 @@ export class CertificationsCollabComponent implements OnInit,OnChanges, OnDestro
       }
       result.push({
         collaborateurId: this.collab.id,
+        idFormationCertif: item.name,
         status: item.status,
-        id: item.name,
         dateDebut: item.dateDebut,
         dateFin: item.dateFin
       } as CollabFormationCertif);
@@ -171,6 +176,13 @@ export class CertificationsCollabComponent implements OnInit,OnChanges, OnDestro
     return (this.form.get("certifications") as FormArray);
   }
 
+  private changeYearsDropDown(value: CollabFormationCertif){
+    if (this.years.findIndex(x => x === new Date(value.dateDebut).getFullYear()) === -1) {
+      this.years.push(new Date(value.dateDebut).getFullYear());
+      this.years.sort((a, b) => b - a);
+    }
+  }
+
   private fetchIntersection() {
     this.subIntersection = this.formationCertifService.getCertificationByCollab(this.collab.id, undefined, this.year).subscribe({
       next: data => this.intersections = data.list,
@@ -181,18 +193,19 @@ export class CertificationsCollabComponent implements OnInit,OnChanges, OnDestro
   private prepareData() {
     this.table = [];
     this.intersections.forEach(item => {
-      const certification = this.certifications.find(x => x.id === item.id);
-      if (certification != undefined) {
+      const certification = this.certifications.find(x => x.id === item.idFormationCertif);
+      if (certification != undefined && new Date(item.dateDebut).getFullYear() === +this.year) {
         this.table = this.table.concat({ name: certification.libelle, intersection: item });
       }
+      this.changeYearsDropDown(item);
     });
 
   }
   ngOnDestroy(): void {
-    if(this.sub != undefined)
+    if (this.sub != undefined)
       this.sub.unsubscribe();
     this.subPopup.unsubscribe();
-    if(this.subYear != undefined)
+    if (this.subYear != undefined)
       this.subYear.unsubscribe();
     if (this.subAdd != undefined)
       this.subAdd.unsubscribe();
