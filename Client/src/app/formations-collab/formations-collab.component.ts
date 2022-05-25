@@ -82,6 +82,7 @@ export class FormationsCollabComponent implements OnInit, OnChanges, OnDestroy {
       complete: () => this.prepareData()
     })
   }
+  
   selectYear() {
     this.fetchIntersection();
   }
@@ -97,10 +98,7 @@ export class FormationsCollabComponent implements OnInit, OnChanges, OnDestroy {
       if (new Date(value.dateDebut).getFullYear() === new Date(intersection.intersection.dateDebut).getFullYear())
         this.table.splice(index, 1, { name: intersection.name, intersection: value });
       else {
-        if (this.years.findIndex(x => x === new Date(value.dateDebut).getFullYear()) === -1) {
-          this.years.push(new Date(value.dateDebut).getFullYear());
-          this.years.sort((a, b) => b - a);
-        }
+        this.changeYearsDropDown(value);
         this.table.splice(index, 1);
       }
     }
@@ -184,6 +182,13 @@ export class FormationsCollabComponent implements OnInit, OnChanges, OnDestroy {
     return (this.form.get("formations") as FormArray);
   }
 
+  private changeYearsDropDown(value: CollabFormationCertif){
+    if (this.years.findIndex(x => x === new Date(value.dateDebut).getFullYear()) === -1) {
+      this.years.push(new Date(value.dateDebut).getFullYear());
+      this.years.sort((a, b) => b - a);
+    }
+  }
+
   private prepareData() {
     
     this.table = [];
@@ -192,10 +197,7 @@ export class FormationsCollabComponent implements OnInit, OnChanges, OnDestroy {
       if (formation != undefined && new Date(item.dateDebut).getFullYear() === +this.year) {
         this.table = this.table.concat({ name: formation.libelle, intersection: item });
       }
-      if (this.years.findIndex(x => x === new Date(item.dateDebut).getFullYear()) === -1) {
-        this.years.push(new Date(item.dateDebut).getFullYear());
-        this.years.sort((a, b) => b - a);
-      }
+      this.changeYearsDropDown(item);
     });
 
   }
