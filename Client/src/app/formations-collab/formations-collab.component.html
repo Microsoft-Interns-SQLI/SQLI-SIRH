@@ -28,8 +28,7 @@
                 </select>
                 
                 <select class="form-select form-select-sm w-25 mx-1" formControlName="status">
-                    <option value="1">A faire</option>
-                    <option value="2">Fait</option>
+                    <option value="{{s.id}}" *ngFor="let s of statusTable">{{s.name}}</option>
                 </select>
                  
                 <input class="form-control mx-1" type="date" formControlName="dateDebut">

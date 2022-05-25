@@ -23,6 +23,8 @@ export class AddEditSummaryCardComponent implements OnInit, OnDestroy, OnChanges
   sub!: Subscription;
   subImage!: Subscription;
 
+  disableModifiedImage!:boolean
+
   constructor(private imagesService: ImagesService, private spinnerService: SpinnerService, private cdRef: ChangeDetectorRef) { }
 
   
@@ -32,13 +34,17 @@ export class AddEditSummaryCardComponent implements OnInit, OnDestroy, OnChanges
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.collab.id !== 0)
+    if (this.collab.id !== 0){
+      this.disableModifiedImage = false;
       this.subImage = this.imagesService.checkImage(this.collab.id).subscribe({
         next: d=>{
           this.imgPath = d ? `${environment.URL}api/Image/${this.collab.id}` : 'https://www.pngfind.com/pngs/m/676-6764065_default-profile-picture-transparent-hd-png-download.png';
         },
         error: er=> console.log(er)
       });
+    } else{
+      this.disableModifiedImage = true;
+    }
   }
 
   uploadImage(image: any) {
@@ -83,7 +89,7 @@ export class AddEditSummaryCardComponent implements OnInit, OnDestroy, OnChanges
   ngOnDestroy(): void {
     if (this.sub != undefined)
       this.sub.unsubscribe();
-
-    this.subImage.unsubscribe();
+    if(this.subImage != undefined)
+      this.subImage.unsubscribe();
   }
 }

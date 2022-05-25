@@ -6,7 +6,11 @@ const portApi = 7019;
 
 export const environment = {
   production: false,
-  URL: `https://localhost:${portApi}/`
+  URL: `https://localhost:${portApi}/`,
+  status: [
+    { id: 1, name: 'A faire' },
+    { id: 2, name: 'Fait' }
+  ]
 };
 
 /*

@@ -89,7 +89,9 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subIntersectionF.unsubscribe();
-    this.subIntersectionC.unsubscribe();
+    if (this.subIntersectionF != undefined)
+      this.subIntersectionF.unsubscribe();
+    if (this.subIntersectionC != undefined)
+      this.subIntersectionC.unsubscribe();
   }
 }

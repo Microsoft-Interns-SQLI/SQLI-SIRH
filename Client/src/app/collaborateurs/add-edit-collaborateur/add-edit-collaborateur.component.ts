@@ -22,6 +22,7 @@ export class AddEditCollaborateurComponent implements OnInit {
   collab: Collaborator = new Collaborator();
   formGroup!: FormGroup;
 
+
   constructor(
     private actRoute: ActivatedRoute,
     private router: Router,
