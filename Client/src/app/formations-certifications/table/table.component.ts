@@ -62,12 +62,13 @@ export class TableComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   private prepareData(){
+    console.log(this.table);
     this.newRows = [];
     this.rows.forEach(collab => {
       let certificates: CollabFormationCertif[] = [];
 
       this.cols.forEach(certif => {
-        const collabFormCert = this.table.find(x => x.collaborateurId === collab.id && x.id === certif.id);
+        const collabFormCert = this.table.find(x => x.collaborateurId === collab.id && x.idFormationCertif === certif.id);
         if (collabFormCert != undefined) {
           certificates.push(collabFormCert);
         } else {
