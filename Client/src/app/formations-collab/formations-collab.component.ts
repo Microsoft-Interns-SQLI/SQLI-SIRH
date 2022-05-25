@@ -162,17 +162,13 @@ export class FormationsCollabComponent implements OnInit, OnChanges, OnDestroy {
 
           const intersectionExist = this.intersections.find(i =>
             i.collaborateurId === x.collaborateurId
-            && i.id === x.id
+            && i.idFormationCertif === x.idFormationCertif
             && i.status === (+x.status === 1 ? "AFAIRE" : "FAIT")
             && new Date(i.dateDebut).toDateString() === new Date(x.dateDebut).toDateString()
             && new Date(i.dateFin).toDateString() === new Date(x.dateFin).toDateString());
 
 
           if (intersectionExist == undefined) {
-            const intersectionUpdate = this.intersections.findIndex(i => i.collaborateurId === x.collaborateurId && i.id === x.id);
-            if (intersectionUpdate !== -1)
-              this.intersections.splice(intersectionUpdate, 1, x);
-            else
               this.intersections.push(x);
           }
         });

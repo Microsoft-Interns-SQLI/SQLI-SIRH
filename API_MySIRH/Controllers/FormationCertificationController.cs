@@ -96,7 +96,14 @@ namespace API_MySIRH.Controllers
 
                 var cf = await _collaborateurCertificationService.GetOne(collabId, collaborateurCertification.CertificationId);
 
-                await addOrUpdateCertification(cf, collaborateurCertification);
+                if (cf != null && cf.DateDebut.Value.ToString("dd/MM/yyyy").CompareTo(collaborateurCertification.DateDebut.Value.ToString("dd/MM/yyyy")) == 0
+                     && cf.DateFin.Value.ToString("dd/MM/yyyy").CompareTo(collaborateurCertification.DateFin.Value.ToString("dd/MM/yyyy")) == 0
+                     && cf.CollaborateurId == collaborateurCertification.CollaborateurId && cf.CertificationId == collaborateurCertification.CertificationId)
+                    continue;
+                else
+                {
+                    await _collaborateurCertificationService.Add(collaborateurCertification);
+                }
             }
 
             return StatusCode(StatusCodes.Status201Created, "Collaborateur certification updated successfully!");
@@ -154,10 +161,15 @@ namespace API_MySIRH.Controllers
 
             if (DateTime.Compare((DateTime)collaborateurFormation.DateDebut, (DateTime)collaborateurFormation.DateFin) > 0)
                 return BadRequest("The Start date must be earlier than the end date!");
+            if(collaborateurFormation.Id == 0)
+                await _collaborateurFormationService.Add(collaborateurFormation);
+            else
+            {
+                var cf = await _collaborateurFormationService.GetOne(collabId, formationId);
 
-            var cf = await _collaborateurFormationService.GetOne(collabId, formationId);
-
-            await addOrUpdateFormation(cf, collaborateurFormation);
+                await addOrUpdateFormation(cf, collaborateurFormation);
+            }
+            
 
             return StatusCode(StatusCodes.Status201Created, "Collaborateur formation updated successfully!");
         }
@@ -177,7 +189,15 @@ namespace API_MySIRH.Controllers
 
                 var cf = await _collaborateurFormationService.GetOne(collabId, collaborateurFormation.FormationId);
 
-                await addOrUpdateFormation(cf, collaborateurFormation);
+                if (cf != null && cf.DateDebut.Value.ToString("dd/MM/yyyy").CompareTo(collaborateurFormation.DateDebut.Value.ToString("dd/MM/yyyy")) == 0
+                    && cf.DateFin.Value.ToString("dd/MM/yyyy").CompareTo(collaborateurFormation.DateFin.Value.ToString("dd/MM/yyyy")) == 0
+                    && cf.CollaborateurId == collaborateurFormation.CollaborateurId && cf.FormationId == collaborateurFormation.FormationId)
+                    continue;
+                else
+                {
+                    await _collaborateurFormationService.Add(collaborateurFormation);
+                }
+                
             }
 
             return StatusCode(StatusCodes.Status201Created, "Collaborateur formation updated successfully!");

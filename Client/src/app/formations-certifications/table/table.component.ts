@@ -71,7 +71,7 @@ export class TableComponent implements OnInit, OnDestroy, OnChanges {
         if (collabFormCert != undefined) {
           certificates.push(collabFormCert);
         } else {
-          certificates.push({ status: '', collaborateurId:collab.id, id: certif.id } as CollabFormationCertif);
+          certificates.push({ status: '', collaborateurId:collab.id, idFormationCertif: certif.id } as CollabFormationCertif);
         }
       });
 
