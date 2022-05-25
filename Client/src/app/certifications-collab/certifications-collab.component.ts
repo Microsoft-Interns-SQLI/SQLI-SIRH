@@ -162,10 +162,6 @@ export class CertificationsCollabComponent implements OnInit, OnChanges, OnDestr
 
 
           if (intersectionExist == undefined) {
-            const intersectionUpdate = this.intersections.findIndex(i => i.collaborateurId === x.collaborateurId && i.id === x.id);
-            if (intersectionUpdate !== -1)
-              this.intersections.splice(intersectionUpdate, 1, x);
-            else
               this.intersections.push(x);
           }
         });
