@@ -1,0 +1,76 @@
+<div class="row mb-2">
+    <div class="col-8">
+        <select class="form-select form-select-sm w-25" [(ngModel)]="year" (ngModelChange)="selectYear()">
+            <option [value]="y" *ngFor="let y of years">{{y}}</option>
+        </select>
+    </div>
+
+    <div class="col-4 d-flex justify-content-end">
+        <button class="btn btn-sm btn-primary" (click)="addFormation()"><span class="bi bi-plus"></span></button>
+    </div>
+</div>
+<hr>
+<div class="mb-3">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="controls.length > 0">
+        <div class="d-flex mx-1 mb-4 justify-content-between">
+            <div class>
+                <button class="btn btn-sm btn-success" type="submit" [disabled]="form.invalid">Valider</button>
+            </div>
+            <div class="alert alert-danger p-1" *ngIf="error">
+                {{error}}
+            </div>
+        </div>
+        <div formArrayName="formations" *ngFor="let f of controls.controls; let i = index" >
+            <div class="d-flex justify-content-between mb-2" style="height: 30px;"  [formGroupName]="i">
+                <select class="form-select form-select-sm w-25 mx-1" formControlName="name">
+                    <option value="0">Select formation</option>
+                    <option [ngValue]="formation.id" *ngFor="let formation of formations">{{formation.libelle}}</option>
+                </select>
+                
+                <select class="form-select form-select-sm w-25 mx-1" formControlName="status">
+                    <option value="{{s.id}}" *ngFor="let s of statusTable">{{s.name}}</option>
+                </select>
+                 
+                <input class="form-control mx-1" type="date" formControlName="dateDebut">
+            
+                <input class="form-control mx-1" type="date" formControlName="dateFin">
+
+                <button class="btn btn-sm btn-danger mx-1" (click)="deleteFormation(i)"><span class="bi bi-x"></span></button>
+            </div>
+        </div>
+    </form>
+</div>
+<table class="table text-center">
+    <thead>
+        <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Statut</th>
+            <th scope="col">Date de début</th>
+            <th scope="col">Date de fin</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of table">
+            <td scope="row">{{item.name}}</td>
+            <td>
+                <div class="p-1 rounded" [appDisplayItem]="item.intersection.status">
+                    {{item.intersection.status | handleStatusDisplay}}
+                </div>
+            </td>
+            <td>
+                {{item.intersection.dateDebut | date: 'fullDate'}}
+            </td>
+            <td>
+                {{item.intersection.dateFin | date: 'fullDate'}}
+            </td>
+            <td>
+                <button type="button" (click)="onEdit(item.intersection)"
+                    class="btn btn-sm btn-outline-primary h-25"><span class="bi bi-pencil"></span></button>
+            </td>
+        </tr>
+    </tbody>
+
+</table>
+
+<app-popup class="popup" [type]="'formation'" *ngIf="displayed" (certificationEvent)="boxUpdated($event)"></app-popup>

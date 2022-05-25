@@ -24,7 +24,7 @@ export class CollaboratorsService {
 
   constructor(private http: HttpClient, private imageService: ImagesService) { }
 
-  getCollaboratorsList(itemsPerPage?: number, page?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyFormation?: string, orderbyCertification?: string) {
+  getCollaboratorsList(itemsPerPage?: number, page?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyFormation?: string, orderbyCertification?: string, year?: number, status?: number) {
     //delay(50000);
     let params = new HttpParams();
     if (page != undefined && itemsPerPage != undefined) {
@@ -47,7 +47,18 @@ export class CollaboratorsService {
     if (orderbyCertification != undefined) {
       params = params.append("OrderByCertification", orderbyCertification);
     }
-    let sub:Subscription;
+    if (orderbyCertification != undefined) {
+      params = params.append("OrderByCertification", orderbyCertification);
+    }
+    if (year != undefined) {
+      params = params.append("Year", year);
+    }
+
+    if (status != undefined) {
+      params = params.append("Status", status);
+    }
+
+    let sub: Subscription;
     return this.http.get<any>(this.myUrl, { observe: 'response', params }).pipe(
       map((response) => {
         this.paginatedResult.result = <Collaborator[]>response.body.map((collab: Collaborator) => {
@@ -57,6 +68,9 @@ export class CollaboratorsService {
             },
             error: er => console.log(er)
           });
+          let currentCarriere = collab.carrieres?.sort((a, b) => a.annee - b.annee).pop();
+          collab.niveau = currentCarriere?.niveau;
+          collab.poste = currentCarriere?.poste;
           return collab;
         });
         if (response.headers.get('Pagination') != null) {
@@ -70,8 +84,59 @@ export class CollaboratorsService {
     );
   }
 
+  getDemissionsList(itemsPerPage?: number, page?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyFormation?: string, orderbyCertification?: string) {
+    //delay(50000);
+    let params = new HttpParams();
+    if (page != undefined && itemsPerPage != undefined) {
+      params = params.append('pageNumber', page.toString());
+      params = params.append('pageSize', itemsPerPage.toString());
+    }
+    if (filtrerPar != undefined) {
+      params = params.append("Site", filtrerPar)
+    }
+    if (orderby != undefined)
+      params = params.append('OrderBy', orderby.toString());
+
+    if (search != undefined) {
+      params = params.append("Search", search);
+    }
+    if (orderbyFormation != undefined) {
+      params = params.append("OrderByFormation", orderbyFormation);
+    }
+
+    if (orderbyCertification != undefined) {
+      params = params.append("OrderByCertification", orderbyCertification);
+    }
+
+    return this.http.get<any>(this.myUrl + '/demission', { observe: 'response', params })
+      .pipe(
+        map((response) => {
+          this.paginatedResult.result = <Collaborator[]>response.body.map((collab: Collaborator) => {
+            let currentCarriere = collab.carrieres?.sort((a, b) => a.annee - b.annee).pop();
+            collab.niveau = currentCarriere?.niveau;
+            collab.poste = currentCarriere?.poste;
+            return collab;
+          });
+          if (response.headers.get('Pagination') != null) {
+            this.paginatedResult.pagination = JSON.parse(
+              response.headers.get('Pagination') || ''
+            );
+          }
+          return this.paginatedResult;
+        })
+      );
+  }
+
   getCollaboratorByMatricule(id: number | string): Observable<Collaborator> {
-    return this.http.get<any>(this.myUrl + '/' + id, { responseType: 'json' });
+    return this.http.get<any>(this.myUrl + '/' + id, { responseType: 'json' })
+      .pipe(
+        map((collab: Collaborator) => {
+          let currentCarriere = collab.carrieres?.sort((a, b) => a.annee - b.annee).pop();
+          collab.niveau = currentCarriere?.niveau;
+          collab.poste = currentCarriere?.poste;
+          return collab;
+        })
+      );
   }
 
   addCollaborator(collabToAdd: any) {
@@ -95,11 +160,67 @@ export class CollaboratorsService {
       .pipe(catchError(this.handleError));
   }
 
-  exportCollaborateurs() {
+  exportCollaborateurs(lstIds?: number[]) {
+    let params = new HttpParams();
+    if (lstIds) {
+      for (let i = 0; i < lstIds.length; i++)
+        params = params.append('ids', lstIds[i]);
+    }
     return this.http.get(this.myUrl + '/export', {
-      responseType: 'blob'
+      responseType: 'blob',
+      params
     })
   }
+
+  getIntegrationsYearRange(): Observable<number[]> {
+    return this.http.get<number[]>(this.myUrl + '/IntrgrationsRange');
+  }
+
+  getIntegrationsList(itemsPerPage?: number, page?: number, year?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyFormation?: string, orderbyCertification?: string) {
+    //delay(50000);
+    let params = new HttpParams();
+    if (year != undefined)
+      params = params.append('year', year);
+    if (page != undefined && itemsPerPage != undefined) {
+      params = params.append('pageNumber', page.toString());
+      params = params.append('pageSize', itemsPerPage.toString());
+    }
+    if (filtrerPar != undefined) {
+      params = params.append("Site", filtrerPar)
+    }
+    if (orderby != undefined)
+      params = params.append('OrderBy', orderby.toString());
+
+    if (search != undefined) {
+      params = params.append("Search", search);
+    }
+    if (orderbyFormation != undefined) {
+      params = params.append("OrderByFormation", orderbyFormation);
+    }
+
+    if (orderbyCertification != undefined) {
+      params = params.append("OrderByCertification", orderbyCertification);
+    }
+
+    return this.http.get<any>(this.myUrl + '/integrations', { observe: 'response', params }).pipe(
+      map((response) => {
+        this.paginatedResult.result = <Collaborator[]>response.body.map((collab: Collaborator) => {
+          let currentCarriere = collab.carrieres?.sort((a, b) => a.annee - b.annee).pop();
+          collab.niveau = currentCarriere?.niveau;
+          collab.poste = currentCarriere?.poste;
+          return collab;
+        });
+
+        if (response.headers.get('Pagination') != null) {
+          this.paginatedResult.pagination = JSON.parse(
+            response.headers.get('Pagination') || ''
+          );
+        }
+        return this.paginatedResult;
+      })
+    );
+  }
+
   private handleError(error: HttpErrorResponse): Observable<never> {
     if (error.status === 0 || error.status === 500)
       return throwError(() => 'Something went wrong!');

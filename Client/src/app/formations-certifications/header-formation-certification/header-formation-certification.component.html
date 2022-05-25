@@ -8,8 +8,7 @@
       <div class="col-2">
         <select class="form-select form-select-sm" [(ngModel)]="status" (ngModelChange)="filter()">
           <option value="0">All</option>
-          <option value="1">A Faire</option>
-          <option value="2">Fait</option>
+          <option value="{{s.id}}" *ngFor="let s of statusTable">{{s.name}}</option>
         </select>
       </div>
     </div>

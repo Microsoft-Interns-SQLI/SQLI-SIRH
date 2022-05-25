@@ -28,6 +28,8 @@ namespace API_MySIRH.Controllers
         {
             // clearing tables
             this._dataContext
+                .Carrieres.RemoveRange(this._dataContext.Carrieres.ToList());
+            this._dataContext
                 .Diplomes.RemoveRange(this._dataContext.Diplomes.ToList());
             this._dataContext
                 .Collaborateurs.RemoveRange(this._dataContext.Collaborateurs.ToList());
@@ -64,6 +66,7 @@ namespace API_MySIRH.Controllers
             await this._dataContext.ModesRecrutements.AddRangeAsync(this.SeedModeRecrutement());
             await this._dataContext.Certifications.AddRangeAsync(this.SeedCertifications());
             await this._dataContext.Formations.AddRangeAsync(this.SeedFormations());
+            await this._dataContext.ReasonDemissions.AddRangeAsync(this.SeedReasonsDemission());
             this._dataContext.SaveChanges();
 
             this._dataContext.Collaborateurs.AddRange(await this.SeedCollaborateurs());
@@ -90,7 +93,8 @@ namespace API_MySIRH.Controllers
                     certifications = _dataContext.Certifications.Count(),
                     formations = _dataContext.Formations.Count(),
                     certificationCollab = _dataContext.CollaborateurCertifications.Count(),
-                    formationCollab = _dataContext.CollaborateurFormations.Count()
+                    formationCollab = _dataContext.CollaborateurFormations.Count(),
+                    carrieres = this._dataContext.Carrieres.Count()
                 }
             );
         }
@@ -103,9 +107,6 @@ namespace API_MySIRH.Controllers
             var collaborateurDynamicJson = JsonConvert.DeserializeObject<dynamic>(collaborateursJsonString);
             foreach (var collaborateurJson in collaborateurDynamicJson)
             {
-                
-                string niveau = collaborateurJson["Niveau"].ToString();
-                string post = collaborateurJson["Poste"].ToString();
                 string skillCenter = collaborateurJson["Skills center"].ToString();
                 string site = collaborateurJson["Agence"].ToString();
                 string mode = collaborateurJson["Recrutement Mode"].ToString();
@@ -122,11 +123,8 @@ namespace API_MySIRH.Controllers
                     DateEntreeSqli = collaborateurJson["Date d'entrée"].ToString() != String.Empty ? DateTime.Parse(collaborateurJson["Date d'entrée"].ToString()) : null,
                     DateNaissance = collaborateurJson["Date Naissance"].ToString() != String.Empty ? DateTime.Parse(collaborateurJson["Date Naissance"].ToString()) : null,
                     DatePremiereExperience = collaborateurJson["Date 1ere expèrience"].ToString() != String.Empty ? DateTime.Parse(collaborateurJson["Date 1ere expèrience"].ToString()) : null,
-                    DateSortieSqli = collaborateurJson["Date de sortie"].ToString() != String.Empty ? DateTime.Parse(collaborateurJson["Date de sortie"].ToString()) : null,
 
                     ModeRecrutement = this._dataContext.ModesRecrutements.Where(m => m.Name == mode).FirstOrDefault(),
-                    Niveau = this._dataContext.Niveaux.Where(n => n.Name == niveau).FirstOrDefault(),
-                    Poste = this._dataContext.Posts.Where(p => p.Name == post).FirstOrDefault(),
                     SkillCenter = this._dataContext.SkillCenters.Where(sc => sc.Name == skillCenter).FirstOrDefault(),
                     Site = this._dataContext.Sites.Where(s => s.Name == site).FirstOrDefault(),
 
@@ -147,6 +145,8 @@ namespace API_MySIRH.Controllers
                 collaborateurs.Add(collaborateur);
                 await DiplomesTraitement(collaborateur, collaborateurJson["Diplômes"].ToString());
                 await ContratsTraitement(collaborateur, collaborateurJson["Type de Contrat"].ToString());
+                await CarriereTraitement(collaborateur, collaborateurJson["Niveau"].ToString(), collaborateurJson["Poste"].ToString(), collaborateurJson["Responsable Skills Center"].ToString());
+                DemissionTraitement(collaborateur, collaborateurJson["Date de sortie"].ToString());
             }
             return collaborateurs;
         }
@@ -213,25 +213,110 @@ namespace API_MySIRH.Controllers
         {
             return new List<CollaborateurFormation>
             {
-                new CollaborateurFormation{ CollaborateurId=1, FormationId=1, Status = Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
-                new CollaborateurFormation{ CollaborateurId=1, FormationId=2, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
-                new CollaborateurFormation{ CollaborateurId=1, FormationId=3, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
-                new CollaborateurFormation{ CollaborateurId=24, FormationId=2, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
-                new CollaborateurFormation{ CollaborateurId=24, FormationId=5, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
-                new CollaborateurFormation{ CollaborateurId=60, FormationId=1, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
+                new CollaborateurFormation
+                {
+                    CollaborateurId=_dataContext.Collaborateurs.ToList().FirstOrDefault().Id,
+                    FormationId=_dataContext.Formations.ToList().FirstOrDefault().Id,
+                    Status = Status.AFAIRE,
+                    DateDebut = DateTime.Now,
+                    DateFin = DateTime.Now.AddDays(7)
+                },
+                new CollaborateurFormation
+                {
+                    CollaborateurId=_dataContext.Collaborateurs.ToList().Skip(1).FirstOrDefault().Id,
+                    FormationId=_dataContext.Formations.ToList().Skip(1).FirstOrDefault().Id,
+                    Status = Status.AFAIRE,
+                    DateDebut = DateTime.Now,
+                    DateFin = DateTime.Now.AddDays(7)
+                },
+                new CollaborateurFormation
+                {
+                    CollaborateurId=_dataContext.Collaborateurs.ToList().Skip(2).FirstOrDefault().Id,
+                    FormationId=_dataContext.Formations.ToList().Skip(2).FirstOrDefault().Id,
+                    Status = Status.AFAIRE,
+                    DateDebut = DateTime.Now,
+                    DateFin = DateTime.Now.AddDays(7)
+                },
+                new CollaborateurFormation
+                {
+                    CollaborateurId=_dataContext.Collaborateurs.ToList().Skip(3).FirstOrDefault().Id,
+                    FormationId=_dataContext.Formations.ToList().Skip(3).FirstOrDefault().Id,
+                    Status = Status.AFAIRE,
+                    DateDebut = DateTime.Now,
+                    DateFin = DateTime.Now.AddDays(7)
+                },
+                new CollaborateurFormation
+                {
+                    CollaborateurId=_dataContext.Collaborateurs.ToList().Skip(4).FirstOrDefault().Id,
+                    FormationId=_dataContext.Formations.ToList().Skip(4).FirstOrDefault().Id,
+                    Status = Status.AFAIRE,
+                    DateDebut = DateTime.Now,
+                    DateFin = DateTime.Now.AddDays(7)
+                },
+                new CollaborateurFormation
+                {
+                    CollaborateurId=_dataContext.Collaborateurs.ToList().Skip(5).FirstOrDefault().Id,
+                    FormationId=_dataContext.Formations.ToList().Skip(5).FirstOrDefault().Id,
+                    Status = Status.AFAIRE,
+                    DateDebut = DateTime.Now,
+                    DateFin = DateTime.Now.AddDays(7)
+                }
             };
         }
+
         [ApiExplorerSettings(IgnoreApi = true)]
         public List<CollaborateurCertification> SeedCollabCertification()
         {
             return new List<CollaborateurCertification>
             {
-                new CollaborateurCertification{ CollaborateurId=1, CertificationId=1, Status = Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
-                new CollaborateurCertification{ CollaborateurId=1, CertificationId=2, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
-                new CollaborateurCertification{ CollaborateurId=1, CertificationId=3, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
-                new CollaborateurCertification{ CollaborateurId=24, CertificationId=2, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
-                new CollaborateurCertification{ CollaborateurId=24, CertificationId=5, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)},
-                new CollaborateurCertification{ CollaborateurId=60, CertificationId=1, Status= Status.AFAIRE, DateDebut = DateTime.Now, DateFin = DateTime.Now.AddDays(7)}
+                new CollaborateurCertification
+                {
+                    CollaborateurId=_dataContext.Collaborateurs.ToList().FirstOrDefault().Id,
+                    CertificationId=_dataContext.Certifications.ToList().FirstOrDefault().Id,
+                    Status = Status.AFAIRE,
+                    DateDebut = DateTime.Now,
+                    DateFin = DateTime.Now.AddDays(7)
+                },
+                new CollaborateurCertification
+                {
+                    CollaborateurId=_dataContext.Collaborateurs.ToList().Skip(1).FirstOrDefault().Id,
+                    CertificationId=_dataContext.Certifications.ToList().Skip(1).FirstOrDefault().Id,
+                    Status = Status.AFAIRE,
+                    DateDebut = DateTime.Now,
+                    DateFin = DateTime.Now.AddDays(7)
+                },
+                new CollaborateurCertification
+                {
+                    CollaborateurId=_dataContext.Collaborateurs.ToList().Skip(2).FirstOrDefault().Id,
+                    CertificationId=_dataContext.Certifications.ToList().Skip(2).FirstOrDefault().Id,
+                    Status = Status.AFAIRE,
+                    DateDebut = DateTime.Now,
+                    DateFin = DateTime.Now.AddDays(7)
+                },
+                new CollaborateurCertification
+                {
+                    CollaborateurId=_dataContext.Collaborateurs.ToList().Skip(3).FirstOrDefault().Id,
+                    CertificationId=_dataContext.Certifications.ToList().Skip(3).FirstOrDefault().Id,
+                    Status = Status.AFAIRE,
+                    DateDebut = DateTime.Now,
+                    DateFin = DateTime.Now.AddDays(7)
+                },
+                new CollaborateurCertification
+                {
+                    CollaborateurId=_dataContext.Collaborateurs.ToList().Skip(4).FirstOrDefault().Id,
+                    CertificationId=_dataContext.Certifications.ToList().Skip(4).FirstOrDefault().Id,
+                    Status = Status.AFAIRE,
+                    DateDebut = DateTime.Now,
+                    DateFin = DateTime.Now.AddDays(7)
+                },
+                new CollaborateurCertification
+                {
+                    CollaborateurId=_dataContext.Collaborateurs.ToList().Skip(5).FirstOrDefault().Id,
+                    CertificationId=_dataContext.Certifications.ToList().Skip(5).FirstOrDefault().Id,
+                    Status = Status.AFAIRE,
+                    DateDebut = DateTime.Now,
+                    DateFin = DateTime.Now.AddDays(7)
+                },
             };
         }
 
@@ -308,6 +393,19 @@ namespace API_MySIRH.Controllers
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
+        public List<ReasonDemission> SeedReasonsDemission()
+        {
+            return new List<ReasonDemission>
+            {
+                new ReasonDemission { Name = "Opportunité etranger" },
+                new ReasonDemission { Name = "Salaire et avantages" },
+                new ReasonDemission { Name = "Insatisfait des projets" },
+                new ReasonDemission { Name = "carrière" },
+                new ReasonDemission { Name = "conflit" }
+            };
+        }
+
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task DiplomesTraitement(Collaborateur collaborateur, string diplomes)
         {
             if (diplomes.Length != 0)
@@ -315,13 +413,12 @@ namespace API_MySIRH.Controllers
                 foreach (var diplome in diplomes.Split('|'))
                     if (diplome != String.Empty)
                     {
-                        var diplomeObj = new Diplome
+                        await this._dataContext.Diplomes.AddAsync(new Diplome
                         {
+                            Collaborateur = collaborateur,
                             Annee = int.Parse(diplome.Split(':')[0]),
                             Detail = diplome.Split(':')[1]
-                        };
-                        collaborateur.Diplomes.Add(diplomeObj);
-                        this._dataContext.Diplomes.Add(diplomeObj);
+                        });
                     }
             }
         }
@@ -331,11 +428,47 @@ namespace API_MySIRH.Controllers
         {
             if (typeContrat != String.Empty)
             {
-                this._dataContext.CollaborateurTypeContrats.Add(new CollaborateurTypeContrat
+                await this._dataContext.CollaborateurTypeContrats.AddAsync(new CollaborateurTypeContrat
                 {
                     Collaborateur = collaborateur,
                     TypeContrat = this._dataContext.TypeContrats.Where(tc => tc.Name == typeContrat).FirstOrDefault(),
                     IsInSQLI = true
+                });
+            }
+        }
+
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public async Task CarriereTraitement(Collaborateur collaborateur, string niveau, string poste, string tlrh)
+        {
+            if (niveau != string.Empty && poste != string.Empty)
+            {
+                await this._dataContext.Carrieres.AddAsync(new Carriere
+                {
+                    Collaborateur = collaborateur,
+                    Niveau = this._dataContext.Niveaux.Where(n => n.Name == niveau).First(),
+                    Poste = this._dataContext.Posts.Where(p => p.Name == poste).First(),
+                    Annee = DateTime.Now.Year,
+                    ProfilDeCout = "ST0",
+                    SalaireNet = 15000,
+                    VariableNet = 15000,
+                    SalaireBrut = 5000,
+                    VariableBrut = 5000,
+                    TLRH = tlrh,
+                });
+            }
+        }
+
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public void DemissionTraitement(Collaborateur collaborateur, string dateSortieSqli)
+        {
+            if (!string.IsNullOrEmpty(dateSortieSqli))
+            {
+                this._dataContext.Add(new Demission
+                {
+                    Collaborateur = collaborateur,
+                    DateSortieSqli = DateTime.Parse(dateSortieSqli),
+                    DateDemission = DateTime.Parse(dateSortieSqli),
+                    IsCanceled = false
                 });
             }
         }

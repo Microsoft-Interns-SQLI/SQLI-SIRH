@@ -6,8 +6,8 @@ namespace API_MySIRH.Interfaces
 {
     public interface ICollaborateurCertificationService
     {
-        Task<List<CollaborateurCertificationDTO>> GetAll(FilterParamsForCertifAndFormation filter);
-        Task<List<CollaborateurCertificationDTO>> GetByCollaborateur(int id);
+        Task<CollaborateurCertificationResponse> GetAll(FilterParamsForCertifAndFormation filter);
+        Task<CollaborateurCertificationResponse> GetByCollaborateur(int id, FilterParamsForCertifAndFormation filter);
         Task<List<CollaborateurCertificationDTO>> GetByCertification(int id);
         Task<CollaborateurCertificationDTO> GetOne(int collaborateurId, int certificationId);
         Task Add(CollaborateurCertificationDTO collaborateurCertification);
@@ -15,5 +15,6 @@ namespace API_MySIRH.Interfaces
         Task Delete(CollaborateurCertificationDTO collaborateurCertification);
 
         Task<List<int>> GetAnnees();
+        Task<List<int>> GetAnneesByCollaborateur(int id);
     }
 }

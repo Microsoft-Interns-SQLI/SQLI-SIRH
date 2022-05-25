@@ -5,7 +5,7 @@ namespace API_MySIRH.Interfaces
     public interface ICertificationRepository
     {
         Task<List<Certification>> GetAll();
-        Task<Certification> GetById();
+        Task<Certification> GetById(int id);
         Task<Certification> GetByLibelle();
         Task Update(Certification certification);
         Task Add(Certification certification);
