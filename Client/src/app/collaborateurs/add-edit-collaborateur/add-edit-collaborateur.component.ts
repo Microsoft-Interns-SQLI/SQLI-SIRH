@@ -23,6 +23,7 @@ export class AddEditCollaborateurComponent implements OnInit {
   formGroup!: FormGroup;
   demission?: Demission;
 
+
   constructor(
     private actRoute: ActivatedRoute,
     private router: Router,

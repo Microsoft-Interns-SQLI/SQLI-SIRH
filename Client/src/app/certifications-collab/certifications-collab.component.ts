@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { PopupService } from '../formations-certifications/popup/popup.service';
 import { CertificationOrFormation } from '../Models/certification-formation';
 import { CollabFormationCertif } from '../Models/collaborationCertificationFormation';
@@ -32,6 +33,8 @@ export class CertificationsCollabComponent implements OnInit, OnChanges, OnDestr
   subPopup!: Subscription;
   subYear!: Subscription;
   subIntersection!: Subscription;
+
+  statusTable = environment.status;
 
   error: string = "";
 
