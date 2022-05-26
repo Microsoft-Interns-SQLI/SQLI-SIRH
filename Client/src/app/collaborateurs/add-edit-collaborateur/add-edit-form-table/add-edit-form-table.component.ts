@@ -1,4 +1,12 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -23,7 +31,8 @@ import { CollabTypeContrat } from 'src/app/Models/CollabTypeContrat';
 })
 export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('contrats') contrats!: ContratsComponent;
-  @ViewChild(ModalAjoutDemissionComponent) demissionUpdate!: ModalAjoutDemissionComponent;
+  @ViewChild(ModalAjoutDemissionComponent)
+  demissionUpdate!: ModalAjoutDemissionComponent;
   @ViewChild('diplomes') diplomes!: DiplomesComponent;
   @Input() collab!: Collaborator;
   @Input() myFormGroup!: FormGroup;
@@ -43,16 +52,17 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
   constructor(
     private service: MdmService,
     private formationCertifService: FormationCertificationsService
-  ) { }
+  ) {}
   demis?: Demission = undefined;
-
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.collab.id != 0) {
-      this.subIntersectionF = this.formationCertifService.getFormationByCollab(this.collab.id)
-        .subscribe(data => this.intersectionsFormations = data.list);
-      this.subIntersectionC = this.formationCertifService.getCertificationByCollab(this.collab.id)
-        .subscribe(data => this.intersectionsCertifications = data.list);
+      this.subIntersectionF = this.formationCertifService
+        .getFormationByCollab(this.collab.id)
+        .subscribe((data) => (this.intersectionsFormations = data.list));
+      this.subIntersectionC = this.formationCertifService
+        .getCertificationByCollab(this.collab.id)
+        .subscribe((data) => (this.intersectionsCertifications = data.list));
     }
   }
 
@@ -93,27 +103,25 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.subIntersectionF != undefined)
-      this.subIntersectionF.unsubscribe();
-    if (this.subIntersectionC != undefined)
-      this.subIntersectionC.unsubscribe();
+    if (this.subIntersectionF != undefined) this.subIntersectionF.unsubscribe();
+    if (this.subIntersectionC != undefined) this.subIntersectionC.unsubscribe();
   }
   addDemission(event: Demission) {
     let data: Demission;
 
     data = event;
     this.myFormGroup.markAsDirty();
-    console.log(data)
+    console.log(data);
     if (data.id != 0) {
       this.collab.demissions.forEach((el) => {
         if (el.id == data.id) {
           el = data;
           el.reasonDemission = undefined;
         }
-      })
+      });
       return;
     }
-    this.collab.demissions = [...this.collab.demissions, data]
+    this.collab.demissions = [...this.collab.demissions, data];
   }
 
   updateDemission(event: number) {
@@ -124,7 +132,10 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
         // this.demissionUpdate.demission = el as Demission;
         // this.demissionUpdate.constructForm();
       }
-    })
+    });
   }
 
+  filesHandler(event: any) {
+    this.collab.documents?.push(...event);
+  }
 }
