@@ -24,7 +24,7 @@ export class CollaboratorsService {
 
   constructor(private http: HttpClient, private imageService: ImagesService) { }
 
-  getCollaboratorsList(itemsPerPage?: number, page?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyFormation?: string, orderbyCertification?: string, postesId?: number[], niveauId?: number[]) {
+  getCollaboratorsList(itemsPerPage?: number, page?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyFormation?: string, orderbyCertification?: string, postesId?: string, niveauId?: string) {
     //delay(50000);
     let params = new HttpParams();
     if (page != undefined && itemsPerPage != undefined) {
@@ -47,18 +47,20 @@ export class CollaboratorsService {
     if (orderbyCertification != undefined) {
       params = params.append("OrderByCertification", orderbyCertification);
     }
-    if (postesId != undefined) {
-     /* postesId.forEach(poste=>{
-        params.append("postesId",poste);
-      })*/
-      params.appendAll({"postesId":postesId})
+    if (postesId != undefined ) {
+        params = params.append  ("postesId",postesId);
+      //let v : string = decodeURIComponent(postesId.toString().replace(',','&postesId='))
+     // params = params.append("postesId",);
+      //console.log("those are my postes = "+ postesId.toLocaleString().replace(',','&'));
+    //  params = params.appendAll({"postesId":postesId});
+    //console.log("inside postes append+= "+ params);
     }
-    if (niveauId != undefined && niveauId.length >0) {
-      niveauId.forEach(niveau=>{
-        params.append("postesId",niveau);
-      })
+    if (niveauId != undefined ) {
+        params = params.append("niveauxId",niveauId);
+    //  params = params.appendAll({"niveauxId":niveauId});
+    //console.log("nivequ = " + niveauId.toString());
     }
-    
+    console.log('those are my params ='+params.toString());
     let sub: Subscription;
     return this.http.get<any>(this.myUrl, { observe: 'response', params }).pipe(
       map((response) => {

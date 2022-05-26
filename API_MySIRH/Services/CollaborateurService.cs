@@ -4,8 +4,10 @@ using API_MySIRH.Helpers;
 using API_MySIRH.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using LinqKit;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace API_MySIRH.Services
 {
@@ -99,31 +101,30 @@ namespace API_MySIRH.Services
         public async Task<PagedList<CollaborateurDTO>> GetCollaborateurs(FilterParams filterParams)
         {
             var query = this._collaborateurRepository.GetCollaborateurs().AsQueryable();
-
+            // var listCollabs = query.Where(c => c.Id == -1);
+            Console.WriteLine(query.ToString());
             if (!string.IsNullOrEmpty(filterParams.Site))
-                query = query.Where(c => c.Site.Name == filterParams.Site);
+                query = query.Where(c => c.Site.Name == filterParams.Site); 
 
             if (!(string.IsNullOrWhiteSpace(filterParams.Search)))
                 query = query.Where(c => c.Nom.Contains(filterParams.Search) || c.Prenom.Contains(filterParams.Search));
 
             if (filterParams.postesId.Count() > 0)
             {
-                var listCollabs = query.Where(c => c.Id == -1);
+                var conditions = PredicateBuilder.New<Collaborateur>();
                 foreach (int i in filterParams.postesId)
-                {
-                   listCollabs = listCollabs.Union(query.Where(c => c.PosteId == i));
-                }
-                query = listCollabs.AsQueryable();
+                    conditions.Or(collab => collab.PosteId == i);
+                Expression<Func<Collaborateur, bool>> expression = conditions;
+                query = query.AsExpandable().Where(coll => expression.Invoke(coll)).AsQueryable();
             }
 
             if (filterParams.niveauxId.Count() > 0)
             {
-                var listCollabs = query.Where(c => c.Id == -1);
+                var conditions = PredicateBuilder.New<Collaborateur>();
                 foreach (int i in filterParams.niveauxId)
-                {
-                    listCollabs = listCollabs.Union(query.Where(c => c.NiveauId == i));
-                }
-                query = listCollabs.AsQueryable();
+                    conditions.Or(collab => collab.NiveauId == i);
+                Expression<Func<Collaborateur, bool>> expression = conditions;
+                query = query.AsExpandable().Where(coll => expression.Invoke(coll)).AsQueryable();
             }
 
             if (!string.IsNullOrWhiteSpace(filterParams.OrderByCertification))

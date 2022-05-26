@@ -51,7 +51,9 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   trierParAnnee: boolean = false;
 
   postesId: number[] = [];
+  postesValue: string = '';
   niveauxId: number[] = [];
+  niveauxValue: string = '';
 
 
   constructor(
@@ -72,8 +74,8 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
     filtrerPar?: string,
     search?: string,
     orderby?: string,
-    postesId?: number[],
-    niveauxId?: number[]
+    postesId?: string,
+    niveauxId?: string
   ) {
     if (search != undefined) {
       this.spinnerService.isSearch.next(true);
@@ -81,7 +83,7 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
       this.spinnerService.isSearch.next(false);
     }
     this.loadCollabSubscription = this.service
-      .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby,undefined,undefined,postesId,niveauxId)
+      .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby, undefined, undefined, postesId, niveauxId)
       .subscribe({
         next: (resp) => {
           console.log(resp);
@@ -114,7 +116,10 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
       this.pageSize,
       this.pageNumber,
       this.selected,
-      this.searchInput === '' ? undefined : this.searchInput
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesValue == '' ? undefined : this.postesValue,
+      this.niveauxValue == '' ? undefined : this.niveauxValue
     );
   }
 
@@ -128,38 +133,43 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
       this.pageSize,
       this.pageNumber,
       this.selected === '' ? undefined : this.selected,
-      this.searchInput === '' ? undefined : this.searchInput
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesValue == '' ? undefined : this.postesValue,
+      this.niveauxValue == '' ? undefined : this.niveauxValue
     );
   }
 
   onChangePostes(postes: number[]) {
     this.postesId = postes;
+    this.postesValue = this.postesId.toString().replace(',', '&postesId=')
 
-    console.log("poste = "+this.postesId.toString());
+    console.log("poste = " + this.postesId.toString());
     this.loadCollaborators(
       this.pageSize,
       this.pageNumber,
       this.selected === '' ? undefined : this.selected,
       this.searchInput === '' ? undefined : this.searchInput,
       undefined,
-      this.postesId,
-      this.niveauxId.length==0 ? undefined : this.niveauxId
+      this.postesValue,
+      this.niveauxValue == '' ? undefined : this.niveauxValue
     )
   }
 
   onChangeNiveaux(niveaux: number[]) {
     this.niveauxId = niveaux;
-    console.log("niveau = "+this.niveauxId.toString());
+    this.niveauxValue = this.niveauxId.toString().replace(',', '&niveauxId=')
+
     this.loadCollaborators(
       this.pageSize,
       this.pageNumber,
       this.selected === '' ? undefined : this.selected,
       this.searchInput === '' ? undefined : this.searchInput,
       undefined,
-      this.postesId.length==0 ? undefined : this.postesId,
-      this.niveauxId
+      this.postesValue == '' ? undefined : this.postesValue,
+      this.niveauxValue
     )
-  }  
+  }
 
   // get search value from header child component
   // update collab table
@@ -170,7 +180,10 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
       this.pageSize,
       1,
       this.selected === '' ? undefined : this.selected,
-      this.searchInput === '' ? undefined : value
+      this.searchInput === '' ? undefined : value,
+      undefined,
+      this.postesValue == '' ? undefined : this.postesValue,
+      this.niveauxValue == '' ? undefined : this.niveauxValue
     );
   }
 
@@ -183,7 +196,10 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
       this.pageSize,
       this.pageNumber,
       this.selected === '' ? undefined : this.selected,
-      this.searchInput === '' ? undefined : this.searchInput
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesValue == '' ? undefined : this.postesValue,
+      this.niveauxValue == '' ? undefined : this.niveauxValue
     );
   }
 
