@@ -21,7 +21,7 @@ namespace API_MySIRH.Repositories
             await this._context.Collaborateurs.AddAsync(collaborateur);
             await this._context.SaveChangesAsync();
 
-            return await this.GetCollaborateurById(collaborateur.Id); // todo-review : is it necessary to fetch by id after insert ?
+            return await this.GetCollaborateurById(collaborateur.Id);
         }
 
         public async Task<bool> CollaborateurExistsById(int id)
@@ -50,7 +50,15 @@ namespace API_MySIRH.Repositories
 
         public IQueryable<Collaborateur> GetCollaborateurs()
         {
-            var query = _context.Collaborateurs.Include(x => x.Certifications).AsNoTracking();
+            var query = _context.Collaborateurs
+
+            .Include(c => c.Carrieres)! // todo : to remove
+            .ThenInclude(carr => carr.Poste)
+            .Include(c => c.Carrieres)!
+            .ThenInclude(carr => carr.Niveau)
+
+            .AsSplitQuery() // todo : good practice ?
+            .Include(x => x.Certifications).AsNoTracking();
             return query;
         }
 
@@ -70,10 +78,14 @@ namespace API_MySIRH.Repositories
         {
             return await
                     this._context.Collaborateurs
-                        .Include(c => c.Poste)
+
+                        .Include(c => c.Carrieres)! // todo : to remove
+                        .ThenInclude(carr => carr.Poste)
+                        .Include(c => c.Carrieres)!
+                        .ThenInclude(carr => carr.Niveau)
+
                         .Include(c => c.SkillCenter)
                         .Include(c => c.Site)
-                        .Include(c => c.Niveau)
                         .Include(c => c.ModeRecrutement)
                         .Include(c => c.Documents)
                         .Include(c => c.Diplomes)

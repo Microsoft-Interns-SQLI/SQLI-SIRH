@@ -12,7 +12,7 @@
           class="img-fluid rounded-circle img-thumbnail mx-auto mb-1" />
           
           <input type="file" style="display: none;" (change)="uploadImage($event)" #pictureInput>
-          <button id="image-btn" class="btn btn-sm mb-1" (click)="pictureInput.click()"><span class="bi bi-card-image" ></span></button>
+          <button id="image-btn" class="btn btn-sm mb-1" (click)="pictureInput.click()" [disabled]="disableModifiedImage"><span class="bi bi-card-image" ></span></button>
         </div>
         <div *ngIf="selected">
           <div class="progress" style="height: 2px;">

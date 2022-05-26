@@ -21,6 +21,7 @@ export class FormationsComponent implements OnInit, OnDestroy {
   rows: Collaborator[] = [];
   annees: number[] = [];
   yearSelected: number = new Date(Date.now()).getFullYear();
+  statusSelected: number = 0;
 
   selected: boolean = true;
 
@@ -86,11 +87,11 @@ export class FormationsComponent implements OnInit, OnDestroy {
   loadCollaborators(
     pageSize?: number,
     pageNumber?: number,
-    filtrerPar?: string,
     search?: string,
-    orderby?: string,
     orderbyFormation?: string,
-    orderbyCertification?: string
+    orderbyCertification?: string,
+    year?:number,
+    status?:number
   ) {
     if (search != undefined) {
       this.spinnerService.isSearch.next(true);
@@ -98,7 +99,7 @@ export class FormationsComponent implements OnInit, OnDestroy {
       this.spinnerService.isSearch.next(false);
     }
     this.subCollab = this.collaborateurService
-      .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby, orderbyFormation, orderbyCertification)
+      .getCollaboratorsList(pageSize, pageNumber, undefined, search, undefined, orderbyFormation, orderbyCertification,year,status)
       .subscribe(
         resp => {
           this.rows = resp.result;
@@ -120,16 +121,16 @@ export class FormationsComponent implements OnInit, OnDestroy {
       this.pageSize,
       this.pageNumber,
       undefined,
-      undefined,
-      undefined,
       this.selected ? libelle : undefined,
-      !this.selected ? libelle : undefined);
+      !this.selected ? libelle : undefined,
+      this.yearSelected,
+      this.statusSelected === 0 ? undefined : this.statusSelected
+      );
   }
   onSearch(search: string) {
     this.loadCollaborators(
       this.pageSize,
       1,
-      undefined,
       search === '' ? undefined : search,
       undefined,
       undefined,
@@ -148,6 +149,7 @@ export class FormationsComponent implements OnInit, OnDestroy {
   filter(data: { status: number, year: number }) {
     this.filterTable(+data.status, data.year);
     this.yearSelected = data.year;
+    this.statusSelected = data.status;
   }
 
   private filterTable(status?: number, annee?: number) {

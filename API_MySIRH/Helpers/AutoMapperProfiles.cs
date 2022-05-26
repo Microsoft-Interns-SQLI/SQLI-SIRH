@@ -23,12 +23,16 @@ namespace API_MySIRH.Helpers
             CreateMap<ModeRecrutement, ModeRecrutementDTO>().ReverseMap();
             CreateMap<Document, FileDTO>().ReverseMap();
             CreateMap<Image, ImageDTO>().ReverseMap();
+            CreateMap<Carriere, CarriereDTO>().ReverseMap();
 
             CreateMap<Demission, DemissionDTO>().ReverseMap();
             CreateMap<ReasonDemission, ReasonDemissionDTO>().ReverseMap();
 
             CreateMap<CollaborateurTypeContratDTO, CollaborateurTypeContrat>().ReverseMap();
-            CreateMap<CollaborateurDTO, Collaborateur>().ReverseMap();
+            CreateMap<Collaborateur, CollaborateurDTO>()
+            // .ForMember(collabDto => collabDto.Poste, obj => obj.MapFrom(collab => collab.GetCurrentCarriere()!.Poste)) // todo : to remove
+            // .ForMember(collabDto => collabDto.Niveau, obj => obj.MapFrom(collab => collab.GetCurrentCarriere()!.Niveau))
+            .ReverseMap();
 
             CreateMap<Certification, CertificationDTO>().ReverseMap();
             CreateMap<CollaborateurCertification, CollaborateurCertificationDTO>().ReverseMap();

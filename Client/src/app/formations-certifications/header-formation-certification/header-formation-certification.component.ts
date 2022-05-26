@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-header-formation-certification',
@@ -14,6 +15,8 @@ export class HeaderFormationCertificationComponent implements OnInit, OnChanges 
   @Input() annees: number[] = [];
   @Output() statusYearEvent: EventEmitter<{ status: number, year: number }> = new EventEmitter<{ status: number, year: number }>();
   @Output() searchEvent: EventEmitter<string> = new EventEmitter<string>();
+
+  statusTable = environment.status;
 
   constructor() { }
 

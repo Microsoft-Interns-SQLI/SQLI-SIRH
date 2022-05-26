@@ -1,3 +1,5 @@
+using API_MySIRH.Entities;
+
 namespace API_MySIRH.Helpers
 {
     public class FilterParams
@@ -22,6 +24,8 @@ namespace API_MySIRH.Helpers
         public string OrderByFormation { get; set; } =String.Empty;
 
         public int Year { get; set; } = DateTime.Now.Year;
+
+        public Status Status { get; set; }
 
     }
 }

@@ -5,4 +5,5 @@ export const mdm = {
   modes: 'Modes de Recrutement',
   skillcenters: 'Skill Centers',
   niveaux: 'Niveaux',
+  reasonDemission: 'reasondemission'
 };

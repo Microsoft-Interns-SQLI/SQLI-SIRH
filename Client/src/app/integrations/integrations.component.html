@@ -5,10 +5,13 @@
       <button type="button" class="btn btn-sm btn-outline-primary">Ajout</button>
       <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
     </div>
-    <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+    <!-- <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
       <span data-feather="calendar"></span>
-      Filtres
-    </button>
+      FILTRE
+    </button> -->
+    <select class="btn btn-sm btn-outline-secondary dropdown-toggle" [(ngModel)]="pageYear" (ngModelChange)="onSelect()">
+      <option *ngFor="let item of yearsRange" value="{{item}}">{{item}}</option>
+    </select>
   </div>
 </div>
 
@@ -29,9 +32,6 @@
       <th>poste & niveau</th>
       <th>Date entree sqli</th>
       <th>XP</th>
-      <th>Date demission</th>
-      <th>Date sortie</th>
-      <th>Motive</th>
       <th style="text-align:right">Options</th>
     </thead>
     <tbody>
@@ -50,9 +50,6 @@
         </td>
         <td>{{ item.dateEntreeSqli | date: 'longDate' }}</td>
         <td>{{ calculateYears(item.datePremiereExperience) }}</td>
-        <td>{{ item.demissions[item.demissions.length - 1].dateDemission | date: 'longDate' }}</td>
-        <td>{{ item.demissions[item.demissions.length - 1].dateSortieSqli | date: 'longDate' }}</td>
-        <td>{{ item.demissions[item.demissions.length - 1].reasonDemission?.name || 'N/A' }}</td>
         <td id="options" class="text-end">
           <div class="container justify-content-end">
             <button [routerLink]="['/addEditcollaborateur', item.id]" class="btn btn-sm btn-primary me-2 mb-1"

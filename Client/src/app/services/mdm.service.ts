@@ -32,26 +32,26 @@ export class MdmService {
     return this.http.delete(`${this.myUrl}${mdmItem}/${id}`);
   }
 
-  // Reasons Demission
+  // // Reasons Demission
 
-  getReasonDemissions() {
-    return this.http.get<Contrat[]>(this.myUrl + 'reasondemission');
-  }
+  // getReasonDemissions() {
+  //   return this.http.get<Contrat[]>(this.myUrl + 'reasondemission');
+  // }
 
-  getReasonDemission(id: number): Observable<Contrat> {
-    return this.http.get<Contrat>(`${this.myUrl}reasondemission/${id}`);
-  }
+  // getReasonDemission(id: number): Observable<Contrat> {
+  //   return this.http.get<Contrat>(`${this.myUrl}reasondemission/${id}`);
+  // }
 
-  addReasonDemission(contrat: any) {
-    return this.http.post<Contrat>(`${this.myUrl}reasondemission/`, contrat);
-  }
+  // addReasonDemission(contrat: any) {
+  //   return this.http.post<Contrat>(`${this.myUrl}reasondemission/`, contrat);
+  // }
 
-  updateReasonDemission(id: number, contrat: any) {
-    return this.http.put<Contrat>(`${this.myUrl}reasondemission/${id}`, contrat);
-  }
+  // updateReasonDemission(id: number, contrat: any) {
+  //   return this.http.put<Contrat>(`${this.myUrl}reasondemission/${id}`, contrat);
+  // }
 
-  deleteReasonDemission(id: number) {
-    return this.http.delete(`${this.myUrl}reasondemission/${id}`);
-  }
+  // deleteReasonDemission(id: number) {
+  //   return this.http.delete(`${this.myUrl}reasondemission/${id}`);
+  // }
 
 }

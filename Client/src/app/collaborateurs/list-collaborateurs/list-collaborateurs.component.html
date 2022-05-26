@@ -107,6 +107,9 @@
   <table class="table">
     <thead>
       <th>
+        <input type="checkbox" [checked]="exportAll" (change)="globalExport()">
+      </th>
+      <th>
         <button
           class="btn btn-sm m-0 p-0"
           value="matricule"
@@ -203,6 +206,9 @@
         id="{{ item.id }}"
         *ngFor="let item of collaboratorsArray"
       >
+        <td>
+          <input type="checkbox" [checked]="checkedExport(item.id)" (change)="addToExportList(item.id, $event.target)">
+        </td>
         <td class="text-start">{{ item.matricule }}</td>
         <td>
           {{ item.nom }} <br />

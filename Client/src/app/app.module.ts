@@ -69,6 +69,7 @@ import { DemissionTabComponent } from './collaborateurs/add-edit-collaborateur/a
 import { ModalAjoutDemissionComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/_demission_tab/modal-ajout-demission/modal-ajout-demission.component';
 import { FormationsCollabComponent } from './formations-collab/formations-collab.component';
 import { MdmTableComponent } from './mdm-panel/mdm-table/mdm-table.component';
+import { CertificationsCollabComponent } from './certifications-collab/certifications-collab.component';
 
 @NgModule({
   declarations: [
@@ -126,6 +127,7 @@ import { MdmTableComponent } from './mdm-panel/mdm-table/mdm-table.component';
     ModalAjoutDemissionComponent,
     FormationsCollabComponent,
     MdmTableComponent,
+    CertificationsCollabComponent,
   ],
   imports: [
     CommonModule,
