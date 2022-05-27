@@ -91,6 +91,7 @@ export class UploadComponent implements OnInit, OnDestroy {
     if (this.error === '') {
       this.filesEmitter.emit(this.path);
     }
+    this.path.splice(0, this.path.length);
     this.files.splice(0, this.files.length);
     this.isDone = false;
     this.progress = 0;
