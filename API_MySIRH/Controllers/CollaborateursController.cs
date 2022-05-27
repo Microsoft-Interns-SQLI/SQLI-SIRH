@@ -6,6 +6,7 @@ using API_MySIRH.Extentions;
 using Syncfusion.XlsIO;
 using AutoMapper;
 using API_MySIRH.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API_MySIRH.Controllers
 {

@@ -48,7 +48,7 @@ namespace API_MySIRH.Controllers
         [HttpGet("certifications/{collabId}/{certifId}")]
         public async Task<IActionResult> GetCertification(int collabId, int certifId)
         {
-            var cc = await _collaborateurCertificationService.GetOne(collabId, certifId);
+            var cc = await _collaborateurCertificationService.GetByCollabAndCertif(collabId, certifId);
 
             return Ok(cc);
         }
@@ -79,9 +79,11 @@ namespace API_MySIRH.Controllers
                 await _collaborateurCertificationService.Add(collaborateurCertification);
             else
             {
-                var cf = await _collaborateurCertificationService.GetOne(collabId, certifId);
+                var cf = await _collaborateurCertificationService.GetById(collaborateurCertification.Id);
 
-                await addOrUpdateCertification(cf, collaborateurCertification);
+                if(cf != null)
+                    await _collaborateurCertificationService.Update(collaborateurCertification);
+
             }
             return StatusCode(StatusCodes.Status201Created, "Collaborateur cerification updated successfully!");
         }
@@ -98,22 +100,35 @@ namespace API_MySIRH.Controllers
                 if (collaborateurCertification.CollaborateurId != collabId)
                     return BadRequest("Something went wrong!");
 
-                var cf = await _collaborateurCertificationService.GetOne(collabId, collaborateurCertification.CertificationId);
+                var list = await _collaborateurCertificationService.GetByCollabAndCertif(collabId, collaborateurCertification.CertificationId);
+                var collabCertificationExist = false;
 
-                if (cf != null && cf.DateDebut.Value.ToString("dd/MM/yyyy").CompareTo(collaborateurCertification.DateDebut.Value.ToString("dd/MM/yyyy")) == 0
-                     && cf.DateFin.Value.ToString("dd/MM/yyyy").CompareTo(collaborateurCertification.DateFin.Value.ToString("dd/MM/yyyy")) == 0
-                     && cf.CollaborateurId == collaborateurCertification.CollaborateurId && cf.CertificationId == collaborateurCertification.CertificationId)
-                    continue;
-                else
+                foreach (var cf in list)
                 {
-                    await _collaborateurCertificationService.Add(collaborateurCertification);
+                    if (cf.DateDebut.Value.Year == collaborateurCertification.DateDebut.Value.Year
+                        && cf.CertificationId == collaborateurCertification.CertificationId)
+                    {
+                        if (cf.Status == collaborateurCertification.Status && cf.DateFin.Value.Year == collaborateurCertification.DateFin.Value.Year)
+                        {
+                            collabCertificationExist = true;
+                        }
+                        else
+                        {
+                            collaborateurCertification.Id = cf.Id;
+                            await _collaborateurCertificationService.Update(collaborateurCertification);
+                        }
+                        break;
+                    }
                 }
+
+                if(!collabCertificationExist)
+                    await _collaborateurCertificationService.Add(collaborateurCertification);
             }
 
             return StatusCode(StatusCodes.Status201Created, "Collaborateur certification updated successfully!");
         }
-        
-        
+
+
         [HttpGet("formations")]
         public async Task<IActionResult> GetFormations([FromQuery] FilterParamsForCertifAndFormation filter)
         {
@@ -138,7 +153,7 @@ namespace API_MySIRH.Controllers
         [HttpGet("formations/{collabId}/{formationId}")]
         public async Task<IActionResult> GetFormation(int collabId, int formationId)
         {
-            var cc = await _collaborateurFormationService.GetOne(collabId, formationId);
+            var cc = await _collaborateurFormationService.GetByCollabAndFormation(collabId, formationId);
 
             return Ok(cc);
         }
@@ -165,15 +180,19 @@ namespace API_MySIRH.Controllers
 
             if (DateTime.Compare((DateTime)collaborateurFormation.DateDebut, (DateTime)collaborateurFormation.DateFin) > 0)
                 return BadRequest("The Start date must be earlier than the end date!");
-            if(collaborateurFormation.Id == 0)
+            if (collaborateurFormation.Id == 0)
                 await _collaborateurFormationService.Add(collaborateurFormation);
             else
             {
-                var cf = await _collaborateurFormationService.GetOne(collabId, formationId);
+                var cf = await _collaborateurFormationService.GetById(collaborateurFormation.Id);
 
-                await addOrUpdateFormation(cf, collaborateurFormation);
+                if (cf != null)
+                {
+                    await _collaborateurFormationService.Update(collaborateurFormation);
+                }
+
             }
-            
+
 
             return StatusCode(StatusCodes.Status201Created, "Collaborateur formation updated successfully!");
         }
@@ -191,17 +210,33 @@ namespace API_MySIRH.Controllers
                 if (collaborateurFormation.CollaborateurId != collabId)
                     return BadRequest("Something went wrong!");
 
-                var cf = await _collaborateurFormationService.GetOne(collabId, collaborateurFormation.FormationId);
+                var list = await _collaborateurFormationService.GetByCollabAndFormation(collabId, collaborateurFormation.FormationId);
+                var collabFormationExist = false;
 
-                if (cf != null && cf.DateDebut.Value.ToString("dd/MM/yyyy").CompareTo(collaborateurFormation.DateDebut.Value.ToString("dd/MM/yyyy")) == 0
-                    && cf.DateFin.Value.ToString("dd/MM/yyyy").CompareTo(collaborateurFormation.DateFin.Value.ToString("dd/MM/yyyy")) == 0
-                    && cf.CollaborateurId == collaborateurFormation.CollaborateurId && cf.FormationId == collaborateurFormation.FormationId)
-                    continue;
-                else
+                foreach (var cf in list)
                 {
-                    await _collaborateurFormationService.Add(collaborateurFormation);
+                    if (cf.DateDebut.Value.Year == collaborateurFormation.DateDebut.Value.Year
+                        && cf.FormationId == collaborateurFormation.FormationId)
+                    {
+                        if (cf.Status == collaborateurFormation.Status && cf.DateFin.Value.Year == collaborateurFormation.DateFin.Value.Year)
+                        {
+                            collabFormationExist=true;
+                        }
+                        else 
+                        {
+                            collaborateurFormation.Id = cf.Id;
+                            await _collaborateurFormationService.Update(collaborateurFormation); 
+                        }
+                        break;
+                    }
                 }
-                
+
+                if(!collabFormationExist) 
+                    await _collaborateurFormationService.Add(collaborateurFormation);
+
+
+
+
             }
 
             return StatusCode(StatusCodes.Status201Created, "Collaborateur formation updated successfully!");

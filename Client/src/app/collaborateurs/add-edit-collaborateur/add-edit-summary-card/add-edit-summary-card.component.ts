@@ -75,6 +75,7 @@ export class AddEditSummaryCardComponent implements OnInit, OnDestroy, OnChanges
           this.selected = false;
           this.errorMessage = "";
           this.imgPath = `${environment.URL}api/Image/${this.collab.id}?${new Date().getTime()}`;
+          this.collab.imgPath = this.imgPath;
           this.progress = 0
         }
       })

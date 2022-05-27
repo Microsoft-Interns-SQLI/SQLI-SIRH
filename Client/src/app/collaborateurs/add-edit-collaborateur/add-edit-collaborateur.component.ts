@@ -42,7 +42,6 @@ export class AddEditCollaborateurComponent implements OnInit {
           this.collab = res;
           this.demission = res.demissions ? res.demissions[res.demissions.length - 1] : undefined;
           this.initForm();
-          console.log(this.collab);
         });
     } else {
       this.collab = new Collaborator();

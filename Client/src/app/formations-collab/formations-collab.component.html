@@ -1,11 +1,11 @@
 <div class="row mb-2">
-    <div class="col-8">
+    <div class="col-8" *ngIf="years.length > 0">
         <select class="form-select form-select-sm w-25" [(ngModel)]="year" (ngModelChange)="selectYear()">
             <option [value]="y" *ngFor="let y of years">{{y}}</option>
         </select>
     </div>
 
-    <div class="col-4 d-flex justify-content-end">
+    <div class="col d-flex justify-content-end">
         <button class="btn btn-sm btn-primary" (click)="addFormation()"><span class="bi bi-plus"></span></button>
     </div>
 </div>
@@ -20,22 +20,23 @@
                 {{error}}
             </div>
         </div>
-        <div formArrayName="formations" *ngFor="let f of controls.controls; let i = index" >
-            <div class="d-flex justify-content-between mb-2" style="height: 30px;"  [formGroupName]="i">
+        <div formArrayName="formations" *ngFor="let f of controls.controls; let i = index">
+            <div class="d-flex justify-content-between mb-2" style="height: 30px;" [formGroupName]="i">
                 <select class="form-select form-select-sm w-25 mx-1" formControlName="name">
                     <option value="0">Select formation</option>
                     <option [ngValue]="formation.id" *ngFor="let formation of formations">{{formation.libelle}}</option>
                 </select>
-                
+
                 <select class="form-select form-select-sm w-25 mx-1" formControlName="status">
                     <option value="{{s.id}}" *ngFor="let s of statusTable">{{s.name}}</option>
                 </select>
-                 
+
                 <input class="form-control mx-1" type="date" formControlName="dateDebut">
-            
+
                 <input class="form-control mx-1" type="date" formControlName="dateFin">
 
-                <button class="btn btn-sm btn-danger mx-1" (click)="deleteFormation(i)"><span class="bi bi-x"></span></button>
+                <button class="btn btn-sm btn-danger mx-1" (click)="deleteFormation(i)"><span
+                        class="bi bi-x"></span></button>
             </div>
         </div>
     </form>

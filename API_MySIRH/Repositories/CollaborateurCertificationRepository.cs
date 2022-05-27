@@ -62,14 +62,14 @@ namespace API_MySIRH.Repositories
                 .ToListAsync();
         }
 
-        public async Task<CollaborateurCertification> GetOne(int collaborateurId, int certificationId)
+        public async Task<List<CollaborateurCertification>> GetByCollabAndCertif(int collaborateurId, int certificationId)
         {
             var cc = await _context.CollaborateurCertifications
                 .Include(cc => cc.Collaborateur)
                 .Include(cc => cc.Certification)
                 .Where(cc => cc.CertificationId == certificationId && cc.CollaborateurId == collaborateurId)
                 .AsNoTracking()
-                .FirstOrDefaultAsync();
+                .ToListAsync();
 
             return cc;
         }
@@ -78,6 +78,11 @@ namespace API_MySIRH.Repositories
         {
             _context.Entry(collaborateurCertification).State = EntityState.Modified;
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<CollaborateurCertification> GetById(int id)
+        {
+            return await _context.CollaborateurCertifications.Where(x => x.Id == id).AsNoTracking().FirstOrDefaultAsync();
         }
     }
 }

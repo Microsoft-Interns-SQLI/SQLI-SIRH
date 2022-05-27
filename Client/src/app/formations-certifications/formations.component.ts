@@ -124,7 +124,7 @@ export class FormationsComponent implements OnInit, OnDestroy {
       this.selected ? libelle : undefined,
       !this.selected ? libelle : undefined,
       this.yearSelected,
-      this.statusSelected === 0 ? undefined : this.statusSelected
+      +this.statusSelected === 0 ? undefined : this.statusSelected
       );
   }
   onSearch(search: string) {

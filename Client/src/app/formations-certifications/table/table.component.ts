@@ -26,6 +26,8 @@ export class TableComponent implements OnInit, OnDestroy, OnChanges {
 
   newRows: { collaborateur: Collaborator, certificates: CollabFormationCertif[] }[] = [];
 
+  libelle:string = "test";
+
   constructor(private popupService: PopupService) { }
 
 
@@ -59,16 +61,17 @@ export class TableComponent implements OnInit, OnDestroy, OnChanges {
 
   sort(libelle:string){
     this.sortValue.emit(libelle);
+    this.libelle = libelle;
   }
 
   private prepareData(){
-    console.log(this.table);
     this.newRows = [];
     this.rows.forEach(collab => {
       let certificates: CollabFormationCertif[] = [];
 
       this.cols.forEach(certif => {
         const collabFormCert = this.table.find(x => x.collaborateurId === collab.id && x.idFormationCertif === certif.id);
+        console.log(new Date(Date.now()).getMilliseconds() +' : ' + this.libelle + "-- collab : " + collabFormCert?.collaborateurId + '-- certifId : '+collabFormCert?.idFormationCertif);
         if (collabFormCert != undefined) {
           certificates.push(collabFormCert);
         } else {
@@ -77,7 +80,9 @@ export class TableComponent implements OnInit, OnDestroy, OnChanges {
       });
 
       this.newRows.push({ collaborateur: collab, certificates: certificates })
+      
     });
+    
     
   }
   ngOnDestroy(): void {

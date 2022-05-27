@@ -59,9 +59,14 @@ namespace API_MySIRH.Services
             return cfDTO.GroupBy(x => x.DateDebut.Value.Year).Select(g => new CollaborateurCertificationResponse { Annee = g.Key, List = g.ToList() }).FirstOrDefault();
         }
 
-        public async Task<CollaborateurCertificationDTO> GetOne(int collaborateurId, int certificationId)
+        public async Task<CollaborateurCertificationDTO> GetById(int id)
         {
-            return _mapper.Map<CollaborateurCertificationDTO>(await _collaborateurCertificationRepository.GetOne(collaborateurId, certificationId));
+            return _mapper.Map<CollaborateurCertificationDTO>(await _collaborateurCertificationRepository.GetById(id));
+        }
+
+        public async Task<List<CollaborateurCertificationDTO>> GetByCollabAndCertif(int collaborateurId, int certificationId)
+        {
+            return _mapper.Map<List<CollaborateurCertificationDTO>>(await _collaborateurCertificationRepository.GetByCollabAndCertif(collaborateurId, certificationId));
         }
 
         public async Task Update(CollaborateurCertificationDTO collaborateurCertification)

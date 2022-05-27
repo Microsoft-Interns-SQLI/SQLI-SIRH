@@ -41,12 +41,9 @@ export class CollaboratorsService {
       params = params.append("Search", search);
     }
     if (orderbyFormation != undefined) {
-      params = params.append("OrderByFormation", orderbyFormation);
+      params = params.append("OrderByFormation", JSON.stringify(orderbyFormation));
     }
 
-    if (orderbyCertification != undefined) {
-      params = params.append("OrderByCertification", orderbyCertification);
-    }
     if (orderbyCertification != undefined) {
       params = params.append("OrderByCertification", orderbyCertification);
     }
@@ -57,7 +54,6 @@ export class CollaboratorsService {
     if (status != undefined) {
       params = params.append("Status", status);
     }
-
     let sub: Subscription;
     return this.http.get<any>(this.myUrl, { observe: 'response', params }).pipe(
       map((response) => {
