@@ -3,12 +3,14 @@
 using API_MySIRH.DTOs;
 using API_MySIRH.Helpers;
 using API_MySIRH.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_MySIRH.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class FormationCertificationController : ControllerBase
     {
         private readonly ICollaborateurCertificationService _collaborateurCertificationService;

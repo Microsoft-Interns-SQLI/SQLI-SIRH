@@ -71,7 +71,7 @@ export class TableComponent implements OnInit, OnDestroy, OnChanges {
 
       this.cols.forEach(certif => {
         const collabFormCert = this.table.find(x => x.collaborateurId === collab.id && x.idFormationCertif === certif.id);
-        console.log(new Date(Date.now()).getMilliseconds() +' : ' + this.libelle + "-- collab : " + collabFormCert?.collaborateurId + '-- certifId : '+collabFormCert?.idFormationCertif);
+        
         if (collabFormCert != undefined) {
           certificates.push(collabFormCert);
         } else {

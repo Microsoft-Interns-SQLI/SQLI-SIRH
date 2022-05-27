@@ -12,7 +12,7 @@ namespace API_MySIRH.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize()]
+    [Authorize()]
     public class CollaborateursController : ControllerBase
     {
         private readonly ICollaborateurService _collaborateurService;

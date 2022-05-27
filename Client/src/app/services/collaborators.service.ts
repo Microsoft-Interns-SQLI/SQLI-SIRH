@@ -74,7 +74,8 @@ export class CollaboratorsService {
             response.headers.get('Pagination') || ''
           );
         }
-        sub.unsubscribe();
+        if(sub != undefined)
+          sub.unsubscribe();
         return this.paginatedResult;
       })
     );
