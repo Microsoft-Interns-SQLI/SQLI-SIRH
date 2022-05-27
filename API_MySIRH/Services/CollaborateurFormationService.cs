@@ -48,6 +48,12 @@ namespace API_MySIRH.Services
             return await _collaborateurFormationRepository.GetAnneesByCollaborateur(id);
 
         }
+
+        public async Task<List<CollaborateurFormationDTO>> GetByCollabAndFormation(int collabId, int formationId)
+        {
+            return _mapper.Map<List<CollaborateurFormationDTO>>(await _collaborateurFormationRepository.GetByCollabAndFormation(collabId, formationId));
+        }
+
         public async Task<CollaborateurFormationResponse> GetByCollaborateur(int id, FilterParamsForCertifAndFormation filter)
         {
             var list = FiltrerTable(filter,await _collaborateurFormationRepository.GetByCollaborateur(id));
@@ -62,9 +68,9 @@ namespace API_MySIRH.Services
             throw new NotImplementedException();
         }
 
-        public async Task<CollaborateurFormationDTO> GetOne(int collaborateurId, int formationId)
+        public async Task<CollaborateurFormationDTO> GetById(int id)
         {
-            return _mapper.Map<CollaborateurFormationDTO>(await _collaborateurFormationRepository.GetOne(collaborateurId, formationId));
+            return _mapper.Map<CollaborateurFormationDTO>(await _collaborateurFormationRepository.GetById(id));
         }
 
         public async Task Update(CollaborateurFormationDTO collaborateurFormation)

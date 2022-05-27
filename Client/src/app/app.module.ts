@@ -69,6 +69,8 @@ import { ModalAjoutDemissionComponent } from './collaborateurs/add-edit-collabor
 import { FormationsCollabComponent } from './formations-collab/formations-collab.component';
 import { MdmTableComponent } from './mdm-panel/mdm-table/mdm-table.component';
 import { CertificationsCollabComponent } from './certifications-collab/certifications-collab.component';
+import { EncodeHttpParamsInterceptor } from './interceptors/encode-http-params.interceptor';
+import { AuthentificationInterceptor } from './interceptors/authentification.interceptor';
 
 @NgModule({
   declarations: [
@@ -148,7 +150,9 @@ import { CertificationsCollabComponent } from './certifications-collab/certifica
   ],
   providers: [
     DatePipe,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthentificationInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: EncodeHttpParamsInterceptor, multi: true },
     { provide: RouteReuseStrategy, useClass: CustomReuseStrategyService },
   ],
   bootstrap: [AppComponent],

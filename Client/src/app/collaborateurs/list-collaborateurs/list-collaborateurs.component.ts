@@ -1,5 +1,5 @@
 import { HttpEventType, HttpResponse } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import * as FileSaver from 'file-saver';
 import { map, Subscription } from 'rxjs';
 
@@ -17,7 +17,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './list-collaborateurs.component.html',
   styleUrls: ['./list-collaborateurs.component.css'],
 })
-export class ListCollaborateursComponent implements OnInit, OnDestroy {
+export class ListCollaborateursComponent implements OnInit, OnDestroy, OnChanges {
   collaboratorsArray: Collaborator[] = [];
   displayTable: boolean = true;
   collabToDelete?: Collaborator = new Collaborator();
@@ -59,6 +59,9 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
     private toastService: ToastService,
     private spinnerService: SpinnerService
   ) { }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+  }
 
   ngOnInit(): void {
     this.loadCollaborators(this.pageSize, this.pageNumber);
@@ -113,7 +116,7 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
     this.loadCollaborators(
       this.pageSize,
       this.pageNumber,
-      this.selected,
+      this.selected === '' ? undefined : this.selected,
       this.searchInput === '' ? undefined : this.searchInput
     );
   }
@@ -261,9 +264,12 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.exportSubscription.unsubscribe();
-    this.loadCollabSubscription.unsubscribe();
-    this.imageSubscription.unsubscribe();
+    if (this.exportSubscription != undefined)
+      this.exportSubscription.unsubscribe();
+    if (this.loadCollabSubscription != undefined)
+      this.loadCollabSubscription.unsubscribe();
+    if (this.imageSubscription != undefined)
+      this.imageSubscription.unsubscribe();
   }
   trier(value: string) {
     switch (value) {

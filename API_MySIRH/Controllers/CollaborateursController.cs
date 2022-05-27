@@ -6,12 +6,13 @@ using API_MySIRH.Extentions;
 using Syncfusion.XlsIO;
 using AutoMapper;
 using API_MySIRH.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API_MySIRH.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize()]
+    [Authorize()]
     public class CollaborateursController : ControllerBase
     {
         private readonly ICollaborateurService _collaborateurService;

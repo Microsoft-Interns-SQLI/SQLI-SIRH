@@ -5,9 +5,10 @@ namespace API_MySIRH.Interfaces
     public interface ICollaborateurCertificationRepository
     {
         Task<List<CollaborateurCertification>> GetAll();
+        Task<CollaborateurCertification> GetById(int id);
         Task<List<CollaborateurCertification>> GetByCollaborateur(int id);
         Task<List<CollaborateurCertification>> GetByCertification(int id);
-        Task<CollaborateurCertification> GetOne(int collaborateurId, int certificationId);
+        Task<List<CollaborateurCertification>> GetByCollabAndCertif(int collaborateurId, int certificationId);
         Task Add(CollaborateurCertification collaborateurCertification);
         Task Update(CollaborateurCertification collaborateurCertification);
         Task Delete(CollaborateurCertification collaborateurCertification);

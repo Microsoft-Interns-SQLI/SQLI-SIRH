@@ -84,6 +84,7 @@ namespace API_MySIRH.Services
 
         public async Task<PagedList<CollaborateurDTO>> GetCollaborateurs(FilterParams filterParams)
         {
+            var x = filterParams.OrderByCertification.Replace('\\', ' ').Replace('"', ' ').Trim();
             var query = this._collaborateurRepository.GetCollaborateurs().AsQueryable();
 
             if (!string.IsNullOrEmpty(filterParams.Site))
@@ -95,13 +96,13 @@ namespace API_MySIRH.Services
             if (!string.IsNullOrWhiteSpace(filterParams.OrderByCertification))
             {
                 query = query.OrderByDescending(
-                    x => x.Certifications.Where(x => x.Libelle == filterParams.OrderByCertification).Any()
+                    x => x.Certifications.Where(x => x.Libelle == filterParams.OrderByCertification.Replace('\\', ' ').Replace('"',' ').Trim()).Any()
                     && x.CollaborateurCertifications.Where(x => x.DateDebut.Value.Year == filterParams.Year).Any());
 
                 if (filterParams.Status != 0)
                 {
                     query = query.OrderByDescending(
-                    x => x.Certifications.Where(x => x.Libelle == filterParams.OrderByCertification).Any()
+                    x => x.Certifications.Where(x => x.Libelle == filterParams.OrderByCertification.Replace('\\', ' ').Replace('"', ' ').Trim()).Any()
                     && x.CollaborateurCertifications.Where(x => x.DateDebut.Value.Year == filterParams.Year).Any()
                     && x.CollaborateurCertifications.Where(x => x.Status == filterParams.Status).Any());
                 }
@@ -111,13 +112,13 @@ namespace API_MySIRH.Services
             else if (!string.IsNullOrWhiteSpace(filterParams.OrderByFormation))
             {
                 query = query.OrderByDescending(
-                    x => x.Formations.Where(x => x.Libelle == filterParams.OrderByFormation).Any()
+                    x => x.Formations.Where(x => x.Libelle == filterParams.OrderByFormation.Replace('\\', ' ').Replace('"', ' ').Trim()).Any()
                     && x.CollaborateurFormations.Where(x => x.DateDebut.Value.Year == filterParams.Year).Any());
 
                 if (filterParams.Status != 0)
                 {
                     query = query.OrderByDescending(
-                                x => x.Formations.Where(x => x.Libelle == filterParams.OrderByFormation).Any()
+                                x => x.Formations.Where(x => x.Libelle == filterParams.OrderByFormation.Replace('\\', ' ').Replace('"', ' ').Trim()).Any()
                                 && x.CollaborateurFormations.Where(x => x.Status == filterParams.Status).Any()
                                 && x.CollaborateurFormations.Where(x => x.DateDebut.Value.Year == filterParams.Year).Any());
                 }

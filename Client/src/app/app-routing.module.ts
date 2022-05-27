@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CanActivateGuardService } from './auth/canActivateGuard.service';
 import { SigninComponent } from './auth/signin/signin.component';
 import { AddEditCandidatComponent } from './candidats/add-edit-candidat/add-edit-candidat.component';
 import { ListCandidatsComponent } from './candidats/list-candidats/list-candidats.component';
@@ -13,8 +12,10 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
 import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
 import { FormationsComponent } from './formations-certifications/formations.component';
 import { ListFreelancesComponent } from './freelances/list-freelances/list-freelances.component';
+import { AuthentificationGuardService } from './guards/authentification.guard.service';
 import { HomeComponent } from './home/home.component';
 import { IntegrationsComponent } from './integrations/integrations.component';
+import { AuthentificationInterceptor } from './interceptors/authentification.interceptor';
 import { LayoutComponent } from './layout/layout.component';
 import { MdmPanelComponent } from './mdm-panel/mdm-panel.component';
 import { AddEditMemosComponent } from './memos/add-edit-memos/add-edit-memos.component';
@@ -26,9 +27,9 @@ import { UploadComponent } from './upload/upload.component';
 export const routes: Routes = [
   { path: 'login', component: SigninComponent },
   {
-    // path: '', component: LayoutComponent,canActivateChild:[CanActivateGuardService], children: [
     path: '',
     component: LayoutComponent,
+    canActivateChild: [AuthentificationGuardService],
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
