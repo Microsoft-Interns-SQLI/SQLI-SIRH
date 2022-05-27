@@ -98,20 +98,33 @@ namespace API_MySIRH.Services
 
             if (filterParams.postesId.Count() > 0)
             {
-                var conditions = PredicateBuilder.New<Collaborateur>();
-                foreach (int i in filterParams.postesId)
-                    conditions.Or(collab => collab.PosteId == i);
-                Expression<Func<Collaborateur, bool>> expression = conditions;
-                query = query.AsExpandable().Where(coll => expression.Invoke(coll)).AsQueryable();
+               // var conditions = PredicateBuilder.New<Collaborateur>();
+                /*foreach (int i in filterParams.postesId)
+                    conditions = conditions.Or(coll =>  i== coll.GetCurrentCarriere().PosteId);*/
+                //conditions.Or(coll => filterParams.postesId.Contains((int)coll.GetCurrentCarriere().PosteId));
+               /* query = (from i in query
+                         where filterParams.postesId.Contains((int)i.Carrieres.AsEnumerable().OrderByDescending(c=> c.Annee).First().PosteId)
+                         select i).AsQueryable();*/
+                //Expression < Func<Collaborateur, bool> > expression = conditions;
+                query = query.AsExpandable()
+                             .Where(coll => filterParams.postesId.Contains((int)coll.Carrieres.AsEnumerable().OrderByDescending(c=> c.Annee).First().PosteId))
+                             .AsQueryable();
             }
 
             if (filterParams.niveauxId.Count() > 0)
             {
-                var conditions = PredicateBuilder.New<Collaborateur>();
-                foreach (int i in filterParams.niveauxId)
-                    conditions.Or(collab => collab.NiveauId == i);
-                Expression<Func<Collaborateur, bool>> expression = conditions;
-                query = query.AsExpandable().Where(coll => expression.Invoke(coll)).AsQueryable();
+                //var listCollabs = query.Where(c => c.Id == -1);
+                // var conditions = PredicateBuilder.New<Collaborateur>();
+                // foreach (int i in filterParams.niveauxId)
+                //     conditions = conditions.Or(coll =>  i== coll.GetCurrentCarriere().NiveauId);
+                // Expression<Func<Collaborateur, bool>> expression = conditions;
+                query = query.AsExpandable()
+                             .Where(coll => filterParams.niveauxId.Contains((int)coll.Carrieres.AsEnumerable().OrderByDescending(c => c.Annee).First().NiveauId))
+                             .AsQueryable();
+                /*query = (from i in query
+                         where filterParams.niveauxId.Contains((int)i.Carrieres.AsEnumerable().OrderByDescending(c => c.Annee).First().NiveauId)
+                         select i).AsQueryable();*/
+
             }
 
             if (!string.IsNullOrWhiteSpace(filterParams.OrderByCertification))

@@ -99,7 +99,7 @@ export class FormationsComponent implements OnInit, OnDestroy {
       this.spinnerService.isSearch.next(false);
     }
     this.subCollab = this.collaborateurService
-      .getCollaboratorsList(pageSize, pageNumber, undefined, search, undefined, orderbyFormation, orderbyCertification,year,status)
+      .getCollaboratorsList(pageSize, pageNumber, undefined, search, undefined, orderbyFormation, orderbyCertification,undefined,undefined, year,status)
       .subscribe(
         resp => {
           this.rows = resp.result;

@@ -48,7 +48,7 @@ export class CollaboratorsService {
       params = params.append("OrderByCertification", orderbyCertification);
     }
     if (postesId != undefined ) {
-        params = params.append  ("postesId",postesId);
+        params = params.append("postesId",postesId);
       //let v : string = decodeURIComponent(postesId.toString().replace(',','&postesId='))
      // params = params.append("postesId",);
       //console.log("those are my postes = "+ postesId.toLocaleString().replace(',','&'));
