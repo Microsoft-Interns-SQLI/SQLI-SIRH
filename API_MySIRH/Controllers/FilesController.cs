@@ -1,12 +1,14 @@
 using System.Net.Http.Headers;
 using API_MySIRH.DTOs;
 using API_MySIRH.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_MySIRH.Controllers
 {
     [ApiController]
     [Route("api/files")]
+    [Authorize]
     public class FilesController : ControllerBase
     {
         public readonly IFilesService _filesService;
