@@ -360,10 +360,20 @@
 </div>
 
 <div>
-  <app-footer
-    [pagination]="pagination"
-    (pageNumber)="getCurrentPage($event)"
-  ></app-footer>
+  <div class="d-flex flex-row-reverse bd-highlight justify-content-between" *ngIf="pagination">
+    <div>
+        <pagination [boundaryLinks]="true" [totalItems]="pagination.totalCount" [itemsPerPage]="pagination.pageSize"
+            [(ngModel)]="+pagination.currentPage" (pageChanged)="getCurrentPage($event)" previousText="&lsaquo;"
+            nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+        </pagination>
+    </div>
+    <div class="p-2">
+        Showing <strong> {{ 1 + pageSize * (pagination.currentPage - 1 ) }} </strong>
+        to <strong>{{pageSize * pagination.currentPage}}</strong> collaborators
+        from page <strong>{{pagination.currentPage}}</strong>
+        of <strong>{{pagination.totalPages}}</strong>
+    </div>
+</div>
 </div>
 
 <!-- Modal -->

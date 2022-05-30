@@ -1,7 +1,7 @@
-import { HttpEventType, HttpResponse } from '@angular/common/http';
-import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { HttpResponse } from '@angular/common/http';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as FileSaver from 'file-saver';
-import { map, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 import { Collaborator } from 'src/app/Models/Collaborator';
 import { Pagination } from 'src/app/Models/pagination';
@@ -17,7 +17,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './list-collaborateurs.component.html',
   styleUrls: ['./list-collaborateurs.component.css'],
 })
-export class ListCollaborateursComponent implements OnInit, OnDestroy, OnChanges {
+export class ListCollaborateursComponent implements OnInit, OnDestroy{
   collaboratorsArray: Collaborator[] = [];
   displayTable: boolean = true;
   collabToDelete?: Collaborator = new Collaborator();
@@ -35,6 +35,8 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy, OnChanges
   pagination: Pagination = {
     pageSize: this.pageSize,
     currentPage: this.pageNumber,
+    totalCount:1,
+    totalPages:1
   } as Pagination;
 
   isLoading?: boolean;
@@ -57,11 +59,10 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy, OnChanges
     private imageService: ImagesService,
     private fileService: FilesService,
     private toastService: ToastService,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
   ) { }
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-  }
+
+
 
   ngOnInit(): void {
     this.loadCollaborators(this.pageSize, this.pageNumber);
@@ -83,6 +84,8 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy, OnChanges
       .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby)
       .subscribe({
         next: (resp) => {
+          this.pagination = resp.pagination;
+
           this.collaboratorsArray = resp.result.map(function (collab) {
             // let currentCarriere = collab.carrieres?.sort((a, b) => a.annee - b.annee).pop();
             // collab.niveau = currentCarriere?.niveau;
@@ -139,7 +142,6 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy, OnChanges
   // update collab table
   search(value: string) {
     this.searchInput = value;
-
     this.loadCollaborators(
       this.pageSize,
       1,
@@ -151,8 +153,9 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy, OnChanges
   // get current page value from footer child component
   // update current page number(pageNumber)
   // update collab table
-  getCurrentPage(page: number) {
-    this.pageNumber = page;
+  getCurrentPage(event: any) {
+
+    this.pageNumber = +event.page;
     this.loadCollaborators(
       this.pageSize,
       this.pageNumber,
