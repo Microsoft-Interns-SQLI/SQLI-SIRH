@@ -8,6 +8,10 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
+  "resolutions": {
+    "autoprefixer": "10.4.5"
+  },
+
   "private": true,
   "dependencies": {
     "@angular/animations": "~13.1.0",
