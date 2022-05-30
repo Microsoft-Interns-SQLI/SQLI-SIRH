@@ -17,8 +17,8 @@ namespace API_MySIRH.Helpers
         public string Site { get; set; } = String.Empty;
         public string OrderBy { get; set; } = "nom_asc";
 
-        public List<int> postesId { get; set; } = new List<int>();
-        public List<int> niveauxId { get; set; } = new List<int>();
+        public string postesId { get; set; } = "";
+        public string niveauxId { get; set; } = "";
 
         public string OrderByCertification { get; set; } =String.Empty;
         public string OrderByFormation { get; set; } =String.Empty;

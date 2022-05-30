@@ -52,9 +52,9 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   trierParMatricule: boolean = false;
   trierParAnnee: boolean = false;
 
-  postesId: number[] = [];
+  postesId: number[]=[]   ;
   postesValue: string = '';
-  niveauxId: number[] = [];
+  niveauxId: number[]=[] ;
   niveauxValue: string = '';
 
 
@@ -76,8 +76,8 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
     filtrerPar?: string,
     search?: string,
     orderby?: string,
-    postesId?: string,
-    niveauxId?: string
+    postesId?: number[],
+    niveauxId?: number[]
   ) {
     if (search != undefined) {
       this.spinnerService.isSearch.next(true);
@@ -124,8 +124,8 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
       this.selected,
       this.searchInput === '' ? undefined : this.searchInput,
       undefined,
-      this.postesValue == '' ? undefined : this.postesValue,
-      this.niveauxValue == '' ? undefined : this.niveauxValue
+      this.postesId.toString()==''  ? undefined : this.postesId,
+      this.niveauxId.toString()=='' ? undefined : this.niveauxId
     );
   }
 
@@ -141,39 +141,37 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
       this.selected === '' ? undefined : this.selected,
       this.searchInput === '' ? undefined : this.searchInput,
       undefined,
-      this.postesValue == '' ? undefined : this.postesValue,
-      this.niveauxValue == '' ? undefined : this.niveauxValue
+      this.postesId.toString()=='' ? undefined : this.postesId,
+      this.niveauxId.toString()=='' ? undefined : this.niveauxId
     );
   }
 
   onChangePostes(postes: number[]) {
     this.postesId = postes;
-    this.postesValue = this.postesId.toString().replace(',', '&postesId=')
 
-    console.log("poste = " + this.postesId.toString());
     this.loadCollaborators(
       this.pageSize,
-      this.pageNumber,
+      1,
       this.selected === '' ? undefined : this.selected,
       this.searchInput === '' ? undefined : this.searchInput,
       undefined,
-      this.postesValue,
-      this.niveauxValue == '' ? undefined : this.niveauxValue
+      this.postesId,
+      this.niveauxId.toString()=='' ? undefined : this.niveauxId
     )
   }
 
   onChangeNiveaux(niveaux: number[]) {
     this.niveauxId = niveaux;
-    this.niveauxValue = this.niveauxId.toString().replace(',', '&niveauxId=')
+    //this.niveauxValue = this.niveauxId.toString().replace(',', '&niveauxId=')
 
     this.loadCollaborators(
       this.pageSize,
-      this.pageNumber,
+      1,
       this.selected === '' ? undefined : this.selected,
       this.searchInput === '' ? undefined : this.searchInput,
       undefined,
-      this.postesValue == '' ? undefined : this.postesValue,
-      this.niveauxValue
+      this.postesId.toString()=='' ? undefined : this.postesId,
+      this.niveauxId
     )
   }
 
@@ -188,8 +186,8 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
       this.selected === '' ? undefined : this.selected,
       this.searchInput === '' ? undefined : value,
       undefined,
-      this.postesValue == '' ? undefined : this.postesValue,
-      this.niveauxValue == '' ? undefined : this.niveauxValue
+      this.postesId.toString()=='' ? undefined : this.postesId,
+      this.niveauxId.toString()=='' ? undefined : this.niveauxId
     );
   }
 
@@ -197,6 +195,7 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   // update current page number(pageNumber)
   // update collab table
   getCurrentPage(page: number) {
+    console.log("this is current page");
     this.pageNumber = page;
     this.loadCollaborators(
       this.pageSize,
@@ -204,8 +203,8 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
       this.selected === '' ? undefined : this.selected,
       this.searchInput === '' ? undefined : this.searchInput,
       undefined,
-      this.postesValue == '' ? undefined : this.postesValue,
-      this.niveauxValue == '' ? undefined : this.niveauxValue
+      this.postesId.toString()=='' ? undefined : this.postesId,
+      this.niveauxId.toString()==''? undefined : this.niveauxId
     );
   }
 

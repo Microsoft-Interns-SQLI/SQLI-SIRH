@@ -96,7 +96,7 @@ namespace API_MySIRH.Services
             if (!(string.IsNullOrWhiteSpace(filterParams.Search)))
                 query = query.Where(c => c.Nom.Contains(filterParams.Search) || c.Prenom.Contains(filterParams.Search));
 
-            if (filterParams.postesId.Count() > 0)
+            if (!string.IsNullOrEmpty(filterParams.postesId))
             {
                // var conditions = PredicateBuilder.New<Collaborateur>();
                 /*foreach (int i in filterParams.postesId)
@@ -106,24 +106,28 @@ namespace API_MySIRH.Services
                          where filterParams.postesId.Contains((int)i.Carrieres.AsEnumerable().OrderByDescending(c=> c.Annee).First().PosteId)
                          select i).AsQueryable();*/
                 //Expression < Func<Collaborateur, bool> > expression = conditions;
-                query = query.AsExpandable()
+               /* query = query.AsExpandable()
                              .Where(coll => filterParams.postesId.Contains((int)coll.Carrieres.AsEnumerable().OrderByDescending(c=> c.Annee).First().PosteId))
-                             .AsQueryable();
+                             .AsQueryable();*/
+                query = query.Where(coll => filterParams.postesId.Contains((coll.Carrieres.AsEnumerable().OrderByDescending(c => c.Annee).First().PosteId).ToString()))
+                    .AsQueryable();
             }
 
-            if (filterParams.niveauxId.Count() > 0)
+            if (!string.IsNullOrEmpty(filterParams.niveauxId))
             {
                 //var listCollabs = query.Where(c => c.Id == -1);
                 // var conditions = PredicateBuilder.New<Collaborateur>();
                 // foreach (int i in filterParams.niveauxId)
                 //     conditions = conditions.Or(coll =>  i== coll.GetCurrentCarriere().NiveauId);
                 // Expression<Func<Collaborateur, bool>> expression = conditions;
-                query = query.AsExpandable()
+               /* query = query.AsExpandable()
                              .Where(coll => filterParams.niveauxId.Contains((int)coll.Carrieres.AsEnumerable().OrderByDescending(c => c.Annee).First().NiveauId))
-                             .AsQueryable();
+                             .AsQueryable();*/
                 /*query = (from i in query
                          where filterParams.niveauxId.Contains((int)i.Carrieres.AsEnumerable().OrderByDescending(c => c.Annee).First().NiveauId)
                          select i).AsQueryable();*/
+                query = query.Where(coll => filterParams.niveauxId.Contains((coll.Carrieres.AsEnumerable().OrderByDescending(c => c.Annee).First().NiveauId).ToString()))
+                                .AsQueryable();
 
             }
 

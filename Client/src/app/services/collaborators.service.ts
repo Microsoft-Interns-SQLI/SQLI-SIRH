@@ -24,7 +24,7 @@ export class CollaboratorsService {
 
   constructor(private http: HttpClient, private imageService: ImagesService) { }
 
-  getCollaboratorsList(itemsPerPage?: number, page?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyFormation?: string, orderbyCertification?: string, postesId?: string, niveauId?: string ,year?: number, status?: number) {
+  getCollaboratorsList(itemsPerPage?: number, page?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyFormation?: string, orderbyCertification?: string, postesId?: number[], niveauxId?: number[] ,year?: number, status?: number) {
     //delay(50000);
     let params = new HttpParams();
     if (page != undefined && itemsPerPage != undefined) {
@@ -47,18 +47,13 @@ export class CollaboratorsService {
     if (orderbyCertification != undefined) {
       params = params.append("OrderByCertification", orderbyCertification);
     }
-    if (postesId != undefined ) {
-        params = params.append("postesId",postesId);
-      //let v : string = decodeURIComponent(postesId.toString().replace(',','&postesId='))
-     // params = params.append("postesId",);
-      //console.log("those are my postes = "+ postesId.toLocaleString().replace(',','&'));
-    //  params = params.appendAll({"postesId":postesId});
-    //console.log("inside postes append+= "+ params);
+    if (postesId != undefined && postesId.toString()!='' ) {
+      params = params.appendAll({"postesId":postesId});
+   
     }
-    if (niveauId != undefined ) {
-        params = params.append("niveauxId",niveauId);
-    //  params = params.appendAll({"niveauxId":niveauId});
-    //console.log("nivequ = " + niveauId.toString());
+    if (niveauxId != undefined && niveauxId.toString()!='' ) {
+      console.log(niveauxId.length);
+      params = params.appendAll({"niveauxId":niveauxId});
     }
     console.log('those are my params ='+params.toString());
     if (orderbyCertification != undefined) {
@@ -241,3 +236,7 @@ export class CollaboratorsService {
     return throwError(() => error.error);
   }
 }
+function foreach(arg0: boolean) {
+  throw new Error('Function not implemented.');
+}
+
