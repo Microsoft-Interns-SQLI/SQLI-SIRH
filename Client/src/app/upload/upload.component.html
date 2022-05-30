@@ -10,39 +10,19 @@
 />
 <button (click)="uploadFile()">Upload</button> -->
 
-<div
-  class="modal fade"
-  id="upload"
-  tabindex="-1"
-  aria-labelledby="uploadmodal"
-  aria-hidden="true"
->
+<div class="modal fade" id="upload" tabindex="-1" aria-labelledby="uploadmodal" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="uploadmodal">Import CVs</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div
-          class="dragdrop"
-          ngfDrop
-          multiple="1"
-          selectable="1"
-          [(validDrag)]="validComboDrag"
-          [(files)]="files"
+        <div class="dragdrop" ngfDrop multiple="1" selectable="1" [(validDrag)]="validComboDrag" [(files)]="files"
           [ngClass]="{
             'invalid-drag': validComboDrag === false,
             'valid-drag': validComboDrag
-          }"
-          [accept]="accept"
-          (fileChange)="readFiles(files)"
-        >
+          }" [accept]="accept" (fileChange)="readFiles(files)">
           Drag your file here Or Tap to open file explorer
         </div>
         <div class="alert alert-danger p-1 text-center" *ngIf="error">
@@ -52,57 +32,32 @@
           <option value="CV">CV</option>
           <option value="Autres">Autres</option>
         </select>
-        <div
-          class="justify-content-between bd-highlight p-1"
-          *ngIf="files.length"
-        >
-          <div
-            *ngFor="let file of files; let i = index"
-            class="row flex-grow-1 my-4 mx-auto justify-content-around bd-highlight"
-          >
+        <div class="justify-content-between bd-highlight p-1" *ngIf="files.length">
+          <div *ngFor="let file of files; let i = index"
+            class="row flex-grow-1 my-4 mx-auto justify-content-around bd-highlight">
             <i class="d-inline w-auto bi bi-file-earmark-text"></i>
             <div class="col-8">{{ file.name }}</div>
-            <button
-              *ngIf="!isDone || error"
-              class="col-1 btn btn-warning btn-sm p-1"
-              (click)="files.splice(0, 1)"
-            >
+            <button *ngIf="!isDone || error" class="col-1 btn btn-warning btn-sm p-1" (click)="files.splice(0, 1)">
               <span class="bi bi-trash"></span>
             </button>
           </div>
           <div class="bd-highlight align-self-center" *ngIf="isDone">
-            <span
-              class="bi bi-check-circle text-success p-1"
-              *ngIf="!error"
-            ></span>
+            <span class="bi bi-check-circle text-success p-1" *ngIf="!error"></span>
             <span class="bi bi-x-circle text-danger p-1" *ngIf="error"></span>
           </div>
         </div>
         <div class="progress" *ngIf="files.length">
-          <div
-            class="progress-bar"
-            role="progressbar"
-            [ngStyle]="{ width: progress + '%' }"
-            [ngClass]="{ 'bg-success': isDone, 'bg-warning': !isDone }"
-          >
+          <div class="progress-bar" role="progressbar" [ngStyle]="{ width: progress + '%' }"
+            [ngClass]="{ 'bg-success': isDone, 'bg-warning': !isDone }">
             {{ progress }} %
           </div>
         </div>
         <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-danger"
-            data-bs-dismiss="modal"
-            (click)="onModalClose()"
-          >
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="onModalClose()">
             Close
           </button>
-          <button
-            type="button"
-            class="btn btn-primary"
-            [disabled]="!files.length || isLoading || error || isDone"
-            (click)="uploadFile()"
-          >
+          <button type="button" class="btn btn-primary" [disabled]="!files.length || isLoading || error || isDone"
+            (click)="uploadFile()">
             Upload files
           </button>
         </div>

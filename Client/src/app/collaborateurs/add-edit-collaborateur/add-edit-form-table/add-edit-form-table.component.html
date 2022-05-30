@@ -3,44 +3,20 @@
     <div class="col-md-12">
       <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-          <button
-            id="info-tab"
-            data-bs-target="#info"
-            aria-controls="info"
-            class="nav-link active"
-            data-bs-toggle="tab"
-            type="button"
-            role="tab"
-            aria-selected="true"
-          >
+          <button id="info-tab" data-bs-target="#info" aria-controls="info" class="nav-link active" data-bs-toggle="tab"
+            type="button" role="tab" aria-selected="true">
             Info
           </button>
         </li>
         <li class="nav-item" role="presentation">
-          <button
-            id="carriere-past-jobs-tab"
-            data-bs-target="#carriere-past-jobs"
-            aria-controls="carriere-past-jobs"
-            class="nav-link"
-            data-bs-toggle="tab"
-            type="button"
-            role="tab"
-            aria-selected="false"
-          >
+          <button id="carriere-past-jobs-tab" data-bs-target="#carriere-past-jobs" aria-controls="carriere-past-jobs"
+            class="nav-link" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
             carrière & Past Jobs
           </button>
         </li>
         <li class="nav-item" role="presentation">
-          <button
-            id="demissions-tab"
-            data-bs-target="#demissions"
-            aria-controls="demissions"
-            class="nav-link"
-            data-bs-toggle="tab"
-            type="button"
-            role="tab"
-            aria-selected="false"
-          >
+          <button id="demissions-tab" data-bs-target="#demissions" aria-controls="demissions" class="nav-link"
+            data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
             Démissions
           </button>
         </li>
@@ -63,72 +39,32 @@
           </button>
         </li> -->
         <li class="nav-item" role="presentation">
-          <button
-            id="contrat-statut-tab"
-            data-bs-target="#contrat-statut"
-            aria-controls="contrat-statut"
-            class="nav-link"
-            data-bs-toggle="tab"
-            type="button"
-            role="tab"
-            aria-selected="false"
-          >
+          <button id="contrat-statut-tab" data-bs-target="#contrat-statut" aria-controls="contrat-statut"
+            class="nav-link" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
             Contrat & Statut
           </button>
         </li>
         <li class="nav-item" role="presentation">
-          <button
-            id="cv-documents-tab"
-            data-bs-target="#cv-documents"
-            aria-controls="cv-documents"
-            class="nav-link"
-            data-bs-toggle="tab"
-            type="button"
-            role="tab"
-            aria-selected="false"
-          >
+          <button id="cv-documents-tab" data-bs-target="#cv-documents" aria-controls="cv-documents" class="nav-link"
+            data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
             Cv & Documents
           </button>
         </li>
         <li class="nav-item" role="presentation">
-          <button
-            id="skills-tab"
-            data-bs-target="#skills"
-            aria-controls="skills"
-            class="nav-link"
-            data-bs-toggle="tab"
-            type="button"
-            role="tab"
-            aria-selected="false"
-          >
+          <button id="skills-tab" data-bs-target="#skills" aria-controls="skills" class="nav-link" data-bs-toggle="tab"
+            type="button" role="tab" aria-selected="false">
             Skills
           </button>
         </li>
         <li class="nav-item" role="presentation">
-          <button
-            id="formations-tab"
-            data-bs-target="#formations"
-            aria-controls="formations"
-            class="nav-link"
-            data-bs-toggle="tab"
-            type="button"
-            role="tab"
-            aria-selected="false"
-          >
+          <button id="formations-tab" data-bs-target="#formations" aria-controls="formations" class="nav-link"
+            data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
             Formations
           </button>
         </li>
         <li class="nav-item" role="presentation">
-          <button
-            id="certifications-tab"
-            data-bs-target="#certifications"
-            aria-controls="certifications"
-            class="nav-link"
-            data-bs-toggle="tab"
-            type="button"
-            role="tab"
-            aria-selected="false"
-          >
+          <button id="certifications-tab" data-bs-target="#certifications" aria-controls="certifications"
+            class="nav-link" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
             Certificats
           </button>
         </li>
@@ -140,12 +76,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="tab-content" id="myTabContent">
-            <div
-              id="info"
-              aria-labelledby="info-tab"
-              role="tabpanel"
-              class="tab-pane fade show active"
-            >
+            <div id="info" aria-labelledby="info-tab" role="tabpanel" class="tab-pane fade show active">
               <div class="my-3">
                 <div class="card">
                   <div class="card-header">
@@ -156,89 +87,56 @@
                   <div class="card-body">
                     <div class="row">
                       <div class="col-2 mt-3">
-                        <app-select-input
-                          [formControl]="$any(myFormGroup.controls?.['civilite'])"
-                          [data]="civiliteData"
-                          [label]="'civilite'"
-                        ></app-select-input>
+                        <app-select-input [formControl]="$any(myFormGroup.controls?.['civilite'])" [data]="civiliteData"
+                          [label]="'civilite'"></app-select-input>
                       </div>
                       <div class="col-md-5 mt-3">
-                        <app-text-input
-                          [formControl]="$any(myFormGroup.controls?.['nom'])"
-                          [label]="'nom'"
-                        >
+                        <app-text-input [formControl]="$any(myFormGroup.controls?.['nom'])" [label]="'nom'">
                         </app-text-input>
                       </div>
                       <div class="col-md-5 mt-3">
-                        <app-text-input
-                          [formControl]="$any(myFormGroup.controls?.['prenom'])"
-                          [label]="'prenom'"
-                        >
+                        <app-text-input [formControl]="$any(myFormGroup.controls?.['prenom'])" [label]="'prenom'">
                         </app-text-input>
                       </div>
 
                       <div class="col-md-6 mt-3">
-                        <app-text-input
-                          [formControl]="$any(myFormGroup.controls?.['emailPersonnel'])"
-                          [label]="'email Personnel'"
-                          [type]="'email'"
-                        ></app-text-input>
+                        <app-text-input [formControl]="$any(myFormGroup.controls?.['emailPersonnel'])"
+                          [label]="'email Personnel'" [type]="'email'"></app-text-input>
                       </div>
                       <div class="col-md-6 mt-3">
-                        <app-text-input
-                          [formControl]="$any(myFormGroup.controls?.['phonePersonnel'])"
-                          [label]="'phone Personnel'"
-                        ></app-text-input>
+                        <app-text-input [formControl]="$any(myFormGroup.controls?.['phonePersonnel'])"
+                          [label]="'phone Personnel'"></app-text-input>
                       </div>
 
                       <div class="col-md-4 mt-3">
-                        <app-text-input
-                          [formControl]="$any(myFormGroup.controls?.['dateNaissance'])"
-                          [label]="'date Naissance'"
-                          [type]="'date'"
-                        ></app-text-input>
+                        <app-text-input [formControl]="$any(myFormGroup.controls?.['dateNaissance'])"
+                          [label]="'date Naissance'" [type]="'date'"></app-text-input>
                       </div>
                       <div class="col-md-4 mt-3">
-                        <app-text-input
-                          [formControl]="$any(myFormGroup.controls?.['lieuNaissance'])"
-                          [label]="'lieu Naissance'"
-                        ></app-text-input>
+                        <app-text-input [formControl]="$any(myFormGroup.controls?.['lieuNaissance'])"
+                          [label]="'lieu Naissance'"></app-text-input>
                       </div>
                       <div class="col-md-4 mt-3">
-                        <app-text-input
-                          [formControl]="$any(myFormGroup.controls?.['nationnalite'])"
-                          [label]="'nationalite'"
-                        ></app-text-input>
+                        <app-text-input [formControl]="$any(myFormGroup.controls?.['nationnalite'])"
+                          [label]="'nationalite'"></app-text-input>
                       </div>
 
                       <div class="col-md-12 mt-3">
-                        <app-select-input
-                          [formControl]="$any(myFormGroup.controls?.['situationFamiliale'])"
-                          [data]="situationFamilialeData"
-                          [label]="'situation Familiale'"
-                        ></app-select-input>
+                        <app-select-input [formControl]="$any(myFormGroup.controls?.['situationFamiliale'])"
+                          [data]="situationFamilialeData" [label]="'situation Familiale'"></app-select-input>
                       </div>
 
                       <div class="col-md-6 mt-3">
-                        <app-text-input
-                          [formControl]="$any(myFormGroup.controls?.['numCin'])"
-                          [label]="'N&deg; Cin'"
-                        >
+                        <app-text-input [formControl]="$any(myFormGroup.controls?.['numCin'])" [label]="'N&deg; Cin'">
                         </app-text-input>
                       </div>
                       <div class="col-md-6 mt-3">
-                        <app-text-input
-                          [formControl]="$any(myFormGroup.controls?.['matricule'])"
-                          [label]="'matricule'"
-                        >
+                        <app-text-input [formControl]="$any(myFormGroup.controls?.['matricule'])" [label]="'matricule'">
                         </app-text-input>
                       </div>
 
                       <div class="col-md-12 mt-3">
-                        <app-text-input
-                          [formControl]="$any(myFormGroup.controls?.['adresse'])"
-                          [label]="'adresse'"
-                        >
+                        <app-text-input [formControl]="$any(myFormGroup.controls?.['adresse'])" [label]="'adresse'">
                         </app-text-input>
                       </div>
                     </div>
@@ -256,95 +154,54 @@
                   <div class="card-body">
                     <div class="row">
                       <div class="col-md-6 mt-3">
-                        <app-text-input
-                          [formControl]="$any(myFormGroup.controls?.['phoneProfesionnel'])"
-                          [label]="'phone Profesionnel'"
-                        ></app-text-input>
+                        <app-text-input [formControl]="$any(myFormGroup.controls?.['phoneProfesionnel'])"
+                          [label]="'phone Profesionnel'"></app-text-input>
                       </div>
                       <div class="col-md-6 mt-3">
-                        <app-text-input
-                          [formControl]="$any(myFormGroup.controls?.['email'])"
-                          [label]="'email Profesionnel'"
-                          [type]="'email'"
-                        ></app-text-input>
+                        <app-text-input [formControl]="$any(myFormGroup.controls?.['email'])"
+                          [label]="'email Profesionnel'" [type]="'email'"></app-text-input>
                       </div>
 
                       <div class="col-md-6 mt-3">
-                        <app-text-input
-                          [formControl]="$any(myFormGroup.controls?.['dateEntreeSqli'])"
-                          [label]="'Entree SQLI'"
-                          [type]="'date'"
-                        ></app-text-input>
+                        <app-text-input [formControl]="$any(myFormGroup.controls?.['dateEntreeSqli'])"
+                          [label]="'Entree SQLI'" [type]="'date'"></app-text-input>
                       </div>
                       <div class="col-md-6 mt-3">
-                        <app-text-input
-                          [formControl]="$any(myFormGroup.controls?.['dateSortieSqli'])"
-                          [isReadOnly]="true"
-                          [label]="'Sortie SQLI'"
-                          [type]="'date'"
-                        ></app-text-input>
+                        <app-text-input [formControl]="$any(myFormGroup.controls?.['dateSortieSqli'])"
+                          [isReadOnly]="true" [label]="'Sortie SQLI'" [type]="'date'"></app-text-input>
                       </div>
 
                       <div class="col-md-6 mt-3">
-                        <app-text-input
-                          [formControl]="$any(myFormGroup.controls?.['dateDebutStage'])"
-                          [label]="'Debut de Stage'"
-                          [type]="'date'"
-                        ></app-text-input>
+                        <app-text-input [formControl]="$any(myFormGroup.controls?.['dateDebutStage'])"
+                          [label]="'Debut de Stage'" [type]="'date'"></app-text-input>
                       </div>
                       <div class="col-md-6 mt-3">
-                        <app-text-input
-                          [formControl]="$any(myFormGroup.controls?.['datePremiereExperience'])"
-                          [label]="'Premier Experience'"
-                          [type]="'date'"
-                        ></app-text-input>
+                        <app-text-input [formControl]="$any(myFormGroup.controls?.['datePremiereExperience'])"
+                          [label]="'Premier Experience'" [type]="'date'"></app-text-input>
                       </div>
 
                       <div class="col-md-4 mt-3">
-                        <app-select-input
-                          [formControl]="$any(myFormGroup.controls?.['modeRecrutement'])"
-                          [data]="recruteModeData"
-                          [label]="'Recrutement'"
-                        ></app-select-input>
+                        <app-select-input [formControl]="$any(myFormGroup.controls?.['modeRecrutement'])"
+                          [data]="recruteModeData" [label]="'Recrutement'"></app-select-input>
                       </div>
                       <div class="col-md-4 mt-3">
-                        <app-select-input
-                          [formControl]="$any(myFormGroup.controls?.['niveau'])"
-                          [data]="niveauxData"
-                          [label]="'expertise'"
-                        ></app-select-input>
+                        <app-select-input [formControl]="$any(myFormGroup.controls?.['niveau'])" [data]="niveauxData"
+                          [label]="'expertise'"></app-select-input>
                       </div>
                       <div class="col-md-4 mt-3">
-                        <app-select-input
-                          [formControl]="$any(myFormGroup.controls?.['poste'])"
-                          [data]="postesData"
-                          [label]="'poste'"
-                        ></app-select-input>
+                        <app-select-input [formControl]="$any(myFormGroup.controls?.['poste'])" [data]="postesData"
+                          [label]="'poste'"></app-select-input>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div
-              id="carriere-past-jobs"
-              aria-labelledby="carriere-past-jobs-tab"
-              role="tabpanel"
-              class="tab-pane fade"
-            >
+            <div id="carriere-past-jobs" aria-labelledby="carriere-past-jobs-tab" role="tabpanel" class="tab-pane fade">
               Carrière & Past Jobs Content
             </div>
-            <div
-              id="demissions"
-              aria-labelledby="demissions-tab"
-              role="tabpanel"
-              class="tab-pane fade"
-            >
-              <app-demission-tab
-                (updateDemission)="updateDemission($event)"
-                [collab]="collab"
-                #demission
-              >
+            <div id="demissions" aria-labelledby="demissions-tab" role="tabpanel" class="tab-pane fade">
+              <app-demission-tab (updateDemission)="updateDemission($event)" [collab]="collab" #demission>
               </app-demission-tab>
             </div>
             <!--
@@ -357,51 +214,22 @@
             <div id="hr-incidents" aria-labelledby="hr-incidents-tab" role="tabpanel" class="tab-pane fade">
               HR Incidents Content
             </div> -->
-            <div
-              id="contrat-statut"
-              aria-labelledby="contrat-statut-tab"
-              role="tabpanel"
-              class="tab-pane fade"
-            >
+            <div id="contrat-statut" aria-labelledby="contrat-statut-tab" role="tabpanel" class="tab-pane fade">
               <app-contrats [collab]="collab" #contrats></app-contrats>
             </div>
-            <div
-              id="cv-documents"
-              aria-labelledby="cv-documents-tab"
-              role="tabpanel"
-              class="tab-pane fade"
-            >
+            <div id="cv-documents" aria-labelledby="cv-documents-tab" role="tabpanel" class="tab-pane fade">
               <app-download [collab]="collab"></app-download>
             </div>
-            <div
-              id="skills"
-              aria-labelledby="skills-tab"
-              role="tabpanel"
-              class="tab-pane fade"
-            >
+            <div id="skills" aria-labelledby="skills-tab" role="tabpanel" class="tab-pane fade">
               <app-diplomes [collab]="collab" #diplomes></app-diplomes>
             </div>
-            <div
-              id="formations"
-              aria-labelledby="formations-tab"
-              role="tabpanel"
-              class="tab-pane fade"
-            >
-              <app-formations-collab
-                [collab]="collab"
-                [intersections]="intersectionsFormations"
-              ></app-formations-collab>
+            <div id="formations" aria-labelledby="formations-tab" role="tabpanel" class="tab-pane fade">
+              <app-formations-collab [collab]="collab" [intersections]="intersectionsFormations">
+              </app-formations-collab>
             </div>
-            <div
-              id="certifications"
-              aria-labelledby="certifications-tab"
-              role="tabpanel"
-              class="tab-pane fade"
-            >
-              <app-certifications-collab
-                [collab]="collab"
-                [intersections]="intersectionsCertifications"
-              ></app-certifications-collab>
+            <div id="certifications" aria-labelledby="certifications-tab" role="tabpanel" class="tab-pane fade">
+              <app-certifications-collab [collab]="collab" [intersections]="intersectionsCertifications">
+              </app-certifications-collab>
             </div>
           </div>
         </div>
@@ -410,18 +238,9 @@
   </div>
 
   <app-upload (filesEmitter)="filesHandler($event)"></app-upload>
-  <app-modal-ajout-diplome
-    [collaborateur]="collab"
-    (refreshDiplomes)="refreshDiplomes($event)"
-  >
+  <app-modal-ajout-diplome [collaborateur]="collab" (refreshDiplomes)="refreshDiplomes($event)">
   </app-modal-ajout-diplome>
-  <app-modal-ajout-contrat
-    [collaborateur]="collab"
-    (refreshAffectations)="refreshAffectations($event)"
-  >
+  <app-modal-ajout-contrat [collaborateur]="collab" (refreshAffectations)="refreshAffectations($event)">
   </app-modal-ajout-contrat>
-  <app-modal-ajout-demission
-    [demission]="demis"
-    (addDemmision)="addDemission($event)"
-  ></app-modal-ajout-demission>
+  <app-modal-ajout-demission [demission]="demis" (addDemmision)="addDemission($event)"></app-modal-ajout-demission>
 </form>
