@@ -54,6 +54,12 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
   trierParMatricule: boolean = false;
   trierParAnnee: boolean = false;
 
+  postesId: number[]=[]   ;
+  postesValue: string = '';
+  niveauxId: number[]=[] ;
+  niveauxValue: string = '';
+
+
   constructor(
     private service: CollaboratorsService,
     private imageService: ImagesService,
@@ -73,7 +79,9 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
     pageNumber?: number,
     filtrerPar?: string,
     search?: string,
-    orderby?: string
+    orderby?: string,
+    postesId?: number[],
+    niveauxId?: number[]
   ) {
     if (search != undefined) {
       this.spinnerService.isSearch.next(true);
@@ -81,7 +89,7 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
       this.spinnerService.isSearch.next(false);
     }
     this.loadCollabSubscription = this.service
-      .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby)
+      .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby, undefined, undefined, postesId, niveauxId)
       .subscribe({
         next: (resp) => {
           this.pagination = resp.pagination;
@@ -119,8 +127,11 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
     this.loadCollaborators(
       this.pageSize,
       this.pageNumber,
-      this.selected === '' ? undefined : this.selected,
-      this.searchInput === '' ? undefined : this.searchInput
+      this.selected,
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesId.toString()==''  ? undefined : this.postesId,
+      this.niveauxId.toString()=='' ? undefined : this.niveauxId
     );
   }
 
@@ -134,8 +145,40 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
       this.pageSize,
       this.pageNumber,
       this.selected === '' ? undefined : this.selected,
-      this.searchInput === '' ? undefined : this.searchInput
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesId.toString()=='' ? undefined : this.postesId,
+      this.niveauxId.toString()=='' ? undefined : this.niveauxId
     );
+  }
+
+  onChangePostes(postes: number[]) {
+    this.postesId = postes;
+
+    this.loadCollaborators(
+      this.pageSize,
+      1,
+      this.selected === '' ? undefined : this.selected,
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesId,
+      this.niveauxId.toString()=='' ? undefined : this.niveauxId
+    )
+  }
+
+  onChangeNiveaux(niveaux: number[]) {
+    this.niveauxId = niveaux;
+    //this.niveauxValue = this.niveauxId.toString().replace(',', '&niveauxId=')
+
+    this.loadCollaborators(
+      this.pageSize,
+      1,
+      this.selected === '' ? undefined : this.selected,
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesId.toString()=='' ? undefined : this.postesId,
+      this.niveauxId
+    )
   }
 
   // get search value from header child component
@@ -146,7 +189,10 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
       this.pageSize,
       1,
       this.selected === '' ? undefined : this.selected,
-      this.searchInput === '' ? undefined : value
+      this.searchInput === '' ? undefined : value,
+      undefined,
+      this.postesId.toString()=='' ? undefined : this.postesId,
+      this.niveauxId.toString()=='' ? undefined : this.niveauxId
     );
   }
 
@@ -160,13 +206,17 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
       this.pageSize,
       this.pageNumber,
       this.selected === '' ? undefined : this.selected,
-      this.searchInput === '' ? undefined : this.searchInput
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesId.toString()=='' ? undefined : this.postesId,
+      this.niveauxId.toString()==''? undefined : this.niveauxId
     );
   }
 
   deleteCollab(id: any): void {
     this.collabToDelete = id;
   }
+
   confirmDelete(id: any): void {
     let message =
       'Collaborateur ' +

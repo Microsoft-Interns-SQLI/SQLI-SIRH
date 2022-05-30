@@ -15,5 +15,7 @@ namespace API_MySIRH.Interfaces
         Task<bool> CollaborateurExistsById(int id);
         Task<bool> CollaborateurExistsByMatricule(string matricule);
         Task<bool> CollaborateurExistsByEmail(string email);
+        public IQueryable<Collaborateur> GetCollaborateursByNiveauId(IQueryable collaborateurs,int niveauId);
+        public IQueryable<Collaborateur> GetCollaborateursByPostId(IQueryable collaborateurs,int postId);
     }
 }
