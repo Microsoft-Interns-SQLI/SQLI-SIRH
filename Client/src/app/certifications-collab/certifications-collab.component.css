@@ -1,8 +1,10 @@
-.popup{
+/* todo-review : 3lach had le code hna ?? w chno le roles dyalo exactement ?? */
+.popup {
     position: fixed;
-    top:2rem;
+    top: 2rem;
     bottom: 0;
     right: 0;
+    /* responsive ..!*/
     left: 10cm;
     background-color: rgba(0, 0, 0, 0.229);
     z-index: 1;
