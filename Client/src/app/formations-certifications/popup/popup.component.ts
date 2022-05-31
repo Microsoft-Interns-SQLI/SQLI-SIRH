@@ -42,7 +42,7 @@ export class PopupComponent implements OnInit, OnDestroy {
     this.popupService.hide();
   }
   onSubmit(form: NgForm) {
-    if(this.type === "formation"){
+    if (this.type === "formation") {
       let item: CollabFormationCertif = {
         id: this.model.id,
         collaborateurId: this.model.collaborateurId,
@@ -60,7 +60,7 @@ export class PopupComponent implements OnInit, OnDestroy {
           }
         }
       )
-    }else if(this.type === "certification"){
+    } else if (this.type === "certification") {
       let item: CollabFormationCertif = {
         id: this.model.id,
         collaborateurId: this.model.collaborateurId,

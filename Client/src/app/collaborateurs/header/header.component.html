@@ -1,14 +1,45 @@
-<div class="d-flex flex-row bd-highlight justify-content-between">
-    <div>
-        Show
-        <select class="custom-select px-2 py-1" [(ngModel)]="selected" (ngModelChange)="onSelect()">
-            <option [ngValue]="5">5</option>
-            <option [ngValue]="10">10</option>
-            <option [ngValue]="20">20</option>
-            <option [ngValue]="30">30</option>
-        </select>
+<div class="d-flex flex-row bd-highlight justify-content-between aligns-items-center text-center">
+    <div class="row">
+        <div class="col-3">
+            <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-5 ">
+                    <label class="form-label">Display</label>
+                </div>
+                <div class="col-7">
+                    <select class="form-select" [(ngModel)]="selected" (ngModelChange)="onSelect()">
+                        <option [ngValue]="5">5</option>
+                        <option [ngValue]="10">10</option>
+                        <option [ngValue]="20">20</option>
+                        <option [ngValue]="30">30</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-9">
+            <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-1">
+                    <label class="form-label">Postes</label>
+                </div>
+                <div class="col-5">
+                    <ng-select [items]="postes" bindLabel="name" bindValue="id" [(ngModel)]="chosenPost"
+                        (change)="onPostesChange(chosenPost)" [multiple]="true">
+                    </ng-select>
+                </div>
+                <div class="col-1">
+                    <label class="form-label">Niveaux</label>
+                </div>
+                <div class="col-4">
+                    <ng-select [items]="niveaux" bindLabel="name" bindValue="id"
+                        (change)="onNiveauxChange(chosenNiveau)" [(ngModel)]="chosenNiveau" [multiple]="true">
+                    </ng-select>
+                </div>
+            </div>
+        </div>
     </div>
+
     <div>
-        <input type="search" class="form-control p-1" placeholder="Search..." (keyup)="onSearchChange()" [(ngModel)]="value">
+        <input type="search" class="form-control p-1" placeholder="Search..." (keyup)="onSearchChange()"
+            [(ngModel)]="value">
     </div>
 </div>
