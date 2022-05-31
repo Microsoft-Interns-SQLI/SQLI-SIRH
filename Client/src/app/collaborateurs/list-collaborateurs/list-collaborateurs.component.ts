@@ -83,6 +83,7 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
     if (this.imageSubscription != undefined)
       this.imageSubscription.unsubscribe();
     this.saveState.saveState({ pagination: this.pagination }, 'collabsList');
+    this.saveState.saveState({url: 'collaborateurs'}, 'fallback');
   }
 
   loadCollaborators(
