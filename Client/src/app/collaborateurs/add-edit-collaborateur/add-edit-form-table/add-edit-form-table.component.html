@@ -20,34 +20,16 @@
             Démissions
           </button>
         </li>
-        <!-- <li class="nav-item" role="presentation">
-          <button id="manager-tlrhs-tab" data-bs-target="#manager-tlrhs" aria-controls="manager-tlrhs"
-            class="nav-link" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
-            Manager & TLRHs
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button id="materiels-tab" data-bs-target="#materiels" aria-controls="materiels" class="nav-link"
-            data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
-            Materiels
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button id="hr-incidents-tab" data-bs-target="#hr-incidents" aria-controls="hr-incidents" class="nav-link"
-            data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
-            HR Incidents
-          </button>
-        </li> -->
-        <li class="nav-item" role="presentation">
-          <button id="contrat-statut-tab" data-bs-target="#contrat-statut" aria-controls="contrat-statut"
-            class="nav-link" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
-            Contrat & Statut
-          </button>
-        </li>
         <li class="nav-item" role="presentation">
           <button id="cv-documents-tab" data-bs-target="#cv-documents" aria-controls="cv-documents" class="nav-link"
             data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
             Cv & Documents
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button id="contrat-statut-tab" data-bs-target="#contrat-statut" aria-controls="contrat-statut"
+            class="nav-link" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
+            Contrat & Statut
           </button>
         </li>
         <li class="nav-item" role="presentation">
@@ -204,21 +186,11 @@
               <app-demission-tab (updateDemission)="updateDemission($event)" [collab]="collab" #demission>
               </app-demission-tab>
             </div>
-            <!--
-              <div id="manager-tlrhs" aria-labelledby="manager-tlrhs-tab" role="tabpanel" class="tab-pane fade">
-                manager & tlrhs content
-              </div>
-            <div id="materiels" aria-labelledby="materiels-tab" role="tabpanel" class="tab-pane fade">
-              Materiels Content
-            </div>
-            <div id="hr-incidents" aria-labelledby="hr-incidents-tab" role="tabpanel" class="tab-pane fade">
-              HR Incidents Content
-            </div> -->
-            <div id="contrat-statut" aria-labelledby="contrat-statut-tab" role="tabpanel" class="tab-pane fade">
-              <app-contrats [collab]="collab" #contrats></app-contrats>
-            </div>
             <div id="cv-documents" aria-labelledby="cv-documents-tab" role="tabpanel" class="tab-pane fade">
               <app-download [collab]="collab"></app-download>
+            </div>
+            <div id="contrat-statut" aria-labelledby="contrat-statut-tab" role="tabpanel" class="tab-pane fade">
+              <app-contrats [collab]="collab" #contrats></app-contrats>
             </div>
             <div id="skills" aria-labelledby="skills-tab" role="tabpanel" class="tab-pane fade">
               <app-diplomes [collab]="collab" #diplomes></app-diplomes>
@@ -237,10 +209,16 @@
     </div>
   </div>
 
-  <app-upload (filesEmitter)="filesHandler($event)"></app-upload>
+  <app-upload (filesEmitter)="filesHandler($event)">
+  </app-upload>
+
   <app-modal-ajout-diplome [collaborateur]="collab" (refreshDiplomes)="refreshDiplomes($event)">
   </app-modal-ajout-diplome>
+
   <app-modal-ajout-contrat [collaborateur]="collab" (refreshAffectations)="refreshAffectations($event)">
   </app-modal-ajout-contrat>
-  <app-modal-ajout-demission [demission]="demis" (addDemmision)="addDemission($event)"></app-modal-ajout-demission>
+
+  <app-modal-ajout-demission [demission]="demis" (addDemmision)="addDemission($event)">
+  </app-modal-ajout-demission>
+
 </form>
