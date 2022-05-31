@@ -42,6 +42,19 @@ namespace API_MySIRH.Services
             if (!(string.IsNullOrWhiteSpace(filterParams.Search)))
                 query = query.Where(c => c.Nom.Contains(filterParams.Search) || c.Prenom.Contains(filterParams.Search));
 
+            if (!string.IsNullOrEmpty(filterParams.postesId))
+            {
+                query = query.Where(coll => filterParams.postesId.Contains((coll.Carrieres.AsEnumerable().OrderByDescending(c => c.Annee).First().PosteId).ToString()))
+                    .AsQueryable();
+            }
+
+            if (!string.IsNullOrEmpty(filterParams.niveauxId))
+            {
+                query = query.Where(coll => filterParams.niveauxId.Contains((coll.Carrieres.AsEnumerable().OrderByDescending(c => c.Annee).First().NiveauId).ToString()))
+                                .AsQueryable();
+
+            }
+
             if (!string.IsNullOrWhiteSpace(filterParams.OrderByCertification))
             {
                 query = query.OrderByDescending(
@@ -89,7 +102,6 @@ namespace API_MySIRH.Services
         {
             var x = filterParams.OrderByCertification.Replace('\\', ' ').Replace('"', ' ').Trim();
             var query = this._collaborateurRepository.GetCollaborateurs().AsQueryable();
-            // var listCollabs = query.Where(c => c.Id == -1);
             Console.WriteLine(query.ToString());
             if (!string.IsNullOrEmpty(filterParams.Site))
                 query = query.Where(c => c.Site.Name == filterParams.Site); 
@@ -99,34 +111,12 @@ namespace API_MySIRH.Services
 
             if (!string.IsNullOrEmpty(filterParams.postesId))
             {
-               // var conditions = PredicateBuilder.New<Collaborateur>();
-                /*foreach (int i in filterParams.postesId)
-                    conditions = conditions.Or(coll =>  i== coll.GetCurrentCarriere().PosteId);*/
-                //conditions.Or(coll => filterParams.postesId.Contains((int)coll.GetCurrentCarriere().PosteId));
-               /* query = (from i in query
-                         where filterParams.postesId.Contains((int)i.Carrieres.AsEnumerable().OrderByDescending(c=> c.Annee).First().PosteId)
-                         select i).AsQueryable();*/
-                //Expression < Func<Collaborateur, bool> > expression = conditions;
-               /* query = query.AsExpandable()
-                             .Where(coll => filterParams.postesId.Contains((int)coll.Carrieres.AsEnumerable().OrderByDescending(c=> c.Annee).First().PosteId))
-                             .AsQueryable();*/
                 query = query.Where(coll => filterParams.postesId.Contains((coll.Carrieres.AsEnumerable().OrderByDescending(c => c.Annee).First().PosteId).ToString()))
                     .AsQueryable();
             }
 
             if (!string.IsNullOrEmpty(filterParams.niveauxId))
             {
-                //var listCollabs = query.Where(c => c.Id == -1);
-                // var conditions = PredicateBuilder.New<Collaborateur>();
-                // foreach (int i in filterParams.niveauxId)
-                //     conditions = conditions.Or(coll =>  i== coll.GetCurrentCarriere().NiveauId);
-                // Expression<Func<Collaborateur, bool>> expression = conditions;
-               /* query = query.AsExpandable()
-                             .Where(coll => filterParams.niveauxId.Contains((int)coll.Carrieres.AsEnumerable().OrderByDescending(c => c.Annee).First().NiveauId))
-                             .AsQueryable();*/
-                /*query = (from i in query
-                         where filterParams.niveauxId.Contains((int)i.Carrieres.AsEnumerable().OrderByDescending(c => c.Annee).First().NiveauId)
-                         select i).AsQueryable();*/
                 query = query.Where(coll => filterParams.niveauxId.Contains((coll.Carrieres.AsEnumerable().OrderByDescending(c => c.Annee).First().NiveauId).ToString()))
                                 .AsQueryable();
 
@@ -178,6 +168,19 @@ namespace API_MySIRH.Services
 
             if (!(string.IsNullOrWhiteSpace(filterParams.Search)))
                 query = query.Where(c => c.Nom.Contains(filterParams.Search) || c.Prenom.Contains(filterParams.Search));
+
+            if (!string.IsNullOrEmpty(filterParams.postesId))
+            {
+                query = query.Where(coll => filterParams.postesId.Contains((coll.Carrieres.AsEnumerable().OrderByDescending(c => c.Annee).First().PosteId).ToString()))
+                    .AsQueryable();
+            }
+
+            if (!string.IsNullOrEmpty(filterParams.niveauxId))
+            {
+                query = query.Where(coll => filterParams.niveauxId.Contains((coll.Carrieres.AsEnumerable().OrderByDescending(c => c.Annee).First().NiveauId).ToString()))
+                                .AsQueryable();
+
+            }
 
             if (!string.IsNullOrWhiteSpace(filterParams.OrderByCertification))
             {

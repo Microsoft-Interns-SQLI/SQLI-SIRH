@@ -34,6 +34,9 @@ export class DemissionsComponent implements OnInit {
   trierParMatricule: boolean = false;
   trierParAnnee: boolean = false;
 
+  postesId: number[]=[] ;
+  niveauxId: number[]=[] ;
+
   constructor(private service: CollaboratorsService, private toastService: ToastService, private spinnerService: SpinnerService) { }
 
   ngOnInit(): void {
@@ -45,14 +48,16 @@ export class DemissionsComponent implements OnInit {
     pageNumber?: number,
     filtrerPar?: string,
     search?: string,
-    orderby?: string
+    orderby?: string,
+    postesId?: number[],
+    niveauxId?: number[]
   ) {
     if (search != undefined) {
       this.spinnerService.isSearch.next(true);
     } else {
       this.spinnerService.isSearch.next(false);
     }
-    this.service.getDemissionsList(pageSize, pageNumber, filtrerPar, search, orderby)
+    this.service.getDemissionsList(pageSize, pageNumber, filtrerPar, search, orderby,undefined,undefined,postesId,niveauxId)
       .subscribe({
         next: (resp) => {
           this.demissionsArray = resp.result;
@@ -80,8 +85,40 @@ export class DemissionsComponent implements OnInit {
       this.pageSize,
       this.pageNumber,
       this.selected === '' ? undefined : this.selected,
-      this.searchInput === '' ? undefined : this.searchInput
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesId.toString()=='' ? undefined : this.postesId,
+      this.niveauxId.toString()=='' ? undefined : this.niveauxId
     );
+  }
+
+  onChangePostes(postes: number[]) {
+    this.postesId = postes;
+
+    this.loadDemissions(
+      this.pageSize,
+      1,
+      this.selected === '' ? undefined : this.selected,
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesId,
+      this.niveauxId.toString()=='' ? undefined : this.niveauxId
+    )
+  }
+
+  onChangeNiveaux(niveaux: number[]) {
+    this.niveauxId = niveaux;
+    //this.niveauxValue = this.niveauxId.toString().replace(',', '&niveauxId=')
+
+    this.loadDemissions(
+      this.pageSize,
+      1,
+      this.selected === '' ? undefined : this.selected,
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesId.toString()=='' ? undefined : this.postesId,
+      this.niveauxId
+    )
   }
 
   // get search value from header child component
@@ -93,7 +130,10 @@ export class DemissionsComponent implements OnInit {
       this.pageSize,
       1,
       this.selected === '' ? undefined : this.selected,
-      this.searchInput === '' ? undefined : value
+      this.searchInput === '' ? undefined : value,
+      undefined,
+      this.postesId.toString()=='' ? undefined : this.postesId,
+      this.niveauxId.toString()=='' ? undefined : this.niveauxId
     );
   }
 
@@ -103,7 +143,10 @@ export class DemissionsComponent implements OnInit {
       this.pageSize,
       this.pageNumber,
       this.selected === '' ? undefined : this.selected,
-      this.searchInput === '' ? undefined : this.searchInput
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesId.toString()=='' ? undefined : this.postesId,
+      this.niveauxId.toString()==''? undefined : this.niveauxId
     );
   }
 

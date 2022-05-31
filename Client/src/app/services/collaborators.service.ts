@@ -93,7 +93,7 @@ export class CollaboratorsService {
     );
   }
 
-  getDemissionsList(itemsPerPage?: number, page?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyFormation?: string, orderbyCertification?: string) {
+  getDemissionsList(itemsPerPage?: number, page?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyFormation?: string, orderbyCertification?: string,postesId?: number[], niveauxId?: number[]) {
     //delay(50000);
     let params = new HttpParams();
     if (page != undefined && itemsPerPage != undefined) {
@@ -117,6 +117,14 @@ export class CollaboratorsService {
       params = params.append("OrderByCertification", orderbyCertification);
     }
 
+    if (postesId != undefined && postesId.toString()!='' ) {
+      params = params.appendAll({"postesId":postesId});
+   
+    }
+    if (niveauxId != undefined && niveauxId.toString()!='' ) {
+      console.log(niveauxId.length);
+      params = params.appendAll({"niveauxId":niveauxId});
+    }
     return this.http.get<any>(this.myUrl + '/demission', { observe: 'response', params })
       .pipe(
         map((response) => {
@@ -185,7 +193,7 @@ export class CollaboratorsService {
     return this.http.get<number[]>(this.myUrl + '/IntrgrationsRange');
   }
 
-  getIntegrationsList(itemsPerPage?: number, page?: number, year?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyFormation?: string, orderbyCertification?: string) {
+  getIntegrationsList(itemsPerPage?: number, page?: number, year?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyFormation?: string, orderbyCertification?: string,postesId?: number[], niveauxId?: number[]) {
     //delay(50000);
     let params = new HttpParams();
     if (year != undefined)
@@ -209,6 +217,15 @@ export class CollaboratorsService {
 
     if (orderbyCertification != undefined) {
       params = params.append("OrderByCertification", orderbyCertification);
+    }
+
+    if (postesId != undefined && postesId.toString()!='' ) {
+      params = params.appendAll({"postesId":postesId});
+   
+    }
+    if (niveauxId != undefined && niveauxId.toString()!='' ) {
+      console.log(niveauxId.length);
+      params = params.appendAll({"niveauxId":niveauxId});
     }
 
     return this.http.get<any>(this.myUrl + '/integrations', { observe: 'response', params }).pipe(

@@ -54,10 +54,8 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
   trierParMatricule: boolean = false;
   trierParAnnee: boolean = false;
 
-  postesId: number[]=[]   ;
-  postesValue: string = '';
+  postesId: number[]=[] ;
   niveauxId: number[]=[] ;
-  niveauxValue: string = '';
 
 
   constructor(
