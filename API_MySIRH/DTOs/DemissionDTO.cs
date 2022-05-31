@@ -6,7 +6,7 @@
         public DateTime? DateDemission { get; set; }
         public int? ReasonDemissionId { get; set; }
         public ReasonDemissionDTO? ReasonDemission { get; set; }
-        public string Comment { get; set; } = string.Empty;
+        public string? Comment { get; set; }
         public bool IsCanceled { get; set; } = false;
         public int CollaborateurId { get; set; }
     }
