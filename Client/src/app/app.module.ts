@@ -155,7 +155,7 @@ import { AuthentificationInterceptor } from './interceptors/authentification.int
     { provide: HTTP_INTERCEPTORS, useClass: AuthentificationInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: EncodeHttpParamsInterceptor, multi: true },
-    { provide: RouteReuseStrategy, useClass: CustomReuseStrategyService },
+    // { provide: RouteReuseStrategy, useClass: CustomReuseStrategyService },
   ],
   bootstrap: [AppComponent],
 })

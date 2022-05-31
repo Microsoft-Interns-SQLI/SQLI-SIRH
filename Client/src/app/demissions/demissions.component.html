@@ -13,7 +13,8 @@
 </div>
 
 <div>
-  <app-header (pageSize)="changePageSize($event)" (search)="search($event)"></app-header>
+  <app-header (pageSize)="changePageSize($event)" (search)="search($event)" (postesId)="onChangePostes($event)"
+    (niveauxId)="onChangeNiveaux($event)"></app-header>
 </div>
 
 <hr />
