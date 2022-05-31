@@ -31,8 +31,6 @@ import { CollabTypeContrat } from 'src/app/Models/CollabTypeContrat';
 })
 export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('contrats') contrats!: ContratsComponent;
-  @ViewChild(ModalAjoutDemissionComponent)
-  demissionUpdate!: ModalAjoutDemissionComponent;
   @ViewChild('diplomes') diplomes!: DiplomesComponent;
   @Input() collab!: Collaborator;
   @Input() myFormGroup!: FormGroup;
@@ -48,12 +46,12 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
   niveauxData: any = new SelectInputData();
   postesData: any = new SelectInputData();
   situationFamilialeData: any = new SelectInputData();
-
+  demis?: Demission = undefined;
+  demisTitle = "";
   constructor(
     private service: MdmService,
     private formationCertifService: FormationCertificationsService
   ) {}
-  demis?: Demission = undefined;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.collab.id != 0) {
@@ -110,8 +108,8 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
     let data: Demission;
 
     data = event;
+    this.demis = undefined;
     this.myFormGroup.markAsDirty();
-    console.log(data);
     if (data.id != 0) {
       this.collab.demissions.forEach((el) => {
         if (el.id == data.id) {
@@ -125,12 +123,16 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   updateDemission(event: number) {
+    if(event == 0) {
+      this.demis = undefined;
+      this.demisTitle = "Ajouter Demission";
+      return;
+    }
     this.collab.demissions.forEach((el) => {
       if (el.id == event) {
         this.demis = el as Demission;
-        this.myFormGroup.markAsDirty();
-        // this.demissionUpdate.demission = el as Demission;
-        // this.demissionUpdate.constructForm();
+        this.demisTitle = "Editer Demission";
+        // this.myFormGroup.markAsDirty();
       }
     });
   }

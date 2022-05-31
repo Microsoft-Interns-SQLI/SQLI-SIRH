@@ -12,8 +12,9 @@ import { SelectInputData, SelectInputObject } from '../../_form_inputs/select-in
 export class ModalAjoutDemissionComponent implements OnInit, OnChanges {
   @Output() addDemmision = new EventEmitter<Demission>();
   @Input() demission?: any = undefined;
-  datepipe: DatePipe = new DatePipe('en-US');
+  @Input() title: string = '';
 
+  datepipe: DatePipe = new DatePipe('en-US');
   form!: FormGroup;
   data: any = new SelectInputData();
 
