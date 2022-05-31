@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Collaborator } from '../Models/Collaborator';
 import { Pagination } from '../Models/pagination';
 import { CollaboratorsService } from '../services/collaborators.service';
 import { SpinnerService } from '../services/spinner.service';
+import { SaveState } from '../services/stateSave.service';
 import { ToastService } from '../shared/toast/toast.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { ToastService } from '../shared/toast/toast.service';
   templateUrl: './integrations.component.html',
   styleUrls: ['./integrations.component.css']
 })
-export class IntegrationsComponent implements OnInit {
+export class IntegrationsComponent implements OnInit, OnDestroy {
   demissionsArray: Collaborator[] = [];
 
   pageNumber = 1;
@@ -40,12 +41,16 @@ export class IntegrationsComponent implements OnInit {
   postesId: number[]=[] ;
   niveauxId: number[]=[] ;
 
-  constructor(private service: CollaboratorsService, private toastService: ToastService, private spinnerService: SpinnerService) { }
+  constructor(private service: CollaboratorsService, private toastService: ToastService, private spinnerService: SpinnerService, private saveState: SaveState) { }
 
 
   ngOnInit(): void {
     this.loadIntegrationsRange();
     this.loadIntegrations(this.pageSize, this.pageNumber, this.pageYear);
+  }
+
+  ngOnDestroy(): void {
+    this.saveState.saveState({url: 'integrations'}, 'fallback');
   }
 
   loadIntegrationsRange() {
