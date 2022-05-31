@@ -196,7 +196,12 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
   // get search value from header child component
   // update collab table
   search(value: string) {
-    this.searchInput = value;
+    if(typeof value !== "string"){
+      this.searchInput = ''
+    }else{
+      this.searchInput = value;
+    }
+
     this.loadCollaborators(
       this.pagination.pageSize,
       1,
