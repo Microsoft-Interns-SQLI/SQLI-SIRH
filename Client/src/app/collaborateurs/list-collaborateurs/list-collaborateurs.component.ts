@@ -1,3 +1,4 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as FileSaver from 'file-saver';
 import { Subscription } from 'rxjs';
@@ -5,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Collaborator } from 'src/app/Models/Collaborator';
 import { Pagination } from 'src/app/Models/pagination';
 import { CollaboratorsService } from 'src/app/services/collaborators.service';
+import { FilesService } from 'src/app/services/files.service';
 import { ImagesService } from 'src/app/services/images.service';
 import { SpinnerService } from 'src/app/services/spinner.service';
 import { ToastService } from 'src/app/shared/toast/toast.service';
@@ -15,10 +17,12 @@ import { environment } from 'src/environments/environment';
   templateUrl: './list-collaborateurs.component.html',
   styleUrls: ['./list-collaborateurs.component.css'],
 })
-export class ListCollaborateursComponent implements OnInit, OnDestroy {
+export class ListCollaborateursComponent implements OnInit, OnDestroy{
   collaboratorsArray: Collaborator[] = [];
   displayTable: boolean = true;
   collabToDelete?: Collaborator = new Collaborator();
+  exportList: number[] = [];
+  exportAll: boolean = false;
 
   //subscription
   exportSubscription!: Subscription;
@@ -31,6 +35,8 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   pagination: Pagination = {
     pageSize: this.pageSize,
     currentPage: this.pageNumber,
+    totalCount:1,
+    totalPages:1
   } as Pagination;
 
   isLoading?: boolean;
@@ -49,10 +55,13 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   trierParAnnee: boolean = false;
 
   constructor(
-    private service: CollaboratorsService, 
-    private imageService:ImagesService,
-    private toastService: ToastService, 
-    private spinnerService: SpinnerService) { }
+    private service: CollaboratorsService,
+    private imageService: ImagesService,
+    private fileService: FilesService,
+    private toastService: ToastService,
+    private spinnerService: SpinnerService,
+  ) { }
+
 
 
   ngOnInit(): void {
@@ -75,20 +84,32 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
       .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby)
       .subscribe({
         next: (resp) => {
-          this.collaboratorsArray = resp.result;
+          this.pagination = resp.pagination;
+
+          this.collaboratorsArray = resp.result.map(function (collab) {
+            // let currentCarriere = collab.carrieres?.sort((a, b) => a.annee - b.annee).pop();
+            // collab.niveau = currentCarriere?.niveau;
+            // collab.poste = currentCarriere?.poste;
+            return collab;
+          });
           this.pagination = resp.pagination;
         },
         complete: () => {
-          this.collaboratorsArray = this.collaboratorsArray.map((collab:Collaborator) =>{
-            
-            this.imageSubscription = this.imageService.checkImage(collab.id).subscribe({
-              next: d=>{
-                collab.imgPath = d ? `${environment.URL}api/Image/${collab.id}` : 'https://www.pngfind.com/pngs/m/676-6764065_default-profile-picture-transparent-hd-png-download.png';
-              },
-              error: er=> console.log(er)
-            });
-            return collab;
-          })
+          this.collaboratorsArray = this.collaboratorsArray.map(
+            (collab: Collaborator) => {
+              this.imageSubscription = this.imageService
+                .checkImage(collab.id)
+                .subscribe({
+                  next: (d) => {
+                    collab.imgPath = d
+                      ? `${environment.URL}api/Image/${collab.id}`
+                      : 'https://www.pngfind.com/pngs/m/676-6764065_default-profile-picture-transparent-hd-png-download.png';
+                  },
+                  error: (er) => console.log(er),
+                });
+              return collab;
+            }
+          );
         },
       });
   }
@@ -98,7 +119,7 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
     this.loadCollaborators(
       this.pageSize,
       this.pageNumber,
-      this.selected,
+      this.selected === '' ? undefined : this.selected,
       this.searchInput === '' ? undefined : this.searchInput
     );
   }
@@ -137,8 +158,9 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   // get current page value from footer child component
   // update current page number(pageNumber)
   // update collab table
-  getCurrentPage(page: number) {
-    this.pageNumber = page;
+  getCurrentPage(event: any) {
+
+    this.pageNumber = +event.page;
     this.loadCollaborators(
       this.pageSize,
       this.pageNumber,
@@ -151,14 +173,19 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
     this.collabToDelete = id;
   }
   confirmDelete(id: any): void {
-    let message = "Collaborateur " + this.collabToDelete?.prenom + " " + this.collabToDelete?.nom + " a été supprimer avec success";
+    let message =
+      'Collaborateur ' +
+      this.collabToDelete?.prenom +
+      ' ' +
+      this.collabToDelete?.nom +
+      ' a été supprimer avec success';
     if (id) {
       this.service.deleteCollaborator(id).subscribe((res) => {
         console.log('deletion success!');
         this.loadCollaborators();
       });
     }
-    this.toastService.showToast("success", message,2);
+    this.toastService.showToast('success', message, 2);
   }
   changeDisplay(event: any): void {
     if (event == 'table') {
@@ -170,10 +197,72 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   }
 
   export() {
-    this.exportSubscription = this.service.exportCollaborateurs().subscribe((data) => {
-      const buffer = new Blob([data], { type: data.type });
-      FileSaver.saveAs(buffer, "Collaborateurs.xlsx");
+    if (this.exportAll) {
+      this.exportSubscription = this.service
+        .exportCollaborateurs()
+        .subscribe((data) => {
+          const buffer = new Blob([data], { type: data.type });
+          FileSaver.saveAs(buffer, 'Collaborateurs.xlsx');
+        });
+    } else if (this.exportList.length > 0) {
+      this.exportSubscription = this.service
+        .exportCollaborateurs(this.exportList)
+        .subscribe((data) => {
+          const buffer = new Blob([data], { type: data.type });
+          FileSaver.saveAs(buffer, 'Collaborateurs.xlsx');
+        });
+    } else {
+      alert('empty export options!');
+    }
+  }
+
+  checkedExport(id: number): boolean {
+    if (this.exportList.includes(id) || this.exportAll)
+      return true;
+    return false;
+  }
+
+  addToExportList(id: number, el: any) {
+    if (this.exportAll) {
+      this.exportAll = false;
+      this.exportList = [];
+    }
+    if (this.exportList.includes(id)) {
+      this.exportList.splice(this.exportList.indexOf(id), 1);
+      el.checked = false;
+    } else {
+      this.exportList.push(id);
+      el.checked = true;
+    }
+  }
+
+  globalExport() {
+    this.exportList = [];
+    this.exportAll = !this.exportAll;
+  }
+
+  download(documents: any) {
+    let fileUrl = documents
+      .filter((d: any) => d.type === 'CV' && d.fileName.endsWith('.pdf'))
+      .reduce((a: any, b: any) =>
+        a.creationDate > b.creationDate ? a : b
+      ).url;
+
+    this.fileService.download(fileUrl).subscribe((event) => {
+      this.downloadFile(event, fileUrl);
     });
+  }
+
+  private downloadFile(data: HttpResponse<Blob>, docURL: any) {
+    const downloadedFile = new Blob([data.body!], { type: data.body!.type });
+    const a = document.createElement('a');
+    a.setAttribute('style', 'display:none;');
+    document.body.appendChild(a);
+    a.download = docURL ? docURL : '';
+    a.href = URL.createObjectURL(downloadedFile);
+    a.target = '_blank';
+    a.click();
+    document.body.removeChild(a);
   }
 
   calculateYears(year: any): number {
@@ -183,9 +272,12 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.exportSubscription.unsubscribe();
-    this.loadCollabSubscription.unsubscribe();
-    this.imageSubscription.unsubscribe();
+    if (this.exportSubscription != undefined)
+      this.exportSubscription.unsubscribe();
+    if (this.loadCollabSubscription != undefined)
+      this.loadCollabSubscription.unsubscribe();
+    if (this.imageSubscription != undefined)
+      this.imageSubscription.unsubscribe();
   }
   trier(value: string) {
     switch (value) {
@@ -196,109 +288,121 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
             this.pageNumber,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
-            "matricule_asc");
-        }else{
+            'matricule_asc'
+          );
+        } else {
           this.loadCollaborators(
             this.pageSize,
             this.pageNumber,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
-            "matricule_desc");
+            'matricule_desc'
+          );
         }
         this.trierParMatricule = !this.trierParMatricule;
         break;
       }
       case 'nom': {
-        if(this.trierParNom){
+        if (this.trierParNom) {
           this.loadCollaborators(
             this.pageSize,
             this.pageNumber,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
-            undefined);// undefined because there is basically a sorted by name asc
-        }else{
+            undefined
+          ); // undefined because there is basically a sorted by name asc
+        } else {
           this.loadCollaborators(
             this.pageSize,
             this.pageNumber,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
-            "nom_desc");
+            'nom_desc'
+          );
         }
         this.trierParNom = !this.trierParNom;
         break;
       }
       case 'prenom': {
-        if(this.trierParPrenom){
+        if (this.trierParPrenom) {
           this.loadCollaborators(
             this.pageSize,
             this.pageNumber,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
-            "prenom_asc");
-        }else{
+            'prenom_asc'
+          );
+        } else {
           this.loadCollaborators(
             this.pageSize,
             this.pageNumber,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
-            "prenom_desc");
+            'prenom_desc'
+          );
         }
         this.trierParPrenom = !this.trierParPrenom;
         break;
       }
       case 'exp': {
-        if(this.trierParAnnee){
+        if (this.trierParAnnee) {
           this.loadCollaborators(
             this.pageSize,
             this.pageNumber,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
-            "exp_asc");
-        }else{
+            'exp_asc'
+          );
+        } else {
           this.loadCollaborators(
             this.pageSize,
             this.pageNumber,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
-            "exp_desc");
+            'exp_desc'
+          );
         }
         this.trierParAnnee = !this.trierParAnnee;
         break;
       }
       case 'poste': {
-        if(this.trierParPoste){
+        if (this.trierParPoste) {
           this.loadCollaborators(
             this.pageSize,
             this.pageNumber,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
-            "poste_asc");
-        }else{
+            'poste_asc'
+          );
+        } else {
           this.loadCollaborators(
             this.pageSize,
             this.pageNumber,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
-            "poste_desc");
+            'poste_desc'
+          );
         }
         this.trierParPoste = !this.trierParPoste;
         break;
       }
       case 'niveau': {
-        if(this.trierParNiveau){
+        if (this.trierParNiveau) {
           this.loadCollaborators(
             this.pageSize,
             this.pageNumber,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
-            "niveau_asc");
-        }else{
+            'niveau_asc'
+          );
+        } else {
           this.loadCollaborators(
             this.pageSize,
             this.pageNumber,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
-            "niveau_desc");
+            'niveau_desc'
+          );
         }
         this.trierParNiveau = !this.trierParNiveau;
         break;

@@ -1,18 +1,29 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ContratsComponent } from 'src/app/contrats/contrats.component';
+import { Collaborator, Demission } from 'src/app/Models/Collaborator';
+import { ContratsService } from 'src/app/services/contrats.service';
 import { DiplomesComponent } from 'src/app/diplomes/diplomes.component';
 import { CollabFormationCertif } from 'src/app/Models/collaborationCertificationFormation';
-import { Collaborator } from 'src/app/Models/Collaborator';
-import { CollabTypeContrat, Diplome } from 'src/app/Models/MdmModel';
+import { Diplome } from 'src/app/Models/MdmModel';
 import { FormationCertificationsService } from 'src/app/services/formation-certifications.service';
 import { MdmService } from 'src/app/services/mdm.service';
+import { ModalAjoutDemissionComponent } from './_demission_tab/modal-ajout-demission/modal-ajout-demission.component';
 import {
   SelectInputData,
   SelectInputObject,
 } from './_form_inputs/select-input/select-input';
+import { CollabTypeContrat } from 'src/app/Models/CollabTypeContrat';
 
 @Component({
   selector: 'app-add-edit-form-table',
@@ -20,6 +31,8 @@ import {
 })
 export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('contrats') contrats!: ContratsComponent;
+  @ViewChild(ModalAjoutDemissionComponent)
+  demissionUpdate!: ModalAjoutDemissionComponent;
   @ViewChild('diplomes') diplomes!: DiplomesComponent;
   @Input() collab!: Collaborator;
   @Input() myFormGroup!: FormGroup;
@@ -39,14 +52,17 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
   constructor(
     private service: MdmService,
     private formationCertifService: FormationCertificationsService
-  ) { }
+  ) {}
+  demis?: Demission = undefined;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.collab.id != 0) {
-      this.subIntersectionF = this.formationCertifService.getFormationByCollab(this.collab.id)
-        .subscribe(data => this.intersectionsFormations = data.list);
-      this.subIntersectionC = this.formationCertifService.getCertificationByCollab(this.collab.id)
-        .subscribe(data => this.intersectionsCertifications = data.list);
+      this.subIntersectionF = this.formationCertifService
+        .getFormationByCollab(this.collab.id)
+        .subscribe((data) => (this.intersectionsFormations = data.list));
+      this.subIntersectionC = this.formationCertifService
+        .getCertificationByCollab(this.collab.id)
+        .subscribe((data) => (this.intersectionsCertifications = data.list));
     }
   }
 
@@ -55,19 +71,17 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
       new SelectInputObject('M', 'Mr.'),
       new SelectInputObject('F', 'Mme.'),
     ];
-
-
-    this.service.getRecrutementMode().subscribe((res) => {
+    this.service.getAll('modes').subscribe((res) => {
       this.recruteModeData.data = res.map(
         (obj) => new SelectInputObject(obj.id, obj.name)
       );
     });
-    this.service.getNiveaux().subscribe((res) => {
+    this.service.getAll('niveaux').subscribe((res) => {
       this.niveauxData.data = res.map(
         (obj) => new SelectInputObject(obj.id, obj.name)
       );
     });
-    this.service.getPostes().subscribe((res) => {
+    this.service.getAll('postes').subscribe((res) => {
       this.postesData.data = res.map(
         (obj) => new SelectInputObject(obj.id, obj.name)
       );
@@ -89,9 +103,39 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.subIntersectionF != undefined)
-      this.subIntersectionF.unsubscribe();
-    if (this.subIntersectionC != undefined)
-      this.subIntersectionC.unsubscribe();
+    if (this.subIntersectionF != undefined) this.subIntersectionF.unsubscribe();
+    if (this.subIntersectionC != undefined) this.subIntersectionC.unsubscribe();
+  }
+  addDemission(event: Demission) {
+    let data: Demission;
+
+    data = event;
+    this.myFormGroup.markAsDirty();
+    console.log(data);
+    if (data.id != 0) {
+      this.collab.demissions.forEach((el) => {
+        if (el.id == data.id) {
+          el = data;
+          el.reasonDemission = undefined;
+        }
+      });
+      return;
+    }
+    this.collab.demissions = [...this.collab.demissions, data];
+  }
+
+  updateDemission(event: number) {
+    this.collab.demissions.forEach((el) => {
+      if (el.id == event) {
+        this.demis = el as Demission;
+        this.myFormGroup.markAsDirty();
+        // this.demissionUpdate.demission = el as Demission;
+        // this.demissionUpdate.constructForm();
+      }
+    });
+  }
+
+  filesHandler(event: any) {
+    this.collab.documents?.push(...event);
   }
 }

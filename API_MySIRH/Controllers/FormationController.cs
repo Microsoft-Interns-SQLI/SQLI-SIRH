@@ -1,4 +1,5 @@
 ﻿using API_MySIRH.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,6 +7,7 @@ namespace API_MySIRH.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class FormationController : ControllerBase
     {
         private readonly IFormationService _formationService;

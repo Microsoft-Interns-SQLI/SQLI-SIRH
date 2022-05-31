@@ -1,0 +1,43 @@
+<div class="modal fade" id="addDemission" tabindex="-1" aria-labelledby="addDemissionLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addDemissionLabel">Modal title</h5>
+        <button type="button" class="btn-close" (click)="resetFrom()" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="form">
+          <div class="row">
+            <div class="col-md-6 mt3">
+              <app-text-input
+                [formControl]="$any(form.controls?.['dateDemission'])"
+                [label]="'Date Demission'"
+                [type]="'date'"></app-text-input>
+            </div>
+            <div class="col-md-6 mt3">
+              <app-text-input
+                [formControl]="$any(form.controls?.['dateSortieSqli'])"
+                [label]="'Date Sortie'"
+                [type]="'date'"></app-text-input>
+            </div>
+            <div class="col-md-12 mt3">
+              <app-select-input
+                [formControl]="$any(form.controls?.['reasonDemission'])"
+                [data]="data"
+                [label]="'Reason'"></app-select-input>
+            </div>
+            <div class="col-md-12 mt3">
+              <app-textarea-input
+                [formControl]="$any(form.controls?.['comment'])"
+                [label]="'comment'"></app-textarea-input>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="resetFrom()" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="submitDemission()" data-bs-dismiss="modal">Save
+          changes</button>
+      </div>
+    </div>
+  </div>

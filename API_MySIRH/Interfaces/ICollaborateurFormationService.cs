@@ -10,7 +10,8 @@ namespace API_MySIRH.Interfaces
         Task<CollaborateurFormationResponse> GetAll(FilterParamsForCertifAndFormation filter);
         Task<CollaborateurFormationResponse> GetByCollaborateur(int id, FilterParamsForCertifAndFormation filter);
         Task<List<CollaborateurFormationDTO>> GetByFormation(int id);
-        Task<CollaborateurFormationDTO> GetOne(int collaborateurId, int formationId);
+        Task<CollaborateurFormationDTO> GetById(int id);
+        Task<List<CollaborateurFormationDTO>> GetByCollabAndFormation(int collabId, int formationId);
         Task Add(CollaborateurFormationDTO collaborateurFormation);
         Task Update(CollaborateurFormationDTO collaborateurFormation);
         Task Delete(CollaborateurFormationDTO collaborateurFormation);

@@ -4,19 +4,19 @@ using Microsoft.AspNetCore.Mvc;
 using API_MySIRH.Helpers;
 using API_MySIRH.Extentions;
 using Syncfusion.XlsIO;
-using System.Collections;
 using AutoMapper;
 using API_MySIRH.Entities;
-using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API_MySIRH.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize()]
+    [Authorize()]
     public class CollaborateursController : ControllerBase
     {
         private readonly ICollaborateurService _collaborateurService;
+        private readonly ICarriereService _carriereService;
         private readonly IMdmService<Niveau, NiveauDTO> _mdmServiceNiveau;
         private readonly IMdmService<Site, SiteDTO> _mdmServiceSite;
         private readonly IMdmService<Post, PostDTO> _mdmServicePoste;
@@ -25,9 +25,10 @@ namespace API_MySIRH.Controllers
         private readonly IMdmService<ModeRecrutement, ModeRecrutementDTO> _mdmServiceModeRecrutement;
         private readonly IMapper _mapper;
 
-        public CollaborateursController(ICollaborateurService collaborateurService, IMdmService<Niveau, NiveauDTO> mdmServiceNiveau, IMdmService<Site, SiteDTO> mdmServiceSite, IMdmService<Post, PostDTO> mdmServicePoste, IMdmService<TypeContrat, TypeContratDTO> mdmServiceTypeContrat, IMdmService<SkillCenter, SkillCenterDTO> mdmServiceSkillCenter, IMdmService<ModeRecrutement, ModeRecrutementDTO> mdmServiceModeRecrutement, IMapper mapper)
+        public CollaborateursController(ICollaborateurService collaborateurService, ICarriereService carriereService, IMdmService<Niveau, NiveauDTO> mdmServiceNiveau, IMdmService<Site, SiteDTO> mdmServiceSite, IMdmService<Post, PostDTO> mdmServicePoste, IMdmService<TypeContrat, TypeContratDTO> mdmServiceTypeContrat, IMdmService<SkillCenter, SkillCenterDTO> mdmServiceSkillCenter, IMdmService<ModeRecrutement, ModeRecrutementDTO> mdmServiceModeRecrutement, IMapper mapper)
         {
             _collaborateurService = collaborateurService;
+            _carriereService = carriereService;
             _mdmServiceNiveau = mdmServiceNiveau;
             _mdmServiceSite = mdmServiceSite;
             _mdmServicePoste = mdmServicePoste;
@@ -35,6 +36,21 @@ namespace API_MySIRH.Controllers
             _mdmServiceSkillCenter = mdmServiceSkillCenter;
             _mdmServiceModeRecrutement = mdmServiceModeRecrutement;
             _mapper = mapper;
+        }
+
+        [HttpGet("IntrgrationsRange")]
+        public async Task<ActionResult<IEnumerable<int>>> GetIntegrationsRange()
+        {
+            var res = await _collaborateurService.GetIntegrationsYearsRange();
+            return Ok(res);
+        }
+
+        [HttpGet("integrations")]
+        public async Task<ActionResult<IEnumerable<CollaborateurDTO>>> GetIntegrations([FromQuery] FilterParams filterParams)
+        {
+            var res = await _collaborateurService.GetIntegrations(filterParams);
+            Response.AddPaginationHeader(res.CurrentPage, res.PageSize, res.TotalCount, res.TotalPages);
+            return Ok(res);
         }
 
         [HttpGet]
@@ -46,10 +62,19 @@ namespace API_MySIRH.Controllers
             //return Ok(list.OrderByDescending(x => x.Certifications.Where(x => x.Libelle == "AZ-104").Any() ? x.Certifications.Where(x => x.Libelle == "AZ-104").FirstOrDefault().Libelle : null));
         }
 
+        [HttpGet("demission")]
+        public async Task<ActionResult<IEnumerable<CollaborateurDTO>>> GetDemissions([FromQuery] FilterParams filterParams)
+        {
+            var collabs = await _collaborateurService.GetDemissions(filterParams);
+            Response.AddPaginationHeader(collabs.CurrentPage, collabs.PageSize, collabs.TotalCount, collabs.TotalPages);
+            return Ok(collabs);
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<CollaborateurDTO>> GetCollaborateur(int id)
         {
-            return Ok(await this._collaborateurService.GetCollaborateurById(id));
+            var entity = await this._collaborateurService.GetCollaborateurById(id);
+            return Ok(entity);
         }
 
         [HttpPost]
@@ -104,9 +129,9 @@ namespace API_MySIRH.Controllers
         }
 
         [HttpGet("export")]
-        public IActionResult Export()
+        public async Task<IActionResult> Export([FromQuery] List<int> ids)
         {
-            var exportfile = export();
+            var exportfile = await export(ids);
             return exportfile;
         }
 
@@ -186,12 +211,24 @@ namespace API_MySIRH.Controllers
                         //Mode recrutement
                         var modeRecrutement = await _mdmServiceModeRecrutement.GetByName(worksheet.Rows[i].Cells[11].Value.ToString());
                         collaborateur.ModeRecrutement = _mapper.Map<ModeRecrutement>(modeRecrutement);
-                        //Poste
+
+                        //Poste & Niveau
                         var poste = await _mdmServicePoste.GetByName(worksheet.Rows[i].Cells[8].Value.ToString());
-                        collaborateur.Poste = _mapper.Map<Post>(poste);
-                        //Niveau
                         var niveau = await _mdmServiceNiveau.GetByName(worksheet.Rows[i].Cells[9].Value.ToString());
-                        collaborateur.Niveau = _mapper.Map<Niveau>(niveau);
+                        await this._carriereService.Add(new CarriereDTO
+                        {
+                            Collaborateur = this._mapper.Map<CollaborateurDTO>(collaborateur),
+                            Annee = DateTime.Now.Year,
+                            Niveau = niveau,
+                            Poste = poste,
+                            ProfilDeCout = "ST0",
+                            SalaireNet = 15000,
+                            VariableNet = 15000,
+                            SalaireBrut = 5000,
+                            VariableBrut = 5000,
+                            TLRH = "TEMP DATA", // todo : will the excel sheet contain the TLRH's info ??
+                        });
+
                         //Site
                         var site = await _mdmServiceSite.GetByName(worksheet.Rows[i].Cells[4].Value.ToString());
                         collaborateur.Site = _mapper.Map<Site>(site);
@@ -209,8 +246,8 @@ namespace API_MySIRH.Controllers
                             collaborateur.DateEntreeSqli = Convert.ToDateTime(worksheet.Rows[i].Cells[13].Value);
                         if (worksheet.Rows[i].Cells[14].Value != "")
                             collaborateur.DateDebutStage = Convert.ToDateTime(worksheet.Rows[i].Cells[14].Value);
-                        if (worksheet.Rows[i].Cells[15].Value != "")
-                            collaborateur.DateSortieSqli = Convert.ToDateTime(worksheet.Rows[i].Cells[15].Value);
+                        //if (worksheet.Rows[i].Cells[15].Value != "")
+                        //    collaborateur.DateSortieSqli = Convert.ToDateTime(worksheet.Rows[i].Cells[15].Value); // ikhadem: TODO: use the .Add methode
 
                         if (await InvokeOperation(collaborateur))
                         {
@@ -251,10 +288,19 @@ namespace API_MySIRH.Controllers
             return resultDiplomes;
         }
 
-        private FileContentResult export()
+        private async Task<FileContentResult> export(List<int> ids)
         {
-
-            var collabs = _collaborateurService.GetCollaborateurs();
+            var collabs = new List<CollaborateurDTO>();
+            if (!ids.Any())
+                collabs = _collaborateurService.GetCollaborateurs().ToList();
+            else
+            {
+                for (int index = 0; index < ids.Count; index++)
+                {
+                    var en = await _collaborateurService.GetCollaborateurById(ids[index]);
+                    collabs.Add(en);
+                }
+            }
 
             ExcelEngine excelEngine = new ExcelEngine();
 
@@ -304,18 +350,18 @@ namespace API_MySIRH.Controllers
                 worksheet[$"G{i}"].Value = collab.Civilite;
                 worksheet[$"H{i}"].Value = collab.DateNaissance.ToString("dd/MM/yyyy");
                 worksheet[$"I{i}"].Value = collab.SkillCenter.Name;
-                worksheet[$"J{i}"].Value = collab.Poste.Name;
-                worksheet[$"K{i}"].Value = collab.Niveau.Name;
-                //worksheet[$"L{i}"].Value = collab.TypeContrat;
+                worksheet[$"J{i}"].Value = this._mapper.Map<Collaborateur>(collab).GetCurrentCarriere()?.Poste?.Name;
+                worksheet[$"K{i}"].Value = this._mapper.Map<Collaborateur>(collab).GetCurrentCarriere()?.Niveau?.Name;
+                //worksheet[$"L{i}"].Value = collab.TypeContrat; // todo : fix type contrat export
                 worksheet[$"M{i}"].Value = collab.ModeRecrutement == null ? "" : collab.ModeRecrutement.Name;
                 worksheet[$"N{i}"].Value = collab.DatePremiereExperience == null ? "" : collab.DatePremiereExperience?.ToString("dd/MM/yyyy");
                 worksheet[$"O{i}"].Value = collab.DateEntreeSqli == null ? "" : collab.DateEntreeSqli?.ToString("dd/MM/yyyy");
                 worksheet[$"P{i}"].Value = collab.DateDebutStage == null ? "" : collab.DateDebutStage?.ToString("dd/MM/yyyy");
-                worksheet[$"Q{i}"].Value = collab.DateSortieSqli == null ? "" : collab.DateSortieSqli?.ToString("dd/MM/yyyy");
-                
+                worksheet[$"Q{i}"].Value = collab.Demissions.Any() ? collab.Demissions.Last().DateSortieSqli?.ToString("dd/MM/yyyy") : "";
+
                 var diplomes = "";
                 if (collab.Diplomes != null)
-                    diplomes = String.Join(" | ",collab.Diplomes.Select(x => $"{x.Annee} : {x.Detail}"));
+                    diplomes = String.Join(" | ", collab.Diplomes.Select(x => $"{x.Annee} : {x.Detail}"));
                 worksheet[$"R{i}"].Value = diplomes;
 
                 worksheet[$"H{i}"].CellStyle.ShrinkToFit = true;

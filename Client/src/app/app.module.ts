@@ -64,9 +64,13 @@ import { MdmPanelComponent } from './mdm-panel/mdm-panel.component';
 import { HeaderFormationCertificationComponent } from './formations-certifications/header-formation-certification/header-formation-certification.component';
 import { ModalAjoutDiplomeComponent } from './diplomes/modal-ajout-diplome/modal-ajout-diplome.component';
 import { ModalAjoutContratComponent } from './contrats/modal-ajout-contrat/modal-ajout-contrat.component';
+import { DemissionTabComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/_demission_tab/demission-tab/demission-tab.component';
+import { ModalAjoutDemissionComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/_demission_tab/modal-ajout-demission/modal-ajout-demission.component';
 import { FormationsCollabComponent } from './formations-collab/formations-collab.component';
 import { MdmTableComponent } from './mdm-panel/mdm-table/mdm-table.component';
 import { CertificationsCollabComponent } from './certifications-collab/certifications-collab.component';
+import { EncodeHttpParamsInterceptor } from './interceptors/encode-http-params.interceptor';
+import { AuthentificationInterceptor } from './interceptors/authentification.interceptor';
 
 @NgModule({
   declarations: [
@@ -120,6 +124,8 @@ import { CertificationsCollabComponent } from './certifications-collab/certifica
     HeaderFormationCertificationComponent,
     ModalAjoutDiplomeComponent,
     ModalAjoutContratComponent,
+    DemissionTabComponent,
+    ModalAjoutDemissionComponent,
     FormationsCollabComponent,
     MdmTableComponent,
     CertificationsCollabComponent,
@@ -144,7 +150,9 @@ import { CertificationsCollabComponent } from './certifications-collab/certifica
   ],
   providers: [
     DatePipe,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthentificationInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: EncodeHttpParamsInterceptor, multi: true },
     { provide: RouteReuseStrategy, useClass: CustomReuseStrategyService },
   ],
   bootstrap: [AppComponent],

@@ -1,5 +1,6 @@
 ﻿using API_MySIRH.DTOs;
 using API_MySIRH.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,7 @@ namespace API_MySIRH.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ImageController : ControllerBase
     {
         private readonly IImageService _imageService;

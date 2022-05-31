@@ -38,8 +38,11 @@ namespace API_MySIRH.Data
 
         public DbSet<Certification> Certifications { get; set; }
         public DbSet<CollaborateurCertification> CollaborateurCertifications { get; set; }
+        public DbSet<Demission> Demissions { get; set; }
         public DbSet<Formation> Formations { get; set; }
         public DbSet<CollaborateurFormation> CollaborateurFormations { get; set; }
+        public DbSet<ReasonDemission> ReasonDemissions { get; set; }
+        public DbSet<Carriere> Carrieres { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -99,15 +102,15 @@ namespace API_MySIRH.Data
                         .WithMany(f => f.CollaborateurFormations)
                         .HasForeignKey(cf => cf.FormationId),
                     j => j
-                        .HasOne(cf=>cf.Collaborateur)
-                        .WithMany(c=>c.CollaborateurFormations)
-                        .HasForeignKey(cc=>cc.CollaborateurId)
+                        .HasOne(cf => cf.Collaborateur)
+                        .WithMany(c => c.CollaborateurFormations)
+                        .HasForeignKey(cc => cc.CollaborateurId)
                 );
             modelBuilder.Entity<CollaborateurFormation>()
-                .Property(cf=>cf.Status)
+                .Property(cf => cf.Status)
                 .HasConversion(
                     v => (int)v,
-                    v=> (Status)v
+                    v => (Status)v
                 );
 
             // Collaborateur 1 <---> * CollaborateurCertification * <---> 1 Certification
@@ -131,11 +134,6 @@ namespace API_MySIRH.Data
                     v => (int)v,
                     v => (Status)v
                 );
-        }
-
-        internal Task<bool> AnyAsync()
-        {
-            throw new NotImplementedException();
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

@@ -4,11 +4,13 @@ using Microsoft.EntityFrameworkCore;
 using API_MySIRH.Entities;
 using API_MySIRH.Interfaces;
 using API_MySIRH.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API_MySIRH.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ToDoListsController : ControllerBase
     {
         private readonly IToDoListService _toDoListService;

@@ -6,8 +6,8 @@
         </pagination>
     </div>
     <div class="p-2">
-        Showing <strong>1</strong>
-        to <strong>{{pagination.pageSize}}</strong> collaborators
+        Showing <strong> {{ 1 + pagination.pageSize * (pagination.currentPage - 1 ) }} </strong>
+        to <strong>{{pagination.pageSize * pagination.currentPage}}</strong> collaborators
         from page <strong>{{pagination.currentPage}}</strong>
         of <strong>{{pagination.totalPages}}</strong>
     </div>

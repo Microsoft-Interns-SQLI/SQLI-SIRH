@@ -1,12 +1,14 @@
 using System.Net.Http.Headers;
 using API_MySIRH.DTOs;
 using API_MySIRH.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_MySIRH.Controllers
 {
     [ApiController]
     [Route("api/files")]
+    [Authorize]
     public class FilesController : ControllerBase
     {
         public readonly IFilesService _filesService;
@@ -17,13 +19,13 @@ namespace API_MySIRH.Controllers
 
         }
         [HttpPost("upload/{id}")]
-        public async Task<ActionResult> Upload(int id)
+        public async Task<ActionResult> Upload([FromQuery] string type, int id)
         {
             try
             {
                 try
                 {
-                    ICollection<FileDTO> Paths = await _filesService.UploadFile(Request.Form.Files, id);
+                    ICollection<FileDTO> Paths = await _filesService.UploadFile(Request.Form.Files, type, id);
                     return Ok(Paths);
                 }
                 catch (Exception e)

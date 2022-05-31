@@ -32,23 +32,28 @@ namespace API_MySIRH.DTOs
         public DateTime DateNaissance { get; set; }
         public DateTime? DatePremiereExperience { get; set; }
         public DateTime? DateEntreeSqli { get; set; }
-        public DateTime? DateSortieSqli { get; set; }
         public DateTime? DateDebutStage { get; set; }
 
+        // demission ??
+        public ICollection<DemissionDTO>? Demissions { get; set; }
+
         // Relations
-        public int? PosteId { get; set; }
-        public PostDTO? Poste { get; set; }
         public int? SkillCenterId { get; set; }
         public SkillCenterDTO? SkillCenter { get; set; }
         public int? SiteId { get; set; }
         public SiteDTO? Site { get; set; }
-        public int? NiveauId { get; set; }
-        public NiveauDTO? Niveau { get; set; }
         public int? ModeRecrutementId { get; set; }
         public ModeRecrutementDTO? ModeRecrutement { get; set; }
-        public ICollection<DiplomeDTO> Diplomes { get; set; }
+        public ICollection<DiplomeDTO>? Diplomes { get; set; }
         public ICollection<FileDTO>? Documents { get; set; }
+        public ICollection<CarriereDTO>? Carrieres { get; set; }
 
         //public ICollection<CertificationDTO>? Certifications { get; set; }
+
+
+        // *** todo : to remove
+        // public PostDTO? Poste { get; set; }
+        // public NiveauDTO? Niveau { get; set; }
+        /****/
     }
 }

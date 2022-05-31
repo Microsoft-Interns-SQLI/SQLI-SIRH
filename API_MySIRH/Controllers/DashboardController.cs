@@ -1,11 +1,13 @@
 ﻿using API_MySIRH.DTOs;
 using API_MySIRH.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_MySIRH.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize]
     public class DashboardController : ControllerBase
     {
         private readonly IDashboardService _dashboardService;
@@ -21,7 +23,8 @@ namespace API_MySIRH.Controllers
         public async Task<ActionResult<DashboardDto>> GetDashboard()
         {
             DashboardDto dashboard = new();
-            var collection = _collaborateurService.GetCollaborateurs().Where(collab => collab.DateSortieSqli == null || DateTime.Compare((DateTime)collab.DateSortieSqli, DateTime.Now) > 0 );
+            var collection = _collaborateurService.GetCollaborateurs(); // .Where(collab => collab.DateSortieSqli == null || DateTime.Compare((DateTime)collab.DateSortieSqli, DateTime.Now) > 0 );
+                                                                        // ikhadem: TODO: getData from related Object 
             dashboard.HeadCount = _dashboardService.GetHeadCount(collection);
             dashboard.FemaleCount = _dashboardService.GetFemaleCount(collection);
             dashboard.MaleCount = _dashboardService.GetMaleCount(collection);

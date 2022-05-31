@@ -42,24 +42,24 @@ export class FormationsCollabComponent implements OnInit, OnChanges, OnDestroy {
   constructor(private formationCertifService: FormationCertificationsService, private popupService: PopupService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
+
+    this.subYear = this.formationCertifService.getFormationYearsByCollab(this.collab.id).subscribe({
+      next: data => {
+        this.years = data.sort((a, b) => b - a);
+        if (data.length > 0) {
+          this.year = data[0];
+        }
+      },
+      complete: () => {
+        if (+this.year !== new Date(Date.now()).getFullYear())
+          this.fetchIntersection();
+      }
+    });
     
     if (this.intersections.length > 0) {
       this.sub = this.formationCertifService.getFormations().subscribe({
         next: data => this.formations = data,
         complete: ()=> this.prepareData()
-      });
-      
-      this.subYear = this.formationCertifService.getFormationYearsByCollab(this.collab.id).subscribe({
-        next: data => {
-          this.years = data.sort((a, b) => b - a);
-          if (data.length > 0) {
-            this.year = data[0];
-          }
-        },
-        complete: () => {
-          if (+this.year !== new Date(Date.now()).getFullYear())
-            this.fetchIntersection();
-        }
       });
     }
     else{
@@ -79,16 +79,12 @@ export class FormationsCollabComponent implements OnInit, OnChanges, OnDestroy {
 
   }
 
-  private fetchIntersection() {
-    this.subIntersection = this.formationCertifService.getFormationByCollab(this.collab.id, undefined, this.year).subscribe({
-      next: data => this.intersections = data.list,
-      complete: () => this.prepareData()
-    })
-  }
+
   
   selectYear() {
     this.fetchIntersection();
   }
+
   onEdit(item: CollabFormationCertif) {
     this.popupService.show(item);
   }
@@ -122,6 +118,7 @@ export class FormationsCollabComponent implements OnInit, OnChanges, OnDestroy {
     }
     this.controls.removeAt(index);
   }
+
   onSubmit() {
     let errorSelect: boolean = false;
     let errorDate: boolean = false;
@@ -162,17 +159,13 @@ export class FormationsCollabComponent implements OnInit, OnChanges, OnDestroy {
 
           const intersectionExist = this.intersections.find(i =>
             i.collaborateurId === x.collaborateurId
-            && i.id === x.id
-            && i.status === (+x.status === 1 ? "AFAIRE" : "FAIT")
+            && i.idFormationCertif === x.idFormationCertif
+            && i.status === x.status
             && new Date(i.dateDebut).toDateString() === new Date(x.dateDebut).toDateString()
             && new Date(i.dateFin).toDateString() === new Date(x.dateFin).toDateString());
 
 
           if (intersectionExist == undefined) {
-            const intersectionUpdate = this.intersections.findIndex(i => i.collaborateurId === x.collaborateurId && i.id === x.id);
-            if (intersectionUpdate !== -1)
-              this.intersections.splice(intersectionUpdate, 1, x);
-            else
               this.intersections.push(x);
           }
         });
@@ -187,20 +180,29 @@ export class FormationsCollabComponent implements OnInit, OnChanges, OnDestroy {
 
   private changeYearsDropDown(value: CollabFormationCertif){
     if (this.years.findIndex(x => x === new Date(value.dateDebut).getFullYear()) === -1) {
+      if(this.years.length === 0)
+        this.year = new Date(value.dateDebut).getFullYear();
       this.years.push(new Date(value.dateDebut).getFullYear());
       this.years.sort((a, b) => b - a);
     }
   }
-
+  private fetchIntersection() {
+    this.subIntersection = this.formationCertifService.getFormationByCollab(this.collab.id, undefined, this.year).subscribe({
+      next: data => this.intersections = data.list,
+      complete: () => this.prepareData()
+    })
+  }
   private prepareData() {
     
     this.table = [];
     this.intersections.forEach(item => {
+
+      this.changeYearsDropDown(item);
+
       const formation = this.formations.find(x => x.id === item.idFormationCertif);
       if (formation != undefined && new Date(item.dateDebut).getFullYear() === +this.year) {
         this.table = this.table.concat({ name: formation.libelle, intersection: item });
       }
-      this.changeYearsDropDown(item);
     });
 
   }
