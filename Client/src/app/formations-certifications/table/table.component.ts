@@ -50,7 +50,7 @@ export class TableComponent implements OnInit, OnDestroy, OnChanges {
       return {
         collaborateur: item.collaborateur,
         certificates: item.certificates.map(certif => {
-          if (certif.id === value.id && certif.collaborateurId === value.collaborateurId && new Date(value.dateDebut).getFullYear() === this.yearSelected) {
+          if (certif.idFormationCertif === value.idFormationCertif && certif.collaborateurId === value.collaborateurId && new Date(value.dateDebut).getFullYear() === this.yearSelected) {
             return value;
           }
           return certif;
