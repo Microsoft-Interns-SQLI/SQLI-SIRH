@@ -9,7 +9,7 @@ import { ToastService } from '../shared/toast/toast.service';
 @Component({
   selector: 'app-demissions',
   templateUrl: './demissions.component.html',
-  styleUrls: ['./demissions.component.css']
+  styleUrls: ['./demissions.component.css'],
 })
 export class DemissionsComponent implements OnInit, OnDestroy {
   demissionsArray: Collaborator[] = [];
@@ -35,18 +35,22 @@ export class DemissionsComponent implements OnInit, OnDestroy {
   trierParMatricule: boolean = false;
   trierParAnnee: boolean = false;
 
-  postesId: number[]=[] ;
-  niveauxId: number[]=[] ;
+  postesId: number[] = [];
+  niveauxId: number[] = [];
 
-  constructor(private service: CollaboratorsService, private toastService: ToastService, private spinnerService: SpinnerService, private saveState: SaveState) { }
+  constructor(
+    private service: CollaboratorsService,
+    private toastService: ToastService,
+    private spinnerService: SpinnerService,
+    private saveState: SaveState
+  ) {}
 
   ngOnInit(): void {
     this.loadDemissions(this.pageSize, this.pageNumber);
-
   }
 
   ngOnDestroy(): void {
-    this.saveState.saveState({url: 'integrations'}, 'fallback');
+    this.saveState.saveState({ url: 'demissions' }, 'fallback');
   }
 
   loadDemissions(
@@ -63,13 +67,24 @@ export class DemissionsComponent implements OnInit, OnDestroy {
     } else {
       this.spinnerService.isSearch.next(false);
     }
-    this.service.getDemissionsList(pageSize, pageNumber, filtrerPar, search, orderby,undefined,undefined,postesId,niveauxId)
+    this.service
+      .getDemissionsList(
+        pageSize,
+        pageNumber,
+        filtrerPar,
+        search,
+        orderby,
+        undefined,
+        undefined,
+        postesId,
+        niveauxId
+      )
       .subscribe({
         next: (resp) => {
           this.demissionsArray = resp.result;
           this.pagination = resp.pagination;
         },
-        complete: () =>{
+        complete: () => {
           console.log(this.demissionsArray);
         },
       });
@@ -81,7 +96,7 @@ export class DemissionsComponent implements OnInit, OnDestroy {
     return Math.abs(now.getFullYear() - date.getFullYear());
   }
 
-    // get pageSize value from header child component
+  // get pageSize value from header child component
   // update number of collab per page
   // update collab table
   changePageSize(pageSize: number) {
@@ -93,8 +108,8 @@ export class DemissionsComponent implements OnInit, OnDestroy {
       this.selected === '' ? undefined : this.selected,
       this.searchInput === '' ? undefined : this.searchInput,
       undefined,
-      this.postesId.toString()=='' ? undefined : this.postesId,
-      this.niveauxId.toString()=='' ? undefined : this.niveauxId
+      this.postesId.toString() == '' ? undefined : this.postesId,
+      this.niveauxId.toString() == '' ? undefined : this.niveauxId
     );
   }
 
@@ -108,8 +123,8 @@ export class DemissionsComponent implements OnInit, OnDestroy {
       this.searchInput === '' ? undefined : this.searchInput,
       undefined,
       this.postesId,
-      this.niveauxId.toString()=='' ? undefined : this.niveauxId
-    )
+      this.niveauxId.toString() == '' ? undefined : this.niveauxId
+    );
   }
 
   onChangeNiveaux(niveaux: number[]) {
@@ -122,9 +137,9 @@ export class DemissionsComponent implements OnInit, OnDestroy {
       this.selected === '' ? undefined : this.selected,
       this.searchInput === '' ? undefined : this.searchInput,
       undefined,
-      this.postesId.toString()=='' ? undefined : this.postesId,
+      this.postesId.toString() == '' ? undefined : this.postesId,
       this.niveauxId
-    )
+    );
   }
 
   // get search value from header child component
@@ -138,8 +153,8 @@ export class DemissionsComponent implements OnInit, OnDestroy {
       this.selected === '' ? undefined : this.selected,
       this.searchInput === '' ? undefined : value,
       undefined,
-      this.postesId.toString()=='' ? undefined : this.postesId,
-      this.niveauxId.toString()=='' ? undefined : this.niveauxId
+      this.postesId.toString() == '' ? undefined : this.postesId,
+      this.niveauxId.toString() == '' ? undefined : this.niveauxId
     );
   }
 
@@ -151,9 +166,8 @@ export class DemissionsComponent implements OnInit, OnDestroy {
       this.selected === '' ? undefined : this.selected,
       this.searchInput === '' ? undefined : this.searchInput,
       undefined,
-      this.postesId.toString()=='' ? undefined : this.postesId,
-      this.niveauxId.toString()==''? undefined : this.niveauxId
+      this.postesId.toString() == '' ? undefined : this.postesId,
+      this.niveauxId.toString() == '' ? undefined : this.niveauxId
     );
   }
-
 }
