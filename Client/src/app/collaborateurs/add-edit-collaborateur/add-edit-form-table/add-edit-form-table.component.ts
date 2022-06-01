@@ -49,11 +49,11 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
   postesData: any = new SelectInputData();
   situationFamilialeData: any = new SelectInputData();
   demis?: Demission = undefined;
-  demisTitle = "";
+  demisTitle = '';
   constructor(
     private service: MdmService,
     private formationCertifService: FormationCertificationsService
-  ) { }
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.collab.id != 0) {
@@ -73,7 +73,7 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
     ];
     this.service.getAll('modes').subscribe((res) => {
       this.recruteModeData.data = res.map(
-        (obj) => new SelectInputObject(obj.id, obj.name)
+        (obj) => new SelectInputObject(+obj.id, obj.name)
       );
     });
     this.service.getAll('niveaux').subscribe((res) => {
@@ -131,13 +131,13 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
   updateDemission(event: number) {
     if (event == 0) {
       this.demis = undefined;
-      this.demisTitle = "Ajouter Demission";
+      this.demisTitle = 'Ajouter Demission';
       return;
     }
     this.collab.demissions.forEach((el) => {
       if (el.id == event) {
         this.demis = el as Demission;
-        this.demisTitle = "Editer Demission";
+        this.demisTitle = 'Editer Demission';
         // this.myFormGroup.markAsDirty();
       }
     });
