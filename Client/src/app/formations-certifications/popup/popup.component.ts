@@ -82,11 +82,11 @@ export class PopupComponent implements OnInit, OnDestroy {
   }
 
   selectChange(value: string) {
-    if (value == "AFAIRE") {
-      this.dateFin = new Date();
-    } else {
-      this.dateFin = this.model.dateFin;
-    }
+    // if (value == "AFAIRE") {
+    //   this.dateFin = new Date();
+    // } else {
+    //   this.dateFin = this.model.dateFin;
+    // }
   }
 
   ngOnDestroy(): void {

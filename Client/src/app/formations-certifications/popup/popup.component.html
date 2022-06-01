@@ -50,9 +50,11 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Date Fin :</label>
-                            <input type="date" class="form-control form-control-sm"
+                            <!-- <input type="date" class="form-control form-control-sm"
                                 [ngModel]="dateFin | date: 'yyyy-MM-dd'" (ngModelChange)="dateFin=$event" name="dateFin"
-                                required>
+                                required> -->
+                            <input type="date" class="form-control form-control-sm"
+                                [ngModel]="dateFin | date: 'yyyy-MM-dd'" name="dateFin" required>
                         </div>
                     </div>
                     <div class="col-md-12 mt-3">

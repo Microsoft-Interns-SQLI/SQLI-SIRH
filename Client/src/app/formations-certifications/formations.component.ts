@@ -126,6 +126,21 @@ export class FormationsComponent implements OnInit, OnDestroy {
       this.yearSelected,
       +this.statusSelected === 0 ? undefined : this.statusSelected
       );
+
+      if (this.selected) {
+  
+        this.subCollabCertif = this.formationCertifService.getCollabFormation().subscribe(
+          (data: FormationCertificationResponse) => {
+            this.tab = data.list;
+          }
+        );
+      }else{
+        this.subCollabCertif = this.formationCertifService.getCollabCertif().subscribe(
+          (data: FormationCertificationResponse) => {
+            this.tab = data.list;
+          }
+        );
+      }
   }
   onSearch(search: string) {
     this.loadCollaborators(
