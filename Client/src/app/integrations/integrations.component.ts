@@ -141,7 +141,6 @@ export class IntegrationsComponent implements OnInit, OnDestroy {
 
   onChangeNiveaux(niveaux: number[]) {
     this.niveauxId = niveaux;
-    //this.niveauxValue = this.niveauxId.toString().replace(',', '&niveauxId=')
 
     this.loadIntegrations(
       this.pageSize,
@@ -187,6 +186,15 @@ export class IntegrationsComponent implements OnInit, OnDestroy {
   }
 
   onSelect() {
-    this.loadIntegrations(this.pageSize, this.pageNumber, this.pageYear);
+    this.loadIntegrations(
+      this.pageSize,
+      this.pageNumber,
+      this.pageYear,
+      this.selected === '' ? undefined : this.selected,
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesId.toString() == '' ? undefined : this.postesId,
+      this.niveauxId.toString() == '' ? undefined : this.niveauxId
+    );
   }
 }
