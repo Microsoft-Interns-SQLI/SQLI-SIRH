@@ -64,6 +64,7 @@ import { MdmPanelComponent } from './mdm-panel/mdm-panel.component';
 import { HeaderFormationCertificationComponent } from './formations-certifications/header-formation-certification/header-formation-certification.component';
 import { ModalAjoutDiplomeComponent } from './diplomes/modal-ajout-diplome/modal-ajout-diplome.component';
 import { ModalAjoutContratComponent } from './contrats/modal-ajout-contrat/modal-ajout-contrat.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { DemissionTabComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/_demission_tab/demission-tab/demission-tab.component';
 import { ModalAjoutDemissionComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/_demission_tab/modal-ajout-demission/modal-ajout-demission.component';
 import { FormationsCollabComponent } from './formations-collab/formations-collab.component';
@@ -147,13 +148,14 @@ import { AuthentificationInterceptor } from './interceptors/authentification.int
     BrowserAnimationsModule,
     ngfModule,
     NgxSpinnerModule,
+    NgSelectModule
   ],
   providers: [
     DatePipe,
     { provide: HTTP_INTERCEPTORS, useClass: AuthentificationInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: EncodeHttpParamsInterceptor, multi: true },
-    { provide: RouteReuseStrategy, useClass: CustomReuseStrategyService },
+    // { provide: RouteReuseStrategy, useClass: CustomReuseStrategyService },
   ],
   bootstrap: [AppComponent],
 })

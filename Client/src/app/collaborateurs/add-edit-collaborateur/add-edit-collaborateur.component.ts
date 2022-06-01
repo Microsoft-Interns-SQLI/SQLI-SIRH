@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { routes } from 'src/app/app-routing.module';
 import { Collaborator, Demission } from 'src/app/Models/Collaborator';
 import { CollaboratorsService } from 'src/app/services/collaborators.service';
+import { SaveState } from 'src/app/services/stateSave.service';
 import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Component({
@@ -22,6 +23,7 @@ export class AddEditCollaborateurComponent implements OnInit {
   collab: Collaborator = new Collaborator();
   formGroup!: FormGroup;
   demission?: Demission;
+  fallbackUrl: string = 'collaborateurs';
 
 
   constructor(
@@ -29,12 +31,17 @@ export class AddEditCollaborateurComponent implements OnInit {
     private router: Router,
     private sevice: CollaboratorsService,
     private fb: FormBuilder,
-    private toastServise: ToastService
+    private toastServise: ToastService,
+    private saveState: SaveState
   ) {
     this.collab_id = this.actRoute.snapshot.params['id'];
   }
 
   ngOnInit(): void {
+    // SimpleFallBack Policy
+    let fallback = this.saveState.loadState('fallback');
+    if (fallback) this.fallbackUrl = fallback?.url;
+
     if (this.collab_id) {
       this.sevice
         .getCollaboratorByMatricule(this.collab_id)
@@ -153,11 +160,11 @@ export class AddEditCollaborateurComponent implements OnInit {
     this.collab.situationFamiliale = this.formGroup.value.situationFamiliale;
     this.collab.dateDebutStage = this.formGroup.value.dateDebutStage;
     this.collab.datePremiereExperience =
-    this.formGroup.value.datePremiereExperience;
+      this.formGroup.value.datePremiereExperience;
   }
 
   navigateBack() {
-    this.router.navigate(['/collaborateurs']);
+    this.router.navigate([`/${this.fallbackUrl}`]);
   }
 
   calculateYeas(year: any): any {

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Collaborator } from '../Models/Collaborator';
 import { Pagination } from '../Models/pagination';
 import { CollaboratorsService } from '../services/collaborators.service';
 import { SpinnerService } from '../services/spinner.service';
+import { SaveState } from '../services/stateSave.service';
 import { ToastService } from '../shared/toast/toast.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { ToastService } from '../shared/toast/toast.service';
   templateUrl: './integrations.component.html',
   styleUrls: ['./integrations.component.css']
 })
-export class IntegrationsComponent implements OnInit {
+export class IntegrationsComponent implements OnInit, OnDestroy {
   demissionsArray: Collaborator[] = [];
 
   pageNumber = 1;
@@ -37,12 +38,19 @@ export class IntegrationsComponent implements OnInit {
   trierParMatricule: boolean = false;
   trierParAnnee: boolean = false;
 
-  constructor(private service: CollaboratorsService, private toastService: ToastService, private spinnerService: SpinnerService) { }
+  postesId: number[]=[] ;
+  niveauxId: number[]=[] ;
+
+  constructor(private service: CollaboratorsService, private toastService: ToastService, private spinnerService: SpinnerService, private saveState: SaveState) { }
 
 
   ngOnInit(): void {
     this.loadIntegrationsRange();
     this.loadIntegrations(this.pageSize, this.pageNumber, this.pageYear);
+  }
+
+  ngOnDestroy(): void {
+    this.saveState.saveState({url: 'integrations'}, 'fallback');
   }
 
   loadIntegrationsRange() {
@@ -57,14 +65,16 @@ export class IntegrationsComponent implements OnInit {
     year?: number,
     filtrerPar?: string,
     search?: string,
-    orderby?: string
+    orderby?: string,
+    postesId?: number[],
+    niveauxId?: number[]
   ) {
     if (search != undefined) {
       this.spinnerService.isSearch.next(true);
     } else {
       this.spinnerService.isSearch.next(false);
     }
-    this.service.getIntegrationsList(pageSize, pageNumber, year, filtrerPar, search, orderby)
+    this.service.getIntegrationsList(pageSize, pageNumber, year, filtrerPar, search, orderby, undefined, undefined, postesId, niveauxId)
       .subscribe({
         next: (resp) => {
           this.demissionsArray = resp.result;
@@ -92,8 +102,42 @@ export class IntegrationsComponent implements OnInit {
       this.pageNumber,
       this.pageYear,
       this.selected === '' ? undefined : this.selected,
-      this.searchInput === '' ? undefined : this.searchInput
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesId.toString()=='' ? undefined : this.postesId,
+      this.niveauxId.toString()=='' ? undefined : this.niveauxId
     );
+  }
+
+  onChangePostes(postes: number[]) {
+    this.postesId = postes;
+
+    this.loadIntegrations(
+      this.pageSize,
+      1,
+      this.pageYear,
+      this.selected === '' ? undefined : this.selected,
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesId,
+      this.niveauxId.toString()=='' ? undefined : this.niveauxId
+    )
+  }
+
+  onChangeNiveaux(niveaux: number[]) {
+    this.niveauxId = niveaux;
+    //this.niveauxValue = this.niveauxId.toString().replace(',', '&niveauxId=')
+
+    this.loadIntegrations(
+      this.pageSize,
+      1,
+      this.pageYear,
+      this.selected === '' ? undefined : this.selected,
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesId.toString()=='' ? undefined : this.postesId,
+      this.niveauxId
+    )
   }
 
   // get search value from header child component
@@ -106,7 +150,10 @@ export class IntegrationsComponent implements OnInit {
       1,
       this.pageYear,
       this.selected === '' ? undefined : this.selected,
-      this.searchInput === '' ? undefined : value
+      this.searchInput === '' ? undefined : value,
+      undefined,
+      this.postesId.toString()=='' ? undefined : this.postesId,
+      this.niveauxId.toString()=='' ? undefined : this.niveauxId
     );
   }
 
@@ -117,7 +164,10 @@ export class IntegrationsComponent implements OnInit {
       this.pageNumber,
       this.pageYear,
       this.selected === '' ? undefined : this.selected,
-      this.searchInput === '' ? undefined : this.searchInput
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesId.toString()=='' ? undefined : this.postesId,
+      this.niveauxId.toString()=='' ? undefined : this.niveauxId
     );
   }
 

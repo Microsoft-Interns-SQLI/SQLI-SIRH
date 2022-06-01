@@ -2,42 +2,39 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addDemissionLabel">Modal title</h5>
-        <button type="button" class="btn-close" (click)="resetFrom()" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title" id="addDemissionLabel">Ajout d'une démission</h5>
+        <button type="button" class="btn-close" (click)="resetFrom()" data-bs-dismiss="modal"
+          aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form [formGroup]="form">
           <div class="row">
-            <div class="col-md-6 mt3">
-              <app-text-input
-                [formControl]="$any(form.controls?.['dateDemission'])"
-                [label]="'Date Demission'"
+            <div class="col-md-6">
+              <app-text-input [formControl]="$any(form.controls?.['dateDemission'])" [label]="'Date Démission'"
                 [type]="'date'"></app-text-input>
             </div>
-            <div class="col-md-6 mt3">
-              <app-text-input
-                [formControl]="$any(form.controls?.['dateSortieSqli'])"
-                [label]="'Date Sortie'"
+            <div class="col-md-6">
+              <app-text-input [formControl]="$any(form.controls?.['dateSortieSqli'])" [label]="'Date Sortie'"
                 [type]="'date'"></app-text-input>
             </div>
-            <div class="col-md-12 mt3">
-              <app-select-input
-                [formControl]="$any(form.controls?.['reasonDemission'])"
-                [data]="data"
-                [label]="'Reason'"></app-select-input>
+            <div class="col-md-12 mt-3">
+              <app-select-input [formControl]="$any(form.controls?.['reasonDemission'])" [data]="data"
+                [label]="'Raison'"></app-select-input>
             </div>
-            <div class="col-md-12 mt3">
-              <app-textarea-input
-                [formControl]="$any(form.controls?.['comment'])"
-                [label]="'comment'"></app-textarea-input>
+            <div class="col-md-12 mt-3">
+              <app-textarea-input [formControl]="$any(form.controls?.['comment'])" [label]="'commentaire'">
+              </app-textarea-input>
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="resetFrom()" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" (click)="submitDemission()" data-bs-dismiss="modal">Save
-          changes</button>
+        <button type="button" class="btn btn-sm btn-light" (click)="resetFrom()" data-bs-dismiss="modal">
+          Annuler
+        </button>
+        <button type="button" class="btn btn-sm btn-primary" (click)="submitDemission()" data-bs-dismiss="modal">
+          Sauvegarder
+        </button>
       </div>
     </div>
   </div>

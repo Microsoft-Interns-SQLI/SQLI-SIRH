@@ -96,6 +96,8 @@
   <app-header
     (pageSize)="changePageSize($event)"
     (search)="search($event)"
+    (postesId)="onChangePostes($event)"
+    (niveauxId)="onChangeNiveaux($event)"
   ></app-header>
 </div>
 
@@ -362,18 +364,18 @@
 <div>
   <div class="d-flex flex-row-reverse bd-highlight justify-content-between" *ngIf="pagination">
     <div>
-        <pagination [boundaryLinks]="true" [totalItems]="pagination.totalCount" [itemsPerPage]="pagination.pageSize"
-            [(ngModel)]="+pagination.currentPage" (pageChanged)="getCurrentPage($event)" previousText="&lsaquo;"
-            nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
-        </pagination>
+      <pagination [boundaryLinks]="true" [totalItems]="pagination.totalCount" [itemsPerPage]="pagination.pageSize"
+        [(ngModel)]="+pagination.currentPage" (pageChanged)="getCurrentPage($event)" previousText="&lsaquo;"
+        nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+      </pagination>
     </div>
     <div class="p-2">
-        Showing <strong> {{ 1 + pageSize * (pagination.currentPage - 1 ) }} </strong>
-        to <strong>{{pageSize * pagination.currentPage}}</strong> collaborators
-        from page <strong>{{pagination.currentPage}}</strong>
-        of <strong>{{pagination.totalPages}}</strong>
+      Showing <strong> {{ 1 + pagination.pageSize * (pagination.currentPage - 1 ) }} </strong>
+      to <strong>{{pagination.pageSize * pagination.currentPage}}</strong> collaborators
+      from page <strong>{{pagination.currentPage}}</strong>
+      of <strong>{{pagination.totalPages}}</strong>
     </div>
-</div>
+  </div>
 </div>
 
 <!-- Modal -->
