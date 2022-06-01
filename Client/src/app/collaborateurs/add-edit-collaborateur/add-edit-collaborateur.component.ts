@@ -1,10 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { routes } from 'src/app/app-routing.module';
 import { Collaborator, Demission } from 'src/app/Models/Collaborator';
@@ -24,7 +20,6 @@ export class AddEditCollaborateurComponent implements OnInit {
   formGroup!: FormGroup;
   demission?: Demission;
   fallbackUrl: string = 'collaborateurs';
-
 
   constructor(
     private actRoute: ActivatedRoute,
@@ -47,7 +42,9 @@ export class AddEditCollaborateurComponent implements OnInit {
         .getCollaboratorByMatricule(this.collab_id)
         .subscribe((res) => {
           this.collab = res;
-          this.demission = res.demissions ? res.demissions[res.demissions.length - 1] : undefined;
+          this.demission = res.demissions
+            ? res.demissions[res.demissions.length - 1]
+            : undefined;
           this.initForm();
         });
     } else {
@@ -119,8 +116,12 @@ export class AddEditCollaborateurComponent implements OnInit {
         .subscribe((res) => {
           this.ngOnInit();
         });
-      message = this.collab.prenom + " " + this.collab.nom + " a été modifier avec success";
-      this.toastServise.showToast("success", message, 2);
+      message =
+        this.collab.prenom +
+        ' ' +
+        this.collab.nom +
+        ' a été modifier avec success';
+      this.toastServise.showToast('success', message, 2);
     } else {
       this.sevice.addCollaborator(this.collab).subscribe((res) => {
         let collaborator: any = res;
@@ -154,7 +155,9 @@ export class AddEditCollaborateurComponent implements OnInit {
     this.collab.numCin = this.formGroup.value.numCin;
     this.collab.adresse = this.formGroup.value.adresse;
     this.collab.dateEntreeSqli = this.formGroup.value.dateEntreeSqli;
-    this.collab.modeRecrutementId = this.formGroup.value.modeRecrutement;
+    //TODO: To review
+    this.collab.modeRecrutement = undefined;
+    this.collab.modeRecrutementId = +this.formGroup.value.modeRecrutement;
     this.collab.niveauId = this.formGroup.value.niveau;
     this.collab.posteId = this.formGroup.value.poste;
     this.collab.situationFamiliale = this.formGroup.value.situationFamiliale;
