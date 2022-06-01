@@ -1,6 +1,7 @@
 using API_MySIRH.DTOs;
 using API_MySIRH.Entities;
 using API_MySIRH.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -8,6 +9,7 @@ namespace API_MySIRH.Controllers
 {
     [ApiController]
     [Route("/api/mdm")]
+    [Authorize]
     public class MdmController : ControllerBase
     {
         private IMemoryCache _memoryCache;

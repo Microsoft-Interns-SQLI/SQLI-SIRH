@@ -35,12 +35,12 @@ namespace API_MySIRH.Services
 
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
 
-            _ = int.TryParse(_configuration["JWT:TokenValidityInMinutes"], out int tokenValidityInMinutes);
+            _ = int.TryParse(_configuration["JWT:TokenValidityInDays"], out int tokenValidityInDays);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddMinutes(tokenValidityInMinutes),
+                Expires = DateTime.Now.AddDays(tokenValidityInDays),
                 SigningCredentials = creds
             };
 

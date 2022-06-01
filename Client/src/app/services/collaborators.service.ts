@@ -24,7 +24,7 @@ export class CollaboratorsService {
 
   constructor(private http: HttpClient, private imageService: ImagesService) { }
 
-  getCollaboratorsList(itemsPerPage?: number, page?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyFormation?: string, orderbyCertification?: string, year?: number, status?: number) {
+  getCollaboratorsList(itemsPerPage?: number, page?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyFormation?: string, orderbyCertification?: string, postesId?: number[], niveauxId?: number[] ,year?: number, status?: number) {
     //delay(50000);
     let params = new HttpParams();
     if (page != undefined && itemsPerPage != undefined) {
@@ -41,12 +41,21 @@ export class CollaboratorsService {
       params = params.append("Search", search);
     }
     if (orderbyFormation != undefined) {
-      params = params.append("OrderByFormation", orderbyFormation);
+      params = params.append("OrderByFormation", JSON.stringify(orderbyFormation));
     }
 
     if (orderbyCertification != undefined) {
       params = params.append("OrderByCertification", orderbyCertification);
     }
+    if (postesId != undefined && postesId.toString()!='' ) {
+      params = params.appendAll({"postesId":postesId});
+   
+    }
+    if (niveauxId != undefined && niveauxId.toString()!='' ) {
+      console.log(niveauxId.length);
+      params = params.appendAll({"niveauxId":niveauxId});
+    }
+    console.log('those are my params ='+params.toString());
     if (orderbyCertification != undefined) {
       params = params.append("OrderByCertification", orderbyCertification);
     }
@@ -57,7 +66,6 @@ export class CollaboratorsService {
     if (status != undefined) {
       params = params.append("Status", status);
     }
-
     let sub: Subscription;
     return this.http.get<any>(this.myUrl, { observe: 'response', params }).pipe(
       map((response) => {
@@ -78,13 +86,14 @@ export class CollaboratorsService {
             response.headers.get('Pagination') || ''
           );
         }
-        sub.unsubscribe();
+        if(sub != undefined)
+          sub.unsubscribe();
         return this.paginatedResult;
       })
     );
   }
 
-  getDemissionsList(itemsPerPage?: number, page?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyFormation?: string, orderbyCertification?: string) {
+  getDemissionsList(itemsPerPage?: number, page?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyFormation?: string, orderbyCertification?: string,postesId?: number[], niveauxId?: number[]) {
     //delay(50000);
     let params = new HttpParams();
     if (page != undefined && itemsPerPage != undefined) {
@@ -108,6 +117,14 @@ export class CollaboratorsService {
       params = params.append("OrderByCertification", orderbyCertification);
     }
 
+    if (postesId != undefined && postesId.toString()!='' ) {
+      params = params.appendAll({"postesId":postesId});
+   
+    }
+    if (niveauxId != undefined && niveauxId.toString()!='' ) {
+      console.log(niveauxId.length);
+      params = params.appendAll({"niveauxId":niveauxId});
+    }
     return this.http.get<any>(this.myUrl + '/demission', { observe: 'response', params })
       .pipe(
         map((response) => {
@@ -176,7 +193,7 @@ export class CollaboratorsService {
     return this.http.get<number[]>(this.myUrl + '/IntrgrationsRange');
   }
 
-  getIntegrationsList(itemsPerPage?: number, page?: number, year?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyFormation?: string, orderbyCertification?: string) {
+  getIntegrationsList(itemsPerPage?: number, page?: number, year?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyFormation?: string, orderbyCertification?: string,postesId?: number[], niveauxId?: number[]) {
     //delay(50000);
     let params = new HttpParams();
     if (year != undefined)
@@ -200,6 +217,15 @@ export class CollaboratorsService {
 
     if (orderbyCertification != undefined) {
       params = params.append("OrderByCertification", orderbyCertification);
+    }
+
+    if (postesId != undefined && postesId.toString()!='' ) {
+      params = params.appendAll({"postesId":postesId});
+   
+    }
+    if (niveauxId != undefined && niveauxId.toString()!='' ) {
+      console.log(niveauxId.length);
+      params = params.appendAll({"niveauxId":niveauxId});
     }
 
     return this.http.get<any>(this.myUrl + '/integrations', { observe: 'response', params }).pipe(
@@ -227,3 +253,7 @@ export class CollaboratorsService {
     return throwError(() => error.error);
   }
 }
+function foreach(arg0: boolean) {
+  throw new Error('Function not implemented.');
+}
+

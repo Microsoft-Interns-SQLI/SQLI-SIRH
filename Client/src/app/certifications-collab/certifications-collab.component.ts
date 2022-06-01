@@ -42,6 +42,19 @@ export class CertificationsCollabComponent implements OnInit, OnChanges, OnDestr
   
   ngOnChanges(changes: SimpleChanges): void {
 
+    this.subYear = this.formationCertifService.getCertificationYearsByCollab(this.collab.id).subscribe({
+      next: data => {
+        this.years = data.sort((a, b) => b - a);
+        if (data.length > 0) {
+          this.year = data[0];
+        }
+      },
+      complete: () => {
+        if (+this.year !== new Date(Date.now()).getFullYear())
+          this.fetchIntersection();
+      }
+    });
+
     if (this.intersections.length > 0) {
 
       this.sub = this.formationCertifService.getCertifications().subscribe({
@@ -49,18 +62,6 @@ export class CertificationsCollabComponent implements OnInit, OnChanges, OnDestr
         complete: ()=> this.prepareData()
       });
 
-      this.subYear = this.formationCertifService.getCertificationYearsByCollab(this.collab.id).subscribe({
-        next: data => {
-          this.years = data.sort((a, b) => b - a);
-          if (data.length > 0) {
-            this.year = data[0];
-          }
-        },
-        complete: () => {
-          if (+this.year !== new Date(Date.now()).getFullYear())
-            this.fetchIntersection();
-        }
-      });
     } else {
       this.sub = this.formationCertifService.getCertifications().subscribe({
         next: data => this.certifications = data
@@ -156,7 +157,7 @@ export class CertificationsCollabComponent implements OnInit, OnChanges, OnDestr
           const intersectionExist = this.intersections.find(i =>
             i.collaborateurId === x.collaborateurId
             && i.id === x.id
-            && i.status === (+x.status === 1 ? "AFAIRE" : "FAIT")
+            && i.status === x.status
             && new Date(i.dateDebut).toDateString() === new Date(x.dateDebut).toDateString()
             && new Date(i.dateFin).toDateString() === new Date(x.dateFin).toDateString());
 
@@ -177,6 +178,8 @@ export class CertificationsCollabComponent implements OnInit, OnChanges, OnDestr
 
   private changeYearsDropDown(value: CollabFormationCertif){
     if (this.years.findIndex(x => x === new Date(value.dateDebut).getFullYear()) === -1) {
+      if(this.years.length === 0)
+        this.year = new Date(value.dateDebut).getFullYear();
       this.years.push(new Date(value.dateDebut).getFullYear());
       this.years.sort((a, b) => b - a);
     }
@@ -192,11 +195,13 @@ export class CertificationsCollabComponent implements OnInit, OnChanges, OnDestr
   private prepareData() {
     this.table = [];
     this.intersections.forEach(item => {
+      
+      this.changeYearsDropDown(item);
+      
       const certification = this.certifications.find(x => x.id === item.idFormationCertif);
       if (certification != undefined && new Date(item.dateDebut).getFullYear() === +this.year) {
         this.table = this.table.concat({ name: certification.libelle, intersection: item });
       }
-      this.changeYearsDropDown(item);
     });
 
   }

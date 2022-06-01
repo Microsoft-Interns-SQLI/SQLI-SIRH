@@ -1,36 +1,88 @@
+<!-- <div class="modal fade" tabindex="-1" aria-hidden="true"> -->
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title">Edit {{type}} {{model.idFormationCertif}} collaborateur
-                {{model.collaborateurId}}</h5>
+            <h5 class="modal-title">
+                Modification de la {{type}}
+            </h5>
             <button type="button" class="btn-close" (click)="hideModal()"></button>
         </div>
-
         <form (ngSubmit)="onSubmit(f)" #f="ngForm">
             <div class="modal-body">
-                <div class="input-group input-group-sm mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupStatus">Status</label>
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <div class="row">
+                            <div class="col-md-3">
+                                Type
+                            </div>
+                            <div class="col-md-9">
+                                <strong>
+                                    : {{type}}
+                                </strong>
+                            </div>
+
+                            <div class="col-md-3">
+                                Réf
+                            </div>
+                            <div class="col-md-3">
+                                <strong>
+                                    : {{model.idFormationCertif}}
+                                </strong>
+                            </div>
+
+                            <div class="col-md-3">
+                                Collaborateur
+                            </div>
+                            <div class="col-md-3">
+                                <strong>
+                                    : {{model.collaborateurId}}
+                                </strong>
+                            </div>
+                        </div>
                     </div>
-                    <select class="custom-select" id="inputGroupStatus" name="status" (ngModelChange)="selectChange(selected)" [(ngModel)]="selected" required>
-                        <option value="AFAIRE">À Faire</option>
-                        <option value="FAIT" [disabled]="statusDisabled">Fait</option>
-                    </select>
-                </div>
-                <div class="input-group mb-3">
-                    <span class="input-group-text">Date Début</span>
-                    <input type="date" class="form-control" [ngModel]="model.dateDebut | date: 'yyyy-MM-dd'" name="dateDebut" required>
-                </div>
-                <div class="input-group mb-3">
-                    <span class="input-group-text">Date Fin</span>
-                    <input type="date" class="form-control"[ngModel]="dateFin | date: 'yyyy-MM-dd'" (ngModelChange)="dateFin=$event" name="dateFin" required>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Date Début :</label>
+                            <input type="date" class="form-control form-control-sm"
+                                [ngModel]="model.dateDebut | date: 'yyyy-MM-dd'" name="dateDebut" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Date Fin :</label>
+                            <!-- <input type="date" class="form-control form-control-sm"
+                                [ngModel]="dateFin | date: 'yyyy-MM-dd'" (ngModelChange)="dateFin=$event" name="dateFin"
+                                required> -->
+                            <input type="date" class="form-control form-control-sm"
+                                [ngModel]="dateFin | date: 'yyyy-MM-dd'" name="dateFin" required>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-3 mb-2">
+                        <div class="form-group">
+                            <label>Status :</label>
+                            <select class="form-select form-select-sm" id="inputGroupStatus" name="status"
+                                (ngModelChange)="selectChange(selected)" [(ngModel)]="selected" required>
+                                <option value="AFAIRE">À Faire</option>
+                                <option value="FAIT" [disabled]="statusDisabled">Fait</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col" *ngIf="errorMessage">
+                        <div class="alert alert-danger p-1">
+                            {{errorMessage}}
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" (click)="hideModal()">Close</button>
-                <button type="submit" class="btn btn-primary" [disabled]="f.invalid">Save</button>
+                <button type="button" class="btn btn-sm btn-light" (click)="hideModal()">
+                    Annuler
+                </button>
+                <button type="submit" class="btn btn-sm btn-primary" [disabled]="f.invalid">
+                    Sauvegarder
+                </button>
             </div>
-
         </form>
     </div>
 </div>
+<!-- </div> -->

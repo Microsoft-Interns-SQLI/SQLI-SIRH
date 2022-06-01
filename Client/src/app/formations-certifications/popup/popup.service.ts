@@ -9,16 +9,16 @@ import { CollabFormationCertif } from 'src/app/Models/collaborationCertification
 export class PopupService {
 
   isShow: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  object!:CollabFormationCertif;
-  
+  object!: CollabFormationCertif;
+
   constructor() { }
 
-  show(model: CollabFormationCertif){
+  show(model: CollabFormationCertif) {
     this.object = model;
     this.isShow.next(true);
   }
 
-  hide(){
+  hide() {
     this.isShow.next(false);
   }
 }

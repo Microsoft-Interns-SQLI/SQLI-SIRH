@@ -1,4 +1,12 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -10,20 +18,21 @@ import { CollabFormationCertif } from 'src/app/Models/collaborationCertification
 import { Diplome } from 'src/app/Models/MdmModel';
 import { FormationCertificationsService } from 'src/app/services/formation-certifications.service';
 import { MdmService } from 'src/app/services/mdm.service';
-import { ModalAjoutDemissionComponent } from './_demission_tab/modal-ajout-demission/modal-ajout-demission.component';
 import {
   SelectInputData,
   SelectInputObject,
 } from './_form_inputs/select-input/select-input';
 import { CollabTypeContrat } from 'src/app/Models/CollabTypeContrat';
+import { CarrieresComponent } from 'src/app/carrieres/carrieres.component';
+import { Carriere } from 'src/app/Models/Carriere';
 
 @Component({
   selector: 'app-add-edit-form-table',
   templateUrl: './add-edit-form-table.component.html',
 })
 export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
+  @ViewChild('carrieres') carrieres!: CarrieresComponent;
   @ViewChild('contrats') contrats!: ContratsComponent;
-  @ViewChild(ModalAjoutDemissionComponent) demissionUpdate!: ModalAjoutDemissionComponent;
   @ViewChild('diplomes') diplomes!: DiplomesComponent;
   @Input() collab!: Collaborator;
   @Input() myFormGroup!: FormGroup;
@@ -39,20 +48,21 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
   niveauxData: any = new SelectInputData();
   postesData: any = new SelectInputData();
   situationFamilialeData: any = new SelectInputData();
-
+  demis?: Demission = undefined;
+  demisTitle = "";
   constructor(
     private service: MdmService,
     private formationCertifService: FormationCertificationsService
   ) { }
-  demis?: Demission = undefined;
-
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.collab.id != 0) {
-      this.subIntersectionF = this.formationCertifService.getFormationByCollab(this.collab.id)
-        .subscribe(data => this.intersectionsFormations = data.list);
-      this.subIntersectionC = this.formationCertifService.getCertificationByCollab(this.collab.id)
-        .subscribe(data => this.intersectionsCertifications = data.list);
+      this.subIntersectionF = this.formationCertifService
+        .getFormationByCollab(this.collab.id)
+        .subscribe((data) => (this.intersectionsFormations = data.list));
+      this.subIntersectionC = this.formationCertifService
+        .getCertificationByCollab(this.collab.id)
+        .subscribe((data) => (this.intersectionsCertifications = data.list));
     }
   }
 
@@ -92,39 +102,48 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
     this.diplomes.addDiplome(diplome);
   }
 
+  refreshCarrieres(carriere: Carriere) {
+    this.carrieres.addCarriere(carriere);
+  }
+
   ngOnDestroy(): void {
-    if (this.subIntersectionF != undefined)
-      this.subIntersectionF.unsubscribe();
-    if (this.subIntersectionC != undefined)
-      this.subIntersectionC.unsubscribe();
+    if (this.subIntersectionF != undefined) this.subIntersectionF.unsubscribe();
+    if (this.subIntersectionC != undefined) this.subIntersectionC.unsubscribe();
   }
   addDemission(event: Demission) {
     let data: Demission;
 
     data = event;
+    this.demis = undefined;
     this.myFormGroup.markAsDirty();
-    console.log(data)
     if (data.id != 0) {
       this.collab.demissions.forEach((el) => {
         if (el.id == data.id) {
           el = data;
           el.reasonDemission = undefined;
         }
-      })
+      });
       return;
     }
-    this.collab.demissions = [...this.collab.demissions, data]
+    this.collab.demissions = [...this.collab.demissions, data];
   }
 
   updateDemission(event: number) {
+    if (event == 0) {
+      this.demis = undefined;
+      this.demisTitle = "Ajouter Demission";
+      return;
+    }
     this.collab.demissions.forEach((el) => {
       if (el.id == event) {
         this.demis = el as Demission;
-        this.myFormGroup.markAsDirty();
-        // this.demissionUpdate.demission = el as Demission;
-        // this.demissionUpdate.constructForm();
+        this.demisTitle = "Editer Demission";
+        // this.myFormGroup.markAsDirty();
       }
-    })
+    });
   }
 
+  filesHandler(event: any) {
+    this.collab.documents?.push(...event);
+  }
 }

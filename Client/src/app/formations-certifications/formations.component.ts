@@ -99,7 +99,7 @@ export class FormationsComponent implements OnInit, OnDestroy {
       this.spinnerService.isSearch.next(false);
     }
     this.subCollab = this.collaborateurService
-      .getCollaboratorsList(pageSize, pageNumber, undefined, search, undefined, orderbyFormation, orderbyCertification,year,status)
+      .getCollaboratorsList(pageSize, pageNumber, undefined, search, undefined, orderbyFormation, orderbyCertification,undefined,undefined, year,status)
       .subscribe(
         resp => {
           this.rows = resp.result;
@@ -124,8 +124,23 @@ export class FormationsComponent implements OnInit, OnDestroy {
       this.selected ? libelle : undefined,
       !this.selected ? libelle : undefined,
       this.yearSelected,
-      this.statusSelected === 0 ? undefined : this.statusSelected
+      +this.statusSelected === 0 ? undefined : this.statusSelected
       );
+
+      if (this.selected) {
+  
+        this.subCollabCertif = this.formationCertifService.getCollabFormation().subscribe(
+          (data: FormationCertificationResponse) => {
+            this.tab = data.list;
+          }
+        );
+      }else{
+        this.subCollabCertif = this.formationCertifService.getCollabCertif().subscribe(
+          (data: FormationCertificationResponse) => {
+            this.tab = data.list;
+          }
+        );
+      }
   }
   onSearch(search: string) {
     this.loadCollaborators(

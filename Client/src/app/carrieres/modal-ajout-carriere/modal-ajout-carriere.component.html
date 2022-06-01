@@ -1,0 +1,96 @@
+<div class="modal fade" id="modal-ajout-carriere" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Ajout d'une carrière
+                </h5>
+                <button type="button" id="btn-close-modal-carriere" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <form [formGroup]="form" (ngSubmit)="addCarriere(form)">
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="col-md-6 mt-3">
+                            <div class="form-group">
+                                <app-text-input [formControl]="$any(form.controls?.['annee'])" type="number"
+                                    [label]="'Année'">
+                                </app-text-input>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mt-3">
+                            <div class="form-group">
+                                <app-text-input [formControl]="$any(form.controls?.['profilDeCout'])"
+                                    [label]="'Profil de Cout'"></app-text-input>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mt-3">
+                            <div class="form-group">
+                                <app-select-input [formControl]="$any(form.controls?.['posteId'])" [data]="postes"
+                                    [label]="'Poste'"></app-select-input>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mt-3">
+                            <div class="form-group">
+                                <app-select-input [formControl]="$any(form.controls?.['niveauId'])" [data]="niveaux"
+                                    [label]="'Niveau'"></app-select-input>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mt-3">
+                            <div class="form-group">
+                                <app-text-input [formControl]="$any(form.controls?.['salaireNet'])" type="number"
+                                    [label]="'Salaire Net'">
+                                </app-text-input>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mt-3">
+                            <div class="form-group">
+                                <app-text-input [formControl]="$any(form.controls?.['variableNet'])" type="number"
+                                    [label]="'Variable Net'">
+                                </app-text-input>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mt-3">
+                            <div class="form-group">
+                                <app-text-input [formControl]="$any(form.controls?.['salaireBrut'])" type="number"
+                                    [label]="'Salaire Brut'">
+                                </app-text-input>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mt-3">
+                            <div class="form-group">
+                                <app-text-input [formControl]="$any(form.controls?.['variableBrut'])" type="number"
+                                    [label]="'Variable Brut'">
+                                </app-text-input>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 mt-3">
+                            <div class="form-group">
+                                <app-text-input [formControl]="$any(form.controls?.['tlrh'])" [label]="'tlrh'">
+                                </app-text-input>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">
+                        Annuler
+                    </button>
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        Sauvegarder
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

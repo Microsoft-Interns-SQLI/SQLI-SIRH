@@ -66,18 +66,19 @@ namespace API_MySIRH.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<CollaborateurFormation> GetOne(int collaborateurId, int formationId)
+        public async Task<List<CollaborateurFormation>> GetByCollabAndFormation(int collabId, int formationId)
         {
-            var cf = await _context.CollaborateurFormations
-                    .Where(cf => cf.CollaborateurId == collaborateurId && cf.FormationId == formationId)
-                    .Include(cf => cf.Collaborateur)
-                    .Include(cf => cf.Formation)
-                    .AsNoTracking()
-                    .FirstOrDefaultAsync();
-
-            return cf;
+            return await _context.CollaborateurFormations
+                .Include(x => x.Collaborateur)
+                .Include(x => x.Formation)
+                .Where(x=> x.CollaborateurId == collabId && x.FormationId == formationId)
+                .AsNoTracking()
+                .ToListAsync();
         }
-
+        public async Task<CollaborateurFormation> GetById(int id)
+        {
+            return await _context.CollaborateurFormations.Where(x => x.Id == id).AsNoTracking().FirstOrDefaultAsync();
+        }
         public async Task Update(CollaborateurFormation collaborateurFormation)
         {
             _context.Entry(collaborateurFormation).State = EntityState.Modified;

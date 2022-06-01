@@ -1,7 +1,7 @@
-import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as FileSaver from 'file-saver';
-import { map, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 import { Collaborator } from 'src/app/Models/Collaborator';
 import { Pagination } from 'src/app/Models/pagination';
@@ -9,6 +9,7 @@ import { CollaboratorsService } from 'src/app/services/collaborators.service';
 import { FilesService } from 'src/app/services/files.service';
 import { ImagesService } from 'src/app/services/images.service';
 import { SpinnerService } from 'src/app/services/spinner.service';
+import { SaveState } from 'src/app/services/stateSave.service';
 import { ToastService } from 'src/app/shared/toast/toast.service';
 import { environment } from 'src/environments/environment';
 
@@ -17,7 +18,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './list-collaborateurs.component.html',
   styleUrls: ['./list-collaborateurs.component.css'],
 })
-export class ListCollaborateursComponent implements OnInit, OnDestroy {
+export class ListCollaborateursComponent implements OnInit, OnDestroy{
   collaboratorsArray: Collaborator[] = [];
   displayTable: boolean = true;
   collabToDelete?: Collaborator = new Collaborator();
@@ -29,12 +30,12 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   loadCollabSubscription!: Subscription;
   imageSubscription!: Subscription;
 
-  pageNumber = 1;
-  pageSize = 10;
   //Initalize pagination to avert undefined error value in the child component
   pagination: Pagination = {
-    pageSize: this.pageSize,
-    currentPage: this.pageNumber,
+    pageSize: 10,
+    currentPage: 1,
+    totalCount: 1,
+    totalPages: 1
   } as Pagination;
 
   isLoading?: boolean;
@@ -52,16 +53,37 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   trierParMatricule: boolean = false;
   trierParAnnee: boolean = false;
 
+  postesId: number[]=[] ;
+  niveauxId: number[]=[] ;
+
+
   constructor(
     private service: CollaboratorsService,
     private imageService: ImagesService,
     private fileService: FilesService,
     private toastService: ToastService,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
+    private saveState: SaveState
   ) { }
 
+
+
   ngOnInit(): void {
-    this.loadCollaborators(this.pageSize, this.pageNumber);
+    let state = this.saveState.loadState('collabsList');
+    if (state)
+      this.pagination = state?.pagination;
+    this.loadCollaborators(this.pagination.pageSize, this.pagination.currentPage);
+  }
+
+  ngOnDestroy(): void {
+    if (this.exportSubscription != undefined)
+      this.exportSubscription.unsubscribe();
+    if (this.loadCollabSubscription != undefined)
+      this.loadCollabSubscription.unsubscribe();
+    if (this.imageSubscription != undefined)
+      this.imageSubscription.unsubscribe();
+    this.saveState.saveState({ pagination: this.pagination }, 'collabsList');
+    this.saveState.saveState({url: 'collaborateurs'}, 'fallback');
   }
 
   loadCollaborators(
@@ -69,7 +91,9 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
     pageNumber?: number,
     filtrerPar?: string,
     search?: string,
-    orderby?: string
+    orderby?: string,
+    postesId?: number[],
+    niveauxId?: number[]
   ) {
     if (search != undefined) {
       this.spinnerService.isSearch.next(true);
@@ -77,9 +101,11 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
       this.spinnerService.isSearch.next(false);
     }
     this.loadCollabSubscription = this.service
-      .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby)
+      .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby, undefined, undefined, postesId, niveauxId)
       .subscribe({
         next: (resp) => {
+          this.pagination = resp.pagination;
+
           this.collaboratorsArray = resp.result.map(function (collab) {
             // let currentCarriere = collab.carrieres?.sort((a, b) => a.annee - b.annee).pop();
             // collab.niveau = currentCarriere?.niveau;
@@ -111,10 +137,13 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   //Executed when filter select change
   onSelect() {
     this.loadCollaborators(
-      this.pageSize,
-      this.pageNumber,
+      this.pagination.pageSize,
+      this.pagination.currentPage,
       this.selected,
-      this.searchInput === '' ? undefined : this.searchInput
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesId.toString()==''  ? undefined : this.postesId,
+      this.niveauxId.toString()=='' ? undefined : this.niveauxId
     );
   }
 
@@ -122,45 +151,89 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   // update number of collab per page
   // update collab table
   changePageSize(pageSize: number) {
-    this.pageSize = pageSize;
+    this.pagination.pageSize = pageSize;
 
     this.loadCollaborators(
-      this.pageSize,
-      this.pageNumber,
+      this.pagination.pageSize,
+      this.pagination.currentPage,
       this.selected === '' ? undefined : this.selected,
-      this.searchInput === '' ? undefined : this.searchInput
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesId.toString()=='' ? undefined : this.postesId,
+      this.niveauxId.toString()=='' ? undefined : this.niveauxId
     );
+  }
+
+  onChangePostes(postes: number[]) {
+    this.postesId = postes;
+
+    this.loadCollaborators(
+      this.pagination.pageSize,
+      1,
+      this.selected === '' ? undefined : this.selected,
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesId,
+      this.niveauxId.toString()=='' ? undefined : this.niveauxId
+    )
+  }
+
+  onChangeNiveaux(niveaux: number[]) {
+    this.niveauxId = niveaux;
+    //this.niveauxValue = this.niveauxId.toString().replace(',', '&niveauxId=')
+
+    this.loadCollaborators(
+      this.pagination.pageSize,
+      1,
+      this.selected === '' ? undefined : this.selected,
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesId.toString()=='' ? undefined : this.postesId,
+      this.niveauxId
+    )
   }
 
   // get search value from header child component
   // update collab table
   search(value: string) {
-    this.searchInput = value;
+    if(typeof value !== "string"){
+      this.searchInput = ''
+    }else{
+      this.searchInput = value;
+    }
 
     this.loadCollaborators(
-      this.pageSize,
+      this.pagination.pageSize,
       1,
       this.selected === '' ? undefined : this.selected,
-      this.searchInput === '' ? undefined : value
+      this.searchInput === '' ? undefined : value,
+      undefined,
+      this.postesId.toString()=='' ? undefined : this.postesId,
+      this.niveauxId.toString()=='' ? undefined : this.niveauxId
     );
   }
 
   // get current page value from footer child component
   // update current page number(pageNumber)
   // update collab table
-  getCurrentPage(page: number) {
-    this.pageNumber = page;
+  getCurrentPage(event: any) {
+
+    this.pagination.currentPage = +event.page;
     this.loadCollaborators(
-      this.pageSize,
-      this.pageNumber,
+      this.pagination.pageSize,
+      this.pagination.currentPage,
       this.selected === '' ? undefined : this.selected,
-      this.searchInput === '' ? undefined : this.searchInput
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesId.toString()=='' ? undefined : this.postesId,
+      this.niveauxId.toString()==''? undefined : this.niveauxId
     );
   }
 
   deleteCollab(id: any): void {
     this.collabToDelete = id;
   }
+
   confirmDelete(id: any): void {
     let message =
       'Collaborateur ' +
@@ -260,26 +333,21 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
     return Math.abs(now.getFullYear() - date.getFullYear());
   }
 
-  ngOnDestroy(): void {
-    this.exportSubscription.unsubscribe();
-    this.loadCollabSubscription.unsubscribe();
-    this.imageSubscription.unsubscribe();
-  }
   trier(value: string) {
     switch (value) {
       case 'matricule': {
         if (this.trierParMatricule) {
           this.loadCollaborators(
-            this.pageSize,
-            this.pageNumber,
+            this.pagination.pageSize,
+            this.pagination.currentPage,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
             'matricule_asc'
           );
         } else {
           this.loadCollaborators(
-            this.pageSize,
-            this.pageNumber,
+            this.pagination.pageSize,
+            this.pagination.currentPage,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
             'matricule_desc'
@@ -291,16 +359,16 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
       case 'nom': {
         if (this.trierParNom) {
           this.loadCollaborators(
-            this.pageSize,
-            this.pageNumber,
+            this.pagination.pageSize,
+            this.pagination.currentPage,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
             undefined
           ); // undefined because there is basically a sorted by name asc
         } else {
           this.loadCollaborators(
-            this.pageSize,
-            this.pageNumber,
+            this.pagination.pageSize,
+            this.pagination.currentPage,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
             'nom_desc'
@@ -312,16 +380,16 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
       case 'prenom': {
         if (this.trierParPrenom) {
           this.loadCollaborators(
-            this.pageSize,
-            this.pageNumber,
+            this.pagination.pageSize,
+            this.pagination.currentPage,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
             'prenom_asc'
           );
         } else {
           this.loadCollaborators(
-            this.pageSize,
-            this.pageNumber,
+            this.pagination.pageSize,
+            this.pagination.currentPage,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
             'prenom_desc'
@@ -333,16 +401,16 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
       case 'exp': {
         if (this.trierParAnnee) {
           this.loadCollaborators(
-            this.pageSize,
-            this.pageNumber,
+            this.pagination.pageSize,
+            this.pagination.currentPage,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
             'exp_asc'
           );
         } else {
           this.loadCollaborators(
-            this.pageSize,
-            this.pageNumber,
+            this.pagination.pageSize,
+            this.pagination.currentPage,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
             'exp_desc'
@@ -354,16 +422,16 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
       case 'poste': {
         if (this.trierParPoste) {
           this.loadCollaborators(
-            this.pageSize,
-            this.pageNumber,
+            this.pagination.pageSize,
+            this.pagination.currentPage,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
             'poste_asc'
           );
         } else {
           this.loadCollaborators(
-            this.pageSize,
-            this.pageNumber,
+            this.pagination.pageSize,
+            this.pagination.currentPage,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
             'poste_desc'
@@ -375,16 +443,16 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
       case 'niveau': {
         if (this.trierParNiveau) {
           this.loadCollaborators(
-            this.pageSize,
-            this.pageNumber,
+            this.pagination.pageSize,
+            this.pagination.currentPage,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
             'niveau_asc'
           );
         } else {
           this.loadCollaborators(
-            this.pageSize,
-            this.pageNumber,
+            this.pagination.pageSize,
+            this.pagination.currentPage,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
             'niveau_desc'

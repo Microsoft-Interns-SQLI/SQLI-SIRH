@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Collaborator } from '../Models/Collaborator';
 import { Pagination } from '../Models/pagination';
 import { CollaboratorsService } from '../services/collaborators.service';
 import { SpinnerService } from '../services/spinner.service';
+import { SaveState } from '../services/stateSave.service';
 import { ToastService } from '../shared/toast/toast.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { ToastService } from '../shared/toast/toast.service';
   templateUrl: './demissions.component.html',
   styleUrls: ['./demissions.component.css']
 })
-export class DemissionsComponent implements OnInit {
+export class DemissionsComponent implements OnInit, OnDestroy {
   demissionsArray: Collaborator[] = [];
 
   pageNumber = 1;
@@ -34,10 +35,18 @@ export class DemissionsComponent implements OnInit {
   trierParMatricule: boolean = false;
   trierParAnnee: boolean = false;
 
-  constructor(private service: CollaboratorsService, private toastService: ToastService, private spinnerService: SpinnerService) { }
+  postesId: number[]=[] ;
+  niveauxId: number[]=[] ;
+
+  constructor(private service: CollaboratorsService, private toastService: ToastService, private spinnerService: SpinnerService, private saveState: SaveState) { }
 
   ngOnInit(): void {
     this.loadDemissions(this.pageSize, this.pageNumber);
+
+  }
+
+  ngOnDestroy(): void {
+    this.saveState.saveState({url: 'integrations'}, 'fallback');
   }
 
   loadDemissions(
@@ -45,14 +54,16 @@ export class DemissionsComponent implements OnInit {
     pageNumber?: number,
     filtrerPar?: string,
     search?: string,
-    orderby?: string
+    orderby?: string,
+    postesId?: number[],
+    niveauxId?: number[]
   ) {
     if (search != undefined) {
       this.spinnerService.isSearch.next(true);
     } else {
       this.spinnerService.isSearch.next(false);
     }
-    this.service.getDemissionsList(pageSize, pageNumber, filtrerPar, search, orderby)
+    this.service.getDemissionsList(pageSize, pageNumber, filtrerPar, search, orderby,undefined,undefined,postesId,niveauxId)
       .subscribe({
         next: (resp) => {
           this.demissionsArray = resp.result;
@@ -80,8 +91,40 @@ export class DemissionsComponent implements OnInit {
       this.pageSize,
       this.pageNumber,
       this.selected === '' ? undefined : this.selected,
-      this.searchInput === '' ? undefined : this.searchInput
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesId.toString()=='' ? undefined : this.postesId,
+      this.niveauxId.toString()=='' ? undefined : this.niveauxId
     );
+  }
+
+  onChangePostes(postes: number[]) {
+    this.postesId = postes;
+
+    this.loadDemissions(
+      this.pageSize,
+      1,
+      this.selected === '' ? undefined : this.selected,
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesId,
+      this.niveauxId.toString()=='' ? undefined : this.niveauxId
+    )
+  }
+
+  onChangeNiveaux(niveaux: number[]) {
+    this.niveauxId = niveaux;
+    //this.niveauxValue = this.niveauxId.toString().replace(',', '&niveauxId=')
+
+    this.loadDemissions(
+      this.pageSize,
+      1,
+      this.selected === '' ? undefined : this.selected,
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesId.toString()=='' ? undefined : this.postesId,
+      this.niveauxId
+    )
   }
 
   // get search value from header child component
@@ -93,7 +136,10 @@ export class DemissionsComponent implements OnInit {
       this.pageSize,
       1,
       this.selected === '' ? undefined : this.selected,
-      this.searchInput === '' ? undefined : value
+      this.searchInput === '' ? undefined : value,
+      undefined,
+      this.postesId.toString()=='' ? undefined : this.postesId,
+      this.niveauxId.toString()=='' ? undefined : this.niveauxId
     );
   }
 
@@ -103,7 +149,10 @@ export class DemissionsComponent implements OnInit {
       this.pageSize,
       this.pageNumber,
       this.selected === '' ? undefined : this.selected,
-      this.searchInput === '' ? undefined : this.searchInput
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesId.toString()=='' ? undefined : this.postesId,
+      this.niveauxId.toString()==''? undefined : this.niveauxId
     );
   }
 

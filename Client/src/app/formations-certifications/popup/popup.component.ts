@@ -14,6 +14,7 @@ import { PopupService } from './popup.service';
 })
 export class PopupComponent implements OnInit, OnDestroy {
 
+  errorMessage:string = '';
   selected: string = '';
   @Input() type!: string;
 
@@ -40,9 +41,10 @@ export class PopupComponent implements OnInit, OnDestroy {
 
   hideModal() {
     this.popupService.hide();
+    this.errorMessage = '';
   }
   onSubmit(form: NgForm) {
-    if(this.type === "formation"){
+    if (this.type === "formation") {
       let item: CollabFormationCertif = {
         id: this.model.id,
         collaborateurId: this.model.collaborateurId,
@@ -54,13 +56,14 @@ export class PopupComponent implements OnInit, OnDestroy {
 
       this.sub = this.formationCertifService.updateCollabFormation(item).subscribe(
         {
+          error: err=> this.errorMessage = err.error,
           complete: () => {
             this.hideModal();
             this.certificationEvent.emit(item);
           }
         }
       )
-    }else if(this.type === "certification"){
+    } else if (this.type === "certification") {
       let item: CollabFormationCertif = {
         id: this.model.id,
         collaborateurId: this.model.collaborateurId,
@@ -72,6 +75,7 @@ export class PopupComponent implements OnInit, OnDestroy {
 
       this.sub = this.formationCertifService.updateCollabCertif(item).subscribe(
         {
+          error: err=> this.errorMessage = err.error,
           complete: () => {
             this.hideModal();
             this.certificationEvent.emit(item);
@@ -82,11 +86,11 @@ export class PopupComponent implements OnInit, OnDestroy {
   }
 
   selectChange(value: string) {
-    if (value == "AFAIRE") {
-      this.dateFin = new Date();
-    } else {
-      this.dateFin = this.model.dateFin;
-    }
+    // if (value == "AFAIRE") {
+    //   this.dateFin = new Date();
+    // } else {
+    //   this.dateFin = this.model.dateFin;
+    // }
   }
 
   ngOnDestroy(): void {

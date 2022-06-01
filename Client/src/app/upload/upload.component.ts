@@ -1,8 +1,15 @@
 import { HttpEventType } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FilesService } from '../services/files.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { CollabFile } from '../Models/collabFile';
 
 @Component({
   selector: 'app-upload',
@@ -10,6 +17,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./upload.component.css'],
 })
 export class UploadComponent implements OnInit, OnDestroy {
+  @Output() filesEmitter = new EventEmitter();
+
   SubscriptionArray?: Subscription[];
   subscription!: Subscription;
   subscription2!: Subscription;
@@ -24,7 +33,7 @@ export class UploadComponent implements OnInit, OnDestroy {
   collabId: number = 0;
   progress: number = 0;
   formData: FormData = new FormData();
-  path: string = '';
+  path: CollabFile[] = [];
   docType: string = 'CV';
   constructor(
     private filesService: FilesService,
@@ -37,7 +46,6 @@ export class UploadComponent implements OnInit, OnDestroy {
   }
   onChange(value: any) {
     this.docType = value.target.value;
-    console.log(this.docType);
   }
   public readFiles(files: any) {
     this.files = files;
@@ -62,7 +70,7 @@ export class UploadComponent implements OnInit, OnDestroy {
                 if (event.ok) {
                   this.error = '';
                 }
-                this.path = event.body[0];
+                this.path.push(event.body[0]);
               }
             },
             error: (err) => {
@@ -77,5 +85,16 @@ export class UploadComponent implements OnInit, OnDestroy {
           });
       }
     }
+  }
+
+  onModalClose() {
+    if (this.error === '') {
+      this.filesEmitter.emit(this.path);
+    }
+    this.path.splice(0, this.path.length);
+    this.files.splice(0, this.files.length);
+    this.isDone = false;
+    this.progress = 0;
+    this.error = '';
   }
 }

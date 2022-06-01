@@ -4,7 +4,10 @@ using API_MySIRH.Helpers;
 using API_MySIRH.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using LinqKit;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace API_MySIRH.Services
 {
@@ -38,6 +41,19 @@ namespace API_MySIRH.Services
 
             if (!(string.IsNullOrWhiteSpace(filterParams.Search)))
                 query = query.Where(c => c.Nom.Contains(filterParams.Search) || c.Prenom.Contains(filterParams.Search));
+
+            if (!string.IsNullOrEmpty(filterParams.postesId))
+            {
+                query = query.Where(coll => filterParams.postesId.Contains((coll.Carrieres.AsEnumerable().OrderByDescending(c => c.Annee).First().PosteId).ToString()))
+                    .AsQueryable();
+            }
+
+            if (!string.IsNullOrEmpty(filterParams.niveauxId))
+            {
+                query = query.Where(coll => filterParams.niveauxId.Contains((coll.Carrieres.AsEnumerable().OrderByDescending(c => c.Annee).First().NiveauId).ToString()))
+                                .AsQueryable();
+
+            }
 
             if (!string.IsNullOrWhiteSpace(filterParams.OrderByCertification))
             {
@@ -84,24 +100,38 @@ namespace API_MySIRH.Services
 
         public async Task<PagedList<CollaborateurDTO>> GetCollaborateurs(FilterParams filterParams)
         {
+            var x = filterParams.OrderByCertification.Replace('\\', ' ').Replace('"', ' ').Trim();
             var query = this._collaborateurRepository.GetCollaborateurs().AsQueryable();
-
+            Console.WriteLine(query.ToString());
             if (!string.IsNullOrEmpty(filterParams.Site))
-                query = query.Where(c => c.Site.Name == filterParams.Site);
+                query = query.Where(c => c.Site.Name == filterParams.Site); 
 
             if (!(string.IsNullOrWhiteSpace(filterParams.Search)))
                 query = query.Where(c => c.Nom.Contains(filterParams.Search) || c.Prenom.Contains(filterParams.Search));
 
+            if (!string.IsNullOrEmpty(filterParams.postesId))
+            {
+                query = query.Where(coll => filterParams.postesId.Contains((coll.Carrieres.AsEnumerable().OrderByDescending(c => c.Annee).First().PosteId).ToString()))
+                    .AsQueryable();
+            }
+
+            if (!string.IsNullOrEmpty(filterParams.niveauxId))
+            {
+                query = query.Where(coll => filterParams.niveauxId.Contains((coll.Carrieres.AsEnumerable().OrderByDescending(c => c.Annee).First().NiveauId).ToString()))
+                                .AsQueryable();
+
+            }
+
             if (!string.IsNullOrWhiteSpace(filterParams.OrderByCertification))
             {
                 query = query.OrderByDescending(
-                    x => x.Certifications.Where(x => x.Libelle == filterParams.OrderByCertification).Any()
+                    x => x.Certifications.Where(x => x.Libelle == filterParams.OrderByCertification.Replace('\\', ' ').Replace('"',' ').Trim()).Any()
                     && x.CollaborateurCertifications.Where(x => x.DateDebut.Value.Year == filterParams.Year).Any());
 
                 if (filterParams.Status != 0)
                 {
                     query = query.OrderByDescending(
-                    x => x.Certifications.Where(x => x.Libelle == filterParams.OrderByCertification).Any()
+                    x => x.Certifications.Where(x => x.Libelle == filterParams.OrderByCertification.Replace('\\', ' ').Replace('"', ' ').Trim()).Any()
                     && x.CollaborateurCertifications.Where(x => x.DateDebut.Value.Year == filterParams.Year).Any()
                     && x.CollaborateurCertifications.Where(x => x.Status == filterParams.Status).Any());
                 }
@@ -111,13 +141,13 @@ namespace API_MySIRH.Services
             else if (!string.IsNullOrWhiteSpace(filterParams.OrderByFormation))
             {
                 query = query.OrderByDescending(
-                    x => x.Formations.Where(x => x.Libelle == filterParams.OrderByFormation).Any()
+                    x => x.Formations.Where(x => x.Libelle == filterParams.OrderByFormation.Replace('\\', ' ').Replace('"', ' ').Trim()).Any()
                     && x.CollaborateurFormations.Where(x => x.DateDebut.Value.Year == filterParams.Year).Any());
 
                 if (filterParams.Status != 0)
                 {
                     query = query.OrderByDescending(
-                                x => x.Formations.Where(x => x.Libelle == filterParams.OrderByFormation).Any()
+                                x => x.Formations.Where(x => x.Libelle == filterParams.OrderByFormation.Replace('\\', ' ').Replace('"', ' ').Trim()).Any()
                                 && x.CollaborateurFormations.Where(x => x.Status == filterParams.Status).Any()
                                 && x.CollaborateurFormations.Where(x => x.DateDebut.Value.Year == filterParams.Year).Any());
                 }
@@ -138,6 +168,19 @@ namespace API_MySIRH.Services
 
             if (!(string.IsNullOrWhiteSpace(filterParams.Search)))
                 query = query.Where(c => c.Nom.Contains(filterParams.Search) || c.Prenom.Contains(filterParams.Search));
+
+            if (!string.IsNullOrEmpty(filterParams.postesId))
+            {
+                query = query.Where(coll => filterParams.postesId.Contains((coll.Carrieres.AsEnumerable().OrderByDescending(c => c.Annee).First().PosteId).ToString()))
+                    .AsQueryable();
+            }
+
+            if (!string.IsNullOrEmpty(filterParams.niveauxId))
+            {
+                query = query.Where(coll => filterParams.niveauxId.Contains((coll.Carrieres.AsEnumerable().OrderByDescending(c => c.Annee).First().NiveauId).ToString()))
+                                .AsQueryable();
+
+            }
 
             if (!string.IsNullOrWhiteSpace(filterParams.OrderByCertification))
             {

@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Collaborator, Demission } from 'src/app/Models/Collaborator';
+import { ModalAjoutDemissionComponent } from '../modal-ajout-demission/modal-ajout-demission.component';
 
 @Component({
   selector: 'app-demission-tab',
