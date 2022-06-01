@@ -317,7 +317,7 @@
         <div class="row d-flex w-75 m-auto mb-3 justify-content-evenly">
           <button
             [routerLink]="['/addEditcollaborateur', item.id]"
-            class="col-5 btn btn-sm btn-primary me-2 mb-1"
+            class="col btn btn-sm btn-primary me-2 mb-1"
             aria-label="edit"
           >
             <svg
@@ -339,7 +339,7 @@
           </button>
           <button
             (click)="deleteCollab(item)"
-            class="col-5 btn btn-sm btn-danger me-2 mb-1"
+            class="col btn btn-sm btn-danger me-2 mb-1"
             data-bs-toggle="modal"
             data-bs-target="#deleteModal"
             aria-label="delete"
@@ -360,6 +360,12 @@
                 d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
               />
             </svg>
+          </button>
+          <button
+            class="col me-2 mb-1 btn btn-sm btn-secondary"
+            (click)="download(item.documents)"
+          >
+            <i class="bi bi-file-earmark-arrow-down"></i>
           </button>
         </div>
       </div>
