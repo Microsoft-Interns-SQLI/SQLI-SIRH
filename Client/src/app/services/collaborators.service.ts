@@ -5,7 +5,14 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError, tap, switchMap, Subscription } from 'rxjs';
+import {
+  catchError,
+  Observable,
+  throwError,
+  tap,
+  switchMap,
+  Subscription,
+} from 'rxjs';
 import { map } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
@@ -22,78 +29,107 @@ export class CollaboratorsService {
     Collaborator[]
   >();
 
-  constructor(private http: HttpClient, private imageService: ImagesService) { }
+  constructor(private http: HttpClient, private imageService: ImagesService) {}
 
-  getCollaboratorsList(itemsPerPage?: number, page?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyFormation?: string, orderbyCertification?: string, postesId?: number[], niveauxId?: number[] ,year?: number, status?: number) {
+  getCollaboratorsList(
+    itemsPerPage?: number,
+    page?: number,
+    filtrerPar?: string,
+    search?: string,
+    orderby?: string,
+    orderbyFormation?: string,
+    orderbyCertification?: string,
+    postesId?: number[],
+    niveauxId?: number[],
+    year?: number,
+    status?: number
+  ) {
     //delay(50000);
     let params = new HttpParams();
     if (page != undefined && itemsPerPage != undefined) {
       params = params.append('pageNumber', page.toString());
       params = params.append('pageSize', itemsPerPage.toString());
     }
-    if (filtrerPar != undefined) {
-      params = params.append("Site", filtrerPar)
+    if (filtrerPar !== undefined && filtrerPar !== '') {
+      params = params.append('Site', filtrerPar);
     }
     if (orderby != undefined)
       params = params.append('OrderBy', orderby.toString());
 
     if (search != undefined) {
-      params = params.append("Search", search);
+      params = params.append('Search', search);
     }
     if (orderbyFormation != undefined) {
-      params = params.append("OrderByFormation", JSON.stringify(orderbyFormation));
+      params = params.append(
+        'OrderByFormation',
+        JSON.stringify(orderbyFormation)
+      );
     }
 
     if (orderbyCertification != undefined) {
-      params = params.append("OrderByCertification", orderbyCertification);
+      params = params.append('OrderByCertification', orderbyCertification);
     }
-    if (postesId != undefined && postesId.toString()!='' ) {
-      params = params.appendAll({"postesId":postesId});
-   
+    if (postesId != undefined && postesId.toString() != '') {
+      params = params.appendAll({ postesId: postesId });
     }
-    if (niveauxId != undefined && niveauxId.toString()!='' ) {
+    if (niveauxId != undefined && niveauxId.toString() != '') {
       console.log(niveauxId.length);
-      params = params.appendAll({"niveauxId":niveauxId});
+      params = params.appendAll({ niveauxId: niveauxId });
     }
-    console.log('those are my params ='+params.toString());
+    console.log('those are my params =' + params.toString());
     if (orderbyCertification != undefined) {
-      params = params.append("OrderByCertification", orderbyCertification);
+      params = params.append('OrderByCertification', orderbyCertification);
     }
     if (year != undefined) {
-      params = params.append("Year", year);
+      params = params.append('Year', year);
     }
 
     if (status != undefined) {
-      params = params.append("Status", status);
+      params = params.append('Status', status);
     }
     let sub: Subscription;
     return this.http.get<any>(this.myUrl, { observe: 'response', params }).pipe(
       map((response) => {
-        this.paginatedResult.result = <Collaborator[]>response.body.map((collab: Collaborator) => {
-          sub = this.imageService.checkImage(collab.id).subscribe({
-            next: d => {
-              collab.imgPath = d ? `${environment.URL}api/Image/${collab.id}` : 'https://bootstrapious.com/i/snippets/sn-team/teacher-2.jpg';
-            },
-            error: er => console.log(er)
-          });
-          let currentCarriere = collab.carrieres?.sort((a, b) => a.annee - b.annee).pop();
-          collab.niveau = currentCarriere?.niveau;
-          collab.poste = currentCarriere?.poste;
-          return collab;
-        });
+        this.paginatedResult.result = <Collaborator[]>response.body.map(
+          (collab: Collaborator) => {
+            sub = this.imageService.checkImage(collab.id).subscribe({
+              next: (d) => {
+                collab.imgPath = d
+                  ? `${environment.URL}api/Image/${collab.id}`
+                  : 'https://bootstrapious.com/i/snippets/sn-team/teacher-2.jpg';
+              },
+              error: (er) => console.log(er),
+            });
+            let currentCarriere = collab.carrieres
+              ?.sort((a, b) => a.annee - b.annee)
+              .pop();
+            collab.niveau = currentCarriere?.niveau;
+            collab.poste = currentCarriere?.poste;
+            return collab;
+          }
+        );
         if (response.headers.get('Pagination') != null) {
           this.paginatedResult.pagination = JSON.parse(
             response.headers.get('Pagination') || ''
           );
         }
-        if(sub != undefined)
-          sub.unsubscribe();
+        if (sub != undefined) sub.unsubscribe();
         return this.paginatedResult;
       })
     );
   }
 
-  getDemissionsList(itemsPerPage?: number, page?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyFormation?: string, orderbyCertification?: string,postesId?: number[], niveauxId?: number[]) {
+  getDemissionsList(
+    itemsPerPage?: number,
+    page?: number,
+    filtrerPar?: string,
+    search?: string,
+    orderby?: string,
+    orderbyFormation?: string,
+    orderbyCertification?: string,
+    postesId?: number[],
+    niveauxId?: number[]
+  ) {
     //delay(50000);
     let params = new HttpParams();
     if (page != undefined && itemsPerPage != undefined) {
@@ -101,39 +137,43 @@ export class CollaboratorsService {
       params = params.append('pageSize', itemsPerPage.toString());
     }
     if (filtrerPar != undefined) {
-      params = params.append("Site", filtrerPar)
+      params = params.append('Site', filtrerPar);
     }
     if (orderby != undefined)
       params = params.append('OrderBy', orderby.toString());
 
     if (search != undefined) {
-      params = params.append("Search", search);
+      params = params.append('Search', search);
     }
     if (orderbyFormation != undefined) {
-      params = params.append("OrderByFormation", orderbyFormation);
+      params = params.append('OrderByFormation', orderbyFormation);
     }
 
     if (orderbyCertification != undefined) {
-      params = params.append("OrderByCertification", orderbyCertification);
+      params = params.append('OrderByCertification', orderbyCertification);
     }
 
-    if (postesId != undefined && postesId.toString()!='' ) {
-      params = params.appendAll({"postesId":postesId});
-   
+    if (postesId != undefined && postesId.toString() != '') {
+      params = params.appendAll({ postesId: postesId });
     }
-    if (niveauxId != undefined && niveauxId.toString()!='' ) {
+    if (niveauxId != undefined && niveauxId.toString() != '') {
       console.log(niveauxId.length);
-      params = params.appendAll({"niveauxId":niveauxId});
+      params = params.appendAll({ niveauxId: niveauxId });
     }
-    return this.http.get<any>(this.myUrl + '/demission', { observe: 'response', params })
+    return this.http
+      .get<any>(this.myUrl + '/demission', { observe: 'response', params })
       .pipe(
         map((response) => {
-          this.paginatedResult.result = <Collaborator[]>response.body.map((collab: Collaborator) => {
-            let currentCarriere = collab.carrieres?.sort((a, b) => a.annee - b.annee).pop();
-            collab.niveau = currentCarriere?.niveau;
-            collab.poste = currentCarriere?.poste;
-            return collab;
-          });
+          this.paginatedResult.result = <Collaborator[]>response.body.map(
+            (collab: Collaborator) => {
+              let currentCarriere = collab.carrieres
+                ?.sort((a, b) => a.annee - b.annee)
+                .pop();
+              collab.niveau = currentCarriere?.niveau;
+              collab.poste = currentCarriere?.poste;
+              return collab;
+            }
+          );
           if (response.headers.get('Pagination') != null) {
             this.paginatedResult.pagination = JSON.parse(
               response.headers.get('Pagination') || ''
@@ -145,10 +185,13 @@ export class CollaboratorsService {
   }
 
   getCollaboratorByMatricule(id: number | string): Observable<Collaborator> {
-    return this.http.get<any>(this.myUrl + '/' + id, { responseType: 'json' })
+    return this.http
+      .get<any>(this.myUrl + '/' + id, { responseType: 'json' })
       .pipe(
         map((collab: Collaborator) => {
-          let currentCarriere = collab.carrieres?.sort((a, b) => a.annee - b.annee).pop();
+          let currentCarriere = collab.carrieres
+            ?.sort((a, b) => a.annee - b.annee)
+            .pop();
           collab.niveau = currentCarriere?.niveau;
           collab.poste = currentCarriere?.poste;
           return collab;
@@ -185,66 +228,81 @@ export class CollaboratorsService {
     }
     return this.http.get(this.myUrl + '/export', {
       responseType: 'blob',
-      params
-    })
+      params,
+    });
   }
 
   getIntegrationsYearRange(): Observable<number[]> {
     return this.http.get<number[]>(this.myUrl + '/IntrgrationsRange');
   }
 
-  getIntegrationsList(itemsPerPage?: number, page?: number, year?: number, filtrerPar?: string, search?: string, orderby?: string, orderbyFormation?: string, orderbyCertification?: string,postesId?: number[], niveauxId?: number[]) {
+  getIntegrationsList(
+    itemsPerPage?: number,
+    page?: number,
+    year?: number,
+    filtrerPar?: string,
+    search?: string,
+    orderby?: string,
+    orderbyFormation?: string,
+    orderbyCertification?: string,
+    postesId?: number[],
+    niveauxId?: number[]
+  ) {
     //delay(50000);
     let params = new HttpParams();
-    if (year != undefined)
-      params = params.append('year', year);
+    if (year != undefined) params = params.append('year', year);
     if (page != undefined && itemsPerPage != undefined) {
       params = params.append('pageNumber', page.toString());
       params = params.append('pageSize', itemsPerPage.toString());
     }
     if (filtrerPar != undefined) {
-      params = params.append("Site", filtrerPar)
+      params = params.append('Site', filtrerPar);
     }
     if (orderby != undefined)
       params = params.append('OrderBy', orderby.toString());
 
     if (search != undefined) {
-      params = params.append("Search", search);
+      params = params.append('Search', search);
     }
     if (orderbyFormation != undefined) {
-      params = params.append("OrderByFormation", orderbyFormation);
+      params = params.append('OrderByFormation', orderbyFormation);
     }
 
     if (orderbyCertification != undefined) {
-      params = params.append("OrderByCertification", orderbyCertification);
+      params = params.append('OrderByCertification', orderbyCertification);
     }
 
-    if (postesId != undefined && postesId.toString()!='' ) {
-      params = params.appendAll({"postesId":postesId});
-   
+    if (postesId != undefined && postesId.toString() != '') {
+      params = params.appendAll({ postesId: postesId });
     }
-    if (niveauxId != undefined && niveauxId.toString()!='' ) {
+    if (niveauxId != undefined && niveauxId.toString() != '') {
       console.log(niveauxId.length);
-      params = params.appendAll({"niveauxId":niveauxId});
+      params = params.appendAll({ niveauxId: niveauxId });
     }
 
-    return this.http.get<any>(this.myUrl + '/integrations', { observe: 'response', params }).pipe(
-      map((response) => {
-        this.paginatedResult.result = <Collaborator[]>response.body.map((collab: Collaborator) => {
-          let currentCarriere = collab.carrieres?.sort((a, b) => a.annee - b.annee).pop();
-          collab.niveau = currentCarriere?.niveau;
-          collab.poste = currentCarriere?.poste;
-          return collab;
-        });
-
-        if (response.headers.get('Pagination') != null) {
-          this.paginatedResult.pagination = JSON.parse(
-            response.headers.get('Pagination') || ''
+    return this.http
+      .get<any>(this.myUrl + '/integrations', { observe: 'response', params })
+      .pipe(
+        map((response) => {
+          this.paginatedResult.result = <Collaborator[]>response.body.map(
+            (collab: Collaborator) => {
+              let currentCarriere = collab.carrieres
+                ?.sort((a, b) => a.annee - b.annee)
+                .pop();
+              collab.niveau = currentCarriere?.niveau;
+              collab.poste = currentCarriere?.poste;
+              return collab;
+            }
           );
-        }
-        return this.paginatedResult;
-      })
-    );
+
+          if (response.headers.get('Pagination') != null) {
+            this.paginatedResult.pagination = JSON.parse(
+              response.headers.get('Pagination') || ''
+            );
+          }
+          return this.paginatedResult;
+        })
+      );
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {
@@ -256,4 +314,3 @@ export class CollaboratorsService {
 function foreach(arg0: boolean) {
   throw new Error('Function not implemented.');
 }
-
