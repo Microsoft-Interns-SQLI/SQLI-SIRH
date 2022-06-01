@@ -72,6 +72,8 @@ import { MdmTableComponent } from './mdm-panel/mdm-table/mdm-table.component';
 import { CertificationsCollabComponent } from './certifications-collab/certifications-collab.component';
 import { EncodeHttpParamsInterceptor } from './interceptors/encode-http-params.interceptor';
 import { AuthentificationInterceptor } from './interceptors/authentification.interceptor';
+import { CarrieresComponent } from './carrieres/carrieres.component';
+import { ModalAjoutCarriereComponent } from './carrieres/modal-ajout-carriere/modal-ajout-carriere.component';
 
 @NgModule({
   declarations: [
@@ -130,6 +132,8 @@ import { AuthentificationInterceptor } from './interceptors/authentification.int
     FormationsCollabComponent,
     MdmTableComponent,
     CertificationsCollabComponent,
+    CarrieresComponent,
+    ModalAjoutCarriereComponent,
   ],
   imports: [
     CommonModule,
@@ -159,4 +163,4 @@ import { AuthentificationInterceptor } from './interceptors/authentification.int
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

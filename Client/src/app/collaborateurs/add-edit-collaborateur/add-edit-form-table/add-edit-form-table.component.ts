@@ -18,18 +18,20 @@ import { CollabFormationCertif } from 'src/app/Models/collaborationCertification
 import { Diplome } from 'src/app/Models/MdmModel';
 import { FormationCertificationsService } from 'src/app/services/formation-certifications.service';
 import { MdmService } from 'src/app/services/mdm.service';
-import { ModalAjoutDemissionComponent } from './_demission_tab/modal-ajout-demission/modal-ajout-demission.component';
 import {
   SelectInputData,
   SelectInputObject,
 } from './_form_inputs/select-input/select-input';
 import { CollabTypeContrat } from 'src/app/Models/CollabTypeContrat';
+import { CarrieresComponent } from 'src/app/carrieres/carrieres.component';
+import { Carriere } from 'src/app/Models/Carriere';
 
 @Component({
   selector: 'app-add-edit-form-table',
   templateUrl: './add-edit-form-table.component.html',
 })
 export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
+  @ViewChild('carrieres') carrieres!: CarrieresComponent;
   @ViewChild('contrats') contrats!: ContratsComponent;
   @ViewChild('diplomes') diplomes!: DiplomesComponent;
   @Input() collab!: Collaborator;
@@ -51,7 +53,7 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
   constructor(
     private service: MdmService,
     private formationCertifService: FormationCertificationsService
-  ) {}
+  ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.collab.id != 0) {
@@ -100,6 +102,10 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
     this.diplomes.addDiplome(diplome);
   }
 
+  refreshCarrieres(carriere: Carriere) {
+    this.carrieres.addCarriere(carriere);
+  }
+
   ngOnDestroy(): void {
     if (this.subIntersectionF != undefined) this.subIntersectionF.unsubscribe();
     if (this.subIntersectionC != undefined) this.subIntersectionC.unsubscribe();
@@ -123,7 +129,7 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   updateDemission(event: number) {
-    if(event == 0) {
+    if (event == 0) {
       this.demis = undefined;
       this.demisTitle = "Ajouter Demission";
       return;

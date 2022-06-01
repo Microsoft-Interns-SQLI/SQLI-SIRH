@@ -37,7 +37,7 @@ export class Collaborator {
   niveau?: Niveau;
   posteId: number = 0;
   poste?: Poste;
-  carrieres?: Carriere[];
+  carrieres: Carriere[] = [];
   nationnalite: string = '';
   siteId?: number;
   lieuNaissance: string = '';

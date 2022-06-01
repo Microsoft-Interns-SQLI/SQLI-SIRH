@@ -173,7 +173,7 @@
             </div>
             <div *ngIf="collab.id" id="carriere-past-jobs" aria-labelledby="carriere-past-jobs-tab" role="tabpanel"
               class="tab-pane fade">
-              Carrière & Past Jobs Content
+              <app-carrieres [collab]="collab" #carrieres></app-carrieres>
             </div>
             <div id="demissions" aria-labelledby="demissions-tab" role="tabpanel" class="tab-pane fade">
               <app-demission-tab (updateDemission)="updateDemission($event)" [collab]="collab" #demission>
@@ -216,5 +216,8 @@
 
   <app-modal-ajout-demission [demission]="demis" [title]="demisTitle" (addDemmision)="addDemission($event)">
   </app-modal-ajout-demission>
+
+  <app-modal-ajout-carriere [collaborateur]="collab" (refreshCarrieres)="refreshCarrieres($event)">
+  </app-modal-ajout-carriere>
 
 </form>
