@@ -63,13 +63,17 @@
                         </div>
 
                         <div class="col-md-2 text-center">
-                            <button class="btn btn-sm btn-success me-1" type="submit" [disabled]="form.invalid">
-                                <i class="bi bi-check-square"></i>
-                            </button>
-                            <button class="btn btn-sm btn-danger ms-1" (click)="deleteFormation(i)">
+                            <button class="btn btn-sm btn-danger" (click)="deleteFormation(i)">
                                 <span class="bi bi-x"></span>
                             </button>
                         </div>
+                    </div>
+                </div>
+                <div class="row justify-content-end mt-2">
+                    <div class="col-md-2 text-center">
+                        <button class="btn btn-sm btn-success" type="submit" [disabled]="form.invalid">
+                            <i class="bi bi-check-square"></i>
+                        </button>
                     </div>
                 </div>
             </form>
