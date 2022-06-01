@@ -57,7 +57,7 @@
                                 [ngModel]="dateFin | date: 'yyyy-MM-dd'" name="dateFin" required>
                         </div>
                     </div>
-                    <div class="col-md-12 mt-3">
+                    <div class="col-md-12 mt-3 mb-2">
                         <div class="form-group">
                             <label>Status :</label>
                             <select class="form-select form-select-sm" id="inputGroupStatus" name="status"
@@ -67,7 +67,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col mb-2" *ngIf="errorMessage">
+                    <div class="col" *ngIf="errorMessage">
                         <div class="alert alert-danger p-1">
                             {{errorMessage}}
                         </div>
