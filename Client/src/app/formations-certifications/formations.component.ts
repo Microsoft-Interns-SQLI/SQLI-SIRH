@@ -117,6 +117,7 @@ export class FormationsComponent implements OnInit, OnDestroy {
   }
 
   sortData(libelle: string) {
+    console.log(this.statusSelected);
     this.loadCollaborators(
       this.pageSize,
       this.pageNumber,

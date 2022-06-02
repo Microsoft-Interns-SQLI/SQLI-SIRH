@@ -41,7 +41,8 @@ export class FormationCertificationsService {
 
     return this.http.get<FormationCertificationResponse>(this.url_collab_certif, { params }).pipe(
       map(data => {
-        data.list = data.list.map((item: any) => {
+        if (data.list.length != 0) {
+          data.list = data.list.map((item: any) => {
           const cc: CollabFormationCertif = {
             id: item.id,
             status: item.status,
@@ -52,7 +53,7 @@ export class FormationCertificationsService {
             name: item['certificationLibelle']
           } as CollabFormationCertif
           return cc;
-        });
+        });}
 
         return data;
       })

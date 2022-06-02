@@ -26,9 +26,16 @@
     </div>
 
     <div class="col-md-3 mt-4">
-        <label>Recherche :</label>
+        <!-- <label>Recherche :</label>
         <input type="search" class="form-control form-control-sm" placeholder="Matricule, Nom, Poste ..."
-            (keyup)="onSearchChange()" [(ngModel)]="value">
+            (keyup)="onSearchChange()" [(ngModel)]="value"> -->
+        <label>Recherche :</label>
+        <div class="input-group">
+            <input type="search" class="form-control" placeholder="Matricule, Nom, Poste ..."
+                [(ngModel)]="value">
+            <button class="input-group-text btn btn-sm btn-outline-secondary" (click)="onSearchChange()"><span
+                    class="bi bi-search"></span> </button>
+        </div>
     </div>
 </div>
 <!-- </div> -->
