@@ -6,5 +6,6 @@ namespace API_MySIRH.Interfaces
     public interface IFileRepository
     {
         Task<Document> Upload(Document file);
+        Task Delete(int id);
     }
 }

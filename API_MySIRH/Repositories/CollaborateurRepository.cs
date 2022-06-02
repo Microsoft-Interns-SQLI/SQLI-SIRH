@@ -62,14 +62,14 @@ namespace API_MySIRH.Repositories
             return query;
         }
 
-        public IQueryable<Collaborateur> GetCollaborateursByPostId(IQueryable collaborateurs,int postId) 
+        public IQueryable<Collaborateur> GetCollaborateursByPostId(IQueryable collaborateurs, int postId)
         {
             var query = ((List<Collaborateur>)collaborateurs)
-                    .Where(coll => coll.GetCurrentCarriere() !=null && coll.GetCurrentCarriere().PosteId == postId);
+                    .Where(coll => coll.GetCurrentCarriere() != null && coll.GetCurrentCarriere().PosteId == postId);
             return query.AsQueryable();
         }
 
-        public IQueryable<Collaborateur> GetCollaborateursByNiveauId(IQueryable collaborateurs,int niveauId) 
+        public IQueryable<Collaborateur> GetCollaborateursByNiveauId(IQueryable collaborateurs, int niveauId)
         {
             var query = ((List<Collaborateur>)collaborateurs)
                     .Where(coll => coll.GetCurrentCarriere() != null && coll.GetCurrentCarriere().NiveauId == niveauId);
