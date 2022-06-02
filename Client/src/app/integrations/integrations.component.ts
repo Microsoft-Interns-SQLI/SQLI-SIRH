@@ -9,7 +9,7 @@ import { ToastService } from '../shared/toast/toast.service';
 @Component({
   selector: 'app-integrations',
   templateUrl: './integrations.component.html',
-  styleUrls: ['./integrations.component.css']
+  styleUrls: ['./integrations.component.css'],
 })
 export class IntegrationsComponent implements OnInit, OnDestroy {
   demissionsArray: Collaborator[] = [];
@@ -17,7 +17,7 @@ export class IntegrationsComponent implements OnInit, OnDestroy {
   pageNumber = 1;
   pageSize = 10;
   pageYear = new Date().getFullYear();
-  yearsRange:number[] = []
+  yearsRange: number[] = [];
 
   //Initalize pagination to avert undefined error value in the child component
   pagination: Pagination = {
@@ -38,11 +38,15 @@ export class IntegrationsComponent implements OnInit, OnDestroy {
   trierParMatricule: boolean = false;
   trierParAnnee: boolean = false;
 
-  postesId: number[]=[] ;
-  niveauxId: number[]=[] ;
+  postesId: number[] = [];
+  niveauxId: number[] = [];
 
-  constructor(private service: CollaboratorsService, private toastService: ToastService, private spinnerService: SpinnerService, private saveState: SaveState) { }
-
+  constructor(
+    private service: CollaboratorsService,
+    private toastService: ToastService,
+    private spinnerService: SpinnerService,
+    private saveState: SaveState
+  ) {}
 
   ngOnInit(): void {
     this.loadIntegrationsRange();
@@ -50,13 +54,13 @@ export class IntegrationsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.saveState.saveState({url: 'integrations'}, 'fallback');
+    this.saveState.saveState({ url: 'integrations' }, 'fallback');
   }
 
   loadIntegrationsRange() {
     this.service.getIntegrationsYearRange().subscribe((res) => {
       this.yearsRange = res;
-    })
+    });
   }
 
   loadIntegrations(
@@ -74,14 +78,25 @@ export class IntegrationsComponent implements OnInit, OnDestroy {
     } else {
       this.spinnerService.isSearch.next(false);
     }
-    this.service.getIntegrationsList(pageSize, pageNumber, year, filtrerPar, search, orderby, undefined, undefined, postesId, niveauxId)
+    this.service
+      .getIntegrationsList(
+        pageSize,
+        pageNumber,
+        year,
+        filtrerPar,
+        search,
+        orderby,
+        undefined,
+        undefined,
+        postesId,
+        niveauxId
+      )
       .subscribe({
         next: (resp) => {
           this.demissionsArray = resp.result;
           this.pagination = resp.pagination;
         },
-        complete: () =>{
-        },
+        complete: () => {},
       });
   }
 
@@ -104,8 +119,8 @@ export class IntegrationsComponent implements OnInit, OnDestroy {
       this.selected === '' ? undefined : this.selected,
       this.searchInput === '' ? undefined : this.searchInput,
       undefined,
-      this.postesId.toString()=='' ? undefined : this.postesId,
-      this.niveauxId.toString()=='' ? undefined : this.niveauxId
+      this.postesId.toString() == '' ? undefined : this.postesId,
+      this.niveauxId.toString() == '' ? undefined : this.niveauxId
     );
   }
 
@@ -120,13 +135,12 @@ export class IntegrationsComponent implements OnInit, OnDestroy {
       this.searchInput === '' ? undefined : this.searchInput,
       undefined,
       this.postesId,
-      this.niveauxId.toString()=='' ? undefined : this.niveauxId
-    )
+      this.niveauxId.toString() == '' ? undefined : this.niveauxId
+    );
   }
 
   onChangeNiveaux(niveaux: number[]) {
     this.niveauxId = niveaux;
-    //this.niveauxValue = this.niveauxId.toString().replace(',', '&niveauxId=')
 
     this.loadIntegrations(
       this.pageSize,
@@ -135,9 +149,9 @@ export class IntegrationsComponent implements OnInit, OnDestroy {
       this.selected === '' ? undefined : this.selected,
       this.searchInput === '' ? undefined : this.searchInput,
       undefined,
-      this.postesId.toString()=='' ? undefined : this.postesId,
+      this.postesId.toString() == '' ? undefined : this.postesId,
       this.niveauxId
-    )
+    );
   }
 
   // get search value from header child component
@@ -152,8 +166,8 @@ export class IntegrationsComponent implements OnInit, OnDestroy {
       this.selected === '' ? undefined : this.selected,
       this.searchInput === '' ? undefined : value,
       undefined,
-      this.postesId.toString()=='' ? undefined : this.postesId,
-      this.niveauxId.toString()=='' ? undefined : this.niveauxId
+      this.postesId.toString() == '' ? undefined : this.postesId,
+      this.niveauxId.toString() == '' ? undefined : this.niveauxId
     );
   }
 
@@ -166,13 +180,21 @@ export class IntegrationsComponent implements OnInit, OnDestroy {
       this.selected === '' ? undefined : this.selected,
       this.searchInput === '' ? undefined : this.searchInput,
       undefined,
-      this.postesId.toString()=='' ? undefined : this.postesId,
-      this.niveauxId.toString()=='' ? undefined : this.niveauxId
+      this.postesId.toString() == '' ? undefined : this.postesId,
+      this.niveauxId.toString() == '' ? undefined : this.niveauxId
     );
   }
 
   onSelect() {
-    this.loadIntegrations(this.pageSize, this.pageNumber, this.pageYear);
+    this.loadIntegrations(
+      this.pageSize,
+      this.pageNumber,
+      this.pageYear,
+      this.selected === '' ? undefined : this.selected,
+      this.searchInput === '' ? undefined : this.searchInput,
+      undefined,
+      this.postesId.toString() == '' ? undefined : this.postesId,
+      this.niveauxId.toString() == '' ? undefined : this.niveauxId
+    );
   }
-
 }
