@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -31,9 +32,9 @@ export class HeaderFormationCertificationComponent implements OnInit, OnChanges 
   filter() {
     this.statusYearEvent.emit({ status: this.status, year: this.year });
   }
-
+  i: number = 1;
   onSearch() {
     this.searchEvent.emit(this.searchInput)
-   }
+  }
 
 }
