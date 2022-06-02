@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { delay, Observable, Subscription } from 'rxjs';
 import { CertificationOrFormation } from '../Models/certification-formation';
 import { CollabFormationCertif } from '../Models/collaborationCertificationFormation';
 import { Collaborator } from '../Models/Collaborator';
@@ -142,15 +142,17 @@ export class FormationsComponent implements OnInit, OnDestroy {
         );
       }
   }
-  onSearch(search: string) {
-    this.loadCollaborators(
-      this.pageSize,
-      1,
-      search === '' ? undefined : search,
-      undefined,
-      undefined,
-      undefined
-    )
+  
+  onSearch(search: string):void{
+      this.loadCollaborators(
+        this.pageSize,
+        1,
+        search === '' ? undefined : search,
+        undefined,
+        undefined,
+        undefined
+      )
+    
   }
   updateYears(year: number) {
     let yearExist: boolean = false;

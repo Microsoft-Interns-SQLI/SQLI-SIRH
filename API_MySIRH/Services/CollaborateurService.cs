@@ -100,7 +100,7 @@ namespace API_MySIRH.Services
 
         public async Task<PagedList<CollaborateurDTO>> GetCollaborateurs(FilterParams filterParams)
         {
-            var x = filterParams.OrderByCertification.Replace('\\', ' ').Replace('"', ' ').Trim();
+            
             var query = this._collaborateurRepository.GetCollaborateurs().AsQueryable();
             Console.WriteLine(query.ToString());
             if (!string.IsNullOrEmpty(filterParams.Site))
