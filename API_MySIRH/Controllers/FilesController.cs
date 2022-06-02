@@ -53,6 +53,13 @@ namespace API_MySIRH.Controllers
             memory.Position = 0;
             return File(memory, "application/pdf", $"CV_Collab_{new Guid()}");
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            await _filesService.Delete(id);
+            return NoContent();
+        }
     }
 }
 
