@@ -108,7 +108,13 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: myAllowSpecificOrigins,
         builder =>
         {
-            builder.WithOrigins("http://localhost:4200", "http://localhost:4201", "https://microsoft-interns-sqli.github.io")
+            builder.WithOrigins
+            (
+                "http://localhost:4200",
+                "http://localhost:4201",
+                "https://microsoft-interns-sqli.github.io", // temp
+                "https://sqli-sirh-bdeb6.web.app"
+            )
             .AllowAnyMethod()
             .AllowAnyHeader()
             ;
