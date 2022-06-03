@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 
 import { CollabFormationCertif } from 'src/app/Models/collaborationCertificationFormation';
 import { FormationCertificationsService } from 'src/app/services/formation-certifications.service';
+import { ToastService } from 'src/app/shared/toast/toast.service';
 import { PopupService } from './popup.service';
 
 @Component({
@@ -14,20 +15,25 @@ import { PopupService } from './popup.service';
 })
 export class PopupComponent implements OnInit, OnDestroy {
 
-  errorMessage:string = '';
+  errorMessage: string = '';
   selected: string = '';
   @Input() type!: string;
 
-  @Output() certificationEvent: EventEmitter<CollabFormationCertif> = new EventEmitter<CollabFormationCertif>();
+  @Output() fcEvent: EventEmitter<CollabFormationCertif> = new EventEmitter<CollabFormationCertif>();
+  @Output() deleteEvent: EventEmitter<number> = new EventEmitter<number>();
 
   model: CollabFormationCertif = {} as CollabFormationCertif;
 
   sub!: Subscription;
+  subRemove!: Subscription;
 
   statusDisabled!: boolean;
   dateFin!: Date;
 
-  constructor(private popupService: PopupService, private formationCertifService: FormationCertificationsService, private datePipe: DatePipe) { }
+  constructor(
+    private popupService: PopupService, 
+    private formationCertifService: FormationCertificationsService, 
+    private toastService: ToastService) { }
 
 
 
@@ -56,10 +62,10 @@ export class PopupComponent implements OnInit, OnDestroy {
 
       this.sub = this.formationCertifService.updateCollabFormation(item).subscribe(
         {
-          error: err=> this.errorMessage = err.error,
+          error: err => this.errorMessage = err.error,
           complete: () => {
             this.hideModal();
-            this.certificationEvent.emit(item);
+            this.fcEvent.emit(item);
           }
         }
       )
@@ -75,13 +81,43 @@ export class PopupComponent implements OnInit, OnDestroy {
 
       this.sub = this.formationCertifService.updateCollabCertif(item).subscribe(
         {
-          error: err=> this.errorMessage = err.error,
+          error: err => this.errorMessage = err.error,
           complete: () => {
             this.hideModal();
-            this.certificationEvent.emit(item);
+            this.fcEvent.emit(item);
           }
         }
       )
+    }
+  }
+
+  onRemove() {
+    if (confirm(`Are you sure you want to remove this ${this.type}?`)){
+      if (this.type === "formation") {
+        this.subRemove = this.formationCertifService.removeCollabFormation(this.model.id).subscribe({
+          next: ()=>{
+            this.deleteEvent.emit(this.model.id);
+          },
+          error: (err)=> this.errorMessage = err.error,
+          complete: () => {
+            this.errorMessage = "";
+            this.toastService.showToast("success","Formation deleted successfully!",2);
+            this.hideModal();
+          }
+        })
+      }else if(this.type === "certification"){
+        this.subRemove = this.formationCertifService.removeCollabCertification(this.model.id).subscribe({
+          next: ()=>{
+            this.deleteEvent.emit(this.model.id);
+          },
+          error: (err)=> this.errorMessage = err.error,
+          complete: () => {
+            this.errorMessage = "";
+            this.toastService.showToast("success","Certification deleted successfully!",2);
+            this.hideModal();
+          }
+        })
+      }
     }
   }
 
@@ -96,6 +132,8 @@ export class PopupComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.sub != undefined)
       this.sub.unsubscribe();
+    if (this.subRemove != undefined)
+      this.subRemove.unsubscribe();
   }
 
 }

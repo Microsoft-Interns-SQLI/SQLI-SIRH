@@ -20,9 +20,10 @@ namespace API_MySIRH.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public Task Delete(CollaborateurCertification collaborateurCertification)
+        public async Task Delete(CollaborateurCertification collaborateurCertification)
         {
-            throw new NotImplementedException();
+            _context.CollaborateurCertifications.Remove(collaborateurCertification);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<List<CollaborateurCertification>> GetAll()

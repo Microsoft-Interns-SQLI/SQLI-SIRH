@@ -22,9 +22,9 @@ namespace API_MySIRH.Services
             await _collaborateurFormationRepository.Add(_mapper.Map<CollaborateurFormation>(collaborateurFormation));
         }
 
-        public Task Delete(CollaborateurFormationDTO collaborateurFormation)
+        public async Task Delete(CollaborateurFormationDTO collaborateurFormation)
         {
-            throw new NotImplementedException();
+            await _collaborateurFormationRepository.Delete(_mapper.Map<CollaborateurFormation>(collaborateurFormation));
         }
 
         public async Task<CollaborateurFormationResponse> GetAll(FilterParamsForCertifAndFormation filter)

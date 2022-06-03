@@ -1,11 +1,8 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
 import { CertificationOrFormation } from 'src/app/Models/certification-formation';
 import { CollabFormationCertif } from 'src/app/Models/collaborationCertificationFormation';
-import { FormationCertificationsService } from 'src/app/services/formation-certifications.service';
 import { environment } from 'src/environments/environment';
-import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-popup-add-formations-or-certifications',

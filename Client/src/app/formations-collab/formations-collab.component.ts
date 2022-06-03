@@ -8,6 +8,7 @@ import { CertificationOrFormation } from '../Models/certification-formation';
 import { CollabFormationCertif } from '../Models/collaborationCertificationFormation';
 import { Collaborator } from '../Models/Collaborator';
 import { FormationCertificationsService } from '../services/formation-certifications.service';
+import { ToastService } from '../shared/toast/toast.service';
 
 @Component({
   selector: 'app-formations-collab',
@@ -34,11 +35,15 @@ export class FormationsCollabComponent implements OnInit, OnChanges, OnDestroy {
   subPopup!: Subscription;
   subYear!: Subscription;
   subIntersection!: Subscription;
+  subRemove!: Subscription;
 
 
   error: string = "";
 
-  constructor(private formationCertifService: FormationCertificationsService, private popupService: PopupService) { }
+  constructor(
+    private formationCertifService: FormationCertificationsService,
+    private popupService: PopupService,
+    private toastService: ToastService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
 
@@ -97,8 +102,8 @@ export class FormationsCollabComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  addFormations(result:CollabFormationCertif[]){
-    result = result.map(item=> {
+  addFormations(result: CollabFormationCertif[]) {
+    result = result.map(item => {
       item.collaborateurId = this.collab.id;
       return item;
     })
@@ -160,7 +165,21 @@ export class FormationsCollabComponent implements OnInit, OnChanges, OnDestroy {
 
 
   // }
-
+  onDelete(id: number) {
+    if (confirm("Are you sure you want to remove this formation?"))
+      this.subRemove = this.formationCertifService.removeCollabFormation(id).subscribe({
+        next: () => {
+          const index = this.table.findIndex(x => x.intersection.id === id);
+          if (index !== -1)
+            this.table.splice(index, 1);
+        },
+        error: (err) => this.error = err.error,
+        complete: () => {
+          this.error = "";
+          this.toastService.showToast("success", "Formation deleted successfully!", 2);
+        }
+      });
+  }
 
 
   private changeYearsDropDown(value: CollabFormationCertif) {
@@ -202,6 +221,8 @@ export class FormationsCollabComponent implements OnInit, OnChanges, OnDestroy {
       this.subAdd.unsubscribe();
     if (this.subIntersection != undefined)
       this.subIntersection.unsubscribe();
+    if (this.subRemove != undefined)
+      this.subRemove.unsubscribe();
   }
 
 }

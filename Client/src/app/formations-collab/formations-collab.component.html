@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header">
-        <div class="row">
+        <div class="row mb-2">
             <div class="col-md-8">
                 <strong>
                     <u>
@@ -34,6 +34,9 @@
                 </div>
             </div>
         </div>
+        <div class="alert alert-danger p-1" *ngIf="error">
+            {{error}}
+        </div>
     </div>
     <div class="card-body">
         
@@ -65,7 +68,7 @@
                             {{item.intersection.dateFin | date: 'dd/MM/yyyy'}}
                         </td>
                         <td>
-                            <button type="button" (click)="onEdit(item.intersection)" class="btn btn-sm btn-primary">
+                            <button type="button" (click)="onEdit(item.intersection)" class="btn btn-sm btn-primary mx-1">
                                 <svg _ngcontent-fyw-c112="" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     fill="currentColor" viewBox="0 0 16 16" class="bi bi-pencil-square">
                                     <path _ngcontent-fyw-c112=""
@@ -76,6 +79,9 @@
                                     </path>
                                 </svg>
                             </button>
+                            <button type="button" class="btn btn-sm btn-outline-danger" (click)="onDelete(item.intersection.id)" [disabled]="item.intersection.status === 'FAIT'">
+                                <span class="bi bi-trash"></span>
+                            </button>
                         </td>
                     </tr>
                 </tbody>
@@ -84,5 +90,5 @@
     </div>
 </div>
 
-<app-popup class="popup" [type]="'formation'" *ngIf="displayed" (certificationEvent)="boxUpdated($event)">
+<app-popup class="popup" [type]="'formation'" *ngIf="displayed" (fcEvent)="boxUpdated($event)">
 </app-popup>

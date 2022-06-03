@@ -18,6 +18,9 @@ export class FormationCertificationsService {
   url_collab_certif: string = `${environment.URL}api/FormationCertification/certifications`;
   url_collab_formation: string = `${environment.URL}api/FormationCertification/formations`;
 
+  opts: any = {
+    responseType: 'text'
+  };
 
   constructor(private http: HttpClient) { }
 
@@ -152,9 +155,6 @@ export class FormationCertificationsService {
     return this.http.get<number[]>(`${this.url_collab_certif}/years/${id}`)
   }
   updateCollabCertif(data: CollabFormationCertif) {
-    const opts: any = {
-      responseType: 'text'
-    };
     return this.http.put<CollabFormationCertif>(
       `${this.url_collab_certif}/${data.collaborateurId}/${data.idFormationCertif}`,
       {
@@ -165,7 +165,7 @@ export class FormationCertificationsService {
         collaborateurId: data.collaborateurId,
         certificationId: data.idFormationCertif
       },
-      opts
+      this.opts
     );
   }
   updateCollabCertifs(collaborateurId: number, data: CollabFormationCertif[]) {
@@ -181,20 +181,14 @@ export class FormationCertificationsService {
       }
     })
 
-    const opts: any = {
-      responseType: 'text'
-    };
-
     return this.http.put<CollabFormationCertif>(
       `${this.url_collab_certif}/${collaborateurId}`,
       result,
-      opts
+      this.opts
     );
   }
   updateCollabFormation(data: CollabFormationCertif) {
-    const opts: any = {
-      responseType: 'text'
-    };
+    
 
     return this.http.put<CollabFormationCertif>(
       `${this.url_collab_formation}/${data.collaborateurId}/${data.idFormationCertif}`,
@@ -206,7 +200,7 @@ export class FormationCertificationsService {
         collaborateurId: data.collaborateurId,
         formationId: data.idFormationCertif
       },
-      opts
+      this.opts
     );
   }
 
@@ -223,15 +217,20 @@ export class FormationCertificationsService {
       }
     })
 
-    const opts: any = {
-      responseType: 'text'
-    };
-
     return this.http.put<CollabFormationCertif>(
       `${this.url_collab_formation}/${collaborateurId}`,
       result,
-      opts
+      this.opts
     );
   }
+
+  removeCollabCertification(id:number){
+    return this.http.delete<CollabFormationCertif>(`${this.url_collab_certif}/${id}`,this.opts);
+  }
+
+  removeCollabFormation(id:number){
+    return this.http.delete<CollabFormationCertif>(`${this.url_collab_formation}/${id}`,this.opts);
+  }
+
 
 }
