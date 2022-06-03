@@ -36,58 +36,6 @@
         </div>
     </div>
     <div class="card-body">
-        <div class="mb-3">
-            <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="controls.length > 0">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="alert alert-danger p-1" *ngIf="error">
-                            {{error}}
-                        </div>
-                    </div>
-                </div>
-                <div formArrayName="formations" *ngFor="let f of controls.controls; let i = index" class="mt-2">
-                    <div class="row" [formGroupName]="i">
-                        <div class="col-md-2">
-                            <select class="form-select form-select-sm" formControlName="name">
-                                <option value="0" selected disabled>
-                                    Formation
-                                </option>
-                                <option [ngValue]="formation.id" *ngFor="let formation of formations">
-                                    {{formation.libelle}}
-                                </option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-2">
-                            <select class="form-select form-select-sm" formControlName="status">
-                                <option value="{{s.id}}" *ngFor="let s of statusTable">{{s.name}}</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-3">
-                            <input class="form-control form-control-sm" type="date" formControlName="dateDebut">
-                        </div>
-
-                        <div class="col-md-3">
-                            <input class="form-control form-control-sm" type="date" formControlName="dateFin">
-                        </div>
-
-                        <div class="col-md-2 text-center">
-                            <button class="btn btn-sm btn-danger" (click)="deleteFormation(i)">
-                                <span class="bi bi-x"></span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row justify-content-end mt-2">
-                    <div class="col-md-2 text-center">
-                        <button class="btn btn-sm btn-success" type="submit" [disabled]="form.invalid">
-                            <i class="bi bi-check-square"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
         <div class="table-responsive">
             <table class="table w-100">
                 <thead>
