@@ -51,14 +51,22 @@ namespace API_MySIRH.Controllers
                 await stream.CopyToAsync(memory);
             }
             memory.Position = 0;
-            return File(memory, "application/pdf", $"CV_Collab_{new Guid()}");
+            return File(memory, "application/pdf");
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            await _filesService.Delete(id);
-            return NoContent();
+            try
+            {
+                await _filesService.Delete(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(500, $"Internal server error: {ex}");
+            }
         }
     }
 }
