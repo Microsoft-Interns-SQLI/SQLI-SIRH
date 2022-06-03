@@ -52,8 +52,6 @@ import { TextareaInputComponent } from './collaborateurs/add-edit-collaborateur/
 import { SelectInputComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/_form_inputs/select-input/select-input.component';
 import { HeaderComponent } from './collaborateurs/header/header.component';
 import { FooterComponent } from './collaborateurs/footer/footer.component';
-import { CustomReuseStrategyService } from './services/custom-reuse-strategy.service';
-import { RouteReuseStrategy } from '@angular/router';
 import { DiplomesComponent } from './diplomes/diplomes.component';
 import { ContratsComponent } from './contrats/contrats.component';
 import { TableComponent } from './formations-certifications/table/table.component';

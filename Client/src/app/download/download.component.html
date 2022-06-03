@@ -54,8 +54,10 @@
                   </a>
                   <a
                     class="btn btn-sm btn-danger me-2 mb-1"
-                    (click)="delete(document)"
                     aria-label="download"
+                    (click)="getItemToDelete(document)"
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteFile"
                   >
                     <i class="bi bi-trash"></i>
                   </a>
@@ -64,6 +66,41 @@
             </div>
           </tbody>
         </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  class="modal fade center"
+  id="deleteFile"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cofirm Delete</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">Are You Sure You want to delete this file?</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button
+          (click)="delete(documentToDelete)"
+          type="button"
+          data-bs-dismiss="modal"
+          class="btn btn-danger"
+        >
+          Delete
+        </button>
       </div>
     </div>
   </div>

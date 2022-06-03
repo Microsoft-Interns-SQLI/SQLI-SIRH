@@ -7,6 +7,7 @@ import { CertificationOrFormation } from '../Models/certification-formation';
 import { CollabFormationCertif } from '../Models/collaborationCertificationFormation';
 import { Collaborator } from '../Models/Collaborator';
 import { FormationCertificationsService } from '../services/formation-certifications.service';
+import { ToastService } from '../shared/toast/toast.service';
 
 @Component({
   selector: 'app-certifications-collab',
@@ -32,13 +33,17 @@ export class CertificationsCollabComponent implements OnInit, OnChanges, OnDestr
   subPopup!: Subscription;
   subYear!: Subscription;
   subIntersection!: Subscription;
+  subRemove!: Subscription;
 
   statusTable = environment.status;
 
   error: string = "";
 
-  constructor(private formationCertifService: FormationCertificationsService, private popupService: PopupService) { }
-  
+  constructor(
+    private formationCertifService: FormationCertificationsService,
+    private popupService: PopupService,
+    private toastService: ToastService) { }
+
   ngOnChanges(changes: SimpleChanges): void {
 
     this.subYear = this.formationCertifService.getCertificationYearsByCollab(this.collab.id).subscribe({
@@ -58,7 +63,7 @@ export class CertificationsCollabComponent implements OnInit, OnChanges, OnDestr
 
       this.sub = this.formationCertifService.getCertifications().subscribe({
         next: data => this.certifications = data,
-        complete: ()=> this.prepareData()
+        complete: () => this.prepareData()
       });
 
     } else {
@@ -95,8 +100,8 @@ export class CertificationsCollabComponent implements OnInit, OnChanges, OnDestr
     }
   }
 
-  addCertifications(result:CollabFormationCertif[]){
-    result = result.map(item=> {
+  addCertifications(result: CollabFormationCertif[]) {
+    result = result.map(item => {
       item.collaborateurId = this.collab.id;
       return item;
     })
@@ -147,10 +152,25 @@ export class CertificationsCollabComponent implements OnInit, OnChanges, OnDestr
   //   });
   // }
 
+  onDelete(id: number) {
+    if (confirm("Are you sure you want to remove this certification?"))
+      this.subRemove = this.formationCertifService.removeCollabCertification(id).subscribe({
+        next: () => {
+          const index = this.table.findIndex(x => x.intersection.id === id);
+          if (index !== -1)
+            this.table.splice(index, 1);
+        },
+        error: (err) => this.error = err.error,
+        complete: () => {
+          this.error = "";
+          this.toastService.showToast("success", "Certification deleted successfully!", 2);
+        }
+      });
+  }
 
-  private changeYearsDropDown(value: CollabFormationCertif){
+  private changeYearsDropDown(value: CollabFormationCertif) {
     if (this.years.findIndex(x => x === new Date(value.dateDebut).getFullYear()) === -1) {
-      if(this.years.length === 0)
+      if (this.years.length === 0)
         this.year = new Date(value.dateDebut).getFullYear();
       this.years.push(new Date(value.dateDebut).getFullYear());
       this.years.sort((a, b) => b - a);
@@ -167,9 +187,9 @@ export class CertificationsCollabComponent implements OnInit, OnChanges, OnDestr
   private prepareData() {
     this.table = [];
     this.intersections.forEach(item => {
-      
+
       this.changeYearsDropDown(item);
-      
+
       const certification = this.certifications.find(x => x.id === item.idFormationCertif);
       if (certification != undefined && new Date(item.dateDebut).getFullYear() === +this.year) {
         this.table = this.table.concat({ name: certification.libelle, intersection: item });
