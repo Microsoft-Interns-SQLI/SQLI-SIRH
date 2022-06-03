@@ -16,10 +16,20 @@
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <button class="btn btn-sm btn-success" (click)="addFormation()">
+                        <button type="button" class="btn btn-sm btn-success" 
+                            data-bs-toggle="modal" data-bs-target="#addformations">
                             <i class="bi bi-plus-square"></i>
                             Formation
                         </button>
+                        <div class="modal fade bd-example-modal-lg" id="addformations" tabindex="-1" role="dialog" aria-labelledby="addformationsLabel" aria-hidden="true">
+                            
+                            <app-popup-add-formations-or-certifications 
+                                (resultFormationEvent)="addFormations($event)"
+                                [formationsOrCertification]="formations"
+                                [type]="'formation'">
+                            </app-popup-add-formations-or-certifications>
+                            
+                        </div>
                     </div>
                 </div>
             </div>

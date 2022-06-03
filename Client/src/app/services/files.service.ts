@@ -30,6 +30,10 @@ export class FilesService {
     });
   }
 
+  public delete(id: number): Observable<any> {
+    return this.http.delete(`${this.URL}api/files/${id}`);
+  }
+
   private handleError(error: HttpErrorResponse): Observable<never> {
     if (error.status === 0 || error.status === 500)
       return throwError(() => 'Something went wrong!');

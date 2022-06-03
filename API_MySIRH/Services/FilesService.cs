@@ -20,6 +20,11 @@ namespace API_MySIRH.Services
             _mapper = mapper;
         }
 
+        public async Task Delete(int id)
+        {
+            await _fileRepository.Delete(id);
+        }
+
         public Task<FileResult> Download(string path)
         {
             throw new NotImplementedException();
@@ -51,8 +56,8 @@ namespace API_MySIRH.Services
                     fileToAdd.FileId = fileId;
                     fileToAdd.Type = type;
                     fileToAdd.CollaborateurId = collabId;
-                    await _fileRepository.Upload(_mapper.Map<Document>(fileToAdd));
-                    Paths.Add(fileToAdd);
+                    var test = await _fileRepository.Upload(_mapper.Map<Document>(fileToAdd));
+                    Paths.Add(_mapper.Map<FileDTO>(test));
                 }
                 else
                 {

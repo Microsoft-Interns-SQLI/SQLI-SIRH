@@ -8,7 +8,12 @@
           </strong>
         </div>
         <div class="col-md-3 text-end">
-          <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#upload">
+          <button
+            type="button"
+            class="btn btn-sm btn-success"
+            data-bs-toggle="modal"
+            data-bs-target="#upload"
+          >
             <i class="bi bi-file-earmark-arrow-up"></i>
             Upload Document
           </button>
@@ -17,13 +22,17 @@
     </div>
 
     <div class="card-body">
-      <p>
-        Liste des documents :
-      </p>
-      <div class="justify-content-center" *ngIf="collab?.documents?.length !== 0">
+      <p>Liste des documents :</p>
+      <div
+        class="justify-content-center"
+        *ngIf="collab?.documents?.length !== 0"
+      >
         <table class="table">
           <tbody>
-            <div class="col p-2 mt-1 rounded border border-dark" *ngFor="let document of collab?.documents">
+            <div
+              class="col p-2 mt-1 rounded border border-dark"
+              *ngFor="let document of collab?.documents"
+            >
               <div class="row">
                 <div class="col-md-10">
                   <strong>
@@ -36,8 +45,19 @@
                   </small>
                 </div>
                 <div class="col-md-2 text-end">
-                  <a class="btn btn-sm btn-primary me-2 mb-1" (click)="download(document)" aria-label="download">
+                  <a
+                    class="btn btn-sm btn-primary me-2 mb-1"
+                    (click)="download(document)"
+                    aria-label="download"
+                  >
                     <i class="bi bi-file-earmark-arrow-down"></i>
+                  </a>
+                  <a
+                    class="btn btn-sm btn-danger me-2 mb-1"
+                    (click)="delete(document)"
+                    aria-label="download"
+                  >
+                    <i class="bi bi-trash"></i>
                   </a>
                 </div>
               </div>

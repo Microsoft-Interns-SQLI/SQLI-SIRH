@@ -14,11 +14,31 @@ namespace API_MySIRH.Repositories
             _context = context;
         }
 
+        public async Task Delete(int id)
+        {
+            var Doc = await _context.Documents.FindAsync(id);
+            try
+            {
+                // Check if file exists with its full path    
+                if (File.Exists(Doc?.URL))
+                {
+                    // If file found, delete it    
+                    File.Delete(Doc.URL);
+                }
+                if (Doc is not null)
+                    _context.Documents.Remove(Doc);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public async Task<Document> Upload(Document file)
         {
-            _context.Documents.Add(file);
+            await _context.Documents.AddAsync(file);
             await _context.SaveChangesAsync();
-            return file;
+            return await _context.Documents.FindAsync(file.Id);
         }
     }
 }

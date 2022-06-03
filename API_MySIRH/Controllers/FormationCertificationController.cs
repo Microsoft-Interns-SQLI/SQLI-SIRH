@@ -31,7 +31,7 @@ namespace API_MySIRH.Controllers
         {
             var list = await _collaborateurCertificationService.GetAll(filter);
 
-            return Ok(list);
+            return list == null ? Ok(new CollaborateurFormationResponse { List = new List<CollaborateurFormationDTO>() }) : Ok(list);
         }
         [HttpGet("certifications/years")]
         public async Task<IActionResult> GetCertificationYears()

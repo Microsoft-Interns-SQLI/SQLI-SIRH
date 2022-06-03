@@ -7,5 +7,6 @@ namespace API_MySIRH.Interfaces
     {
         Task<ICollection<FileDTO>> UploadFile(IFormFileCollection files, string type, int collabId);
         Task<FileResult> Download(string path);
+        Task Delete(int id);
     }
 }

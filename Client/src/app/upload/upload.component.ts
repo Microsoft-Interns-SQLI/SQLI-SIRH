@@ -71,6 +71,7 @@ export class UploadComponent implements OnInit, OnDestroy {
                   this.error = '';
                 }
                 this.path.push(event.body[0]);
+                console.log(event.body[0]);
               }
             },
             error: (err) => {

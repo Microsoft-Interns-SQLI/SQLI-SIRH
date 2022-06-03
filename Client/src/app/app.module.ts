@@ -74,6 +74,7 @@ import { EncodeHttpParamsInterceptor } from './interceptors/encode-http-params.i
 import { AuthentificationInterceptor } from './interceptors/authentification.interceptor';
 import { CarrieresComponent } from './carrieres/carrieres.component';
 import { ModalAjoutCarriereComponent } from './carrieres/modal-ajout-carriere/modal-ajout-carriere.component';
+import { PopupAddFormationsOrCertificationsComponent } from './formations-collab/popup-add-formations-or-certifications/popup-add-formations-or-certifications.component';
 
 @NgModule({
   declarations: [
@@ -134,6 +135,7 @@ import { ModalAjoutCarriereComponent } from './carrieres/modal-ajout-carriere/mo
     CertificationsCollabComponent,
     CarrieresComponent,
     ModalAjoutCarriereComponent,
+    PopupAddFormationsOrCertificationsComponent,
   ],
   imports: [
     CommonModule,

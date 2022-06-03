@@ -14,8 +14,8 @@
     </div>
     <div class="col-3">
       <div class="input-group input-group-sm">
-        <span class="input-group-text bi bi-search"></span> 
-        <input type="search" class="form-control" placeholder="Search..." aria-describedby="search" [(ngModel)]="searchInput" (ngModelChange)="onSearch()"> 
+        <input type="search" class="form-control" placeholder="Search..." aria-describedby="search" [(ngModel)]="searchInput"> 
+        <button class="input-group-text btn btn-sm btn-outline-secondary" (click)="onSearch()"><span class="bi bi-search"></span> </button>
       </div>
     </div>
   </div>
