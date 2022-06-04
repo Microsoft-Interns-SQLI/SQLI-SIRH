@@ -37,7 +37,6 @@ export class ModalAjoutContratComponent implements OnInit {
     this.form = this.formBuilder.group({
       dateDebut: ['', Validators.required],
       dateFin: [''],
-      isInSQLI: true,
       typeContratId: ['', Validators.required],
       collaborateurId: this.collaborateur?.id,
     });
@@ -75,10 +74,10 @@ export class ModalAjoutContratComponent implements OnInit {
   }
 
   validateDateGap(event: Event) {
-    const minDate = (event.target as HTMLInputElement).value;
-    this.form
-      .get('dateFin')
-      ?.setValidators(minDateValidator(new Date(minDate)));
+    const minDate = this.form.get('dateDebut')?.value;
+    this.form.get('dateFin')?.value && minDate ?
+      this.form.get('dateFin')?.setValidators(minDateValidator(new Date(minDate))) :
+      this.form.get('dateFin')?.setValidators([]);
     this.form.get('dateFin')?.updateValueAndValidity({ onlySelf: true });
   }
 }

@@ -13,39 +13,25 @@
                     <div class="row">
 
                         <div class="col-md-6 mt-3">
-                            <div class="form-group">
-                                <label>Début :</label>
-                                <input type="date"
-                                    [class.is-invalid]="form.controls?.['dateDebut']?.touched && form.controls?.['dateDebut']?.invalid"
-                                    (blur)="validateDateGap($event)" class="form-control form-control-sm"
-                                    formControlName="dateDebut" />
-                                <div *ngIf="form.controls?.['dateDebut']?.errors?.['required']"
-                                    class="invalid-feedback">
-                                    Date début is required
-                                </div>
-                            </div>
+                            <app-text-input [formControl]="$any(form.controls?.['dateDebut'])" [type]="'date'"
+                                [label]="'Début'"></app-text-input>
                         </div>
 
                         <div class="col-md-6 mt-3">
-                            <app-text-input [formControl]="$any(form.controls?.['dateFin'])" [type]="'date'"
-                                [label]="'Fin'"></app-text-input>
+                            <label>Fin :</label>
+                            <input type="date"
+                                [class.is-invalid]="form.controls?.['dateFin']?.touched && form.controls?.['dateFin']?.invalid"
+                                (blur)="validateDateGap($event)" class="form-control form-control-sm"
+                                formControlName="dateFin" />
+                            <div *ngIf="form.controls?.['dateFin']?.errors?.['min']" class="invalid-feedback">
+                                Date fin is invalid (minimum value)
+                            </div>
                         </div>
 
                         <div class="col-md-12 mt-3">
                             <app-select-input [formControl]="$any(form.controls?.['typeContratId'])"
                                 [data]="typesContratData" [label]="'Type contrat'"></app-select-input>
                         </div>
-
-                        <div class="col-md-12 mt-3 text-center">
-                            <div class="form-check">
-                                <label class="form-check-label" for="isInSQLI">
-                                    <input class="form-check-input" type="checkbox" formControlName="isInSQLI"
-                                        id="isInSQLI">
-                                    au sein de SQLI.Group
-                                </label>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
                 <div class="modal-footer">
