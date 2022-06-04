@@ -9,7 +9,8 @@
       <span data-feather="calendar"></span>
       FILTRE
     </button> -->
-    <select class="btn btn-sm btn-outline-secondary dropdown-toggle" [(ngModel)]="pageYear" (ngModelChange)="onSelect()">
+    <select class="btn btn-sm btn-outline-secondary dropdown-toggle" [(ngModel)]="pageYear"
+      (ngModelChange)="onSelect()">
       <option *ngFor="let item of yearsRange" value="{{item}}">{{item}}</option>
     </select>
   </div>
@@ -17,9 +18,8 @@
 
 
 <div>
-  <app-header (pageSize)="changePageSize($event)" (search)="search($event)"
-  (postesId)="onChangePostes($event)"
-  (niveauxId)="onChangeNiveaux($event)" ></app-header>
+  <app-header (pageSize)="changePageSize($event)" (search)="search($event)" (postesId)="onChangePostes($event)"
+    (niveauxId)="onChangeNiveaux($event)"></app-header>
 </div>
 
 <hr />
@@ -47,8 +47,8 @@
         <td>{{ item.site?.name }}</td>
         <td>{{ item.skillCenter?.name }}</td>
         <td>
-          {{ item.poste?.name }} <br>
-          {{ item.niveau?.name }}
+          {{ item.getCurrentPoste()?.name }} <br>
+          {{ item.getCurrentNiveau()?.name }}
         </td>
         <td>{{ item.dateEntreeSqli | date: 'longDate' }}</td>
         <td>{{ calculateYears(item.datePremiereExperience) }}</td>
