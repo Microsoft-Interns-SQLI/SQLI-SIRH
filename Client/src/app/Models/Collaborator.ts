@@ -33,10 +33,6 @@ export class Collaborator {
   technos: string = '';
   certifications: string = '';
   langues: string = '';
-  niveauId: number = 0;
-  niveau?: Niveau;
-  posteId: number = 0;
-  poste?: Poste;
   carrieres: Carriere[] = [];
   nationnalite: string = '';
   siteId?: number;
@@ -45,6 +41,22 @@ export class Collaborator {
   documents?: CollabFile[];
   situationFamiliale: string = '';
   imgPath: string = "";
+
+  getCurrentPoste(): Poste | undefined {
+    let currentCarriere = this.carrieres?.sort((a, b) => a.annee - b.annee).pop();
+    console.log(
+      currentCarriere
+    );
+    return currentCarriere?.poste;
+  }
+
+  getCurrentNiveau(): Niveau | undefined {
+    let currentCarriere = this.carrieres?.sort((a, b) => a.annee - b.annee).pop();
+    console.log(
+      currentCarriere
+    );
+    return currentCarriere?.niveau;
+  }
 }
 
 export class Demission {
