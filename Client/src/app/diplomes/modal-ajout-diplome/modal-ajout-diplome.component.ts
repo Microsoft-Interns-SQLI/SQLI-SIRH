@@ -28,8 +28,8 @@ export class ModalAjoutDiplomeComponent implements OnInit {
   initForm() {
     this.form = this.formBuilder.group({
       annee: ["", Validators.required],
-      label: [""],
-      detail: ["", Validators.required],
+      label: ["", Validators.required],
+      detail: [""],
       description: [""],
       collaborateurId: this.collaborateur?.id
     });
