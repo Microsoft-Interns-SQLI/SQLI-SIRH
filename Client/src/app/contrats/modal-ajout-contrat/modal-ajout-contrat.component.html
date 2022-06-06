@@ -21,7 +21,7 @@
                             <label>Fin :</label>
                             <input type="date"
                                 [class.is-invalid]="form.controls?.['dateFin']?.touched && form.controls?.['dateFin']?.invalid"
-                                (blur)="validateDateGap($event)" class="form-control form-control-sm"
+                                (blur)="validateDateGap()" class="form-control form-control-sm"
                                 formControlName="dateFin" />
                             <div *ngIf="form.controls?.['dateFin']?.errors?.['min']" class="invalid-feedback">
                                 Date fin is invalid (minimum value)

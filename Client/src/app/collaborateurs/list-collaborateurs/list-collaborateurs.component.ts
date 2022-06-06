@@ -10,6 +10,7 @@ import { FilesService } from 'src/app/services/files.service';
 import { ImagesService } from 'src/app/services/images.service';
 import { SpinnerService } from 'src/app/services/spinner.service';
 import { SaveState } from 'src/app/services/stateSave.service';
+import { AutoUnsubscribe } from 'src/app/shared/decorators/AutoUnsubscribe';
 import { ToastService } from 'src/app/shared/toast/toast.service';
 import { environment } from 'src/environments/environment';
 
@@ -18,6 +19,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './list-collaborateurs.component.html',
   styleUrls: ['./list-collaborateurs.component.css'],
 })
+@AutoUnsubscribe()
 export class ListCollaborateursComponent implements OnInit, OnDestroy {
   collaboratorsArray: Collaborator[] = [];
   displayTable: boolean = true;
@@ -63,7 +65,7 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
     private toastService: ToastService,
     private spinnerService: SpinnerService,
     private saveState: SaveState
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     let state = this.saveState.loadState('collabsList');
@@ -114,13 +116,7 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (resp) => {
           this.pagination = resp.pagination;
-
-          this.collaboratorsArray = resp.result.map(function (collab) {
-            // let currentCarriere = collab.carrieres?.sort((a, b) => a.annee - b.annee).pop();
-            // collab.niveau = currentCarriere?.niveau;
-            // collab.poste = currentCarriere?.poste;
-            return collab;
-          });
+          this.collaboratorsArray = resp.result;
           this.pagination = resp.pagination;
         },
         complete: () => {
