@@ -20,4 +20,8 @@ export class CarrieresService {
     return this.http.post(this.Carriere_URL, carriere);
   }
 
+  deleteCarriere(idCarriere: number) {
+    return this.http.delete(`${this.Carriere_URL}/${idCarriere}`);
+  }
+
 }

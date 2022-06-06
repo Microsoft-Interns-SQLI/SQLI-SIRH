@@ -70,9 +70,6 @@ export class ModalAjoutCarriereComponent implements OnInit {
       this.carriereService.addCarriere(formGroup.value).subscribe(
         {
           next: (addedCarriere) => {
-            console.log(
-              "addedCarriere ! ", addedCarriere
-            )
             this.refreshCarrieres.emit(addedCarriere as Carriere);
             this.initForm();
           },
