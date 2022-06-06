@@ -43,10 +43,10 @@ export class Collaborator {
   imgPath: string = "";
 
   //** to remove */
-  // niveauId: number = 0;
-  // niveau?: Niveau;
-  // posteId: number = 0;
-  // poste?: Poste;
+  niveauId: number = 0;
+  niveau?: Niveau;
+  posteId: number = 0;
+  poste?: Poste;
   //***************/
 
   getCurrentPoste(): Poste | undefined {
