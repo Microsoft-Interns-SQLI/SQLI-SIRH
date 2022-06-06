@@ -1,13 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Carriere } from '../Models/Carriere';
-import { Collaborator } from '../Models/Collaborator';
-import { CarrieresService } from '../services/carrieres.service';
-import { ToastService } from '../shared/toast/toast.service';
+import { Carriere } from 'src/app/Models/Carriere';
+import { Collaborator } from 'src/app/Models/Collaborator';
+import { CarrieresService } from 'src/app/services/carrieres.service';
+import { AutoUnsubscribe } from 'src/app/shared/decorators/AutoUnsubscribe';
+import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Component({
   selector: 'app-carrieres',
   templateUrl: './carrieres.component.html'
 })
+@AutoUnsubscribe()
 export class CarrieresComponent implements OnInit {
   carrieres!: Carriere[];
   @Input() collab!: Collaborator;
