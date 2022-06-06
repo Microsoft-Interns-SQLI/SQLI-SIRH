@@ -42,6 +42,13 @@ export class Collaborator {
   situationFamiliale: string = '';
   imgPath: string = "";
 
+  //** to remove */
+  // niveauId: number = 0;
+  // niveau?: Niveau;
+  // posteId: number = 0;
+  // poste?: Poste;
+  //***************/
+
   getCurrentPoste(): Poste | undefined {
     let currentCarriere = this.carrieres?.sort((a, b) => a.annee - b.annee).pop();
     console.log(
