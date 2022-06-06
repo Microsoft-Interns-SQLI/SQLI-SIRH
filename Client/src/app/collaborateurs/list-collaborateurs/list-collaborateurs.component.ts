@@ -189,7 +189,6 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
 
   onChangeNiveaux(niveaux: number[]) {
     this.niveauxId = niveaux;
-    //this.niveauxValue = this.niveauxId.toString().replace(',', '&niveauxId=')
 
     this.loadCollaborators(
       this.pagination.pageSize,

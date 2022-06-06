@@ -44,7 +44,6 @@ export class CollaboratorsService {
     year?: number,
     status?: number
   ) {
-    console.log("status = "+status);
     //delay(50000);
     let params = new HttpParams();
     if (page != undefined && itemsPerPage != undefined) {
@@ -74,10 +73,8 @@ export class CollaboratorsService {
       params = params.appendAll({ postesId: postesId });
     }
     if (niveauxId != undefined && niveauxId.toString() != '') {
-      console.log(niveauxId.length);
       params = params.appendAll({ niveauxId: niveauxId });
     }
-    console.log('those are my params =' + params.toString());
 
     if (year != undefined) {
       params = params.append('Year', year);

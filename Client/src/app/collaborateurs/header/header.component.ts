@@ -28,11 +28,9 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.mdmService.getAll("Postes").subscribe((data) => {
-      console.log(data);
       this.postes = data;
     });
     this.mdmService.getAll("Niveaux").subscribe((data) => {
-      console.log(data);
       this.niveaux = data;
     });
   }
