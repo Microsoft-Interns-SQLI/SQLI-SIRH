@@ -24,9 +24,6 @@ export class CarrieresComponent implements OnInit {
   }
 
   getAllAffectations() {
-    console.log(
-      this.collab.poste
-    );
     this.carrieresService.getCarrieresOfCollab(this.collab.id).subscribe((carrieres) => {
       this.carrieres = carrieres;
     });
@@ -35,7 +32,7 @@ export class CarrieresComponent implements OnInit {
   deleteCarriere(idCarriere: number) {
     this.carrieresService.deleteCarriere(idCarriere).subscribe(() => {
       this.carrieres = this.carrieres.filter(carr => carr.id != idCarriere);
-      this.toastService.showToast("success", "Carrière supprimée avec succès.", 2);
+      // this.toastService.showToast("success", "Carrière supprimée avec succès.", 2);
     });
   }
 
@@ -45,7 +42,7 @@ export class CarrieresComponent implements OnInit {
 
   addCarriere(carriere: Carriere) {
     this.carrieres.unshift(carriere);
-    this.toastService.showToast("success", "Nouvelle carrière ajoutée.", 2);
+    // this.toastService.showToast("success", "Nouvelle carrière ajoutée.", 2);
   }
 
 }

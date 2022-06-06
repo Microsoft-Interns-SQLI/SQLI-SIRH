@@ -44,7 +44,7 @@ export class CollaboratorsService {
     year?: number,
     status?: number
   ) {
-    console.log("status = "+status);
+    console.log("status = " + status);
     //delay(50000);
     let params = new HttpParams();
     if (page != undefined && itemsPerPage != undefined) {
@@ -99,11 +99,7 @@ export class CollaboratorsService {
               },
               error: (er) => console.log(er),
             });
-            let currentCarriere = collab.carrieres
-              ?.sort((a, b) => a.annee - b.annee)
-              .pop();
-            collab.niveau = currentCarriere?.niveau;
-            collab.poste = currentCarriere?.poste;
+            collab.carrieres = collab.carrieres?.sort((a, b) => a.annee - b.annee)
             return collab;
           }
         );
@@ -165,11 +161,7 @@ export class CollaboratorsService {
         map((response) => {
           this.paginatedResult.result = <Collaborator[]>response.body.map(
             (collab: Collaborator) => {
-              let currentCarriere = collab.carrieres
-                ?.sort((a, b) => a.annee - b.annee)
-                .pop();
-              collab.niveau = currentCarriere?.niveau;
-              collab.poste = currentCarriere?.poste;
+              collab.carrieres = collab.carrieres?.sort((a, b) => a.annee - b.annee)
               return collab;
             }
           );
@@ -188,11 +180,7 @@ export class CollaboratorsService {
       .get<any>(this.myUrl + '/' + id, { responseType: 'json' })
       .pipe(
         map((collab: Collaborator) => {
-          let currentCarriere = collab.carrieres
-            ?.sort((a, b) => a.annee - b.annee)
-            .pop();
-          collab.niveau = currentCarriere?.niveau;
-          collab.poste = currentCarriere?.poste;
+          collab.carrieres = collab.carrieres?.sort((a, b) => a.annee - b.annee)
           return collab;
         })
       );
@@ -285,11 +273,7 @@ export class CollaboratorsService {
         map((response) => {
           this.paginatedResult.result = <Collaborator[]>response.body.map(
             (collab: Collaborator) => {
-              let currentCarriere = collab.carrieres
-                ?.sort((a, b) => a.annee - b.annee)
-                .pop();
-              collab.niveau = currentCarriere?.niveau;
-              collab.poste = currentCarriere?.poste;
+              collab.carrieres = collab.carrieres?.sort((a, b) => a.annee - b.annee)
               return collab;
             }
           );

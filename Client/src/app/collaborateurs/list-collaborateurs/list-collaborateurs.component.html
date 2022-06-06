@@ -134,11 +134,14 @@
         </td>
         <td>{{ calculateYears(item.dateEntreeSqli) }}</td>
         <td>
-          <!-- {{ item.poste?.name }} -->
-          {{ item.getCurrentPoste()?.name }}
+          <!-- {{ item.carrieres | json }} -->
+          {{ item.carrieres[item.carrieres.length-1].poste?.name }}
+          <!-- {{ item.getCurrentPoste()?.name }} -->
 
-          <!-- {{ item.niveau?.name }} -->
-          {{ item.getCurrentNiveau()?.name }}
+          <br>
+
+          {{ item.carrieres[item.carrieres.length-1].niveau?.name }}
+          <!-- {{ item.getCurrentNiveau()?.name }} -->
         </td>
         <td>
           <button class="btn btn-sm btn-secondary" (click)="download(item.documents)">
