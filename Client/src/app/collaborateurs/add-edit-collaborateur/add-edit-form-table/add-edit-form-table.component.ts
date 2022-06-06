@@ -50,6 +50,7 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
   situationFamilialeData: any = new SelectInputData();
   demis?: Demission = undefined;
   demisTitle = '';
+
   constructor(
     private service: MdmService,
     private formationCertifService: FormationCertificationsService

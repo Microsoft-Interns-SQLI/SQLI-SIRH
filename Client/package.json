@@ -11,7 +11,6 @@
   "resolutions": {
     "autoprefixer": "10.4.5"
   },
-
   "private": true,
   "dependencies": {
     "@angular/animations": "~13.1.0",
@@ -29,6 +28,7 @@
     "file-saver": "^2.0.5",
     "ngx-bootstrap": "8.0.0",
     "ngx-editor": "^12.1.1",
+    "ngx-extended-pdf-viewer": "^13.5.1",
     "ngx-spinner": "^13.1.1",
     "ngx-toastr": "^14.2.2",
     "rxjs": "~7.4.0",

@@ -74,6 +74,8 @@ import { EncodeHttpParamsInterceptor } from './interceptors/encode-http-params.i
 import { AuthentificationInterceptor } from './interceptors/authentification.interceptor';
 import { CarrieresComponent } from './carrieres/carrieres.component';
 import { ModalAjoutCarriereComponent } from './carrieres/modal-ajout-carriere/modal-ajout-carriere.component';
+import { CvReaderComponent } from './cv-reader/cv-reader.component';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 
 @NgModule({
   declarations: [
@@ -134,6 +136,7 @@ import { ModalAjoutCarriereComponent } from './carrieres/modal-ajout-carriere/mo
     CertificationsCollabComponent,
     CarrieresComponent,
     ModalAjoutCarriereComponent,
+    CvReaderComponent,
   ],
   imports: [
     CommonModule,
@@ -152,15 +155,24 @@ import { ModalAjoutCarriereComponent } from './carrieres/modal-ajout-carriere/mo
     BrowserAnimationsModule,
     ngfModule,
     NgxSpinnerModule,
-    NgSelectModule
+    NgSelectModule,
+    NgxExtendedPdfViewerModule,
   ],
   providers: [
     DatePipe,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthentificationInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthentificationInterceptor,
+      multi: true,
+    },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: EncodeHttpParamsInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: EncodeHttpParamsInterceptor,
+      multi: true,
+    },
     // { provide: RouteReuseStrategy, useClass: CustomReuseStrategyService },
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
