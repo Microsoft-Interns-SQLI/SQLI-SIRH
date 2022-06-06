@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { AutoUnsubscribe } from '../decorators/AutoUnsubscribe';
 import { Toaster, ToastService } from './toast.service';
 
 @Component({
@@ -7,7 +8,8 @@ import { Toaster, ToastService } from './toast.service';
   templateUrl: './toast.component.html',
   styleUrls: ['./toast.component.css']
 })
-export class ToastComponent implements OnInit {
+@AutoUnsubscribe()
+export class ToastComponent implements OnInit,OnDestroy {
 
   constructor(private toastService: ToastService) { }
 
@@ -24,17 +26,23 @@ export class ToastComponent implements OnInit {
     this.sub = this.toastService.toast.subscribe((data: Toaster) => {
       this.typeMessage = data.typeMessage;
       this.message = data.message;
-      this.toastDuration=data.duration*1000
+      this.toastDuration = data.duration * 1000
       this.typeMessage == 'danger' ? this.title = "Danger" :
         this.typeMessage == 'warning' ? this.title = "Warning" :
           this.typeMessage == 'success' ? this.title = "Success" : this.title = "Information";
+      console.log(this.title + " " + this.typeMessage + " " + this.message + " " + this.toastDuration);
       setTimeout(() => {
         this.close();
       }, this.toastDuration);
     });
   }
 
+  ngOnDestroy(): void {
+  }
+
   close() {
     this.toastService.closeToast();
   }
+
+
 }
