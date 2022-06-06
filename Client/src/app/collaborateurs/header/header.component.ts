@@ -28,11 +28,11 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.mdmService.getAll("Postes").subscribe((data) => {
-      console.log(data);
+      // console.log(data);
       this.postes = data;
     });
     this.mdmService.getAll("Niveaux").subscribe((data) => {
-      console.log(data);
+      // console.log(data);
       this.niveaux = data;
     });
   }
@@ -44,7 +44,11 @@ export class HeaderComponent implements OnInit {
   onSearchChange() {
     this.search.emit(this.value);
   }
-
+  onInputSearch() {
+    console.log(this.value);
+    if (this.value === "")
+      this.search.emit("");
+  }
 
   onPostesChange(postId: number) {
     this.selectedPostes = []

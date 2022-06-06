@@ -12,8 +12,12 @@
   </div>
 </div>
 <div>
-  <app-header-formation-certification [annees]="annees" (statusYearEvent)="filter($event)"
-    (searchEvent)="onSearch($event)">
+  <app-header-formation-certification 
+    [annees]="annees" 
+    (statusYearEvent)="filter($event)"
+    (searchEvent)="onSearch($event)"
+    (postesEvent)="onChangePostes($event)"
+    (niveauxEvent)="onChangeNiveaux($event)">
   </app-header-formation-certification>
 </div>
 <!-- <div class="table-scroll">
