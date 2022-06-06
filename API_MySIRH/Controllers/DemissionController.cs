@@ -3,6 +3,7 @@ using API_MySIRH.Entities;
 using API_MySIRH.Extentions;
 using API_MySIRH.Helpers;
 using API_MySIRH.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +11,7 @@ namespace API_MySIRH.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize()]
     public class DemissionController : ControllerBase
     {
         private readonly IDemissionService _DemissionService;

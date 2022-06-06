@@ -164,6 +164,7 @@ export class AddEditCollaborateurComponent implements OnInit {
     this.collab.dateDebutStage = this.formGroup.value.dateDebutStage;
     this.collab.datePremiereExperience =
       this.formGroup.value.datePremiereExperience;
+    this.collab.demissions = [];
   }
 
   navigateBack() {

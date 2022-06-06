@@ -196,7 +196,7 @@
             </div>
             <div *ngIf="collab.id" id="demissions" aria-labelledby="demissions-tab" role="tabpanel"
               class="tab-pane fade">
-              <app-demission-tab (updateDemission)="updateDemission($event)" [collab]="collab" #demission>
+              <app-demission-tab (updateDemission)="updateDemissionDisplay($event)" [collab]="collab" #demission>
               </app-demission-tab>
             </div>
           </div>

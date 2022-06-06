@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, switchMap } from 'rxjs';
 import { ContratsComponent } from 'src/app/contrats/contrats.component';
 import { Collaborator, Demission } from 'src/app/Models/Collaborator';
 import { ContratsService } from 'src/app/services/contrats.service';
@@ -25,6 +25,7 @@ import {
 import { CollabTypeContrat } from 'src/app/Models/CollabTypeContrat';
 import { CarrieresComponent } from 'src/app/carrieres/carrieres.component';
 import { Carriere } from 'src/app/Models/Carriere';
+import { DemissionService } from 'src/app/services/demission.service';
 
 @Component({
   selector: 'app-add-edit-form-table',
@@ -52,7 +53,8 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
   demisTitle = '';
   constructor(
     private service: MdmService,
-    private formationCertifService: FormationCertificationsService
+    private formationCertifService: FormationCertificationsService,
+    private demissionService: DemissionService
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -110,25 +112,30 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
     if (this.subIntersectionF != undefined) this.subIntersectionF.unsubscribe();
     if (this.subIntersectionC != undefined) this.subIntersectionC.unsubscribe();
   }
+
   addDemission(event: Demission) {
     let data: Demission;
 
     data = event;
     this.demis = undefined;
-    this.myFormGroup.markAsDirty();
     if (data.id != 0) {
       this.collab.demissions.forEach((el) => {
         if (el.id == data.id) {
           el = data;
           el.reasonDemission = undefined;
+          this.demissionService.updateDemission(el);
         }
       });
       return;
     }
-    this.collab.demissions = [...this.collab.demissions, data];
+    data.collaborateurId = this.collab?.id;
+    this.demissionService.addDemission(data).subscribe(res => {
+      this.collab.demissions = [...this.collab.demissions, res?.data];
+      console.log(this.collab.demissions);
+    });
   }
 
-  updateDemission(event: number) {
+  updateDemissionDisplay(event: number) {
     if (event == 0) {
       this.demis = undefined;
       this.demisTitle = 'Ajouter Demission';

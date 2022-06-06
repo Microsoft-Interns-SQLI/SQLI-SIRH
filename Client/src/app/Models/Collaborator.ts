@@ -57,4 +57,5 @@ export class Demission {
   reasonDemission?: ReasonDemission;
   comment: string = "";
   isCanceled: boolean = false;
+  collaborateurId: number = 0;
 }
