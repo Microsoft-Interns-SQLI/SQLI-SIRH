@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Collaborator } from '../Models/Collaborator';
-import { Diplome } from '../Models/MdmModel';
-import { DiplomesService } from '../services/diplomes.service';
-import { AutoUnsubscribe } from '../shared/decorators/AutoUnsubscribe';
-import { ToastService } from '../shared/toast/toast.service';
+import { Collaborator } from 'src/app/Models/Collaborator';
+import { Diplome } from 'src/app/Models/MdmModel';
+import { DiplomesService } from 'src/app/services/diplomes.service';
+import { AutoUnsubscribe } from 'src/app/shared/decorators/AutoUnsubscribe';
+import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Component({
   selector: 'app-diplomes',

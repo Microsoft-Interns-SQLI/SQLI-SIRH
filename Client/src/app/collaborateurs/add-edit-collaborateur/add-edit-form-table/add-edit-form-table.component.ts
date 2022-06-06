@@ -8,12 +8,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ContratsComponent } from 'src/app/contrats/contrats.component';
 import { Collaborator, Demission } from 'src/app/Models/Collaborator';
-import { ContratsService } from 'src/app/services/contrats.service';
-import { DiplomesComponent } from 'src/app/diplomes/diplomes.component';
 import { CollabFormationCertif } from 'src/app/Models/collaborationCertificationFormation';
 import { Diplome } from 'src/app/Models/MdmModel';
 import { FormationCertificationsService } from 'src/app/services/formation-certifications.service';
@@ -23,8 +19,10 @@ import {
   SelectInputObject,
 } from './_form_inputs/select-input/select-input';
 import { CollabTypeContrat } from 'src/app/Models/CollabTypeContrat';
-import { CarrieresComponent } from 'src/app/carrieres/carrieres.component';
 import { Carriere } from 'src/app/Models/Carriere';
+import { ContratsComponent } from '../../contrats/contrats.component';
+import { CarrieresComponent } from '../../carrieres/carrieres.component';
+import { DiplomesComponent } from '../../diplomes/diplomes.component';
 
 @Component({
   selector: 'app-add-edit-form-table',
@@ -53,7 +51,7 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
   constructor(
     private service: MdmService,
     private formationCertifService: FormationCertificationsService
-  ) {}
+  ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.collab.id != 0) {
