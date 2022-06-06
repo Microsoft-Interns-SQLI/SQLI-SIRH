@@ -32,7 +32,7 @@
         <label>Recherche :</label>
         <div class="input-group">
             <input type="search" class="form-control" placeholder="Matricule, Nom, Poste ..."
-                [(ngModel)]="value">
+                [(ngModel)]="value" (input)="onInputSearch()">
             <button class="input-group-text btn btn-sm btn-outline-secondary" (click)="onSearchChange()"><span
                     class="bi bi-search"></span> </button>
         </div>

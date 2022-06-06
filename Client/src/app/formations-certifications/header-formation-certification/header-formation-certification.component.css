@@ -1,0 +1,9 @@
+.ng-select.custom-post ::ng-deep .ng-select-container  {            
+    min-height: 20px;
+    border-radius: 1;
+    width: 290px;
+}
+.ng-select.custom-niveau ::ng-deep .ng-select-container  {            
+    min-height: 20px;
+    border-radius: 1;
+}
