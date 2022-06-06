@@ -9,21 +9,9 @@
           </button>
         </li>
         <li *ngIf="collab.id" class="nav-item" role="presentation">
-          <button id="carriere-past-jobs-tab" data-bs-target="#carriere-past-jobs" aria-controls="carriere-past-jobs"
-            class="nav-link" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
-            carrière & Past Jobs
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button id="demissions-tab" data-bs-target="#demissions" aria-controls="demissions" class="nav-link"
+          <button id="carriere-tab" data-bs-target="#carriere" aria-controls="carriere" class="nav-link"
             data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
-            Démissions
-          </button>
-        </li>
-        <li *ngIf="collab.id" class="nav-item" role="presentation">
-          <button id="cv-documents-tab" data-bs-target="#cv-documents" aria-controls="cv-documents" class="nav-link"
-            data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
-            Cv & Documents
+            Carrière
           </button>
         </li>
         <li *ngIf="collab.id" class="nav-item" role="presentation">
@@ -33,9 +21,15 @@
           </button>
         </li>
         <li *ngIf="collab.id" class="nav-item" role="presentation">
-          <button id="skills-tab" data-bs-target="#skills" aria-controls="skills" class="nav-link" data-bs-toggle="tab"
-            type="button" role="tab" aria-selected="false">
-            Skills
+          <button id="diplomes-tab" data-bs-target="#diplomes" aria-controls="diplomes" class="nav-link"
+            data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
+            Diplômes
+          </button>
+        </li>
+        <li *ngIf="collab.id" class="nav-item" role="presentation">
+          <button id="cv-documents-tab" data-bs-target="#cv-documents" aria-controls="cv-documents" class="nav-link"
+            data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
+            Cv & Documents
           </button>
         </li>
         <li *ngIf="collab.id" class="nav-item" role="presentation">
@@ -48,6 +42,12 @@
           <button id="certifications-tab" data-bs-target="#certifications" aria-controls="certifications"
             class="nav-link" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
             Certificats
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button *ngIf="collab.id" id="demissions-tab" data-bs-target="#demissions" aria-controls="demissions"
+            class="nav-link" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">
+            Démissions
           </button>
         </li>
       </ul>
@@ -171,24 +171,19 @@
                 </div>
               </div>
             </div>
-            <div *ngIf="collab.id" id="carriere-past-jobs" aria-labelledby="carriere-past-jobs-tab" role="tabpanel"
-              class="tab-pane fade">
+            <div *ngIf="collab.id" id="carriere" aria-labelledby="carriere-tab" role="tabpanel" class="tab-pane fade">
               <app-carrieres [collab]="collab" #carrieres></app-carrieres>
-            </div>
-            <div id="demissions" aria-labelledby="demissions-tab" role="tabpanel" class="tab-pane fade">
-              <app-demission-tab (updateDemission)="updateDemission($event)" [collab]="collab" #demission>
-              </app-demission-tab>
-            </div>
-            <div *ngIf="collab.id" id="cv-documents" aria-labelledby="cv-documents-tab" role="tabpanel"
-              class="tab-pane fade">
-              <app-download [collab]="collab"></app-download>
             </div>
             <div *ngIf="collab" id="contrat-statut" aria-labelledby="contrat-statut-tab" role="tabpanel"
               class="tab-pane fade">
               <app-contrats [collab]="collab" #contrats></app-contrats>
             </div>
-            <div *ngIf="collab" id="skills" aria-labelledby="skills-tab" role="tabpanel" class="tab-pane fade">
+            <div *ngIf="collab" id="diplomes" aria-labelledby="diplomes-tab" role="tabpanel" class="tab-pane fade">
               <app-diplomes [collab]="collab" #diplomes></app-diplomes>
+            </div>
+            <div *ngIf="collab.id" id="cv-documents" aria-labelledby="cv-documents-tab" role="tabpanel"
+              class="tab-pane fade">
+              <app-download [collab]="collab"></app-download>
             </div>
             <div *ngIf="collab" id="formations" aria-labelledby="formations-tab" role="tabpanel" class="tab-pane fade">
               <app-formations-collab [collab]="collab" [intersections]="intersectionsFormations">
@@ -198,6 +193,11 @@
               class="tab-pane fade">
               <app-certifications-collab [collab]="collab" [intersections]="intersectionsCertifications">
               </app-certifications-collab>
+            </div>
+            <div *ngIf="collab.id" id="demissions" aria-labelledby="demissions-tab" role="tabpanel"
+              class="tab-pane fade">
+              <app-demission-tab (updateDemission)="updateDemission($event)" [collab]="collab" #demission>
+              </app-demission-tab>
             </div>
           </div>
         </div>

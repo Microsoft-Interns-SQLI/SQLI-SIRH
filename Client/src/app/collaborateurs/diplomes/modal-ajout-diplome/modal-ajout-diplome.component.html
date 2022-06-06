@@ -12,18 +12,18 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6 mt-3">
-                            <!-- todo : review -->
                             <app-text-input [formControl]="$any(form.controls?.['annee'])" [type]="'number'"
                                 [label]="'Année'"></app-text-input>
                         </div>
 
                         <div class="col-md-6 mt-3">
-                            <app-text-input [formControl]="$any(form.controls?.['label'])" [label]="'Label'">
+                            <app-text-input [formControl]="$any(form.controls?.['label'])" [label]="'Diplôme'">
                             </app-text-input>
                         </div>
 
                         <div class="col-md-12 mt-3">
-                            <app-text-input [formControl]="$any(form.controls?.['detail'])" [label]="'Détail'">
+                            <app-text-input [formControl]="$any(form.controls?.['detail'])"
+                                [label]="'Détails (école/université, branche, options ...)'">
                             </app-text-input>
                         </div>
 
@@ -34,8 +34,12 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Annuler</button>
-                    <button type="submit" class="btn btn-sm btn-primary">Sauvegarder</button>
+                    <button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">
+                        Annuler
+                    </button>
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        Sauvegarder
+                    </button>
                 </div>
             </form>
         </div>
