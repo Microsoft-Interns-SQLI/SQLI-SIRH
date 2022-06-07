@@ -25,6 +25,7 @@ import { DemissionService } from 'src/app/services/demission.service';
 import { ContratsComponent } from '../../contrats/contrats.component';
 import { CarrieresComponent } from '../../carrieres/carrieres.component';
 import { DiplomesComponent } from '../../diplomes/diplomes.component';
+import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Component({
   selector: 'app-add-edit-form-table',
@@ -53,7 +54,8 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
   constructor(
     private service: MdmService,
     private formationCertifService: FormationCertificationsService,
-    private demissionService: DemissionService
+    private demissionService: DemissionService,
+    private toastService: ToastService
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -117,21 +119,26 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
 
     data = event;
     this.demis = undefined;
+    data.collaborateurId = this.collab?.id;
+    data.reasonDemission = undefined;
     if (data.id != 0) {
-      this.collab.demissions.forEach((el) => {
-        if (el.id == data.id) {
-          el = data;
-          el.reasonDemission = undefined;
-          this.demissionService.updateDemission(el);
+      for (let i = 0; i < this.collab.demissions.length; i++) {
+        if (this.collab.demissions[i].id == data.id) {
+          this.demissionService.updateDemission(data).subscribe({
+            next: (res) => this.collab.demissions[i] = res,
+            error: (err) => this.toastService.showToast('danger', "demission n'a pas modifer", 2),
+            complete: () => this.toastService.showToast('success', "demission a ete modifier", 2)
+          });
+          break ;
         }
-      });
+      }
       return;
     }
-    data.collaborateurId = this.collab?.id;
-    this.demissionService.addDemission(data).subscribe(res => {
-      this.collab.demissions = [...this.collab.demissions, res?.data];
-      console.log(this.collab.demissions);
-    });
+    this.demissionService.addDemission(data).subscribe({
+      next: (res) => this.collab.demissions = [...this.collab.demissions, res?.data],
+      error: (err) => this.toastService.showToast('danger', "demission n'a ete pas ajouter", 2),
+      complete: () => this.toastService.showToast('success', "demission a ete ajouter", 2)
+    })
   }
 
   updateDemissionDisplay(event: number) {

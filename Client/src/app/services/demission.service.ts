@@ -20,7 +20,7 @@ export class DemissionService {
   }
 
   updateDemission(obj: Demission) : Observable<Demission> {
-    return this.http.put<Demission>(this.myUrl + `${obj.id}`, obj);
+    return this.http.put<Demission>(this.myUrl + `/${obj.id}`, obj);
   }
 
   deleteDemission(id: string|number) : Observable<Demission> {

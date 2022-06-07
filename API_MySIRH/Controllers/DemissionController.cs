@@ -39,13 +39,15 @@ namespace API_MySIRH.Controllers
                 return Ok(data);
             return BadRequest();
         }
-        [HttpPut("id")]
+        [HttpPut("{id}")]
         public async Task<ActionResult<DemissionDTO?>> UpdateDemission(int id, DemissionDTO demission)
         {
             if (demission.Id != id)
                 return BadRequest();
             var resp = await _DemissionService.GetDemissionById(id);
-            if (resp != null && resp.CollaborateurId != demission.CollaborateurId)
+            if (resp == null)
+                return NotFound();
+            else if (resp.CollaborateurId != demission.CollaborateurId)
                 return BadRequest();
             try
             {
