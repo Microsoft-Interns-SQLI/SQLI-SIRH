@@ -14,6 +14,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
   @Input() collab?: Collaborator;
   downloadSubscription?: Subscription;
   deleteSubscription?: Subscription;
+  documentToDelete: any;
   message: string = '';
   progress: number = 0;
   constructor(private filesService: FilesService) {}
@@ -49,7 +50,6 @@ export class DownloadComponent implements OnInit, OnDestroy {
   }
 
   delete(document: CollabFile) {
-    console.log(document);
     this.deleteSubscription = this.filesService.delete(document.id).subscribe({
       next: () => {
         this.collab!.documents = this.collab?.documents?.filter(
@@ -57,5 +57,8 @@ export class DownloadComponent implements OnInit, OnDestroy {
         );
       },
     });
+  }
+  getItemToDelete(document: any) {
+    this.documentToDelete = document;
   }
 }

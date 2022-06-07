@@ -18,15 +18,15 @@ export class TableComponent implements OnInit, OnDestroy, OnChanges {
   @Input() rows: Collaborator[] = [];
   @Input() cols: CertificationOrFormation[] = [];
   @Input() type!: boolean;
-  @Input() yearSelected!:number;
+  @Input() yearSelected!: number;
   @Output() sortValue: EventEmitter<string> = new EventEmitter<string>();
   @Output() yearChanged: EventEmitter<number> = new EventEmitter<number>();
-  
+
   subPopup!: Subscription;
 
   newRows: { collaborateur: Collaborator, certificates: CollabFormationCertif[] }[] = [];
 
-  libelle:string = "test";
+  libelle: string = "test";
 
   constructor(private popupService: PopupService) { }
 
@@ -58,32 +58,38 @@ export class TableComponent implements OnInit, OnDestroy, OnChanges {
       }
     })
   }
-
-  sort(libelle:string){
+  boxDelete(id: number) {
+    const index = this.table.findIndex(x => x.id === id);
+    if (index !== -1){
+      this.table.splice(index, 1);
+      this.prepareData();
+    }
+  }
+  sort(libelle: string) {
     this.sortValue.emit(libelle);
     this.libelle = libelle;
   }
 
-  private prepareData(){
+  private prepareData() {
     this.newRows = [];
     this.rows.forEach(collab => {
       let certificates: CollabFormationCertif[] = [];
 
       this.cols.forEach(certif => {
         const collabFormCert = this.table.find(x => x.collaborateurId === collab.id && x.idFormationCertif === certif.id);
-        
+
         if (collabFormCert != undefined) {
           certificates.push(collabFormCert);
         } else {
-          certificates.push({ status: '', collaborateurId:collab.id, idFormationCertif: certif.id } as CollabFormationCertif);
+          certificates.push({ status: '', collaborateurId: collab.id, idFormationCertif: certif.id } as CollabFormationCertif);
         }
       });
 
       this.newRows.push({ collaborateur: collab, certificates: certificates })
-      
+
     });
-    
-    
+
+
   }
   ngOnDestroy(): void {
     this.subPopup.unsubscribe();

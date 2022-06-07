@@ -1,14 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { mergeMap } from 'rxjs';
-import { Collaborator } from '../Models/Collaborator';
-import { Diplome } from '../Models/MdmModel';
-import { DiplomesService } from '../services/diplomes.service';
-import { ToastService } from '../shared/toast/toast.service';
+import { Collaborator } from 'src/app/Models/Collaborator';
+import { Diplome } from 'src/app/Models/MdmModel';
+import { DiplomesService } from 'src/app/services/diplomes.service';
+import { AutoUnsubscribe } from 'src/app/shared/decorators/AutoUnsubscribe';
+import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Component({
   selector: 'app-diplomes',
   templateUrl: './diplomes.component.html',
 })
+
+@AutoUnsubscribe()
 export class DiplomesComponent implements OnInit {
   @Input() collab!: Collaborator;
 

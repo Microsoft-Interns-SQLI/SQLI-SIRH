@@ -29,7 +29,7 @@ export class CollaboratorsService {
     Collaborator[]
   >();
 
-  constructor(private http: HttpClient, private imageService: ImagesService) {}
+  constructor(private http: HttpClient, private imageService: ImagesService) { }
 
   getCollaboratorsList(
     itemsPerPage?: number,
@@ -44,6 +44,7 @@ export class CollaboratorsService {
     year?: number,
     status?: number
   ) {
+    console.log("status = " + status);
     //delay(50000);
     let params = new HttpParams();
     if (page != undefined && itemsPerPage != undefined) {
@@ -67,7 +68,7 @@ export class CollaboratorsService {
     }
 
     if (orderbyCertification != undefined) {
-      params = params.append('OrderByCertification', orderbyCertification);
+      params = params.append('OrderByCertification', JSON.stringify(orderbyCertification));
     }
     if (postesId != undefined && postesId.toString() != '') {
       params = params.appendAll({ postesId: postesId });
@@ -77,9 +78,7 @@ export class CollaboratorsService {
       params = params.appendAll({ niveauxId: niveauxId });
     }
     console.log('those are my params =' + params.toString());
-    if (orderbyCertification != undefined) {
-      params = params.append('OrderByCertification', orderbyCertification);
-    }
+
     if (year != undefined) {
       params = params.append('Year', year);
     }
@@ -100,11 +99,7 @@ export class CollaboratorsService {
               },
               error: (er) => console.log(er),
             });
-            let currentCarriere = collab.carrieres
-              ?.sort((a, b) => a.annee - b.annee)
-              .pop();
-            collab.niveau = currentCarriere?.niveau;
-            collab.poste = currentCarriere?.poste;
+            collab.carrieres = collab.carrieres?.sort((a, b) => a.annee - b.annee)
             return collab;
           }
         );
@@ -166,11 +161,7 @@ export class CollaboratorsService {
         map((response) => {
           this.paginatedResult.result = <Collaborator[]>response.body.map(
             (collab: Collaborator) => {
-              let currentCarriere = collab.carrieres
-                ?.sort((a, b) => a.annee - b.annee)
-                .pop();
-              collab.niveau = currentCarriere?.niveau;
-              collab.poste = currentCarriere?.poste;
+              collab.carrieres = collab.carrieres?.sort((a, b) => a.annee - b.annee)
               return collab;
             }
           );
@@ -189,11 +180,7 @@ export class CollaboratorsService {
       .get<any>(this.myUrl + '/' + id, { responseType: 'json' })
       .pipe(
         map((collab: Collaborator) => {
-          let currentCarriere = collab.carrieres
-            ?.sort((a, b) => a.annee - b.annee)
-            .pop();
-          collab.niveau = currentCarriere?.niveau;
-          collab.poste = currentCarriere?.poste;
+          collab.carrieres = collab.carrieres?.sort((a, b) => a.annee - b.annee)
           return collab;
         })
       );
@@ -286,11 +273,7 @@ export class CollaboratorsService {
         map((response) => {
           this.paginatedResult.result = <Collaborator[]>response.body.map(
             (collab: Collaborator) => {
-              let currentCarriere = collab.carrieres
-                ?.sort((a, b) => a.annee - b.annee)
-                .pop();
-              collab.niveau = currentCarriere?.niveau;
-              collab.poste = currentCarriere?.poste;
+              collab.carrieres = collab.carrieres?.sort((a, b) => a.annee - b.annee)
               return collab;
             }
           );

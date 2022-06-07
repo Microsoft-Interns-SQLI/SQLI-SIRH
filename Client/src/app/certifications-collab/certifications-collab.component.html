@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header">
-        <div class="row">
+        <div class="row mb-2">
             <div class="col-md-8">
                 <strong>
                     <u>
@@ -16,64 +16,27 @@
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <button class="btn btn-sm btn-success" (click)="addFormation()">
+                        <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#addcertifications">
                             <i class="bi bi-plus-square"></i>
                             Certification
                         </button>
+                        <div class="modal fade bd-example-modal-lg" id="addcertifications" tabindex="-1" role="dialog"
+                            aria-labelledby="addcertificationsLabel" aria-hidden="true">
+
+                            <app-popup-add-formations-or-certifications (resultCertifEvent)="addCertifications($event)"
+                                [formationsOrCertification]="certifications" [type]="'certification'">
+                            </app-popup-add-formations-or-certifications>
+
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="alert alert-danger p-1" *ngIf="error">
+            {{error}}
+        </div>
     </div>
     <div class="card-body">
-        <div class="mb-3">
-            <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="controls.length > 0">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="alert alert-danger p-1" *ngIf="error">
-                            {{error}}
-                        </div>
-                    </div>
-                </div>
-                <div formArrayName="certifications" *ngFor="let f of controls.controls; let i = index" class="mt-2">
-                    <div class="row" [formGroupName]="i">
-                        <div class="col-md-2">
-                            <select class="form-select form-select-sm" formControlName="name">
-                                <option value="0" selected disabled>
-                                    Certification
-                                </option>
-                                <option [ngValue]="certification.id" *ngFor="let certification of certifications">
-                                    {{certification.libelle}}
-                                </option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-2">
-                            <select class="form-select form-select-sm" formControlName="status">
-                                <option value="{{s.id}}" *ngFor="let s of statusTable">{{s.name}}</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-3">
-                            <input class="form-control form-control-sm" type="date" formControlName="dateDebut">
-                        </div>
-
-                        <div class="col-md-3">
-                            <input class="form-control form-control-sm" type="date" formControlName="dateFin">
-                        </div>
-
-                        <div class="col-md-2 text-center">
-                            <button class="btn btn-sm btn-success me-1" type="submit" [disabled]="form.invalid">
-                                <i class="bi bi-check-square"></i>
-                            </button>
-                            <button class="btn btn-sm btn-danger ms-1" (click)="deleteFormation(i)">
-                                <span class="bi bi-x"></span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
         <div class="table-responsive">
             <table class="table w-100">
                 <thead>
@@ -102,7 +65,7 @@
                             {{item.intersection.dateFin | date: 'dd/MM/yyyy'}}
                         </td>
                         <td>
-                            <button type="button" (click)="onEdit(item.intersection)" class="btn btn-sm btn-primary">
+                            <button type="button" (click)="onEdit(item.intersection)" class="btn btn-sm btn-primary mx-1">
                                 <svg _ngcontent-fyw-c112="" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     fill="currentColor" viewBox="0 0 16 16" class="bi bi-pencil-square">
                                     <path _ngcontent-fyw-c112=""
@@ -113,6 +76,9 @@
                                     </path>
                                 </svg>
                             </button>
+                            <button type="button" class="btn btn-sm btn-outline-danger" (click)="onDelete(item.intersection.id)" [disabled]="item.intersection.status === 'FAIT'">
+                                <span class="bi bi-trash"></span>
+                            </button>
                         </td>
                     </tr>
                 </tbody>
@@ -122,5 +88,5 @@
 </div>
 
 <!-- todo-review : had modal-popup mn a7ssan ykon f parrent machi dakhel f component lli atkhdem beh -->
-<app-popup class="popup" [type]="'certification'" *ngIf="displayed" (certificationEvent)="boxUpdated($event)">
+<app-popup class="popup" [type]="'certification'" *ngIf="displayed" (fcEvent)="boxUpdated($event)">
 </app-popup>

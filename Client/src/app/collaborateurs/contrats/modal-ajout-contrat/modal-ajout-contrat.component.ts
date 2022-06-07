@@ -9,12 +9,14 @@ import { CollabTypeContrat } from 'src/app/Models/CollabTypeContrat';
 import { ContratsService } from 'src/app/services/contrats.service';
 import { MdmService } from 'src/app/services/mdm.service';
 import { minDateValidator } from 'src/app/shared/custom-validators/min-date.validator';
+import { AutoUnsubscribe } from 'src/app/shared/decorators/AutoUnsubscribe';
 import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Component({
   selector: 'app-modal-ajout-contrat',
   templateUrl: './modal-ajout-contrat.component.html',
 })
+@AutoUnsubscribe()
 export class ModalAjoutContratComponent implements OnInit {
   form!: FormGroup;
   typesContratData: any = new SelectInputData();
@@ -37,7 +39,6 @@ export class ModalAjoutContratComponent implements OnInit {
     this.form = this.formBuilder.group({
       dateDebut: ['', Validators.required],
       dateFin: [''],
-      isInSQLI: true,
       typeContratId: ['', Validators.required],
       collaborateurId: this.collaborateur?.id,
     });
@@ -74,11 +75,11 @@ export class ModalAjoutContratComponent implements OnInit {
     }
   }
 
-  validateDateGap(event: Event) {
-    const minDate = (event.target as HTMLInputElement).value;
-    this.form
-      .get('dateFin')
-      ?.setValidators(minDateValidator(new Date(minDate)));
+  validateDateGap() {
+    const minDate = this.form.get('dateDebut')?.value;
+    this.form.get('dateFin')?.value && minDate ?
+      this.form.get('dateFin')?.setValidators(minDateValidator(new Date(minDate))) :
+      this.form.get('dateFin')?.setValidators([]);
     this.form.get('dateFin')?.updateValueAndValidity({ onlySelf: true });
   }
 }

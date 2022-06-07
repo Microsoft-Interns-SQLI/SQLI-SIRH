@@ -21,9 +21,10 @@ namespace API_MySIRH.Repositories
 
         }
 
-        public Task Delete(CollaborateurFormation collaborateurFormation)
+        public async Task Delete(CollaborateurFormation collaborateurFormation)
         {
-            throw new NotImplementedException();
+               _context.CollaborateurFormations.Remove(collaborateurFormation);
+               await _context.SaveChangesAsync();
         }
 
         public async Task<List<CollaborateurFormation>> GetAll()

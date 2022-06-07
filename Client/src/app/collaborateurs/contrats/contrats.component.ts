@@ -1,13 +1,16 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { Collaborator } from '../Models/Collaborator';
-import { CollabTypeContrat } from '../Models/CollabTypeContrat';
-import { ContratsService } from '../services/contrats.service';
-import { ToastService } from '../shared/toast/toast.service';
+import { Collaborator } from 'src/app/Models/Collaborator';
+import { CollabTypeContrat } from 'src/app/Models/CollabTypeContrat';
+import { ContratsService } from 'src/app/services/contrats.service';
+import { AutoUnsubscribe } from 'src/app/shared/decorators/AutoUnsubscribe';
+import { ToastService } from 'src/app/shared/toast/toast.service';
+
 
 @Component({
   selector: 'app-contrats',
   templateUrl: './contrats.component.html',
 })
+@AutoUnsubscribe()
 export class ContratsComponent implements OnInit {
   affectations!: CollabTypeContrat[];
   @Input() collab!: Collaborator;

@@ -1,5 +1,6 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PopupService } from '../formations-certifications/popup/popup.service';
@@ -7,6 +8,7 @@ import { CertificationOrFormation } from '../Models/certification-formation';
 import { CollabFormationCertif } from '../Models/collaborationCertificationFormation';
 import { Collaborator } from '../Models/Collaborator';
 import { FormationCertificationsService } from '../services/formation-certifications.service';
+import { ToastService } from '../shared/toast/toast.service';
 
 @Component({
   selector: 'app-formations-collab',
@@ -15,10 +17,10 @@ import { FormationCertificationsService } from '../services/formation-certificat
 })
 export class FormationsCollabComponent implements OnInit, OnChanges, OnDestroy {
 
-  form!: FormGroup;
 
   @Input() collab: Collaborator = {} as Collaborator;
   @Input() intersections: CollabFormationCertif[] = [];
+
 
   year: number = new Date(Date.now()).getFullYear();
   years: number[] = [];
@@ -33,13 +35,15 @@ export class FormationsCollabComponent implements OnInit, OnChanges, OnDestroy {
   subPopup!: Subscription;
   subYear!: Subscription;
   subIntersection!: Subscription;
-
-  statusTable = environment.status;
+  subRemove!: Subscription;
 
 
   error: string = "";
 
-  constructor(private formationCertifService: FormationCertificationsService, private popupService: PopupService) { }
+  constructor(
+    private formationCertifService: FormationCertificationsService,
+    private popupService: PopupService,
+    private toastService: ToastService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
 
@@ -55,14 +59,14 @@ export class FormationsCollabComponent implements OnInit, OnChanges, OnDestroy {
           this.fetchIntersection();
       }
     });
-    
+
     if (this.intersections.length > 0) {
       this.sub = this.formationCertifService.getFormations().subscribe({
         next: data => this.formations = data,
-        complete: ()=> this.prepareData()
+        complete: () => this.prepareData()
       });
     }
-    else{
+    else {
       this.sub = this.formationCertifService.getFormations().subscribe({
         next: data => this.formations = data
       });
@@ -72,15 +76,10 @@ export class FormationsCollabComponent implements OnInit, OnChanges, OnDestroy {
   ngOnInit(): void {
     this.subPopup = this.popupService.isShow.subscribe(data => this.displayed = data);
 
-    this.form = new FormGroup({
-      'formations': new FormArray([])
-    })
-
-
   }
 
 
-  
+
   selectYear() {
     this.fetchIntersection();
   }
@@ -90,7 +89,7 @@ export class FormationsCollabComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   boxUpdated(value: CollabFormationCertif) {
-    
+
     const index = this.table.findIndex(x => x.intersection.id === value.id);
     const intersection = this.table[index];
     if (index !== -1) {
@@ -103,53 +102,11 @@ export class FormationsCollabComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  addFormation() {
-    this.controls.push(new FormGroup({
-      'name': new FormControl(0, Validators.required),
-      'status': new FormControl(1, Validators.required),
-      'dateDebut': new FormControl(null, Validators.required),
-      'dateFin': new FormControl(null, Validators.required)
-    }))
-  }
-
-  deleteFormation(index: number) {
-    if (this.controls.length === 1) {
-      this.error = "";
-    }
-    this.controls.removeAt(index);
-  }
-
-  onSubmit() {
-    let errorSelect: boolean = false;
-    let errorDate: boolean = false;
-    this.error = "";
-    let result: CollabFormationCertif[] = [];
-
-    this.controls.value.forEach((item: any) => {
-      if (+item.name === 0) {
-        errorSelect = true;
-        return;
-      }
-      if (new Date(item.dateDebut).getTime() > new Date(item.dateFin).getTime()) {
-        errorDate = true;
-        return;
-      }
-      result.push({
-        collaborateurId: this.collab.id,
-        status: item.status,
-        idFormationCertif: item.name,
-        dateDebut: item.dateDebut,
-        dateFin: item.dateFin
-      } as CollabFormationCertif);
-    });
-
-    if (errorSelect) {
-      this.error = "Please selecte the formation";
-      return;
-    } else if (errorDate) {
-      this.error = "The start date must be earlier than end date";
-      return;
-    }
+  addFormations(result: CollabFormationCertif[]) {
+    result = result.map(item => {
+      item.collaborateurId = this.collab.id;
+      return item;
+    })
 
     this.subAdd = this.formationCertifService.updateCollabFormations(this.collab.id, result).subscribe({
       complete: () => {
@@ -166,21 +123,68 @@ export class FormationsCollabComponent implements OnInit, OnChanges, OnDestroy {
 
 
           if (intersectionExist == undefined) {
-              this.intersections.push(x);
+            this.intersections.push(x);
           }
         });
         this.prepareData();
-        this.controls.clear();
       }
     });
   }
-  get controls() {
-    return (this.form.get("formations") as FormArray);
+
+  // onSubmit() {
+  //   let errorSelect: boolean = false;
+  //   let errorDate: boolean = false;
+  //   this.error = "";
+  //   let result: CollabFormationCertif[] = [];
+
+  //   this.controls.value.forEach((item: any) => {
+  //     if (+item.name === 0) {
+  //       errorSelect = true;
+  //       return;
+  //     }
+  //     if (new Date(item.dateDebut).getTime() > new Date(item.dateFin).getTime()) {
+  //       errorDate = true;
+  //       return;
+  //     }
+  //     result.push({
+  //       collaborateurId: this.collab.id,
+  //       status: item.status,
+  //       idFormationCertif: item.name,
+  //       dateDebut: item.dateDebut,
+  //       dateFin: item.dateFin
+  //     } as CollabFormationCertif);
+  //   });
+
+  //   if (errorSelect) {
+  //     this.error = "Please selecte the formation";
+  //     return;
+  //   } else if (errorDate) {
+  //     this.error = "The start date must be earlier than end date";
+  //     return;
+  //   }
+
+
+  // }
+  onDelete(id: number) {
+    if (confirm("Are you sure you want to remove this formation?"))
+      this.subRemove = this.formationCertifService.removeCollabFormation(id).subscribe({
+        next: () => {
+          const index = this.table.findIndex(x => x.intersection.id === id);
+          if (index !== -1)
+            this.table.splice(index, 1);
+        },
+        error: (err) => this.error = err.error,
+        complete: () => {
+          this.error = "";
+          this.toastService.showToast("success", "Formation deleted successfully!", 2);
+        }
+      });
   }
 
-  private changeYearsDropDown(value: CollabFormationCertif){
+
+  private changeYearsDropDown(value: CollabFormationCertif) {
     if (this.years.findIndex(x => x === new Date(value.dateDebut).getFullYear()) === -1) {
-      if(this.years.length === 0)
+      if (this.years.length === 0)
         this.year = new Date(value.dateDebut).getFullYear();
       this.years.push(new Date(value.dateDebut).getFullYear());
       this.years.sort((a, b) => b - a);
@@ -193,7 +197,7 @@ export class FormationsCollabComponent implements OnInit, OnChanges, OnDestroy {
     })
   }
   private prepareData() {
-    
+
     this.table = [];
     this.intersections.forEach(item => {
 
@@ -217,6 +221,8 @@ export class FormationsCollabComponent implements OnInit, OnChanges, OnDestroy {
       this.subAdd.unsubscribe();
     if (this.subIntersection != undefined)
       this.subIntersection.unsubscribe();
+    if (this.subRemove != undefined)
+      this.subRemove.unsubscribe();
   }
 
 }

@@ -28,4 +28,4 @@
   </tbody>
 </table>
 <app-popup class="popup" [type]="type ? 'formation' : 'certification'" *ngIf="displayed"
-  (certificationEvent)="boxUpdated($event)"></app-popup>
+  (fcEvent)="boxUpdated($event)" (deleteEvent)="boxDelete($event)"></app-popup>

@@ -31,7 +31,7 @@ namespace API_MySIRH.Controllers
         {
             var list = await _collaborateurCertificationService.GetAll(filter);
 
-            return Ok(list);
+            return list == null ? Ok(new CollaborateurFormationResponse { List = new List<CollaborateurFormationDTO>() }) : Ok(list);
         }
         [HttpGet("certifications/years")]
         public async Task<IActionResult> GetCertificationYears()
@@ -129,7 +129,17 @@ namespace API_MySIRH.Controllers
 
             return StatusCode(StatusCodes.Status201Created, "Collaborateur certification updated successfully!");
         }
+        [HttpDelete("certifications/{id}")]
+        public async Task<IActionResult> DeleteCertificate(int id)
+        {
+            var collaborateurCertification = await _collaborateurCertificationService.GetById(id);
+            if (collaborateurCertification == null)
+                return NotFound("Certificate not found!");
 
+            await _collaborateurCertificationService.Delete(collaborateurCertification);
+
+            return Ok("Certificate Deleted successfully!");
+        }
 
         [HttpGet("formations")]
         public async Task<IActionResult> GetFormations([FromQuery] FilterParamsForCertifAndFormation filter)
@@ -243,7 +253,16 @@ namespace API_MySIRH.Controllers
 
             return StatusCode(StatusCodes.Status201Created, "Collaborateur formation updated successfully!");
         }
+        [HttpDelete("formations/{id}")]
+        public async Task<IActionResult> DeleteFormation(int id)
+        {
+            var collaborateurFormation = await _collaborateurFormationService.GetById(id);
+            if (collaborateurFormation == null)
+                return NotFound("Formation not found!");
 
+            await _collaborateurFormationService.Delete(collaborateurFormation);
+            return Ok("Formation deleted successfully!");
+        }
 
         private async Task addOrUpdateFormation(CollaborateurFormationDTO oldcf, CollaborateurFormationDTO newcf)
         {

@@ -15,11 +15,13 @@ namespace API_MySIRH.Services
     {
         private readonly ICollaborateurRepository _collaborateurRepository;
         private readonly IMapper _mapper;
+        private readonly IDemissionService _demissionService;
 
-        public CollaborateurService(ICollaborateurRepository collaborateurRepository, IMapper mapper)
+        public CollaborateurService(ICollaborateurRepository collaborateurRepository, IMapper mapper, IDemissionService demissionService)
         {
             this._collaborateurRepository = collaborateurRepository;
             this._mapper = mapper;
+            this._demissionService = demissionService;
         }
 
         public async Task<IEnumerable<int>> GetIntegrationsYearsRange()
@@ -161,7 +163,7 @@ namespace API_MySIRH.Services
 
         public async Task<PagedList<CollaborateurDTO>> GetDemissions(FilterParams filterParams)
         {
-            var query = this._collaborateurRepository.GetCollaborateurs().Where(x => x.Demissions.Any()).AsQueryable();
+            var query = this._demissionService.GetDemissions(filterParams);
 
             if (!string.IsNullOrEmpty(filterParams.Site))
                 query = query.Where(c => c.Site.Name == filterParams.Site);
