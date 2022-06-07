@@ -30,20 +30,7 @@
             Carrière
           </button>
         </li>
-        <li *ngIf="collab.id" class="nav-item" role="presentation">
-          <button
-            id="cv-reader-tab"
-            data-bs-target="#cv-reader"
-            aria-controls="cv-reader"
-            class="nav-link"
-            data-bs-toggle="tab"
-            type="button"
-            role="tab"
-            aria-selected="false"
-          >
-            Cv Reader
-          </button>
-        </li>
+
         <li *ngIf="collab.id" class="nav-item" role="presentation">
           <button
             id="contrat-statut-tab"
@@ -84,6 +71,20 @@
             aria-selected="false"
           >
             Cv & Documents
+          </button>
+        </li>
+        <li *ngIf="collab.id" class="nav-item" role="presentation">
+          <button
+            id="cv-reader-tab"
+            data-bs-target="#cv-reader"
+            aria-controls="cv-reader"
+            class="nav-link"
+            data-bs-toggle="tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
+          >
+            Cv Reader
           </button>
         </li>
         <li *ngIf="collab.id" class="nav-item" role="presentation">
