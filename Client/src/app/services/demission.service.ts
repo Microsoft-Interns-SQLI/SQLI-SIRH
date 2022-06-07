@@ -24,7 +24,7 @@ export class DemissionService {
   }
 
   deleteDemission(id: string|number) : Observable<Demission> {
-    return this.http.delete<Demission>(this.myUrl + `${id}`);
+    return this.http.delete<Demission>(this.myUrl + `/${id}`);
   }
 
 }
