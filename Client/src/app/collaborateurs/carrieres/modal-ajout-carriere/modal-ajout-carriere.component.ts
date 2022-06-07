@@ -1,16 +1,18 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectInputData, SelectInputObject } from 'src/app/collaborateurs/add-edit-collaborateur/add-edit-form-table/_form_inputs/select-input/select-input';
+import { Carriere } from 'src/app/Models/Carriere';
+import { Collaborator } from 'src/app/Models/Collaborator';
 import { CarrieresService } from 'src/app/services/carrieres.service';
 import { MdmService } from 'src/app/services/mdm.service';
-import { Carriere } from '../../Models/Carriere';
-import { Collaborator } from '../../Models/Collaborator';
-import { ToastService } from '../../shared/toast/toast.service';
+import { AutoUnsubscribe } from 'src/app/shared/decorators/AutoUnsubscribe';
+import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Component({
   selector: 'app-modal-ajout-carriere',
   templateUrl: './modal-ajout-carriere.component.html'
 })
+@AutoUnsubscribe()
 export class ModalAjoutCarriereComponent implements OnInit {
   form!: FormGroup;
   @Output() refreshCarrieres = new EventEmitter<Carriere>();
@@ -68,15 +70,12 @@ export class ModalAjoutCarriereComponent implements OnInit {
       this.carriereService.addCarriere(formGroup.value).subscribe(
         {
           next: (addedCarriere) => {
-            console.log(
-              "addedCarriere ! ", addedCarriere
-            )
             this.refreshCarrieres.emit(addedCarriere as Carriere);
             this.initForm();
           },
           error: (erreur) => {
             console.log(erreur);
-            this.toastService.showToast("danger", "Carrière non ajoutée ! une erreur est survenue au sein du serveur distant.. Veuillez réessayer plus tard.", 10);
+            // this.toastService.showToast("danger", "Carrière non ajoutée ! une erreur est survenue au sein du serveur distant.. Veuillez réessayer plus tard.", 10);
           }
         }
       );

@@ -33,10 +33,6 @@ export class Collaborator {
   technos: string = '';
   certifications: string = '';
   langues: string = '';
-  niveauId: number = 0;
-  niveau?: Niveau;
-  posteId: number = 0;
-  poste?: Poste;
   carrieres: Carriere[] = [];
   nationnalite: string = '';
   siteId?: number;

@@ -10,10 +10,7 @@ import {
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, switchMap } from 'rxjs';
-import { ContratsComponent } from 'src/app/contrats/contrats.component';
 import { Collaborator, Demission } from 'src/app/Models/Collaborator';
-import { ContratsService } from 'src/app/services/contrats.service';
-import { DiplomesComponent } from 'src/app/diplomes/diplomes.component';
 import { CollabFormationCertif } from 'src/app/Models/collaborationCertificationFormation';
 import { Diplome } from 'src/app/Models/MdmModel';
 import { FormationCertificationsService } from 'src/app/services/formation-certifications.service';
@@ -23,9 +20,11 @@ import {
   SelectInputObject,
 } from './_form_inputs/select-input/select-input';
 import { CollabTypeContrat } from 'src/app/Models/CollabTypeContrat';
-import { CarrieresComponent } from 'src/app/carrieres/carrieres.component';
 import { Carriere } from 'src/app/Models/Carriere';
 import { DemissionService } from 'src/app/services/demission.service';
+import { ContratsComponent } from '../../contrats/contrats.component';
+import { CarrieresComponent } from '../../carrieres/carrieres.component';
+import { DiplomesComponent } from '../../diplomes/diplomes.component';
 
 @Component({
   selector: 'app-add-edit-form-table',

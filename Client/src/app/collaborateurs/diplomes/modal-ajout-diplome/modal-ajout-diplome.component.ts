@@ -3,12 +3,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Collaborator } from 'src/app/Models/Collaborator';
 import { Diplome } from 'src/app/Models/MdmModel';
 import { DiplomesService } from 'src/app/services/diplomes.service';
+import { AutoUnsubscribe } from 'src/app/shared/decorators/AutoUnsubscribe';
 import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Component({
   selector: 'app-modal-ajout-diplome',
   templateUrl: './modal-ajout-diplome.component.html',
 })
+@AutoUnsubscribe()
 export class ModalAjoutDiplomeComponent implements OnInit {
   form!: FormGroup;
   @Output() refreshDiplomes = new EventEmitter<Diplome>();
