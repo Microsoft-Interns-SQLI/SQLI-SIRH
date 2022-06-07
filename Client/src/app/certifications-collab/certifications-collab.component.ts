@@ -107,24 +107,51 @@ export class CertificationsCollabComponent implements OnInit, OnChanges, OnDestr
     })
 
     this.subAdd = this.formationCertifService.updateCollabCertifs(this.collab.id, result).subscribe({
-      complete: () => {
-        result.forEach(x => {
+      next: (data) => {
+        
+        data.forEach((item:any)=>{
 
-          x.status = +x.status === 2 ? "FAIT" : "AFAIRE";
+          const value = {
+            id: item.id,
+            status: item.status,
+            dateDebut: item.dateDebut,
+            dateFin: item.dateFin,
+            collaborateurId: item.collaborateurId,
+            idFormationCertif: item.certificationId
+          } as CollabFormationCertif
 
-          const intersectionExist = this.intersections.find(i =>
-            i.collaborateurId === x.collaborateurId
-            && i.idFormationCertif === x.idFormationCertif
-            && i.status === x.status
-            && new Date(i.dateDebut).toDateString() === new Date(x.dateDebut).toDateString()
-            && new Date(i.dateFin).toDateString() === new Date(x.dateFin).toDateString());
-
+          const intersectionExist = this.intersections.find(i => i.id === item.id);
 
           if (intersectionExist == undefined) {
-            this.intersections.push(x);
+            this.intersections.push(value);
+          }else if(new Date(item.dateDebut).getFullYear() != new Date(intersectionExist.dateDebut).getFullYear() || item.status != intersectionExist.status){
+            const intersectionUpdate = this.intersections.findIndex(i => i.id === item.id);
+            this.intersections.splice(intersectionUpdate,1,value);
           }
-        });
+        })
+
+        
         this.prepareData();
+       
+      },
+      complete: () => {
+        // result.forEach(x => {
+
+        //   x.status = +x.status === 2 ? "FAIT" : "AFAIRE";
+
+        //   const intersectionExist = this.intersections.find(i =>
+        //     i.collaborateurId === x.collaborateurId
+        //     && i.idFormationCertif === x.idFormationCertif
+        //     && i.status === x.status
+        //     && new Date(i.dateDebut).toDateString() === new Date(x.dateDebut).toDateString()
+        //     && new Date(i.dateFin).toDateString() === new Date(x.dateFin).toDateString());
+
+
+        //   if (intersectionExist == undefined) {
+        //     this.intersections.push(x);
+        //   }
+        // });
+        // this.prepareData();
       }
     });
   }
@@ -159,6 +186,10 @@ export class CertificationsCollabComponent implements OnInit, OnChanges, OnDestr
           const index = this.table.findIndex(x => x.intersection.id === id);
           if (index !== -1)
             this.table.splice(index, 1);
+
+          const indexIntersection = this.intersections.findIndex(x => x.id === id);
+          if (indexIntersection !== -1)
+            this.intersections.splice(indexIntersection, 1);
         },
         error: (err) => this.error = err.error,
         complete: () => {
