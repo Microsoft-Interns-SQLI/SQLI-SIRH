@@ -68,7 +68,7 @@ export class AddEditCollaborateurComponent implements OnInit {
       ],
       emailPersonnel: [this.collab.emailPersonnel, Validators.pattern("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")],
       email: [this.collab.email, Validators.pattern("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")],
-    phonePersonnel: [this.collab.phonePersonnel, Validators.pattern(/^\s*(?:\+212|0)[6|7|5][- ]*\d{2}[-. (]*\d{2}[-. (]*\d{2}[-. (]*\d{2}[-. (]*\s*$/)],
+    phonePersonnel: [this.collab.phonePersonnel, Validators.pattern(/^\s*(?:\+212|0)[- 0]*[6|7|5][- ]*\d{2}[- ]*\d{2}[- ]*\d{2}[- ]*\d{2}[- ]*\s*$/)],
       phoneProfesionnel: [this.collab.phoneProfesionnel],
       dateNaissance: [
         this.datepipe.transform(this.collab.dateNaissance, 'yyyy-MM-dd'),
