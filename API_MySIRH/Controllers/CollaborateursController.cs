@@ -18,6 +18,7 @@ namespace API_MySIRH.Controllers
         private readonly ICollaborateurService _collaborateurService;
         private readonly ICarriereService _carriereService;
         private readonly ICollaborateurTypeContratService _collaborateurTypeContratService;
+        private readonly IDemissionService _demissionService;
         private readonly IMdmService<Niveau, NiveauDTO> _mdmServiceNiveau;
         private readonly IMdmService<Site, SiteDTO> _mdmServiceSite;
         private readonly IMdmService<Post, PostDTO> _mdmServicePoste;
@@ -26,11 +27,12 @@ namespace API_MySIRH.Controllers
         private readonly IMdmService<ModeRecrutement, ModeRecrutementDTO> _mdmServiceModeRecrutement;
         private readonly IMapper _mapper;
 
-        public CollaborateursController(ICollaborateurService collaborateurService, ICarriereService carriereService, ICollaborateurTypeContratService collaborateurTypeContratService, IMdmService<Niveau, NiveauDTO> mdmServiceNiveau, IMdmService<Site, SiteDTO> mdmServiceSite, IMdmService<Post, PostDTO> mdmServicePoste, IMdmService<TypeContrat, TypeContratDTO> mdmServiceTypeContrat, IMdmService<SkillCenter, SkillCenterDTO> mdmServiceSkillCenter, IMdmService<ModeRecrutement, ModeRecrutementDTO> mdmServiceModeRecrutement, IMapper mapper)
+        public CollaborateursController(ICollaborateurService collaborateurService, ICarriereService carriereService, ICollaborateurTypeContratService collaborateurTypeContratService,IDemissionService demissionService, IMdmService<Niveau, NiveauDTO> mdmServiceNiveau, IMdmService<Site, SiteDTO> mdmServiceSite, IMdmService<Post, PostDTO> mdmServicePoste, IMdmService<TypeContrat, TypeContratDTO> mdmServiceTypeContrat, IMdmService<SkillCenter, SkillCenterDTO> mdmServiceSkillCenter, IMdmService<ModeRecrutement, ModeRecrutementDTO> mdmServiceModeRecrutement, IMapper mapper)
         {
             _collaborateurService = collaborateurService;
             _carriereService = carriereService;
             _collaborateurTypeContratService = collaborateurTypeContratService;
+            _demissionService = demissionService;
             _mdmServiceNiveau = mdmServiceNiveau;
             _mdmServiceSite = mdmServiceSite;
             _mdmServicePoste = mdmServicePoste;
@@ -137,7 +139,7 @@ namespace API_MySIRH.Controllers
             return exportfile;
         }
 
-        private async Task<bool> InvokeOperation(Collaborateur collaborateur)
+        private async Task<CollaborateurDTO> InvokeOperation(Collaborateur collaborateur)
         {
 
             //if collab is not a freelancer
@@ -145,12 +147,11 @@ namespace API_MySIRH.Controllers
             {
                 if (await _collaborateurService.CollaborateurExistsByMatricule(collaborateur.Matricule))
                 {
-                    return true;
+                    return null;
                 }
                 else
                 {
-                    await _collaborateurService.AddCollaborateur(_mapper.Map<CollaborateurDTO>(collaborateur));
-                    return false;
+                    return await _collaborateurService.AddCollaborateur(_mapper.Map<CollaborateurDTO>(collaborateur));
                 }
             }
             //if collab ==> freelancer (freelancer doesn't have a matricule so we verify by email)
@@ -158,12 +159,11 @@ namespace API_MySIRH.Controllers
             {
                 if (await _collaborateurService.CollaborateurExistsByEmail(collaborateur.Email))
                 {
-                    return true;
+                    return null;
                 }
                 else
                 {
-                    await _collaborateurService.AddCollaborateur(_mapper.Map<CollaborateurDTO>(collaborateur));
-                    return false;
+                    return await _collaborateurService.AddCollaborateur(_mapper.Map<CollaborateurDTO>(collaborateur));
                 }
             }
         }
@@ -191,7 +191,7 @@ namespace API_MySIRH.Controllers
                         Collaborateur collaborateur = new Collaborateur();
 
                         //Split full name into lastname and firstname
-                        var nomComplet = worksheet.Rows[i].Cells[3].Value.Split(' ');
+                        var nomComplet = worksheet.Columns.Where(x => x.DisplayText.ToUpper().Replace(" ","").Equals("NOMCOMPLET")).First().Cells[i].Value.ToString().Split(' ');
                         var Nom = nomComplet[1];
                         var Prenom = nomComplet[0];
                         if (nomComplet.Length > 2)
@@ -201,64 +201,107 @@ namespace API_MySIRH.Controllers
                         collaborateur.Prenom = Prenom;
 
                         //Matricule
-                        collaborateur.Matricule = worksheet.Rows[i].Cells[0].Value.ToString();
+                        //collaborateur.Matricule = worksheet.Rows[i].Cells[0].Value.ToString();
+                        collaborateur.Matricule = worksheet.Columns.Where(x => x.DisplayText.ToUpper().Equals("MATRICULE")).First().Cells[i].Value.ToString();
                         //Email
-                        collaborateur.Email = worksheet.Rows[i].Cells[2].Value.ToString();
+                        //collaborateur.Email = worksheet.Rows[i].Cells[2].Value.ToString();
+                        collaborateur.Email = worksheet.Columns.Where(x => x.DisplayText.ToUpper().Equals("EMAIL")).First().Cells[i].Value.ToString();
                         //Civilite
-                        collaborateur.Civilite = worksheet.Rows[i].Cells[5].Value.ToString();
+                        //collaborateur.Civilite = worksheet.Rows[i].Cells[5].Value.ToString();
+                        collaborateur.Civilite = worksheet.Columns.Where(x => x.DisplayText.ToUpper().Equals("CIVILITE")).First().Cells[i].Value.ToString();
 
                         //Diplomes
-                        var diplomes = SerializeDiplomes(worksheet.Rows[i].Cells[16].Value.ToString());
+                        //var diplomes = SerializeDiplomes(worksheet.Rows[i].Cells[16].Value.ToString());
+                        var diplomes = SerializeDiplomes(worksheet.Columns.Where(x => x.DisplayText.ToUpper().Equals("DIPLOMES")).First().Cells[i].Value.ToString());
                         collaborateur.Diplomes = diplomes.ToList();
+
                         //Mode recrutement
-                        var modeRecrutement = await _mdmServiceModeRecrutement.GetByName(worksheet.Rows[i].Cells[11].Value.ToString());
+                        //var modeRecrutement = await _mdmServiceModeRecrutement.GetByName(worksheet.Rows[i].Cells[11].Value.ToString());
+                        var modeRecrutement = await _mdmServiceModeRecrutement.GetByName(
+                           worksheet.Columns.Where(x => x.DisplayText.ToUpper().Replace(" ", "").Equals("RECRUTEMENTMODE")).First().Cells[i].Value.ToString());
                         collaborateur.ModeRecrutement = _mapper.Map<ModeRecrutement>(modeRecrutement);
 
-                        //Poste & Niveau
-                        var poste = await _mdmServicePoste.GetByName(worksheet.Rows[i].Cells[8].Value.ToString());
-                        var niveau = await _mdmServiceNiveau.GetByName(worksheet.Rows[i].Cells[9].Value.ToString());
-                        await this._carriereService.Add(new CarriereDTO
-                        {
-                            Collaborateur = this._mapper.Map<CollaborateurDTO>(collaborateur),
-                            Annee = DateTime.Now.Year,
-                            Niveau = niveau,
-                            Poste = poste,
-                            ProfilDeCout = "ST0",
-                            SalaireNet = 15000,
-                            VariableNet = 15000,
-                            SalaireBrut = 5000,
-                            VariableBrut = 5000,
-                            TLRH = "TEMP DATA", // todo : will the excel sheet contain the TLRH's info ??
-                        });
-
                         //Site
-                        var site = await _mdmServiceSite.GetByName(worksheet.Rows[i].Cells[4].Value.ToString());
+                        var site = await _mdmServiceSite.GetByName(worksheet.Columns.Where(x => x.DisplayText.ToUpper().Equals("AGENCE") || x.DisplayText.ToUpper().Equals("SITE")).First().Cells[i].Value.ToString());
                         collaborateur.Site = _mapper.Map<Site>(site);
+
                         //Skill center
-                        var skillCenter = await _mdmServiceSkillCenter.GetByName(worksheet.Rows[i].Cells[7].Value.ToString());
+                        var skillCenter = await _mdmServiceSkillCenter.GetByName(worksheet.Columns.Where(x => x.DisplayText.ToUpper().Replace(" ","").Equals("SKILLSCENTER")).First().Cells[i].Value.ToString());
                         collaborateur.SkillCenter = _mapper.Map<SkillCenter>(skillCenter);
+                        
+                        //Date de naissance
+                        if (worksheet.Columns.Where(x => x.DisplayText.ToUpper().Replace(" ", "").Equals("DATENAISSANCE")).First().Cells[i].Value.ToString() != "")
+                            collaborateur.DateNaissance = Convert.ToDateTime(worksheet.Columns.Where(x => x.DisplayText.ToUpper().Replace(" ", "").Equals("DATENAISSANCE")).First().Cells[i].Value.ToString());
 
-                        //Type contrat later 
+                        //Date de 1ere Experience
+                        if (worksheet.Columns.Where(x => x.DisplayText.ToUpper().Replace(" ", "").Equals("DATE1EREEXPERIENCE")).First().Cells[i].Value.ToString() != "")
+                            collaborateur.DatePremiereExperience = Convert.ToDateTime(worksheet.Columns.Where(x => x.DisplayText.ToUpper().Replace(" ", "").Equals("DATE1EREEXPERIENCE")).First().Cells[i].Value.ToString());
+                        
+                        //Date d'entree à SQLI
+                        if (worksheet.Columns.Where(x => x.DisplayText.ToUpper().Replace(" ", "").Equals("DATED'ENTREE")).First().Cells[i].Value.ToString() != "")
+                            collaborateur.DateEntreeSqli = Convert.ToDateTime(worksheet.Columns.Where(x => x.DisplayText.ToUpper().Replace(" ", "").Equals("DATED'ENTREE")).First().Cells[i].Value.ToString());
 
-                        if (worksheet.Rows[i].Cells[6].Value != "")
-                            collaborateur.DateNaissance = Convert.ToDateTime(worksheet.Rows[i].Cells[6].Value);
-                        if (worksheet.Rows[i].Cells[12].Value != "")
-                            collaborateur.DatePremiereExperience = Convert.ToDateTime(worksheet.Rows[i].Cells[12].Value);
-                        if (worksheet.Rows[i].Cells[13].Value != "")
-                            collaborateur.DateEntreeSqli = Convert.ToDateTime(worksheet.Rows[i].Cells[13].Value);
-                        if (worksheet.Rows[i].Cells[14].Value != "")
-                            collaborateur.DateDebutStage = Convert.ToDateTime(worksheet.Rows[i].Cells[14].Value);
-                        //if (worksheet.Rows[i].Cells[15].Value != "")
-                        //    collaborateur.DateSortieSqli = Convert.ToDateTime(worksheet.Rows[i].Cells[15].Value); // ikhadem: TODO: use the .Add methode
+                        //Date debut de stage
+                        if (worksheet.Columns.Where(x => x.DisplayText.ToUpper().Replace(" ", "").Equals("DATEDEDEBUTDESTAGE")).First().Cells[i].Value.ToString() != "")
+                            collaborateur.DateDebutStage = Convert.ToDateTime(worksheet.Columns.Where(x => x.DisplayText.ToUpper().Replace(" ", "").Equals("DATEDEDEBUTDESTAGE")).First().Cells[i].Value.ToString());
 
-                        if (await InvokeOperation(collaborateur))
+
+                        var op = await InvokeOperation(collaborateur);
+                        if (op == null)
                         {
                             compteRendu["ExistsCollab"]++;
                         }
                         else
                         {
+                            //Poste & Niveau
+                            //var poste = await _mdmServicePoste.GetByName(worksheet.Rows[i].Cells[8].Value.ToString());
+                            var poste = await _mdmServicePoste.GetByName(worksheet.Columns.Where(x => x.DisplayText.ToUpper().Equals("POSTE")).First().Cells[i].Value.ToString());
+
+                            //var niveau = await _mdmServiceNiveau.GetByName(worksheet.Rows[i].Cells[9].Value.ToString());
+                            var niveau = await _mdmServiceNiveau.GetByName(worksheet.Columns.Where(x => x.DisplayText.ToUpper().Equals("NIVEAU")).First().Cells[i].Value.ToString());
+
+                            await this._carriereService.Add(new CarriereDTO
+                            {
+                                CollaborateurId = op.Id,
+                                Annee = DateTime.Now.Year,
+                                Niveau = niveau,
+                                Poste = poste,
+                                ProfilDeCout = "ST0",
+                                SalaireNet = 15000,
+                                VariableNet = 15000,
+                                SalaireBrut = 5000,
+                                VariableBrut = 5000,
+                                TLRH = "TEMP DATA", // todo : will the excel sheet contain the TLRH's info ??
+                            });
+
+                            //Type contrat
+                            var typeContrat = await _mdmServiceTypeContrat.GetByName(worksheet.Columns.Where(x => x.DisplayText.ToUpper().Replace(" ", "").Equals("TYPEDECONTRAT")).First().Cells[i].Value.ToString());
+                            if (typeContrat != null)
+                            {
+                                await _collaborateurTypeContratService.AddCollabContrat(new CollaborateurTypeContratDTO()
+                                {
+                                    CollaborateurId = op.Id,
+                                    //date debut must be added in this file!
+                                    //date fin must be added in this file!
+                                    TypeContratId = typeContrat.Id,
+                                });
+                            }
+
+                            //Date sortie de SQLI
+                            if (worksheet.Columns.Where(x => x.DisplayText.ToUpper().Replace(" ", "").Equals("DATEDESORTIE")).First().Cells[i].Value.ToString() != "")
+                            {
+                                await _demissionService.AddDemission(new DemissionDTO()
+                                {
+                                    CollaborateurId = op.Id,
+                                    DateDemission = Convert.ToDateTime(worksheet.Columns.Where(x => x.DisplayText.ToUpper().Replace(" ", "").Equals("DATEDESORTIE")).First().Cells[i].Value.ToString()),
+                                    DateSortieSqli = Convert.ToDateTime(worksheet.Columns.Where(x => x.DisplayText.ToUpper().Replace(" ", "").Equals("DATEDESORTIE")).First().Cells[i].Value.ToString())
+                                });
+                            }
+
                             compteRendu["AddingCollab"]++;
                         }
+
+
                     }
                 }
 
