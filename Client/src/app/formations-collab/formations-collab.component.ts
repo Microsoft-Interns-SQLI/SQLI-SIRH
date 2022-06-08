@@ -103,30 +103,58 @@ export class FormationsCollabComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   addFormations(result: CollabFormationCertif[]) {
+
     result = result.map(item => {
       item.collaborateurId = this.collab.id;
+      item.status = +item.status === 2 ? "FAIT" : "AFAIRE";
       return item;
     })
 
     this.subAdd = this.formationCertifService.updateCollabFormations(this.collab.id, result).subscribe({
-      complete: () => {
-        result.forEach(x => {
+      next: (data) => {
+        
+        data.forEach((item:any)=>{
 
-          x.status = +x.status === 2 ? "FAIT" : "AFAIRE";
+          const value = {
+            id: item.id,
+            status: item.status,
+            dateDebut: item.dateDebut,
+            dateFin: item.dateFin,
+            collaborateurId: item.collaborateurId,
+            idFormationCertif: item.formationId
+          } as CollabFormationCertif
 
-          const intersectionExist = this.intersections.find(i =>
-            i.collaborateurId === x.collaborateurId
-            && i.idFormationCertif === x.idFormationCertif
-            && i.status === x.status
-            && new Date(i.dateDebut).toDateString() === new Date(x.dateDebut).toDateString()
-            && new Date(i.dateFin).toDateString() === new Date(x.dateFin).toDateString());
-
+          const intersectionExist = this.intersections.find(i => i.id === item.id);
 
           if (intersectionExist == undefined) {
-            this.intersections.push(x);
+            this.intersections.push(value);
+          }else if(new Date(item.dateDebut).getFullYear() != new Date(intersectionExist.dateDebut).getFullYear() || item.status != intersectionExist.status){
+            const intersectionUpdate = this.intersections.findIndex(i => i.id === item.id);
+            this.intersections.splice(intersectionUpdate,1,value);
           }
-        });
+        })
+
+        
         this.prepareData();
+       
+      },
+      complete: () => {
+        // result.forEach(x => {
+
+        //   // const intersectionExist = this.intersections.find(i =>
+        //   //   i.collaborateurId === x.collaborateurId
+        //   //   && i.idFormationCertif === x.idFormationCertif
+        //   //   && i.status === x.status
+        //   //   && new Date(i.dateDebut).toDateString() === new Date(x.dateDebut).toDateString()
+        //   //   && new Date(i.dateFin).toDateString() === new Date(x.dateFin).toDateString());
+        //   const intersectionExist = this.intersections.find(i =>
+        //     i.id === x.id);
+
+
+        //   if (intersectionExist == undefined) {
+        //     this.intersections.push(x);
+        //   }
+        // });
       }
     });
   }
@@ -169,9 +197,13 @@ export class FormationsCollabComponent implements OnInit, OnChanges, OnDestroy {
     if (confirm("Are you sure you want to remove this formation?"))
       this.subRemove = this.formationCertifService.removeCollabFormation(id).subscribe({
         next: () => {
-          const index = this.table.findIndex(x => x.intersection.id === id);
-          if (index !== -1)
-            this.table.splice(index, 1);
+          const indexTable = this.table.findIndex(x => x.intersection.id === id);
+          if (indexTable !== -1)
+            this.table.splice(indexTable, 1);
+            
+          const indexIntersection = this.intersections.findIndex(x => x.id === id);
+          if (indexIntersection !== -1)
+            this.intersections.splice(indexIntersection, 1);
         },
         error: (err) => this.error = err.error,
         complete: () => {

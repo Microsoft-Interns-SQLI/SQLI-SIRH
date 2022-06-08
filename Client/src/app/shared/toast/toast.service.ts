@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
 export interface Toaster {
-  typeMessage: string;
+  typeMessage: string | undefined;
   message: string;
   duration:number;
 }
@@ -23,6 +23,11 @@ export class ToastService {
       duration : durationInSec
     }
     this.toast.next(this.myToast);
+
+    window.setTimeout(()=>{
+      this.toast.next({ typeMessage: undefined } as Toaster);
+    },durationInSec*1000);
+    
   }
 
   closeToast() {

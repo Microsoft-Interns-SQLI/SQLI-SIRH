@@ -14,10 +14,12 @@ namespace API_MySIRH.Repositories
             _context = context;
         }
 
-        public async Task Add(CollaborateurCertification collaborateurCertification)
+        public async Task<CollaborateurCertification> Add(CollaborateurCertification collaborateurCertification)
         {
             await _context.CollaborateurCertifications.AddAsync(collaborateurCertification);
             await _context.SaveChangesAsync();
+
+            return collaborateurCertification;
         }
 
         public async Task Delete(CollaborateurCertification collaborateurCertification)
@@ -75,10 +77,12 @@ namespace API_MySIRH.Repositories
             return cc;
         }
 
-        public async Task Update(CollaborateurCertification collaborateurCertification)
+        public async Task<CollaborateurCertification> Update(CollaborateurCertification collaborateurCertification)
         {
             _context.Entry(collaborateurCertification).State = EntityState.Modified;
             await _context.SaveChangesAsync();
+
+            return collaborateurCertification;
         }
 
         public async Task<CollaborateurCertification> GetById(int id)
