@@ -20,7 +20,7 @@
       </div>
 
       <div class="fw-bold">
-        {{ collab.civilite == 'M' ? "Mr" : "Mme" }}. {{ collab?.nom }}
+        {{ collab.civilite == 'M' ? 'Mr' : (collab.civilite == 'F') ? 'Mme' : ''}} . {{ collab?.nom }}
         {{ collab?.prenom }}
       </div>
       <div>
