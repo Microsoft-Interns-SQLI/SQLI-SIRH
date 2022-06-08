@@ -2,6 +2,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as FileSaver from 'file-saver';
 import { Subscription } from 'rxjs';
+import { CollabFile } from 'src/app/Models/collabFile';
 
 import { Collaborator } from 'src/app/Models/Collaborator';
 import { Pagination } from 'src/app/Models/pagination';
@@ -66,7 +67,7 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
     private toastService: ToastService,
     private spinnerService: SpinnerService,
     private saveState: SaveState
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     let state = this.saveState.loadState('collabsList');
@@ -308,18 +309,31 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
     this.exportAll = !this.exportAll;
   }
 
-  download(documents: any) {
-    let fileUrl = documents
-      .filter((d: any) => d.type === 'CV' && d.fileName.endsWith('.pdf'))
-      .reduce((a: any, b: any) =>
+  download(documents: CollabFile[] | undefined) {
+    let fileUrl = documents?.filter(
+      (d: any) => d.type === 'CV' && d.fileName.endsWith('.pdf')
+    );
+    if (fileUrl !== undefined && fileUrl?.length > 0) {
+      fileUrl.reduce((a: any, b: any) =>
         a.creationDate > b.creationDate ? a : b
       ).url;
+      this.fileSubscription = this.fileService
+        .download(fileUrl)
+        .subscribe((event) => {
+          this.downloadFile(event, fileUrl);
+        });
+    }
+  }
 
-    this.fileSubscription = this.fileService
-      .download(fileUrl)
-      .subscribe((event) => {
-        this.downloadFile(event, fileUrl);
-      });
+  hasCv(documents: CollabFile[] | undefined): boolean {
+    if (
+      documents !== undefined &&
+      documents.filter(
+        (d: any) => d.type === 'CV' && d.fileName.endsWith('.pdf')
+      ).length > 0
+    )
+      return false;
+    else return true;
   }
 
   private downloadFile(data: HttpResponse<Blob>, docURL: any) {

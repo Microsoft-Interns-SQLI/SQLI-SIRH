@@ -9,6 +9,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { CollabFile } from '../Models/collabFile';
 import { FilesService } from '../services/files.service';
 
 @Component({
@@ -18,6 +19,7 @@ import { FilesService } from '../services/files.service';
 })
 export class CvReaderComponent implements OnInit, OnDestroy, DoCheck {
   subscription?: Subscription;
+  files?: CollabFile[];
   fileUrl?: string;
   @Input() docs?: any;
   fileSrc!: Blob;
@@ -31,17 +33,7 @@ export class CvReaderComponent implements OnInit, OnDestroy, DoCheck {
   ngDoCheck(): void {
     let changes = this.differ.diff(this.docs);
     if (changes) {
-      this.fileUrl = this.docs
-        ?.filter((d: any) => d.type === 'CV' && d.fileName.endsWith('.pdf'))
-        .reduce((a: any, b: any) =>
-          a.creationDate > b.creationDate ? a : b
-        ).url;
-
-      this.subscription = this.fileService
-        .download(this.fileUrl)
-        .subscribe((res) => {
-          this.fileSrc = res.body;
-        });
+      this.getLatestCv();
     }
   }
 
@@ -50,16 +42,22 @@ export class CvReaderComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   ngOnInit(): void {
-    this.fileUrl = this.docs
-      ?.filter((d: any) => d.type === 'CV' && d.fileName.endsWith('.pdf'))
-      .reduce((a: any, b: any) =>
+    this.getLatestCv();
+  }
+
+  getLatestCv() {
+    this.files = this.docs?.filter(
+      (d: any) => d.type === 'CV' && d.fileName.endsWith('.pdf')
+    );
+    if (this.files !== undefined && this.files?.length > 0) {
+      this.fileUrl = this.files.reduce((a: any, b: any) =>
         a.creationDate > b.creationDate ? a : b
       ).url;
-
-    this.subscription = this.fileService
-      .download(this.fileUrl)
-      .subscribe((res) => {
-        this.fileSrc = res.body;
-      });
+      this.subscription = this.fileService
+        .download(this.fileUrl)
+        .subscribe((res) => {
+          this.fileSrc = res.body;
+        });
+    }
   }
 }
