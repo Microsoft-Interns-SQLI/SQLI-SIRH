@@ -73,6 +73,8 @@ import { DiplomesComponent } from './collaborateurs/diplomes/diplomes.component'
 import { ModalAjoutDiplomeComponent } from './collaborateurs/diplomes/modal-ajout-diplome/modal-ajout-diplome.component';
 import { CarrieresComponent } from './collaborateurs/carrieres/carrieres.component';
 import { ModalAjoutCarriereComponent } from './collaborateurs/carrieres/modal-ajout-carriere/modal-ajout-carriere.component';
+import { CvReaderComponent } from './cv-reader/cv-reader.component';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 
 @NgModule({
   declarations: [
@@ -133,6 +135,7 @@ import { ModalAjoutCarriereComponent } from './collaborateurs/carrieres/modal-aj
     CertificationsCollabComponent,
     CarrieresComponent,
     ModalAjoutCarriereComponent,
+    CvReaderComponent,
     PopupAddFormationsOrCertificationsComponent,
   ],
   imports: [
@@ -152,15 +155,24 @@ import { ModalAjoutCarriereComponent } from './collaborateurs/carrieres/modal-aj
     BrowserAnimationsModule,
     ngfModule,
     NgxSpinnerModule,
-    NgSelectModule
+    NgSelectModule,
+    NgxExtendedPdfViewerModule,
   ],
   providers: [
     DatePipe,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthentificationInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthentificationInterceptor,
+      multi: true,
+    },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: EncodeHttpParamsInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: EncodeHttpParamsInterceptor,
+      multi: true,
+    },
     // { provide: RouteReuseStrategy, useClass: CustomReuseStrategyService },
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

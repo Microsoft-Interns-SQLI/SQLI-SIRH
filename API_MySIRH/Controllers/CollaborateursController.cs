@@ -17,6 +17,7 @@ namespace API_MySIRH.Controllers
     {
         private readonly ICollaborateurService _collaborateurService;
         private readonly ICarriereService _carriereService;
+        private readonly ICollaborateurTypeContratService _collaborateurTypeContratService;
         private readonly IMdmService<Niveau, NiveauDTO> _mdmServiceNiveau;
         private readonly IMdmService<Site, SiteDTO> _mdmServiceSite;
         private readonly IMdmService<Post, PostDTO> _mdmServicePoste;
@@ -25,10 +26,11 @@ namespace API_MySIRH.Controllers
         private readonly IMdmService<ModeRecrutement, ModeRecrutementDTO> _mdmServiceModeRecrutement;
         private readonly IMapper _mapper;
 
-        public CollaborateursController(ICollaborateurService collaborateurService, ICarriereService carriereService, IMdmService<Niveau, NiveauDTO> mdmServiceNiveau, IMdmService<Site, SiteDTO> mdmServiceSite, IMdmService<Post, PostDTO> mdmServicePoste, IMdmService<TypeContrat, TypeContratDTO> mdmServiceTypeContrat, IMdmService<SkillCenter, SkillCenterDTO> mdmServiceSkillCenter, IMdmService<ModeRecrutement, ModeRecrutementDTO> mdmServiceModeRecrutement, IMapper mapper)
+        public CollaborateursController(ICollaborateurService collaborateurService, ICarriereService carriereService, ICollaborateurTypeContratService collaborateurTypeContratService, IMdmService<Niveau, NiveauDTO> mdmServiceNiveau, IMdmService<Site, SiteDTO> mdmServiceSite, IMdmService<Post, PostDTO> mdmServicePoste, IMdmService<TypeContrat, TypeContratDTO> mdmServiceTypeContrat, IMdmService<SkillCenter, SkillCenterDTO> mdmServiceSkillCenter, IMdmService<ModeRecrutement, ModeRecrutementDTO> mdmServiceModeRecrutement, IMapper mapper)
         {
             _collaborateurService = collaborateurService;
             _carriereService = carriereService;
+            _collaborateurTypeContratService = collaborateurTypeContratService;
             _mdmServiceNiveau = mdmServiceNiveau;
             _mdmServiceSite = mdmServiceSite;
             _mdmServicePoste = mdmServicePoste;
@@ -330,7 +332,7 @@ namespace API_MySIRH.Controllers
             worksheet["I1"].Value = "Skill Center";
             worksheet["J1"].Value = "Poste";
             worksheet["K1"].Value = "Niveau";
-            //worksheet["L1"].Value = "Type de Contrat";
+            worksheet["L1"].Value = "Type de Contrat";
             worksheet["M1"].Value = "Recrutement Mode";
             worksheet["N1"].Value = "Date 1ere expérience";
             worksheet["O1"].Value = "Date d'entrée";
@@ -341,6 +343,8 @@ namespace API_MySIRH.Controllers
             int i = 2;
             foreach (var collab in collabs)
             {
+
+
                 worksheet[$"A{i}"].Value = collab.Matricule;
                 worksheet[$"B{i}"].Value = collab.Prenom.Substring(0, 1) + collab.Nom;
                 worksheet[$"C{i}"].Value = collab.Email;
@@ -352,7 +356,10 @@ namespace API_MySIRH.Controllers
                 worksheet[$"I{i}"].Value = collab.SkillCenter.Name;
                 worksheet[$"J{i}"].Value = this._mapper.Map<Collaborateur>(collab).GetCurrentCarriere()?.Poste?.Name;
                 worksheet[$"K{i}"].Value = this._mapper.Map<Collaborateur>(collab).GetCurrentCarriere()?.Niveau?.Name;
-                //worksheet[$"L{i}"].Value = collab.TypeContrat; // todo : fix type contrat export
+
+                var typeContrat = await _collaborateurTypeContratService.GetCurrentContrat(collab.Id);
+                worksheet[$"L{i}"].Value = typeContrat == null ? "" : typeContrat.TypeContrat.Name;
+
                 worksheet[$"M{i}"].Value = collab.ModeRecrutement == null ? "" : collab.ModeRecrutement.Name;
                 worksheet[$"N{i}"].Value = collab.DatePremiereExperience == null ? "" : collab.DatePremiereExperience?.ToString("dd/MM/yyyy");
                 worksheet[$"O{i}"].Value = collab.DateEntreeSqli == null ? "" : collab.DateEntreeSqli?.ToString("dd/MM/yyyy");

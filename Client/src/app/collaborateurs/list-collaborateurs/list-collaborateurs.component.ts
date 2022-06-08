@@ -31,6 +31,7 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   exportSubscription!: Subscription;
   loadCollabSubscription!: Subscription;
   imageSubscription!: Subscription;
+  fileSubscription?: Subscription;
 
   //Initalize pagination to avert undefined error value in the child component
   pagination: Pagination = {
@@ -83,6 +84,7 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
       this.loadCollabSubscription.unsubscribe();
     if (this.imageSubscription != undefined)
       this.imageSubscription.unsubscribe();
+    this.fileSubscription?.unsubscribe();
     this.saveState.saveState({ pagination: this.pagination }, 'collabsList');
     this.saveState.saveState({ url: 'collaborateurs' }, 'fallback');
   }
@@ -312,9 +314,11 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
         a.creationDate > b.creationDate ? a : b
       ).url;
 
-    this.fileService.download(fileUrl).subscribe((event) => {
-      this.downloadFile(event, fileUrl);
-    });
+    this.fileSubscription = this.fileService
+      .download(fileUrl)
+      .subscribe((event) => {
+        this.downloadFile(event, fileUrl);
+      });
   }
 
   private downloadFile(data: HttpResponse<Blob>, docURL: any) {

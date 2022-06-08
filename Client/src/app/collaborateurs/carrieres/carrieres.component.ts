@@ -30,12 +30,19 @@ export class CarrieresComponent implements OnInit {
   }
 
   deleteCarriere(idCarriere: number) {
-    // todo or not ??
+    this.carrieresService.deleteCarriere(idCarriere).subscribe(() => {
+      this.carrieres = this.carrieres.filter(carr => carr.id != idCarriere);
+      // this.toastService.showToast("success", "Carrière supprimée avec succès.", 2);
+    });
   }
+
+  // editCarriere(carriere: Carriere) {
+  //   console.log(carriere);
+  // }
 
   addCarriere(carriere: Carriere) {
     this.carrieres.unshift(carriere);
-    this.toastService.showToast("success", "Nouvelle carrière ajoutée.", 2);
+    // this.toastService.showToast("success", "Nouvelle carrière ajoutée.", 2);
   }
 
 }

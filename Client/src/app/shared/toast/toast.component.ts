@@ -36,6 +36,7 @@ export class ToastComponent implements OnInit {
 
   close() {
     this.toastService.closeToast();
+    this.sub.unsubscribe();
   }
 
 

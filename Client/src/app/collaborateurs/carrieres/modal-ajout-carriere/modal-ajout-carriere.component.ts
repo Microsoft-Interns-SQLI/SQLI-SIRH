@@ -70,15 +70,12 @@ export class ModalAjoutCarriereComponent implements OnInit {
       this.carriereService.addCarriere(formGroup.value).subscribe(
         {
           next: (addedCarriere) => {
-            console.log(
-              "addedCarriere ! ", addedCarriere
-            )
             this.refreshCarrieres.emit(addedCarriere as Carriere);
             this.initForm();
           },
           error: (erreur) => {
             console.log(erreur);
-            this.toastService.showToast("danger", "Carrière non ajoutée ! une erreur est survenue au sein du serveur distant.. Veuillez réessayer plus tard.", 10);
+            // this.toastService.showToast("danger", "Carrière non ajoutée ! une erreur est survenue au sein du serveur distant.. Veuillez réessayer plus tard.", 10);
           }
         }
       );

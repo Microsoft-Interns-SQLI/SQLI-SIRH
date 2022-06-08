@@ -9,4 +9,5 @@ namespace API_MySIRH.Entities
         public virtual int? CollaborateurId { get; set; }
         public virtual Collaborateur? Collaborateur { get; set; }
     }
+
 }

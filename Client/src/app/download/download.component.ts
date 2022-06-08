@@ -22,7 +22,9 @@ export class DownloadComponent implements OnInit, OnDestroy {
     this.downloadSubscription?.unsubscribe();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log('Collab Download', this.collab);
+  }
   download(document: CollabFile) {
     this.downloadSubscription = this.filesService
       .download(document.url)

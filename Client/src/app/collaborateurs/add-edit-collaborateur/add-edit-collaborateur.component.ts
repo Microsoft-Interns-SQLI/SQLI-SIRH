@@ -87,8 +87,9 @@ export class AddEditCollaborateurComponent implements OnInit {
       modeRecrutement: [
         this.collab.modeRecrutement ? this.collab.modeRecrutement.id : '',
       ],
-      niveau: [this.collab.niveau ? this.collab.niveau.id : ''],
-      poste: [this.collab.poste ? this.collab.poste.id : ''],
+      //TODO: Review
+      // niveau: [this.collab.niveau ? this.collab.niveau.id : ''],
+      // poste: [this.collab.poste ? this.collab.poste.id : ''],
       situationFamiliale: [this.collab.situationFamiliale],
       dateDebutStage: [
         this.datepipe.transform(this.collab.dateDebutStage, 'yyyy-MM-dd'),
@@ -158,12 +159,14 @@ export class AddEditCollaborateurComponent implements OnInit {
     //TODO: To review
     this.collab.modeRecrutement = undefined;
     this.collab.modeRecrutementId = +this.formGroup.value.modeRecrutement;
-    this.collab.niveauId = this.formGroup.value.niveau;
-    this.collab.posteId = this.formGroup.value.poste;
+    //TODO: Review
+    // this.collab.niveauId = this.formGroup.value.niveau;
+    // this.collab.posteId = this.formGroup.value.poste;
     this.collab.situationFamiliale = this.formGroup.value.situationFamiliale;
     this.collab.dateDebutStage = this.formGroup.value.dateDebutStage;
     this.collab.datePremiereExperience =
       this.formGroup.value.datePremiereExperience;
+    this.collab.demissions = [];
   }
 
   navigateBack() {

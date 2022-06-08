@@ -89,5 +89,24 @@ namespace API_MySIRH.Repositories
             .ToListAsync();
         }
 
+        public async Task<CollaborateurTypeContrat> GetCurrentContrat(int idCollaborateur)
+        {
+            var result = await _context.CollaborateurTypeContrats
+                .Where(x => x.CollaborateurId == idCollaborateur).ToListAsync();
+
+            if (result.Count == 1)
+                return result.FirstOrDefault();
+            
+
+            return result.OrderByDescending(x => x.DateDebut.Value.Year).FirstOrDefault();
+
+            //Uncomment the block below when the start date is not null in the DB
+
+            //var result = await _context.CollaborateurTypeContrats
+            //    .Where(x => x.CollaborateurId == idCollaborateur && x.DateDebut.Value.Year <= DateTime.Now.Year)
+            //    .OrderByDescending(x => x.DateDebut.Value.Year)
+            //    .FirstOrDefaultAsync();
+            //return result;
+        }
     }
 }
