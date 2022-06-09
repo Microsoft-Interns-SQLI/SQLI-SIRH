@@ -26,6 +26,7 @@ import { ContratsComponent } from '../../contrats/contrats.component';
 import { CarrieresComponent } from '../../carrieres/carrieres.component';
 import { DiplomesComponent } from '../../diplomes/diplomes.component';
 import { ToastService } from 'src/app/shared/toast/toast.service';
+import { CollabFile } from 'src/app/Models/collabFile';
 
 @Component({
   selector: 'app-add-edit-form-table',
@@ -176,5 +177,16 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
 
   filesHandler(event: any) {
     this.collab.documents?.push(...event);
+  }
+
+  hasCv(documents: CollabFile[] | undefined): boolean {
+    if (
+      documents !== undefined &&
+      documents.filter(
+        (d: any) => d.type === 'CV' && d.fileName.endsWith('.pdf')
+      ).length > 0
+    )
+      return false;
+    else return true;
   }
 }
