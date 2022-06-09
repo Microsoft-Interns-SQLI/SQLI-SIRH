@@ -2,6 +2,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as FileSaver from 'file-saver';
 import { Subscription } from 'rxjs';
+import { CollabFile } from 'src/app/Models/collabFile';
 
 import { Collaborator } from 'src/app/Models/Collaborator';
 import { Pagination } from 'src/app/Models/pagination';
@@ -31,6 +32,7 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   exportSubscription!: Subscription;
   loadCollabSubscription!: Subscription;
   imageSubscription!: Subscription;
+  fileSubscription?: Subscription;
 
   //Initalize pagination to avert undefined error value in the child component
   pagination: Pagination = {
@@ -65,7 +67,7 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
     private toastService: ToastService,
     private spinnerService: SpinnerService,
     private saveState: SaveState
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     let state = this.saveState.loadState('collabsList');
@@ -83,6 +85,7 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
       this.loadCollabSubscription.unsubscribe();
     if (this.imageSubscription != undefined)
       this.imageSubscription.unsubscribe();
+    this.fileSubscription?.unsubscribe();
     this.saveState.saveState({ pagination: this.pagination }, 'collabsList');
     this.saveState.saveState({ url: 'collaborateurs' }, 'fallback');
   }
@@ -185,7 +188,6 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
 
   onChangeNiveaux(niveaux: number[]) {
     this.niveauxId = niveaux;
-    //this.niveauxValue = this.niveauxId.toString().replace(',', '&niveauxId=')
 
     this.loadCollaborators(
       this.pagination.pageSize,
@@ -306,16 +308,31 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
     this.exportAll = !this.exportAll;
   }
 
-  download(documents: any) {
-    let fileUrl = documents
-      .filter((d: any) => d.type === 'CV' && d.fileName.endsWith('.pdf'))
-      .reduce((a: any, b: any) =>
+  download(documents: CollabFile[] | undefined) {
+    let fileUrl = documents?.filter(
+      (d: any) => d.type === 'CV' && d.fileName.endsWith('.pdf')
+    );
+    if (fileUrl !== undefined && fileUrl?.length > 0) {
+      fileUrl.reduce((a: any, b: any) =>
         a.creationDate > b.creationDate ? a : b
       ).url;
+      this.fileSubscription = this.fileService
+        .download(fileUrl)
+        .subscribe((event) => {
+          this.downloadFile(event, fileUrl);
+        });
+    }
+  }
 
-    this.fileService.download(fileUrl).subscribe((event) => {
-      this.downloadFile(event, fileUrl);
-    });
+  hasCv(documents: CollabFile[] | undefined): boolean {
+    if (
+      documents !== undefined &&
+      documents.filter(
+        (d: any) => d.type === 'CV' && d.fileName.endsWith('.pdf')
+      ).length > 0
+    )
+      return false;
+    else return true;
   }
 
   private downloadFile(data: HttpResponse<Blob>, docURL: any) {

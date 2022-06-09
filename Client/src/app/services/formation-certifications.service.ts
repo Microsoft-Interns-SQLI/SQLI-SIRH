@@ -181,10 +181,9 @@ export class FormationCertificationsService {
       }
     })
 
-    return this.http.put<CollabFormationCertif>(
+    return this.http.put<CollabFormationCertif[]>(
       `${this.url_collab_certif}/${collaborateurId}`,
-      result,
-      this.opts
+      result
     );
   }
   updateCollabFormation(data: CollabFormationCertif) {
@@ -217,10 +216,9 @@ export class FormationCertificationsService {
       }
     })
 
-    return this.http.put<CollabFormationCertif>(
+    return this.http.put<CollabFormationCertif[]>(
       `${this.url_collab_formation}/${collaborateurId}`,
-      result,
-      this.opts
+      result
     );
   }
 

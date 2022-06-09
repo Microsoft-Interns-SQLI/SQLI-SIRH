@@ -17,9 +17,11 @@ namespace API_MySIRH.Services
             _mapper = mapper;
         }
 
-        public async Task Add(CollaborateurFormationDTO collaborateurFormation)
+        public async Task<CollaborateurFormationDTO> Add(CollaborateurFormationDTO collaborateurFormation)
         {
-            await _collaborateurFormationRepository.Add(_mapper.Map<CollaborateurFormation>(collaborateurFormation));
+
+            var cf = _mapper.Map<CollaborateurFormationDTO>(await _collaborateurFormationRepository.Add(_mapper.Map<CollaborateurFormation>(collaborateurFormation)));
+            return cf;
         }
 
         public async Task Delete(CollaborateurFormationDTO collaborateurFormation)
@@ -73,9 +75,9 @@ namespace API_MySIRH.Services
             return _mapper.Map<CollaborateurFormationDTO>(await _collaborateurFormationRepository.GetById(id));
         }
 
-        public async Task Update(CollaborateurFormationDTO collaborateurFormation)
+        public async Task<CollaborateurFormationDTO> Update(CollaborateurFormationDTO collaborateurFormation)
         {
-            await _collaborateurFormationRepository.Update(_mapper.Map<CollaborateurFormation>(collaborateurFormation));
+            return _mapper.Map<CollaborateurFormationDTO>(await _collaborateurFormationRepository.Update(_mapper.Map<CollaborateurFormation>(collaborateurFormation)));
         }
 
 

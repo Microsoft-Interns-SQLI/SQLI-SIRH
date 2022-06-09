@@ -51,6 +51,7 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
   situationFamilialeData: any = new SelectInputData();
   demis?: Demission = undefined;
   demisTitle = '';
+
   constructor(
     private service: MdmService,
     private formationCertifService: FormationCertificationsService,
@@ -125,20 +126,37 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
       for (let i = 0; i < this.collab.demissions.length; i++) {
         if (this.collab.demissions[i].id == data.id) {
           this.demissionService.updateDemission(data).subscribe({
-            next: (res) => this.collab.demissions[i] = res,
-            error: (err) => this.toastService.showToast('danger', "demission n'a pas modifer", 2),
-            complete: () => this.toastService.showToast('success', "demission a ete modifier", 2)
+            next: (res) => (this.collab.demissions[i] = res),
+            error: (err) =>
+              this.toastService.showToast(
+                'danger',
+                "demission n'a pas modifer",
+                2
+              ),
+            complete: () =>
+              this.toastService.showToast(
+                'success',
+                'demission a ete modifier',
+                2
+              ),
           });
-          break ;
+          break;
         }
       }
       return;
     }
     this.demissionService.addDemission(data).subscribe({
-      next: (res) => this.collab.demissions = [...this.collab.demissions, res?.data],
-      error: (err) => this.toastService.showToast('danger', "demission n'a ete pas ajouter", 2),
-      complete: () => this.toastService.showToast('success', "demission a ete ajouter", 2)
-    })
+      next: (res) =>
+        (this.collab.demissions = [...this.collab.demissions, res?.data]),
+      error: (err) =>
+        this.toastService.showToast(
+          'danger',
+          "demission n'a ete pas ajouter",
+          2
+        ),
+      complete: () =>
+        this.toastService.showToast('success', 'demission a ete ajouter', 2),
+    });
   }
 
   updateDemissionDisplay(event: number) {

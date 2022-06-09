@@ -13,5 +13,7 @@ namespace API_MySIRH.Interfaces
 
         Task<List<CollaborateurDTO>> GetCollaborateursByContrat(int idContrat);
         Task<List<TypeContratDTO>> GetContratsByCollaborateur(int idCollaborateur);
+
+        Task<CollaborateurTypeContratDTO> GetCurrentContrat(int idCollaborateur);
     }
 }
