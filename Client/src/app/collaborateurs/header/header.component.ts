@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgSelectConfig } from '@ng-select/ng-select';
 import { Niveau, Poste } from 'src/app/Models/MdmModel';
 import { MdmService } from 'src/app/services/mdm.service';
@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit {
 
   selected: number = 10;
   value: string = "";
+  @Input() parent?: string;
   @Output() pageSize = new EventEmitter<number>();
   @Output() search = new EventEmitter<string>();
 
@@ -28,8 +29,8 @@ export class HeaderComponent implements OnInit {
   constructor(private mdmService: MdmService, private StateSaver: SaveState) { }
 
   ngOnInit(): void {
-    let state = this.StateSaver.loadState("ListHeader");
-    if (state) {
+    let state = this.StateSaver.loadState("ListHeaderState");
+    if (state && this.StateSaver.loadState("fallback")?.url === this.parent) {
       this.selected = state?.selected;
       this.value = state?.value;
       this.chosenPost = state?.chosenPost;
@@ -58,7 +59,7 @@ export class HeaderComponent implements OnInit {
       chosenNiveau!: this.chosenNiveau,
       selectedNiveaux: this.selectedNiveaux,
     }
-    this.StateSaver.saveState(SaveObject, "ListHeader");
+    this.StateSaver.saveState(SaveObject, "ListHeaderState");
   }
 
   onSelect() {

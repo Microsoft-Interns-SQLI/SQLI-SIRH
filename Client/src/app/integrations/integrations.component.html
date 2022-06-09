@@ -19,7 +19,7 @@
 
 <div>
   <app-header (pageSize)="changePageSize($event)" (search)="search($event)" (postesId)="onChangePostes($event)"
-    (niveauxId)="onChangeNiveaux($event)"></app-header>
+    (niveauxId)="onChangeNiveaux($event)" [parent]="'integrations'"></app-header>
 </div>
 
 <hr />

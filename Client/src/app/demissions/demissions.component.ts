@@ -40,16 +40,59 @@ export class DemissionsComponent implements OnInit, OnDestroy {
 
   constructor(
     private service: CollaboratorsService,
-    private toastService: ToastService,
     private spinnerService: SpinnerService,
     private saveState: SaveState
   ) {}
 
   ngOnInit(): void {
-    this.loadDemissions(this.pageSize, this.pageNumber);
+    let state = this.saveState.loadState('ListState');
+    if (state && state?.caller == 'demissions') {
+      this.pagination = state?.pagination;
+      // this.displayTable = state?.displayTable;
+      this.selected = state?.selected;
+      this.searchInput = state?.searchInput;
+      this.trierParNom = state?.trierParNom;
+      this.trierParPrenom = state?.trierParPrenom;
+      this.trierParPoste = state?.trierParPoste;
+      this.trierParNiveau = state?.trierParNiveau;
+      this.trierParMatricule = state?.trierParMatricule;
+      this.trierParAnnee = state?.trierParAnnee;
+      this.postesId = state?.postesId;
+      this.niveauxId = state?.niveauxId;
+      this.loadDemissions(
+        this.pagination.pageSize,
+        this.pagination.currentPage,
+        this.selected,
+        this.searchInput === '' ? undefined : this.searchInput,
+        undefined,
+        this.postesId.toString() == '' ? undefined : this.postesId,
+        this.niveauxId.toString() == '' ? undefined : this.niveauxId
+      );
+    }
+    else
+      this.loadDemissions(
+        this.pagination.pageSize,
+        this.pagination.currentPage,
+      );
   }
 
   ngOnDestroy(): void {
+    let saveStateObj = {
+      caller: 'demissions',
+      pagination: this.pagination,
+      // displayTable: this.displayTable,
+      selected: this.selected,
+      searchInput: this.searchInput,
+      trierParNom: this.trierParNom,
+      trierParPrenom: this.trierParPrenom,
+      trierParPoste: this.trierParPoste,
+      trierParNiveau: this.trierParNiveau,
+      trierParMatricule: this.trierParMatricule,
+      trierParAnnee: this.trierParAnnee,
+      postesId: this.postesId,
+      niveauxId: this.niveauxId,
+    }
+    this.saveState.saveState(saveStateObj, 'ListState');
     this.saveState.saveState({ url: 'demissions' }, 'fallback');
   }
 

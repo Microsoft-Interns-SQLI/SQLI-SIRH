@@ -70,8 +70,8 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    let state = this.saveState.loadState('collabsList');
-    if (state) {
+    let state = this.saveState.loadState('ListState');
+    if (state && state?.caller === 'collaborateurs') {
       this.pagination = state?.pagination;
       this.displayTable = state?.displayTable;
       this.selected = state?.selected;
@@ -110,6 +110,7 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
       this.imageSubscription.unsubscribe();
     this.fileSubscription?.unsubscribe();
     let saveStateObj = {
+      caller: 'collaborateurs',
       pagination: this.pagination,
       displayTable: this.displayTable,
       selected: this.selected,
@@ -123,7 +124,7 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
       postesId: this.postesId,
       niveauxId: this.niveauxId,
     }
-    this.saveState.saveState(saveStateObj, 'collabsList');
+    this.saveState.saveState(saveStateObj, 'ListState');
     this.saveState.saveState({ url: 'collaborateurs' }, 'fallback');
   }
 
