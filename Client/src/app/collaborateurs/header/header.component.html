@@ -10,15 +10,26 @@
             <option [ngValue]="30">30</option>
         </select>
     </div>
-
-    <div class="col-md-4 mt-4">
+    <div class="col-md-1 mt-4">
+        <label>Site :</label>
+        <select
+        class="form-select"
+        [(ngModel)]="site"
+        (ngModelChange)="onSelectSite()"
+      >
+        <option value="">All</option>
+        <option value="rabat">Rabat</option>
+        <option value="oujda">Oujda</option>
+      </select>
+    </div>
+    <div class="col-md-3 mt-4">
         <label>Postes :</label>
         <ng-select [items]="postes" bindLabel="name" bindValue="id" [(ngModel)]="chosenPost"
             (change)="onPostesChange(chosenPost)" [multiple]="true">
         </ng-select>
     </div>
 
-    <div class="col-md-4 mt-4">
+    <div class="col-md-2 mt-4">
         <label>Niveaux :</label>
         <ng-select [items]="niveaux" bindLabel="name" bindValue="id" (change)="onNiveauxChange(chosenNiveau)"
             [(ngModel)]="chosenNiveau" [multiple]="true">
