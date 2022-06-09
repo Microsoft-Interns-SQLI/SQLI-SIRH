@@ -83,6 +83,7 @@
             type="button"
             role="tab"
             aria-selected="false"
+            *ngIf="!hasCv(collab.documents)"
           >
             Cv Reader
           </button>
@@ -335,7 +336,10 @@
               role="tabpanel"
               class="tab-pane fade"
             >
-              <app-cv-reader [docs]="collab.documents"></app-cv-reader>
+              <app-cv-reader
+                *ngIf="!hasCv(collab.documents)"
+                [docs]="collab.documents"
+              ></app-cv-reader>
             </div>
             <div
               *ngIf="collab"
@@ -348,8 +352,8 @@
             </div>
             <div
               *ngIf="collab"
-              id="skills"
-              aria-labelledby="skills-tab"
+              id="diplomes"
+              aria-labelledby="diplomes-tab"
               role="tabpanel"
               class="tab-pane fade"
             >

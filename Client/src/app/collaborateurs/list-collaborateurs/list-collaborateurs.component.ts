@@ -181,7 +181,8 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   }
 
   //Executed when filter select change
-  onSelect() {
+  onSelect(site:string) {
+    this.selected = site;
     this.loadCollaborators(
       this.pagination.pageSize,
       this.pagination.currentPage,

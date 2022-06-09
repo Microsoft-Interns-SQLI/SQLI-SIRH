@@ -25,6 +25,7 @@ export class HeaderComponent implements OnInit {
   niveaux!: Niveau[];
   @Output() postesId = new EventEmitter<number[]>();
   @Output() niveauxId = new EventEmitter<number[]>();
+  @Output() selectSite = new EventEmitter<string>();
 
   constructor(private mdmService: MdmService, private StateSaver: SaveState) { }
 
@@ -65,7 +66,9 @@ export class HeaderComponent implements OnInit {
   onSelect() {
     this.pageSize.emit(this.selected);
   }
-
+  onSelectSite(){
+    this.selectSite.emit(this.site);
+  }
   onSearchChange() {
     this.search.emit(this.value);
   }

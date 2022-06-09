@@ -80,7 +80,7 @@
 
     <app-import-collabs></app-import-collabs>
 
-    <select
+    <!-- <select
       class="btn btn-sm btn-secondary"
       [(ngModel)]="selected"
       (ngModelChange)="onSelect()"
@@ -88,7 +88,7 @@
       <option value="">All</option>
       <option value="rabat">Rabat</option>
       <option value="oujda">Oujda</option>
-    </select>
+    </select> -->
   </div>
 </div>
 
@@ -98,6 +98,7 @@
   (postesId)="onChangePostes($event)"
   (niveauxId)="onChangeNiveaux($event)"
   [parent]="'collaborateurs'"
+  (selectSite)="onSelect($event)"
 ></app-header>
 
 <hr />
