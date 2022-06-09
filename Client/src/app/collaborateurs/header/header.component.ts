@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgSelectConfig } from '@ng-select/ng-select';
 import { Niveau, Poste } from 'src/app/Models/MdmModel';
 import { MdmService } from 'src/app/services/mdm.service';
+import { SaveState } from 'src/app/services/stateSave.service';
 
 
 @Component({
@@ -24,9 +25,18 @@ export class HeaderComponent implements OnInit {
   @Output() postesId = new EventEmitter<number[]>();
   @Output() niveauxId = new EventEmitter<number[]>();
 
-  constructor(private mdmService: MdmService) { }
+  constructor(private mdmService: MdmService, private StateSaver: SaveState) { }
 
   ngOnInit(): void {
+    let state = this.StateSaver.loadState("ListHeader");
+    if (state) {
+      this.selected = state?.selected;
+      this.value = state?.value;
+      this.chosenPost = state?.chosenPost;
+      this.selectedPostes = state?.selectedPostes;
+      this.chosenNiveau = state?.chosenNiveau;
+      this.selectedNiveaux = state?.selectedNiveaux;
+    }
     this.mdmService.getAll("Postes").subscribe((data) => {
       // console.log(data);
       this.postes = data;
@@ -35,6 +45,20 @@ export class HeaderComponent implements OnInit {
       // console.log(data);
       this.niveaux = data;
     });
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    let SaveObject = {
+      selected: this.selected,
+      value: this.value,
+      chosenPost!: this.chosenPost,
+      selectedPostes: this.selectedPostes,
+      chosenNiveau!: this.chosenNiveau,
+      selectedNiveaux: this.selectedNiveaux,
+    }
+    this.StateSaver.saveState(SaveObject, "ListHeader");
   }
 
   onSelect() {

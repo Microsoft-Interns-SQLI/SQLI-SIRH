@@ -71,11 +71,34 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     let state = this.saveState.loadState('collabsList');
-    if (state) this.pagination = state?.pagination;
-    this.loadCollaborators(
-      this.pagination.pageSize,
-      this.pagination.currentPage
-    );
+    if (state) {
+      this.pagination = state?.pagination;
+      this.displayTable = state?.displayTable;
+      this.selected = state?.selected;
+      this.searchInput = state?.searchInput;
+      this.trierParNom = state?.trierParNom;
+      this.trierParPrenom = state?.trierParPrenom;
+      this.trierParPoste = state?.trierParPoste;
+      this.trierParNiveau = state?.trierParNiveau;
+      this.trierParMatricule = state?.trierParMatricule;
+      this.trierParAnnee = state?.trierParAnnee;
+      this.postesId = state?.postesId;
+      this.niveauxId = state?.niveauxId;
+      this.loadCollaborators(
+        this.pagination.pageSize,
+        this.pagination.currentPage,
+        this.selected,
+        this.searchInput === '' ? undefined : this.searchInput,
+        undefined,
+        this.postesId.toString() == '' ? undefined : this.postesId,
+        this.niveauxId.toString() == '' ? undefined : this.niveauxId
+      );
+    }
+    else
+      this.loadCollaborators(
+        this.pagination.pageSize,
+        this.pagination.currentPage,
+      );
   }
 
   ngOnDestroy(): void {
@@ -86,7 +109,21 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
     if (this.imageSubscription != undefined)
       this.imageSubscription.unsubscribe();
     this.fileSubscription?.unsubscribe();
-    this.saveState.saveState({ pagination: this.pagination }, 'collabsList');
+    let saveStateObj = {
+      pagination: this.pagination,
+      displayTable: this.displayTable,
+      selected: this.selected,
+      searchInput: this.searchInput,
+      trierParNom: this.trierParNom,
+      trierParPrenom: this.trierParPrenom,
+      trierParPoste: this.trierParPoste,
+      trierParNiveau: this.trierParNiveau,
+      trierParMatricule: this.trierParMatricule,
+      trierParAnnee: this.trierParAnnee,
+      postesId: this.postesId,
+      niveauxId: this.niveauxId,
+    }
+    this.saveState.saveState(saveStateObj, 'collabsList');
     this.saveState.saveState({ url: 'collaborateurs' }, 'fallback');
   }
 
