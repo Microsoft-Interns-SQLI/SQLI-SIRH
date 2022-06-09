@@ -14,6 +14,7 @@ export class HeaderComponent implements OnInit {
   selected: number = 10;
   value: string = "";
   @Input() parent?: string;
+  site: string = "";
   @Output() pageSize = new EventEmitter<number>();
   @Output() search = new EventEmitter<string>();
 
