@@ -39,6 +39,7 @@ export class HeaderComponent implements OnInit {
       this.selectedPostes = state?.selectedPostes;
       this.chosenNiveau = state?.chosenNiveau;
       this.selectedNiveaux = state?.selectedNiveaux;
+      this.site = state?.site;
     }
     this.mdmService.getAll("Postes").subscribe((data) => {
       // console.log(data);
@@ -60,6 +61,7 @@ export class HeaderComponent implements OnInit {
       selectedPostes: this.selectedPostes,
       chosenNiveau!: this.chosenNiveau,
       selectedNiveaux: this.selectedNiveaux,
+      site: this.site
     }
     this.StateSaver.saveState(SaveObject, "ListHeaderState");
   }
