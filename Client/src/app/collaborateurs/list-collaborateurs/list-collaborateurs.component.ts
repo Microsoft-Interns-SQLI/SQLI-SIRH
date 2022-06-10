@@ -2,6 +2,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as FileSaver from 'file-saver';
 import { Subscription } from 'rxjs';
+import { CollabFile } from 'src/app/Models/collabFile';
 
 import { Collaborator } from 'src/app/Models/Collaborator';
 import { Pagination } from 'src/app/Models/pagination';
@@ -10,6 +11,7 @@ import { FilesService } from 'src/app/services/files.service';
 import { ImagesService } from 'src/app/services/images.service';
 import { SpinnerService } from 'src/app/services/spinner.service';
 import { SaveState } from 'src/app/services/stateSave.service';
+import { AutoUnsubscribe } from 'src/app/shared/decorators/AutoUnsubscribe';
 import { ToastService } from 'src/app/shared/toast/toast.service';
 import { environment } from 'src/environments/environment';
 
@@ -18,6 +20,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './list-collaborateurs.component.html',
   styleUrls: ['./list-collaborateurs.component.css'],
 })
+@AutoUnsubscribe()
 export class ListCollaborateursComponent implements OnInit, OnDestroy {
   collaboratorsArray: Collaborator[] = [];
   displayTable: boolean = true;
@@ -29,6 +32,7 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   exportSubscription!: Subscription;
   loadCollabSubscription!: Subscription;
   imageSubscription!: Subscription;
+  fileSubscription?: Subscription;
 
   //Initalize pagination to avert undefined error value in the child component
   pagination: Pagination = {
@@ -66,12 +70,35 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    let state = this.saveState.loadState('collabsList');
-    if (state) this.pagination = state?.pagination;
-    this.loadCollaborators(
-      this.pagination.pageSize,
-      this.pagination.currentPage
-    );
+    let state = this.saveState.loadState('ListState');
+    if (state && state?.caller === 'collaborateurs') {
+      this.pagination = state?.pagination;
+      this.displayTable = state?.displayTable;
+      this.selected = state?.selected;
+      this.searchInput = state?.searchInput;
+      this.trierParNom = state?.trierParNom;
+      this.trierParPrenom = state?.trierParPrenom;
+      this.trierParPoste = state?.trierParPoste;
+      this.trierParNiveau = state?.trierParNiveau;
+      this.trierParMatricule = state?.trierParMatricule;
+      this.trierParAnnee = state?.trierParAnnee;
+      this.postesId = state?.postesId;
+      this.niveauxId = state?.niveauxId;
+      this.loadCollaborators(
+        this.pagination.pageSize,
+        this.pagination.currentPage,
+        this.selected,
+        this.searchInput === '' ? undefined : this.searchInput,
+        undefined,
+        this.postesId.toString() == '' ? undefined : this.postesId,
+        this.niveauxId.toString() == '' ? undefined : this.niveauxId
+      );
+    }
+    else
+      this.loadCollaborators(
+        this.pagination.pageSize,
+        this.pagination.currentPage,
+      );
   }
 
   ngOnDestroy(): void {
@@ -81,7 +108,23 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
       this.loadCollabSubscription.unsubscribe();
     if (this.imageSubscription != undefined)
       this.imageSubscription.unsubscribe();
-    this.saveState.saveState({ pagination: this.pagination }, 'collabsList');
+    this.fileSubscription?.unsubscribe();
+    let saveStateObj = {
+      caller: 'collaborateurs',
+      pagination: this.pagination,
+      displayTable: this.displayTable,
+      selected: this.selected,
+      searchInput: this.searchInput,
+      trierParNom: this.trierParNom,
+      trierParPrenom: this.trierParPrenom,
+      trierParPoste: this.trierParPoste,
+      trierParNiveau: this.trierParNiveau,
+      trierParMatricule: this.trierParMatricule,
+      trierParAnnee: this.trierParAnnee,
+      postesId: this.postesId,
+      niveauxId: this.niveauxId,
+    }
+    this.saveState.saveState(saveStateObj, 'ListState');
     this.saveState.saveState({ url: 'collaborateurs' }, 'fallback');
   }
 
@@ -114,13 +157,7 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (resp) => {
           this.pagination = resp.pagination;
-
-          this.collaboratorsArray = resp.result.map(function (collab) {
-            // let currentCarriere = collab.carrieres?.sort((a, b) => a.annee - b.annee).pop();
-            // collab.niveau = currentCarriere?.niveau;
-            // collab.poste = currentCarriere?.poste;
-            return collab;
-          });
+          this.collaboratorsArray = resp.result;
           this.pagination = resp.pagination;
         },
         complete: () => {
@@ -144,7 +181,8 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   }
 
   //Executed when filter select change
-  onSelect() {
+  onSelect(site:string) {
+    this.selected = site;
     this.loadCollaborators(
       this.pagination.pageSize,
       this.pagination.currentPage,
@@ -189,7 +227,6 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
 
   onChangeNiveaux(niveaux: number[]) {
     this.niveauxId = niveaux;
-    //this.niveauxValue = this.niveauxId.toString().replace(',', '&niveauxId=')
 
     this.loadCollaborators(
       this.pagination.pageSize,
@@ -310,16 +347,31 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
     this.exportAll = !this.exportAll;
   }
 
-  download(documents: any) {
-    let fileUrl = documents
-      .filter((d: any) => d.type === 'CV' && d.fileName.endsWith('.pdf'))
-      .reduce((a: any, b: any) =>
+  download(documents: CollabFile[] | undefined) {
+    let fileUrl = documents?.filter(
+      (d: any) => d.type === 'CV' && d.fileName.endsWith('.pdf')
+    );
+    if (fileUrl !== undefined && fileUrl?.length > 0) {
+      fileUrl.reduce((a: any, b: any) =>
         a.creationDate > b.creationDate ? a : b
       ).url;
+      this.fileSubscription = this.fileService
+        .download(fileUrl)
+        .subscribe((event) => {
+          this.downloadFile(event, fileUrl);
+        });
+    }
+  }
 
-    this.fileService.download(fileUrl).subscribe((event) => {
-      this.downloadFile(event, fileUrl);
-    });
+  hasCv(documents: CollabFile[] | undefined): boolean {
+    if (
+      documents !== undefined &&
+      documents.filter(
+        (d: any) => d.type === 'CV' && d.fileName.endsWith('.pdf')
+      ).length > 0
+    )
+      return false;
+    else return true;
   }
 
   private downloadFile(data: HttpResponse<Blob>, docURL: any) {

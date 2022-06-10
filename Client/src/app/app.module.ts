@@ -52,16 +52,12 @@ import { TextareaInputComponent } from './collaborateurs/add-edit-collaborateur/
 import { SelectInputComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/_form_inputs/select-input/select-input.component';
 import { HeaderComponent } from './collaborateurs/header/header.component';
 import { FooterComponent } from './collaborateurs/footer/footer.component';
-import { DiplomesComponent } from './diplomes/diplomes.component';
-import { ContratsComponent } from './contrats/contrats.component';
 import { TableComponent } from './formations-certifications/table/table.component';
 import { DisplayItemDirective } from './formations-certifications/table/display-item.directive';
 import { HandleStatusDisplayPipe } from './formations-certifications/table/handle-status-display.pipe';
 import { PopupComponent } from './formations-certifications/popup/popup.component';
 import { MdmPanelComponent } from './mdm-panel/mdm-panel.component';
 import { HeaderFormationCertificationComponent } from './formations-certifications/header-formation-certification/header-formation-certification.component';
-import { ModalAjoutDiplomeComponent } from './diplomes/modal-ajout-diplome/modal-ajout-diplome.component';
-import { ModalAjoutContratComponent } from './contrats/modal-ajout-contrat/modal-ajout-contrat.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DemissionTabComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/_demission_tab/demission-tab/demission-tab.component';
 import { ModalAjoutDemissionComponent } from './collaborateurs/add-edit-collaborateur/add-edit-form-table/_demission_tab/modal-ajout-demission/modal-ajout-demission.component';
@@ -70,9 +66,15 @@ import { MdmTableComponent } from './mdm-panel/mdm-table/mdm-table.component';
 import { CertificationsCollabComponent } from './certifications-collab/certifications-collab.component';
 import { EncodeHttpParamsInterceptor } from './interceptors/encode-http-params.interceptor';
 import { AuthentificationInterceptor } from './interceptors/authentification.interceptor';
-import { CarrieresComponent } from './carrieres/carrieres.component';
-import { ModalAjoutCarriereComponent } from './carrieres/modal-ajout-carriere/modal-ajout-carriere.component';
 import { PopupAddFormationsOrCertificationsComponent } from './formations-collab/popup-add-formations-or-certifications/popup-add-formations-or-certifications.component';
+import { ContratsComponent } from './collaborateurs/contrats/contrats.component';
+import { ModalAjoutContratComponent } from './collaborateurs/contrats/modal-ajout-contrat/modal-ajout-contrat.component';
+import { DiplomesComponent } from './collaborateurs/diplomes/diplomes.component';
+import { ModalAjoutDiplomeComponent } from './collaborateurs/diplomes/modal-ajout-diplome/modal-ajout-diplome.component';
+import { CarrieresComponent } from './collaborateurs/carrieres/carrieres.component';
+import { ModalAjoutCarriereComponent } from './collaborateurs/carrieres/modal-ajout-carriere/modal-ajout-carriere.component';
+import { CvReaderComponent } from './cv-reader/cv-reader.component';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 
 @NgModule({
   declarations: [
@@ -133,6 +135,7 @@ import { PopupAddFormationsOrCertificationsComponent } from './formations-collab
     CertificationsCollabComponent,
     CarrieresComponent,
     ModalAjoutCarriereComponent,
+    CvReaderComponent,
     PopupAddFormationsOrCertificationsComponent,
   ],
   imports: [
@@ -152,15 +155,24 @@ import { PopupAddFormationsOrCertificationsComponent } from './formations-collab
     BrowserAnimationsModule,
     ngfModule,
     NgxSpinnerModule,
-    NgSelectModule
+    NgSelectModule,
+    NgxExtendedPdfViewerModule,
   ],
   providers: [
     DatePipe,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthentificationInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthentificationInterceptor,
+      multi: true,
+    },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: EncodeHttpParamsInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: EncodeHttpParamsInterceptor,
+      multi: true,
+    },
     // { provide: RouteReuseStrategy, useClass: CustomReuseStrategyService },
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

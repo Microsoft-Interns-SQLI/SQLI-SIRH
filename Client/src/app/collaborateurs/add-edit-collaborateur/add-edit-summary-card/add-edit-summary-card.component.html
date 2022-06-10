@@ -20,14 +20,12 @@
       </div>
 
       <div class="fw-bold">
-        test test
-        <!-- {{ collab.civilite == 'M' ? "Mr" : "Mme" }}. {{ collab?.nom }}
-        {{ collab?.prenom }} -->
+        {{ collab.civilite == 'M' ? 'Mr' : (collab.civilite == 'F') ? 'Mme' : ''}} . {{ collab?.nom }}
+        {{ collab?.prenom }}
       </div>
       <div>
         <u>
-          <!-- todo-review : will be deleted -->
-          {{ collab?.poste?.name || "N/A" }}
+          {{ collab.carrieres[0]?.poste?.name || "N/A" }}
         </u>
       </div>
       <div class="d-flex justify-content-center align-items-center">

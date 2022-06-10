@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { Collaborator, Demission } from 'src/app/Models/Collaborator';
-import { ModalAjoutDemissionComponent } from '../modal-ajout-demission/modal-ajout-demission.component';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Collaborator } from 'src/app/Models/Collaborator';
+import { DemissionService } from 'src/app/services/demission.service';
 
 @Component({
   selector: 'app-demission-tab',
@@ -10,13 +10,19 @@ export class DemissionTabComponent implements OnInit {
   @Input() collab!: Collaborator;
   @Output() updateDemission = new EventEmitter<number>();
 
-  constructor() { }
+  constructor(private demissionService: DemissionService) { }
 
   ngOnInit(): void {
   }
 
   submitDemission(id: number) {
     this.updateDemission.emit(id);
+  }
+
+  confirmDelete(id: number|string) {
+    if (confirm("This Action Is Irreversible!")) {
+      this.demissionService.deleteDemission(id).subscribe();
+    }
   }
 
 }

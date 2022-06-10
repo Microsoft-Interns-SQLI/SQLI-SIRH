@@ -8,12 +8,7 @@
           </strong>
         </div>
         <div class="col-md-3 text-end">
-          <button
-            type="button"
-            class="btn btn-sm btn-success"
-            data-bs-toggle="modal"
-            data-bs-target="#upload"
-          >
+          <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#upload">
             <i class="bi bi-file-earmark-arrow-up"></i>
             Upload Document
           </button>
@@ -23,16 +18,10 @@
 
     <div class="card-body">
       <p>Liste des documents :</p>
-      <div
-        class="justify-content-center"
-        *ngIf="collab?.documents?.length !== 0"
-      >
+      <div class="justify-content-center" *ngIf="collab?.documents?.length !== 0">
         <table class="table">
           <tbody>
-            <div
-              class="col p-2 mt-1 rounded border border-dark"
-              *ngFor="let document of collab?.documents"
-            >
+            <div class="col p-2 mt-1 rounded border border-dark" *ngFor="let document of collab?.documents">
               <div class="row">
                 <div class="col-md-10">
                   <strong>
@@ -45,20 +34,11 @@
                   </small>
                 </div>
                 <div class="col-md-2 text-end">
-                  <a
-                    class="btn btn-sm btn-primary me-2 mb-1"
-                    (click)="download(document)"
-                    aria-label="download"
-                  >
+                  <a class="btn btn-sm btn-primary me-2 mb-1" (click)="download(document)" aria-label="download">
                     <i class="bi bi-file-earmark-arrow-down"></i>
                   </a>
-                  <a
-                    class="btn btn-sm btn-danger me-2 mb-1"
-                    aria-label="download"
-                    (click)="getItemToDelete(document)"
-                    data-bs-toggle="modal"
-                    data-bs-target="#deleteFile"
-                  >
+                  <a class="btn btn-sm btn-danger me-2 mb-1" aria-label="download" (click)="getItemToDelete(document)"
+                    data-bs-toggle="modal" data-bs-target="#deleteFile">
                     <i class="bi bi-trash"></i>
                   </a>
                 </div>
@@ -70,36 +50,24 @@
     </div>
   </div>
 </div>
-<div
-  class="modal fade center"
-  id="deleteFile"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade center" id="deleteFile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Cofirm Delete</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <h5 class="modal-title" id="exampleModalLabel">
+          Confirmer la suppression
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">Are You Sure You want to delete this file?</div>
+      <div class="modal-body">
+        Êtes-vous sûr de vouloir supprimer ce document ?
+      </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
+        <button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">
+          Annuler
         </button>
-        <button
-          (click)="delete(documentToDelete)"
-          type="button"
-          data-bs-dismiss="modal"
-          class="btn btn-danger"
-        >
-          Delete
+        <button (click)="delete(documentToDelete)" type="button" data-bs-dismiss="modal" class="btn btn-sm btn-danger">
+          Supprimer
         </button>
       </div>
     </div>

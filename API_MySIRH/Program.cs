@@ -72,6 +72,9 @@ builder.Services.AddScoped<IDiplomeRepository, DiplomeRepository>();
 builder.Services.AddScoped<ICarriereRepository, CarriereRepository>();
 builder.Services.AddScoped<ICarriereService, CarriereService>();
 
+builder.Services.AddScoped<IDemissionService, DemissionService>();
+builder.Services.AddScoped<IDemissionRepository, DemissionRepository>();
+
 builder.Services.AddScoped(typeof(IMdmRepository<>), typeof(MdmRepository<>));
 builder.Services.AddScoped(typeof(IMdmService<,>), typeof(MdmService<,>));
 

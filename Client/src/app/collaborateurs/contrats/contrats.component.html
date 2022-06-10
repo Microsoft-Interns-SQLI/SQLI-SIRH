@@ -25,7 +25,6 @@
                             <thead>
                                 <tr>
                                     <th>Type Contrat</th>
-                                    <th>à SQLI</th>
                                     <th>Début</th>
                                     <th>Fin</th>
                                     <th>Actions</th>
@@ -34,7 +33,6 @@
                             <tbody>
                                 <tr *ngFor="let affectation of affectations">
                                     <td>{{affectation.typeContrat?.name}}</td>
-                                    <td>{{affectation.isInSQLI ? "✅" : "❌"}}</td>
                                     <td>{{affectation.dateDebut | date: 'dd/MM/yyyy'}}</td>
                                     <td>
                                         {{affectation.dateFin ? (affectation.dateFin | date: 'dd/MM/yyyy') : "N/A" }}

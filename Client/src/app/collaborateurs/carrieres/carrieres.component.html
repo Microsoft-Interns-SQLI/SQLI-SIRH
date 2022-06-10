@@ -20,7 +20,7 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-md-12 mt-3" *ngFor="let carriere of carrieres">
+                <div class="col-md-12 mt-3" *ngFor="let carriere of collab.carrieres">
                     <div class="card border border-dark">
                         <div class="card-body">
                             <div class="row">
@@ -32,7 +32,10 @@
                                     </strong>
                                 </div>
                                 <div class="col-md-6 text-end">
-                                    <button class="btn btn-sm btn-primary">
+                                    <button class="btn btn-sm btn-danger me-2" (click)="deleteCarriere(carriere.id)">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-primary" disabled>
                                         <!-- todo : to do !  -->
                                         <!-- data-bs-toggle="modal" data-bs-target="#modal-edit-carriere"> -->
                                         <svg _ngcontent-qty-c87="" _ngcontent-fyw-c112=""

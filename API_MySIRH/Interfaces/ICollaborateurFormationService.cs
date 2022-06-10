@@ -12,8 +12,8 @@ namespace API_MySIRH.Interfaces
         Task<List<CollaborateurFormationDTO>> GetByFormation(int id);
         Task<CollaborateurFormationDTO> GetById(int id);
         Task<List<CollaborateurFormationDTO>> GetByCollabAndFormation(int collabId, int formationId);
-        Task Add(CollaborateurFormationDTO collaborateurFormation);
-        Task Update(CollaborateurFormationDTO collaborateurFormation);
+        Task<CollaborateurFormationDTO> Add(CollaborateurFormationDTO collaborateurFormation);
+        Task<CollaborateurFormationDTO> Update(CollaborateurFormationDTO collaborateurFormation);
         Task Delete(CollaborateurFormationDTO collaborateurFormation);
 
         Task<List<int>> GetAnnees();

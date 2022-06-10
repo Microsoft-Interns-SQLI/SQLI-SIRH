@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { routes } from 'src/app/app-routing.module';
 import { Collaborator, Demission } from 'src/app/Models/Collaborator';
@@ -66,9 +66,9 @@ export class AddEditCollaborateurComponent implements OnInit {
         this.collab.matricule,
         [Validators.required, Validators.minLength(5), Validators.maxLength(8)],
       ],
-      emailPersonnel: [this.collab.emailPersonnel, Validators.email],
-      email: [this.collab.email, Validators.email],
-      phonePersonnel: [this.collab.phonePersonnel],
+      emailPersonnel: [this.collab.emailPersonnel, Validators.pattern("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")],
+      email: [this.collab.email, Validators.pattern("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")],
+    phonePersonnel: [this.collab.phonePersonnel, Validators.pattern(/^\s*(?:\+212|0)[- 0]*[6|7|5][- ]*\d{2}[- ]*\d{2}[- ]*\d{2}[- ]*\d{2}[- ]*\s*$/)],
       phoneProfesionnel: [this.collab.phoneProfesionnel],
       dateNaissance: [
         this.datepipe.transform(this.collab.dateNaissance, 'yyyy-MM-dd'),
@@ -87,8 +87,9 @@ export class AddEditCollaborateurComponent implements OnInit {
       modeRecrutement: [
         this.collab.modeRecrutement ? this.collab.modeRecrutement.id : '',
       ],
-      niveau: [this.collab.niveau ? this.collab.niveau.id : ''],
-      poste: [this.collab.poste ? this.collab.poste.id : ''],
+      //TODO: Review
+      // niveau: [this.collab.niveau ? this.collab.niveau.id : ''],
+      // poste: [this.collab.poste ? this.collab.poste.id : ''],
       situationFamiliale: [this.collab.situationFamiliale],
       dateDebutStage: [
         this.datepipe.transform(this.collab.dateDebutStage, 'yyyy-MM-dd'),
@@ -101,6 +102,7 @@ export class AddEditCollaborateurComponent implements OnInit {
       ],
       // diplomes: [this.collab.diplomes]
     });
+    this.watchBehaviourOnFormChanges();
   }
 
   saveCollaborator(): void {
@@ -158,12 +160,42 @@ export class AddEditCollaborateurComponent implements OnInit {
     //TODO: To review
     this.collab.modeRecrutement = undefined;
     this.collab.modeRecrutementId = +this.formGroup.value.modeRecrutement;
-    this.collab.niveauId = this.formGroup.value.niveau;
-    this.collab.posteId = this.formGroup.value.poste;
+    //TODO: Review
+    // this.collab.niveauId = this.formGroup.value.niveau;
+    // this.collab.posteId = this.formGroup.value.poste;
     this.collab.situationFamiliale = this.formGroup.value.situationFamiliale;
     this.collab.dateDebutStage = this.formGroup.value.dateDebutStage;
     this.collab.datePremiereExperience =
       this.formGroup.value.datePremiereExperience;
+  }
+
+
+  /**
+   * this will reflect changes from the form into our object
+   * NOTE: add evry field you want to be reflected in the view card !!
+   */
+  watchBehaviourOnFormChanges() {
+    this.formGroup?.valueChanges.subscribe((res) => {
+      this.collab.civilite = res?.civilite;
+      this.collab.nom = res?.nom;
+      this.collab.prenom = res?.prenom;
+      this.collab.matricule = res?.matricule;
+      this.collab.emailPersonnel = res?.emailPersonnel;
+      this.collab.email = res?.email;
+      this.collab.phonePersonnel = res?.phonePersonnel;
+      this.collab.phoneProfesionnel = res?.phoneProfesionnel;
+      this.collab.nationnalite = res?.nationnalite;
+      this.collab.numCin = res?.numCin;
+      this.collab.adresse = res?.adresse;
+      this.collab.datePremiereExperience = res?.datePremiereExperience;
+    })
+  }
+
+  validateEmail(controle: AbstractControl) {
+    var regExp = new RegExp('\A[A-Z0-9+_.-]+@[A-Z0-9.-]+\Z');
+    if (!regExp.test(controle.value))
+      return { invalidMail: true }
+    return null
   }
 
   navigateBack() {
