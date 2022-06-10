@@ -11,7 +11,6 @@ import { ToastService } from 'src/app/shared/toast/toast.service';
 })
 @AutoUnsubscribe()
 export class CarrieresComponent implements OnInit {
-  carrieres!: Carriere[];
   @Input() collab!: Collaborator;
 
   constructor(
@@ -19,20 +18,12 @@ export class CarrieresComponent implements OnInit {
     private carrieresService: CarrieresService
   ) { }
 
-  ngOnInit(): void {
-    this.getAllAffectations();
-  }
-
-  getAllAffectations() {
-    this.carrieresService.getCarrieresOfCollab(this.collab.id).subscribe((carrieres) => {
-      this.carrieres = carrieres;
-    });
-  }
+  ngOnInit(): void { }
 
   deleteCarriere(idCarriere: number) {
     this.carrieresService.deleteCarriere(idCarriere).subscribe(() => {
-      this.carrieres = this.carrieres.filter(carr => carr.id != idCarriere);
-      // this.toastService.showToast("success", "Carrière supprimée avec succès.", 2);
+      this.collab.carrieres = this.collab.carrieres.filter(carr => carr.id != idCarriere);
+      this.toastService.showToast("success", "Carrière supprimée avec succès.", 2);
     });
   }
 
@@ -41,8 +32,9 @@ export class CarrieresComponent implements OnInit {
   // }
 
   addCarriere(carriere: Carriere) {
-    this.carrieres.unshift(carriere);
-    // this.toastService.showToast("success", "Nouvelle carrière ajoutée.", 2);
+    this.collab.carrieres.unshift(carriere);
+    this.collab.carrieres = this.collab.carrieres.sort((a, b) => b.annee - a.annee);
+    this.toastService.showToast("success", "Nouvelle carrière ajoutée.", 2);
   }
 
 }

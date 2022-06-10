@@ -96,7 +96,7 @@ export class CollaboratorsService {
               },
               error: (er) => console.log(er),
             });
-            collab.carrieres = collab.carrieres?.sort((a, b) => a.annee - b.annee)
+            collab.carrieres = collab.carrieres?.sort((a, b) => b.annee - a.annee)
             return collab;
           }
         );
@@ -158,7 +158,7 @@ export class CollaboratorsService {
         map((response) => {
           this.paginatedResult.result = <Collaborator[]>response.body.map(
             (collab: Collaborator) => {
-              collab.carrieres = collab.carrieres?.sort((a, b) => a.annee - b.annee)
+              collab.carrieres = collab.carrieres?.sort((a, b) => b.annee - a.annee)
               return collab;
             }
           );
@@ -177,7 +177,7 @@ export class CollaboratorsService {
       .get<any>(this.myUrl + '/' + id, { responseType: 'json' })
       .pipe(
         map((collab: Collaborator) => {
-          collab.carrieres = collab.carrieres?.sort((a, b) => a.annee - b.annee)
+          collab.carrieres = collab.carrieres?.sort((a, b) => b.annee - a.annee)
           return collab;
         })
       );
@@ -270,7 +270,7 @@ export class CollaboratorsService {
         map((response) => {
           this.paginatedResult.result = <Collaborator[]>response.body.map(
             (collab: Collaborator) => {
-              collab.carrieres = collab.carrieres?.sort((a, b) => a.annee - b.annee)
+              collab.carrieres = collab.carrieres?.sort((a, b) => b.annee - a.annee)
               return collab;
             }
           );

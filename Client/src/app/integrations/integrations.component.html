@@ -47,9 +47,9 @@
         <td>{{ item.site?.name }}</td>
         <td>{{ item.skillCenter?.name }}</td>
         <td>
-          {{ item.carrieres[item.carrieres.length-1].poste?.name || "N/A" }}
+          {{ item.carrieres[0].poste?.name || "N/A" }}
           <br>
-          {{ item.carrieres[item.carrieres.length-1].niveau?.name || "N/A" }}
+          {{ item.carrieres[0].niveau?.name || "N/A" }}
         </td>
         <td>{{ item.dateEntreeSqli | date: 'longDate' }}</td>
         <td>{{ calculateYears(item.datePremiereExperience) }}</td>
