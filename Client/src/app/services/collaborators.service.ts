@@ -204,11 +204,60 @@ export class CollaboratorsService {
       .pipe(catchError(this.handleError));
   }
 
-  exportCollaborateurs(lstIds?: number[]) {
+  exportCollaborateurs(
+    lstIds?: number[],
+    itemsPerPage?: number,
+    page?: number,
+    filtrerPar?: string,
+    search?: string,
+    orderby?: string,
+    orderbyFormation?: string,
+    orderbyCertification?: string,
+    postesId?: number[],
+    niveauxId?: number[],
+    year?: number,
+    status?: number) {
     let params = new HttpParams();
     if (lstIds) {
       for (let i = 0; i < lstIds.length; i++)
         params = params.append('ids', lstIds[i]);
+    }
+    if (page != undefined && itemsPerPage != undefined) {
+      params = params.append('pageNumber', page.toString());
+      params = params.append('pageSize', itemsPerPage.toString());
+    }
+    if (filtrerPar !== undefined && filtrerPar !== '') {
+      params = params.append('Site', filtrerPar);
+    }
+    if (orderby != undefined)
+      params = params.append('OrderBy', orderby.toString());
+
+    if (search != undefined) {
+      params = params.append('Search', search);
+    }
+    if (orderbyFormation != undefined) {
+      params = params.append(
+        'OrderByFormation',
+        JSON.stringify(orderbyFormation)
+      );
+    }
+
+    if (orderbyCertification != undefined) {
+      params = params.append('OrderByCertification', JSON.stringify(orderbyCertification));
+    }
+    if (postesId != undefined && postesId.toString() != '') {
+      params = params.appendAll({ postesId: postesId });
+    }
+    if (niveauxId != undefined && niveauxId.toString() != '') {
+      params = params.appendAll({ niveauxId: niveauxId });
+    }
+
+    if (year != undefined) {
+      params = params.append('Year', year);
+    }
+
+    if (status != undefined) {
+      params = params.append('Status', status);
     }
     return this.http.get(this.myUrl + '/export', {
       responseType: 'blob',

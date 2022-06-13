@@ -133,9 +133,9 @@ namespace API_MySIRH.Controllers
         }
 
         [HttpGet("export")]
-        public async Task<IActionResult> Export([FromQuery] List<int> ids)
+        public async Task<IActionResult> Export([FromQuery] List<int> ids, [FromQuery] FilterParams filtres)
         {
-            var exportfile = await export(ids);
+            var exportfile = await export(ids, filtres);
             return exportfile;
         }
 
@@ -333,11 +333,13 @@ namespace API_MySIRH.Controllers
             return resultDiplomes;
         }
 
-        private async Task<FileContentResult> export(List<int> ids)
+        private async Task<FileContentResult> export(List<int> ids, FilterParams filtres)
         {
             var collabs = new List<CollaborateurDTO>();
             if (!ids.Any())
-                collabs = _collaborateurService.GetCollaborateurs().ToList();
+            {
+                collabs = _collaborateurService.GetNoPagingCollaborateurs(filtres).ToList();
+            }
             else
             {
                 for (int index = 0; index < ids.Count; index++)
