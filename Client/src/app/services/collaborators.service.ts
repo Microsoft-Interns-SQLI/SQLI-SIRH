@@ -128,7 +128,7 @@ export class CollaboratorsService {
       params = params.append('pageNumber', page.toString());
       params = params.append('pageSize', itemsPerPage.toString());
     }
-    if (filtrerPar != undefined) {
+    if (filtrerPar != undefined && filtrerPar !== '') {
       params = params.append('Site', filtrerPar);
     }
     if (orderby != undefined)
