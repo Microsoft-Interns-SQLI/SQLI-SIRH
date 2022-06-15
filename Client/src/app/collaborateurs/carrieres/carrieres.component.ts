@@ -12,20 +12,14 @@ import { ToastService } from 'src/app/shared/toast/toast.service';
 @AutoUnsubscribe()
 export class CarrieresComponent implements OnInit {
   @Input() collab!: Collaborator;
+  carriereToDelete?: Carriere;
 
   constructor(
     private toastService: ToastService,
-    private carrieresService: CarrieresService
+    // private carrieresService: CarrieresService
   ) { }
 
   ngOnInit(): void { }
-
-  deleteCarriere(idCarriere: number) {
-    this.carrieresService.deleteCarriere(idCarriere).subscribe(() => {
-      this.collab.carrieres = this.collab.carrieres.filter(carr => carr.id != idCarriere);
-      this.toastService.showToast("success", "Carrière supprimée avec succès.", 2);
-    });
-  }
 
   // editCarriere(carriere: Carriere) {
   //   console.log(carriere);
@@ -37,4 +31,8 @@ export class CarrieresComponent implements OnInit {
     this.toastService.showToast("success", "Nouvelle carrière ajoutée.", 2);
   }
 
+  deleteCarriere(idCarriere: number) {
+    this.collab.carrieres = this.collab.carrieres.filter(carr => carr.id != idCarriere);
+    this.toastService.showToast("success", "Carrière supprimée avec succès.", 2);
+  }
 }

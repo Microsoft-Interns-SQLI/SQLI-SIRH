@@ -1,0 +1,30 @@
+<div class="modal fade" id="deleteCarriere" tabindex="-1" aria-labelledby="deleteCarriere" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Confirmation de suppression.
+                </h5>
+                <button id="btn-close-modal-delete-confirmation" type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger" role="alert">
+                            Êtes-vous sûr de vouloir supprimer cet élement ?
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">
+                    Annuler
+                </button>
+                <button type="submit" class="btn btn-sm btn-danger" (click)="deleteCarriere(carriere?.id)">
+                    Supprimer
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

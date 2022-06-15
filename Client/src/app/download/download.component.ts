@@ -17,7 +17,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
   documentToDelete: any;
   message: string = '';
   progress: number = 0;
-  constructor(private filesService: FilesService) {}
+  constructor(private filesService: FilesService) { }
   ngOnDestroy(): void {
     this.downloadSubscription?.unsubscribe();
   }

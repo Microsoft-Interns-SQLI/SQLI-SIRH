@@ -75,6 +75,7 @@ import { CarrieresComponent } from './collaborateurs/carrieres/carrieres.compone
 import { ModalAjoutCarriereComponent } from './collaborateurs/carrieres/modal-ajout-carriere/modal-ajout-carriere.component';
 import { CvReaderComponent } from './cv-reader/cv-reader.component';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { ModalConfirmDeleteCarriereComponent } from './collaborateurs/carrieres/modal-confirm-delete-carriere/modal-confirm-delete-carriere.component';
 
 @NgModule({
   declarations: [
@@ -137,6 +138,7 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
     ModalAjoutCarriereComponent,
     CvReaderComponent,
     PopupAddFormationsOrCertificationsComponent,
+    ModalConfirmDeleteCarriereComponent,
   ],
   imports: [
     CommonModule,
@@ -175,4 +177,4 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

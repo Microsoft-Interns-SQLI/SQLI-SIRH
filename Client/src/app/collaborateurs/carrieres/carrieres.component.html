@@ -32,7 +32,8 @@
                                     </strong>
                                 </div>
                                 <div class="col-md-6 text-end">
-                                    <button class="btn btn-sm btn-danger me-2" (click)="deleteCarriere(carriere.id)">
+                                    <button class="btn btn-sm btn-danger me-2" data-bs-toggle="modal"
+                                        data-bs-target="#deleteCarriere" (click)="carriereToDelete = carriere">
                                         <i class="bi bi-trash"></i>
                                     </button>
                                     <button class="btn btn-sm btn-primary" disabled>
@@ -114,3 +115,6 @@
         </div>
     </div>
 </div>
+
+<app-modal-confirm-delete-carriere [carriere]="carriereToDelete" (deleteCarriereEvent)="deleteCarriere($event)">
+</app-modal-confirm-delete-carriere>
