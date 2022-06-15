@@ -33,12 +33,11 @@
                                 </div>
                                 <div class="col-md-6 text-end">
                                     <button class="btn btn-sm btn-danger me-2" data-bs-toggle="modal"
-                                        data-bs-target="#deleteCarriere" (click)="carriereToDelete = carriere">
+                                        data-bs-target="#modal-delete-carriere" (click)="carriereToDelete = carriere">
                                         <i class="bi bi-trash"></i>
                                     </button>
-                                    <button class="btn btn-sm btn-primary" disabled>
-                                        <!-- todo : to do !  -->
-                                        <!-- data-bs-toggle="modal" data-bs-target="#modal-edit-carriere"> -->
+                                    <button class="btn btn-sm btn-primary" disabled data-bs-toggle="modal"
+                                        data-bs-target="#modal-edit-carriere" (click)="carriereToDelete = carriere">
                                         <svg _ngcontent-qty-c87="" _ngcontent-fyw-c112=""
                                             xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             fill="currentColor" viewBox="0 0 16 16" class="bi bi-pencil-square">

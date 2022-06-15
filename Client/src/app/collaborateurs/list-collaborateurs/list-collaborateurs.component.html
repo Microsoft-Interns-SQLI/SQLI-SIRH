@@ -138,9 +138,9 @@
         </td>
         <td>{{ calculateYears(item.dateEntreeSqli) }}</td>
         <td>
-          {{ item.carrieres[0].poste?.name }}
+          {{ item.carrieres[0]?.poste?.name }}
           <br />
-          {{ item.carrieres[0].niveau?.name }}
+          {{ item.carrieres[0]?.niveau?.name }}
         </td>
         <td>
           <button class="btn btn-sm btn-secondary" (click)="download(item.documents)"
@@ -190,11 +190,15 @@
             </div>
           </a>
           <div class="my-2">
-            {{ item.carrieres[0].poste?.name || "N/A" }}
+            {{ item.carrieres[0]?.poste?.name || "N/A" }}
           </div>
           <div class="d-flex justify-content-center my-2 align-items-center">
-            <span>Expérience </span><span class="badge bg-dark ms-1">{{ calculateYears(item?.dateEntreeSqli) }}
-              ans</span>
+            <span>
+              Expérience
+            </span><span class="badge bg-dark ms-1">
+              {{ calculateYears(item?.dateEntreeSqli) }}
+              ans
+            </span>
           </div>
           <div class="text-uppercase text-muted">#M-{{ item?.matricule }}</div>
         </div>

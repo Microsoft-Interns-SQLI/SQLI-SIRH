@@ -21,7 +21,7 @@ export class ModalConfirmDeleteCarriereComponent implements OnInit {
 
   deleteCarriere(idCarriere: any) {
     // trick : to close the modal
-    document.getElementById('btn-close-modal-delete-confirmation')?.click();
+    document.getElementById('btn-close-modal-delete-carriere')?.click();
 
     this.carrieresService.deleteCarriere(idCarriere).subscribe(() => {
       this.deleteCarriereEvent.emit(idCarriere as number);
