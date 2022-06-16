@@ -6,7 +6,7 @@ namespace API_MySIRH.Interfaces
 {
     public interface IDemissionService
     {
-        IQueryable<Collaborateur> GetDemissions(FilterParams filterParams);
+        IQueryable<Collaborateur> GetCollabsDemissions(FilterParams filterParams);
         Task<DemissionDTO?> GetDemissionById(int id);
         Task<DemissionDTO?> UpdateDemission(DemissionDTO demission);
         Task<DemissionDTO?> AddDemission(DemissionDTO demission);

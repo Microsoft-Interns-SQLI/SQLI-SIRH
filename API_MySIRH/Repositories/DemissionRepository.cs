@@ -32,7 +32,7 @@ namespace API_MySIRH.Repositories
             return await this._data.Demissions.AsNoTracking().Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
-        public IQueryable<Collaborateur> GetDemissions()
+        public IQueryable<Collaborateur> GetCollabsDemissions()
         {
             var query = _data.Collaborateurs
 

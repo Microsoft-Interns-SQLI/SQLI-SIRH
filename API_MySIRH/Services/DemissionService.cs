@@ -34,10 +34,10 @@ namespace API_MySIRH.Services
             return this._mapper.Map<DemissionDTO>(data);
         }
 
-        public IQueryable<Collaborateur> GetDemissions(FilterParams filterParams)
+        public IQueryable<Collaborateur> GetCollabsDemissions(FilterParams filterParams)
         {
-            var data = _demissionRepository.GetDemissions();
-            return data.Where(collab => collab.Demissions.Any() && collab.Demissions.Where(demission => ((DateTime)demission.DateSortieSqli).Year == filterParams.Year).Count()!=0).AsQueryable();
+            var data = _demissionRepository.GetCollabsDemissions();
+            return data.Where(x => x.Demissions.Any()).AsQueryable();
         }
 
         public async Task<DemissionDTO?> UpdateDemission(DemissionDTO demission)
