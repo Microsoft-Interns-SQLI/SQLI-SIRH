@@ -163,7 +163,7 @@ namespace API_MySIRH.Services
 
         public async Task<PagedList<CollaborateurDTO>> GetDemissions(FilterParams filterParams)
         {
-            var query = this._demissionService.GetDemissions(filterParams);
+            var query = this._demissionService.GetCollabsDemissions(filterParams);
 
             if (!string.IsNullOrEmpty(filterParams.Site))
                 query = query.Where(c => c.Site.Name == filterParams.Site);
