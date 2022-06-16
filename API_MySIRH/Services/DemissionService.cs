@@ -34,9 +34,9 @@ namespace API_MySIRH.Services
             return this._mapper.Map<DemissionDTO>(data);
         }
 
-        public IQueryable<Collaborateur> GetDemissions(FilterParams filterParams)
+        public IQueryable<Collaborateur> GetCollabsDemissions(FilterParams filterParams)
         {
-            var data = _demissionRepository.GetDemissions();
+            var data = _demissionRepository.GetCollabsDemissions();
             return data.Where(x => x.Demissions.Any()).AsQueryable();
         }
 
