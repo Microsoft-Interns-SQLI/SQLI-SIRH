@@ -49,8 +49,7 @@ namespace API_MySIRH.Services
             /*  return (from i in _demissionRepository.GetDemissions()
                       where i.Demissions.Count() > 0 && ((DateTime)i.Demissions.OrderByDescending(x => x.DateSortieSqli).First().DateSortieSqli).Year == DateTime.Now.Year
                       select i).Count();*/
-           return _demissionRepository.GetDems().Where(dem => DateTime.Now.Year == ((DateTime)dem.DateSortieSqli).Year &&
-                                                      (DateTime.Now - (DateTime)dem.DateSortieSqli).TotalDays >= 0).Count();
+           return _demissionRepository.GetDemissions().Where(dem => dem.DateSortieSqli != null && DateTime.Now.Year == ((DateTime)dem.DateSortieSqli).Year).Count();
 
         }
 
@@ -61,7 +60,7 @@ namespace API_MySIRH.Services
 
         public double GetHeadCount()
         {
-            return _collaborateurRepository.GetCollaborateurs().Count()- _demissionRepository.GetDems().Count(); ;
+            return _collaborateurRepository.GetCollaborateurs().Count()- _demissionRepository.GetDemissions().Count(); ;
         }
 
         public double GetHeadCountPerNiveaux(string niveauName)

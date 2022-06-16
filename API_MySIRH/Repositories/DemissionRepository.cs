@@ -54,7 +54,7 @@ namespace API_MySIRH.Repositories
             return await this.GetDemissionByID(demission.Id);
         }
 
-        public IQueryable<Demission> GetDems()
+        public IQueryable<Demission> GetDemissions()
         {
             return _data.Demissions.AsNoTracking();
         }

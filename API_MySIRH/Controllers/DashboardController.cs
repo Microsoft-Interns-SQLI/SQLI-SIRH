@@ -28,7 +28,7 @@ namespace API_MySIRH.Controllers
             dashboard.HeadCount = _dashboardService.GetHeadCount();
             dashboard.FemaleCount = _dashboardService.GetFemaleCount();
             dashboard.MaleCount = _dashboardService.GetMaleCount();
-//            dashboard.DemissionCount = _demissionService.GetDemissions(null).Count() ;
+            dashboard.DemissionCount = _dashboardService.GetDemissionCount();
             dashboard.AverageAge = _dashboardService.GetAverageAge();
             dashboard.AverageExp = _dashboardService.GetAverageExp();
             dashboard.ICDCount = _dashboardService.GetHeadCountPerPoste( "Ingénieur Concepteur développeur");
