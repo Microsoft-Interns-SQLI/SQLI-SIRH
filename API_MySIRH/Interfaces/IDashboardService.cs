@@ -4,15 +4,15 @@ namespace API_MySIRH.Interfaces
 {
     public interface IDashboardService
     {
-        public double GetHeadCount(IEnumerable<CollaborateurDTO> collaborateurs);
-        public double GetDemissionCount(IEnumerable<CollaborateurDTO> collaborateurs);
-        public double GetFemaleCount(IEnumerable<CollaborateurDTO> collaborateurs);
-        public double GetMaleCount(IEnumerable<CollaborateurDTO> collaborateurs);
-        public double GetAverageAge(IEnumerable<CollaborateurDTO> collaborateurs);
-        public double GetHeadCountPerPoste (IEnumerable<CollaborateurDTO> collaborateurs,string postName);
-        public double GetHeadCountPerNiveaux(IEnumerable<CollaborateurDTO> collaborateurs, string niveauName);
-        public double GetAverageExp(IEnumerable<CollaborateurDTO> collaborateurs);
-        public double GetTauxSoustraitant(IEnumerable<CollaborateurDTO> collaborateurs);
+        public double GetHeadCount();
+        public double GetDemissionCount();
+        public double GetFemaleCount();
+        public double GetMaleCount();
+        public double GetAverageAge();
+        public double GetHeadCountPerPoste (string postName);
+        public double GetHeadCountPerNiveaux( string niveauName);
+        public double GetAverageExp();
+        public double GetTauxSoustraitant();
 
     }
 }

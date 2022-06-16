@@ -23,25 +23,25 @@ namespace API_MySIRH.Controllers
         public async Task<ActionResult<DashboardDto>> GetDashboard()
         {
             DashboardDto dashboard = new();
-            var collection = _collaborateurService.GetCollaborateurs(); // .Where(collab => collab.DateSortieSqli == null || DateTime.Compare((DateTime)collab.DateSortieSqli, DateTime.Now) > 0 );
+            // .Where(collab => collab.DateSortieSqli == null || DateTime.Compare((DateTime)collab.DateSortieSqli, DateTime.Now) > 0 );
                                                                         // ikhadem: TODO: getData from related Object 
-            dashboard.HeadCount = _dashboardService.GetHeadCount(collection);
-            dashboard.FemaleCount = _dashboardService.GetFemaleCount(collection);
-            dashboard.MaleCount = _dashboardService.GetMaleCount(collection);
-            dashboard.DemissionCount = _dashboardService.GetDemissionCount(_collaborateurService.GetCollaborateurs());
-            dashboard.AverageAge = _dashboardService.GetAverageAge(collection);
-            dashboard.AverageExp = _dashboardService.GetAverageExp(collection);
-            dashboard.ICDCount = _dashboardService.GetHeadCountPerPoste(collection, "Ingénieur Concepteur développeur");
-            dashboard.ExpertTechCount = _dashboardService.GetHeadCountPerPoste(collection, "Expert technique");
-            dashboard.ChefDeProjetCount = _dashboardService.GetHeadCountPerPoste(collection, "Chef de projet technique");
-            dashboard.ManagerCount = _dashboardService.GetHeadCountPerPoste(collection, "Manager");
-            dashboard.JuniorCount = _dashboardService.GetHeadCountPerNiveaux(collection, "Junior");
-            dashboard.OperationnelCount = _dashboardService.GetHeadCountPerNiveaux(collection, "Opérationnel");
-            dashboard.ConfirmeCount = _dashboardService.GetHeadCountPerNiveaux(collection, "Confirmé");
-            dashboard.SeniorCount = _dashboardService.GetHeadCountPerNiveaux(collection, "Sénior");
-            dashboard.TauxSoustraitant = _dashboardService.GetTauxSoustraitant(collection) * 100;
+            dashboard.HeadCount = _dashboardService.GetHeadCount();
+            dashboard.FemaleCount = _dashboardService.GetFemaleCount();
+            dashboard.MaleCount = _dashboardService.GetMaleCount();
+//            dashboard.DemissionCount = _demissionService.GetDemissions(null).Count() ;
+            dashboard.AverageAge = _dashboardService.GetAverageAge();
+            dashboard.AverageExp = _dashboardService.GetAverageExp();
+            dashboard.ICDCount = _dashboardService.GetHeadCountPerPoste( "Ingénieur Concepteur développeur");
+            dashboard.ExpertTechCount = _dashboardService.GetHeadCountPerPoste( "Expert technique");
+            dashboard.ChefDeProjetCount = _dashboardService.GetHeadCountPerPoste( "Chef de projet technique");
+            dashboard.ManagerCount = _dashboardService.GetHeadCountPerPoste("Manager");
+            dashboard.JuniorCount = _dashboardService.GetHeadCountPerNiveaux( "Junior");
+            dashboard.OperationnelCount = _dashboardService.GetHeadCountPerNiveaux( "Opérationnel");
+            dashboard.ConfirmeCount = _dashboardService.GetHeadCountPerNiveaux( "Confirmé");
+            dashboard.SeniorCount = _dashboardService.GetHeadCountPerNiveaux( "Sénior");
+            dashboard.TauxSoustraitant = _dashboardService.GetTauxSoustraitant() * 100;
             dashboard.TauxEncadrement = ((dashboard.ChefDeProjetCount + dashboard.ExpertTechCount + dashboard.ManagerCount)/dashboard.HeadCount)*100;
-            return dashboard;
+            return Ok(dashboard);
         }
 
          

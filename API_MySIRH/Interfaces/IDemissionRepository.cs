@@ -9,5 +9,6 @@ namespace API_MySIRH.Interfaces
         Task<Demission?> UpdateDemission(Demission demission);
         Task<Demission?> AddDemission(Demission demission);
         Task DeleteDemission(int id);
+        IQueryable<Demission> GetDems();
     }
 }

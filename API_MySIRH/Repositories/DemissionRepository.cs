@@ -40,7 +40,7 @@ namespace API_MySIRH.Repositories
                 .ThenInclude(carr => carr.Poste)
                 .Include(c => c.Carrieres)!
                 .ThenInclude(carr => carr.Niveau)
-
+                .Include(dem=>dem.Demissions)
                 .AsSplitQuery() // todo : good practice ?
                 .Include(x => x.Certifications)
                 .AsNoTracking();
@@ -52,6 +52,11 @@ namespace API_MySIRH.Repositories
             _data.Entry(demission).State = EntityState.Modified;
             await this._data.SaveChangesAsync();
             return await this.GetDemissionByID(demission.Id);
+        }
+
+        public IQueryable<Demission> GetDems()
+        {
+            return _data.Demissions.AsNoTracking();
         }
     }
 }

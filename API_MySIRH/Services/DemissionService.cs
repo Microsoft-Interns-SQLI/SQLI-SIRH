@@ -37,7 +37,7 @@ namespace API_MySIRH.Services
         public IQueryable<Collaborateur> GetDemissions(FilterParams filterParams)
         {
             var data = _demissionRepository.GetDemissions();
-            return data.Where(x => x.Demissions.Any()).AsQueryable();
+            return data.Where(collab => collab.Demissions.Any() && collab.Demissions.Where(demission => ((DateTime)demission.DateSortieSqli).Year == filterParams.Year).Count()!=0).AsQueryable();
         }
 
         public async Task<DemissionDTO?> UpdateDemission(DemissionDTO demission)
