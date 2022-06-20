@@ -18,7 +18,7 @@ namespace API_MySIRH.Repositories
             await this._dataContext.Carrieres.AddAsync(carriere);
             await this._dataContext.SaveChangesAsync();
 
-            return carriere;
+            return await this.FindById(carriere.Id);
         }
 
         public async Task Delete(Carriere carriere)
@@ -36,7 +36,6 @@ namespace API_MySIRH.Repositories
         {
             return await
                 this._dataContext.Carrieres
-                    .Include(c => c.Collaborateur)
                     .Include(c => c.Niveau)
                     .Include(c => c.Poste)
                     .AsNoTracking()
@@ -53,9 +52,9 @@ namespace API_MySIRH.Repositories
             return await
                 this._dataContext.Carrieres
                     .Where(c => c.CollaborateurId == idCollaborateur)
-                    .Include(c => c.Collaborateur)
                     .Include(c => c.Niveau)
                     .Include(c => c.Poste)
+                    .OrderByDescending(c => c.Annee)
                     .ToListAsync();
         }
 

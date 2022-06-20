@@ -14,16 +14,19 @@ namespace API_MySIRH.Repositories
             _context = context;
         }
 
-        public async Task Add(CollaborateurFormation collaborateurFormation)
+        public async Task<CollaborateurFormation> Add(CollaborateurFormation collaborateurFormation)
         {
             await _context.CollaborateurFormations.AddAsync(collaborateurFormation);
             await _context.SaveChangesAsync();
 
+            return collaborateurFormation;
+
         }
 
-        public Task Delete(CollaborateurFormation collaborateurFormation)
+        public async Task Delete(CollaborateurFormation collaborateurFormation)
         {
-            throw new NotImplementedException();
+               _context.CollaborateurFormations.Remove(collaborateurFormation);
+               await _context.SaveChangesAsync();
         }
 
         public async Task<List<CollaborateurFormation>> GetAll()
@@ -79,10 +82,12 @@ namespace API_MySIRH.Repositories
         {
             return await _context.CollaborateurFormations.Where(x => x.Id == id).AsNoTracking().FirstOrDefaultAsync();
         }
-        public async Task Update(CollaborateurFormation collaborateurFormation)
+        public async Task<CollaborateurFormation> Update(CollaborateurFormation collaborateurFormation)
         {
             _context.Entry(collaborateurFormation).State = EntityState.Modified;
             await _context.SaveChangesAsync();
+
+            return collaborateurFormation;
         }
     }
 }

@@ -31,7 +31,7 @@ namespace API_MySIRH.Controllers
         {
             var list = await _collaborateurCertificationService.GetAll(filter);
 
-            return Ok(list);
+            return list == null ? Ok(new CollaborateurFormationResponse { List = new List<CollaborateurFormationDTO>() }) : Ok(list);
         }
         [HttpGet("certifications/years")]
         public async Task<IActionResult> GetCertificationYears()
@@ -92,6 +92,7 @@ namespace API_MySIRH.Controllers
         [HttpPut("certifications/{collabId}")]
         public async Task<IActionResult> PutCertifications(int collabId, List<CollaborateurCertificationDTO> collaborateurCertifications)
         {
+            var response = new List<CollaborateurCertificationDTO>();
             foreach (var collaborateurCertification in collaborateurCertifications)
             {
                 var certificationExist = await _certificationService.GetById(collaborateurCertification.CertificationId);
@@ -105,31 +106,43 @@ namespace API_MySIRH.Controllers
                 var list = await _collaborateurCertificationService.GetByCollabAndCertif(collabId, collaborateurCertification.CertificationId);
                 var collabCertificationExist = false;
 
+                CollaborateurCertificationDTO item = new CollaborateurCertificationDTO();
+
                 foreach (var cf in list)
                 {
                     if (cf.DateDebut.Value.Year == collaborateurCertification.DateDebut.Value.Year
                         && cf.CertificationId == collaborateurCertification.CertificationId)
                     {
-                        if (cf.Status == collaborateurCertification.Status && cf.DateFin.Value.Year == collaborateurCertification.DateFin.Value.Year)
-                        {
-                            collabCertificationExist = true;
-                        }
-                        else
+                        if (cf.Status != collaborateurCertification.Status || cf.DateFin.Value.Year != collaborateurCertification.DateFin.Value.Year)
                         {
                             collaborateurCertification.Id = cf.Id;
-                            await _collaborateurCertificationService.Update(collaborateurCertification);
+                            item = await _collaborateurCertificationService.Update(collaborateurCertification);
                         }
+                        collabCertificationExist = true;
                         break;
                     }
                 }
 
-                if(!collabCertificationExist)
-                    await _collaborateurCertificationService.Add(collaborateurCertification);
+                if (!collabCertificationExist)
+                {
+                    item = await _collaborateurCertificationService.Add(collaborateurCertification);
+                }
+                response.Add(item);
             }
 
-            return StatusCode(StatusCodes.Status201Created, "Collaborateur certification updated successfully!");
+            return Ok(response);
         }
+        [HttpDelete("certifications/{id}")]
+        public async Task<IActionResult> DeleteCertificate(int id)
+        {
+            var collaborateurCertification = await _collaborateurCertificationService.GetById(id);
+            if (collaborateurCertification == null)
+                return NotFound("Certificate not found!");
 
+            await _collaborateurCertificationService.Delete(collaborateurCertification);
+
+            return Ok("Certificate Deleted successfully!");
+        }
 
         [HttpGet("formations")]
         public async Task<IActionResult> GetFormations([FromQuery] FilterParamsForCertifAndFormation filter)
@@ -202,6 +215,7 @@ namespace API_MySIRH.Controllers
         [HttpPut("formations/{collabId}")]
         public async Task<IActionResult> PutFormations(int collabId, List<CollaborateurFormationDTO> collaborateurFormations)
         {
+            var response = new List<CollaborateurFormationDTO>();
             foreach (var collaborateurFormation in collaborateurFormations)
             {
                 var formationExist = await _formationService.GetById(collaborateurFormation.FormationId);
@@ -214,36 +228,43 @@ namespace API_MySIRH.Controllers
 
                 var list = await _collaborateurFormationService.GetByCollabAndFormation(collabId, collaborateurFormation.FormationId);
                 var collabFormationExist = false;
-
+                CollaborateurFormationDTO item = new CollaborateurFormationDTO();
                 foreach (var cf in list)
                 {
                     if (cf.DateDebut.Value.Year == collaborateurFormation.DateDebut.Value.Year
                         && cf.FormationId == collaborateurFormation.FormationId)
                     {
-                        if (cf.Status == collaborateurFormation.Status && cf.DateFin.Value.Year == collaborateurFormation.DateFin.Value.Year)
-                        {
-                            collabFormationExist=true;
-                        }
-                        else 
+                        if (cf.Status != collaborateurFormation.Status || cf.DateFin.Value.Year != collaborateurFormation.DateFin.Value.Year)
                         {
                             collaborateurFormation.Id = cf.Id;
-                            await _collaborateurFormationService.Update(collaborateurFormation); 
+                            item = await _collaborateurFormationService.Update(collaborateurFormation);
                         }
+                        collabFormationExist = true;
                         break;
                     }
                 }
 
-                if(!collabFormationExist) 
-                    await _collaborateurFormationService.Add(collaborateurFormation);
+                if (!collabFormationExist)
+                {
+                    item = await _collaborateurFormationService.Add(collaborateurFormation);
+                }
 
-
-
+                response.Add(item);
 
             }
 
-            return StatusCode(StatusCodes.Status201Created, "Collaborateur formation updated successfully!");
+            return Ok(response);
         }
+        [HttpDelete("formations/{id}")]
+        public async Task<IActionResult> DeleteFormation(int id)
+        {
+            var collaborateurFormation = await _collaborateurFormationService.GetById(id);
+            if (collaborateurFormation == null)
+                return NotFound("Formation not found!");
 
+            await _collaborateurFormationService.Delete(collaborateurFormation);
+            return Ok("Formation deleted successfully!");
+        }
 
         private async Task addOrUpdateFormation(CollaborateurFormationDTO oldcf, CollaborateurFormationDTO newcf)
         {

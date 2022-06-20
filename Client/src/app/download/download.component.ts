@@ -1,6 +1,7 @@
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { CollabFile } from '../Models/collabFile';
 import { Collaborator } from '../Models/Collaborator';
 import { FilesService } from '../services/files.service';
 
@@ -11,18 +12,21 @@ import { FilesService } from '../services/files.service';
 })
 export class DownloadComponent implements OnInit, OnDestroy {
   @Input() collab?: Collaborator;
-  subscription?: Subscription;
+  downloadSubscription?: Subscription;
+  deleteSubscription?: Subscription;
+  documentToDelete: any;
   message: string = '';
   progress: number = 0;
-  constructor(private filesService: FilesService) { }
+  constructor(private filesService: FilesService) {}
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.downloadSubscription?.unsubscribe();
   }
 
-  ngOnInit(): void { }
-  download(document: any) {
-    console.log(document);
-    this.subscription = this.filesService
+  ngOnInit(): void {
+    console.log('Collab Download', this.collab);
+  }
+  download(document: CollabFile) {
+    this.downloadSubscription = this.filesService
       .download(document.url)
       .subscribe((event) => {
         if (event.type === HttpEventType.UploadProgress)
@@ -43,5 +47,18 @@ export class DownloadComponent implements OnInit, OnDestroy {
     a.target = '_blank';
     a.click();
     document.body.removeChild(a);
+  }
+
+  delete(document: CollabFile) {
+    this.deleteSubscription = this.filesService.delete(document.id).subscribe({
+      next: () => {
+        this.collab!.documents = this.collab?.documents?.filter(
+          (doc: CollabFile) => doc.id != document.id
+        );
+      },
+    });
+  }
+  getItemToDelete(document: any) {
+    this.documentToDelete = document;
   }
 }

@@ -2,6 +2,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as FileSaver from 'file-saver';
 import { Subscription } from 'rxjs';
+import { CollabFile } from 'src/app/Models/collabFile';
 
 import { Collaborator } from 'src/app/Models/Collaborator';
 import { Pagination } from 'src/app/Models/pagination';
@@ -10,6 +11,7 @@ import { FilesService } from 'src/app/services/files.service';
 import { ImagesService } from 'src/app/services/images.service';
 import { SpinnerService } from 'src/app/services/spinner.service';
 import { SaveState } from 'src/app/services/stateSave.service';
+import { AutoUnsubscribe } from 'src/app/shared/decorators/AutoUnsubscribe';
 import { ToastService } from 'src/app/shared/toast/toast.service';
 import { environment } from 'src/environments/environment';
 
@@ -18,7 +20,8 @@ import { environment } from 'src/environments/environment';
   templateUrl: './list-collaborateurs.component.html',
   styleUrls: ['./list-collaborateurs.component.css'],
 })
-export class ListCollaborateursComponent implements OnInit, OnDestroy{
+@AutoUnsubscribe()
+export class ListCollaborateursComponent implements OnInit, OnDestroy {
   collaboratorsArray: Collaborator[] = [];
   displayTable: boolean = true;
   collabToDelete?: Collaborator = new Collaborator();
@@ -29,13 +32,14 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
   exportSubscription!: Subscription;
   loadCollabSubscription!: Subscription;
   imageSubscription!: Subscription;
+  fileSubscription?: Subscription;
 
   //Initalize pagination to avert undefined error value in the child component
   pagination: Pagination = {
     pageSize: 10,
     currentPage: 1,
     totalCount: 1,
-    totalPages: 1
+    totalPages: 1,
   } as Pagination;
 
   isLoading?: boolean;
@@ -53,9 +57,8 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
   trierParMatricule: boolean = false;
   trierParAnnee: boolean = false;
 
-  postesId: number[]=[] ;
-  niveauxId: number[]=[] ;
-
+  postesId: number[] = [];
+  niveauxId: number[] = [];
 
   constructor(
     private service: CollaboratorsService,
@@ -64,15 +67,15 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
     private toastService: ToastService,
     private spinnerService: SpinnerService,
     private saveState: SaveState
-  ) { }
-
-
+  ) {}
 
   ngOnInit(): void {
     let state = this.saveState.loadState('collabsList');
-    if (state)
-      this.pagination = state?.pagination;
-    this.loadCollaborators(this.pagination.pageSize, this.pagination.currentPage);
+    if (state) this.pagination = state?.pagination;
+    this.loadCollaborators(
+      this.pagination.pageSize,
+      this.pagination.currentPage
+    );
   }
 
   ngOnDestroy(): void {
@@ -82,8 +85,9 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
       this.loadCollabSubscription.unsubscribe();
     if (this.imageSubscription != undefined)
       this.imageSubscription.unsubscribe();
+    this.fileSubscription?.unsubscribe();
     this.saveState.saveState({ pagination: this.pagination }, 'collabsList');
-    this.saveState.saveState({url: 'collaborateurs'}, 'fallback');
+    this.saveState.saveState({ url: 'collaborateurs' }, 'fallback');
   }
 
   loadCollaborators(
@@ -101,17 +105,21 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
       this.spinnerService.isSearch.next(false);
     }
     this.loadCollabSubscription = this.service
-      .getCollaboratorsList(pageSize, pageNumber, filtrerPar, search, orderby, undefined, undefined, postesId, niveauxId)
+      .getCollaboratorsList(
+        pageSize,
+        pageNumber,
+        filtrerPar,
+        search,
+        orderby,
+        undefined,
+        undefined,
+        postesId,
+        niveauxId
+      )
       .subscribe({
         next: (resp) => {
           this.pagination = resp.pagination;
-
-          this.collaboratorsArray = resp.result.map(function (collab) {
-            // let currentCarriere = collab.carrieres?.sort((a, b) => a.annee - b.annee).pop();
-            // collab.niveau = currentCarriere?.niveau;
-            // collab.poste = currentCarriere?.poste;
-            return collab;
-          });
+          this.collaboratorsArray = resp.result;
           this.pagination = resp.pagination;
         },
         complete: () => {
@@ -135,15 +143,16 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
   }
 
   //Executed when filter select change
-  onSelect() {
+  onSelect(site:string) {
+    this.selected = site;
     this.loadCollaborators(
       this.pagination.pageSize,
       this.pagination.currentPage,
       this.selected,
       this.searchInput === '' ? undefined : this.searchInput,
       undefined,
-      this.postesId.toString()==''  ? undefined : this.postesId,
-      this.niveauxId.toString()=='' ? undefined : this.niveauxId
+      this.postesId.toString() == '' ? undefined : this.postesId,
+      this.niveauxId.toString() == '' ? undefined : this.niveauxId
     );
   }
 
@@ -159,8 +168,8 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
       this.selected === '' ? undefined : this.selected,
       this.searchInput === '' ? undefined : this.searchInput,
       undefined,
-      this.postesId.toString()=='' ? undefined : this.postesId,
-      this.niveauxId.toString()=='' ? undefined : this.niveauxId
+      this.postesId.toString() == '' ? undefined : this.postesId,
+      this.niveauxId.toString() == '' ? undefined : this.niveauxId
     );
   }
 
@@ -174,13 +183,12 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
       this.searchInput === '' ? undefined : this.searchInput,
       undefined,
       this.postesId,
-      this.niveauxId.toString()=='' ? undefined : this.niveauxId
-    )
+      this.niveauxId.toString() == '' ? undefined : this.niveauxId
+    );
   }
 
   onChangeNiveaux(niveaux: number[]) {
     this.niveauxId = niveaux;
-    //this.niveauxValue = this.niveauxId.toString().replace(',', '&niveauxId=')
 
     this.loadCollaborators(
       this.pagination.pageSize,
@@ -188,17 +196,17 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
       this.selected === '' ? undefined : this.selected,
       this.searchInput === '' ? undefined : this.searchInput,
       undefined,
-      this.postesId.toString()=='' ? undefined : this.postesId,
+      this.postesId.toString() == '' ? undefined : this.postesId,
       this.niveauxId
-    )
+    );
   }
 
   // get search value from header child component
   // update collab table
   search(value: string) {
-    if(typeof value !== "string"){
-      this.searchInput = ''
-    }else{
+    if (typeof value !== 'string') {
+      this.searchInput = '';
+    } else {
       this.searchInput = value;
     }
 
@@ -208,8 +216,8 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
       this.selected === '' ? undefined : this.selected,
       this.searchInput === '' ? undefined : value,
       undefined,
-      this.postesId.toString()=='' ? undefined : this.postesId,
-      this.niveauxId.toString()=='' ? undefined : this.niveauxId
+      this.postesId.toString() == '' ? undefined : this.postesId,
+      this.niveauxId.toString() == '' ? undefined : this.niveauxId
     );
   }
 
@@ -217,7 +225,6 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
   // update current page number(pageNumber)
   // update collab table
   getCurrentPage(event: any) {
-
     this.pagination.currentPage = +event.page;
     this.loadCollaborators(
       this.pagination.pageSize,
@@ -225,8 +232,8 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
       this.selected === '' ? undefined : this.selected,
       this.searchInput === '' ? undefined : this.searchInput,
       undefined,
-      this.postesId.toString()=='' ? undefined : this.postesId,
-      this.niveauxId.toString()==''? undefined : this.niveauxId
+      this.postesId.toString() == '' ? undefined : this.postesId,
+      this.niveauxId.toString() == '' ? undefined : this.niveauxId
     );
   }
 
@@ -279,8 +286,7 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
   }
 
   checkedExport(id: number): boolean {
-    if (this.exportList.includes(id) || this.exportAll)
-      return true;
+    if (this.exportList.includes(id) || this.exportAll) return true;
     return false;
   }
 
@@ -303,16 +309,31 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
     this.exportAll = !this.exportAll;
   }
 
-  download(documents: any) {
-    let fileUrl = documents
-      .filter((d: any) => d.type === 'CV' && d.fileName.endsWith('.pdf'))
-      .reduce((a: any, b: any) =>
+  download(documents: CollabFile[] | undefined) {
+    let fileUrl = documents?.filter(
+      (d: any) => d.type === 'CV' && d.fileName.endsWith('.pdf')
+    );
+    if (fileUrl !== undefined && fileUrl?.length > 0) {
+      fileUrl.reduce((a: any, b: any) =>
         a.creationDate > b.creationDate ? a : b
       ).url;
+      this.fileSubscription = this.fileService
+        .download(fileUrl)
+        .subscribe((event) => {
+          this.downloadFile(event, fileUrl);
+        });
+    }
+  }
 
-    this.fileService.download(fileUrl).subscribe((event) => {
-      this.downloadFile(event, fileUrl);
-    });
+  hasCv(documents: CollabFile[] | undefined): boolean {
+    if (
+      documents !== undefined &&
+      documents.filter(
+        (d: any) => d.type === 'CV' && d.fileName.endsWith('.pdf')
+      ).length > 0
+    )
+      return false;
+    else return true;
   }
 
   private downloadFile(data: HttpResponse<Blob>, docURL: any) {
@@ -342,7 +363,9 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
             this.pagination.currentPage,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
-            'matricule_asc'
+            'matricule_asc',
+            this.postesId.toString() == '' ? undefined : this.postesId,
+            this.niveauxId.toString() == '' ? undefined : this.niveauxId
           );
         } else {
           this.loadCollaborators(
@@ -350,7 +373,9 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
             this.pagination.currentPage,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
-            'matricule_desc'
+            'matricule_desc',
+            this.postesId.toString() == '' ? undefined : this.postesId,
+            this.niveauxId.toString() == '' ? undefined : this.niveauxId
           );
         }
         this.trierParMatricule = !this.trierParMatricule;
@@ -363,7 +388,9 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
             this.pagination.currentPage,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
-            undefined
+            undefined,
+            this.postesId.toString() == '' ? undefined : this.postesId,
+            this.niveauxId.toString() == '' ? undefined : this.niveauxId
           ); // undefined because there is basically a sorted by name asc
         } else {
           this.loadCollaborators(
@@ -371,7 +398,9 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
             this.pagination.currentPage,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
-            'nom_desc'
+            'nom_desc',
+            this.postesId.toString() == '' ? undefined : this.postesId,
+            this.niveauxId.toString() == '' ? undefined : this.niveauxId
           );
         }
         this.trierParNom = !this.trierParNom;
@@ -384,7 +413,9 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
             this.pagination.currentPage,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
-            'prenom_asc'
+            'prenom_asc',
+            this.postesId.toString() == '' ? undefined : this.postesId,
+            this.niveauxId.toString() == '' ? undefined : this.niveauxId
           );
         } else {
           this.loadCollaborators(
@@ -392,7 +423,9 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
             this.pagination.currentPage,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
-            'prenom_desc'
+            'prenom_desc',
+            this.postesId.toString() == '' ? undefined : this.postesId,
+            this.niveauxId.toString() == '' ? undefined : this.niveauxId
           );
         }
         this.trierParPrenom = !this.trierParPrenom;
@@ -405,7 +438,9 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
             this.pagination.currentPage,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
-            'exp_asc'
+            'exp_asc',
+            this.postesId.toString() == '' ? undefined : this.postesId,
+            this.niveauxId.toString() == '' ? undefined : this.niveauxId
           );
         } else {
           this.loadCollaborators(
@@ -413,7 +448,9 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
             this.pagination.currentPage,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
-            'exp_desc'
+            'exp_desc',
+            this.postesId.toString() == '' ? undefined : this.postesId,
+            this.niveauxId.toString() == '' ? undefined : this.niveauxId
           );
         }
         this.trierParAnnee = !this.trierParAnnee;
@@ -426,7 +463,9 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
             this.pagination.currentPage,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
-            'poste_asc'
+            'poste_asc',
+            this.postesId.toString() == '' ? undefined : this.postesId,
+            this.niveauxId.toString() == '' ? undefined : this.niveauxId
           );
         } else {
           this.loadCollaborators(
@@ -434,7 +473,9 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
             this.pagination.currentPage,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
-            'poste_desc'
+            'poste_desc',
+            this.postesId.toString() == '' ? undefined : this.postesId,
+            this.niveauxId.toString() == '' ? undefined : this.niveauxId
           );
         }
         this.trierParPoste = !this.trierParPoste;
@@ -447,7 +488,9 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
             this.pagination.currentPage,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
-            'niveau_asc'
+            'niveau_asc',
+            this.postesId.toString() == '' ? undefined : this.postesId,
+            this.niveauxId.toString() == '' ? undefined : this.niveauxId
           );
         } else {
           this.loadCollaborators(
@@ -455,7 +498,9 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy{
             this.pagination.currentPage,
             this.selected === '' ? undefined : this.selected,
             this.searchInput === '' ? undefined : this.searchInput,
-            'niveau_desc'
+            'niveau_desc',
+            this.postesId.toString() == '' ? undefined : this.postesId,
+            this.niveauxId.toString() == '' ? undefined : this.niveauxId
           );
         }
         this.trierParNiveau = !this.trierParNiveau;

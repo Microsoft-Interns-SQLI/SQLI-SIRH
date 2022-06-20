@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit {
 
   selected: number = 10;
   value: string = "";
+  site: string = "";
   @Output() pageSize = new EventEmitter<number>();
   @Output() search = new EventEmitter<string>();
 
@@ -23,16 +24,17 @@ export class HeaderComponent implements OnInit {
   niveaux!: Niveau[];
   @Output() postesId = new EventEmitter<number[]>();
   @Output() niveauxId = new EventEmitter<number[]>();
+  @Output() selectSite = new EventEmitter<string>();
 
   constructor(private mdmService: MdmService) { }
 
   ngOnInit(): void {
     this.mdmService.getAll("Postes").subscribe((data) => {
-      console.log(data);
+      // console.log(data);
       this.postes = data;
     });
     this.mdmService.getAll("Niveaux").subscribe((data) => {
-      console.log(data);
+      // console.log(data);
       this.niveaux = data;
     });
   }
@@ -40,11 +42,17 @@ export class HeaderComponent implements OnInit {
   onSelect() {
     this.pageSize.emit(this.selected);
   }
-
+  onSelectSite(){
+    this.selectSite.emit(this.site);
+  }
   onSearchChange() {
     this.search.emit(this.value);
   }
-
+  onInputSearch() {
+    console.log(this.value);
+    if (this.value === "")
+      this.search.emit("");
+  }
 
   onPostesChange(postId: number) {
     this.selectedPostes = []

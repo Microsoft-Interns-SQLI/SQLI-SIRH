@@ -1,21 +1,31 @@
 <div class="d-flex justify-content-between mb-3">
-    <div class="d-flex justify-content-start col-6">
-      <div class="col-2">
+    <div class="d-flex justify-content-start">
+      <div class="me-1">
         <select class="form-select form-select-sm" [(ngModel)]="year" (ngModelChange)="filter()">
           <option [value]="annee" *ngFor="let annee of annees">{{annee}}</option>
         </select>
       </div>
-      <div class="col-2">
+      <div class="mx-1">
+        <ng-select class="custom-post" [items]="postes" bindLabel="name" bindValue="id" [(ngModel)]="chosenPost"
+            (change)="onPostesChange(chosenPost)" [multiple]="true" placeholder="Poste">
+        </ng-select>
+      </div>
+      <div class="mx-1"> 
+        <ng-select class="custom-niveau" [items]="niveaux" bindLabel="name" bindValue="id" [(ngModel)]="chosenNiveau"
+            (change)="onNiveauxChange(chosenNiveau)" [multiple]="true" placeholder="Niveau">
+        </ng-select>
+      </div>
+      <div class="mx-1">
         <select class="form-select form-select-sm" [(ngModel)]="status" (ngModelChange)="filter()">
           <option value="0">All</option>
           <option value="{{s.id}}" *ngFor="let s of statusTable">{{s.name}}</option>
         </select>
       </div>
     </div>
-    <div class="col-3">
+    <div class="">
       <div class="input-group input-group-sm">
+        <input type="search" class="form-control" placeholder="Search..." aria-describedby="search" [(ngModel)]="searchInput" (input)="onChangeSearch()"> 
         <button class="input-group-text btn btn-sm btn-outline-secondary" (click)="onSearch()"><span class="bi bi-search"></span> </button>
-        <input type="search" class="form-control" placeholder="Search..." aria-describedby="search" [(ngModel)]="searchInput"> 
       </div>
     </div>
   </div>

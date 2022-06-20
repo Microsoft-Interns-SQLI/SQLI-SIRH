@@ -33,11 +33,7 @@ export class Collaborator {
   technos: string = '';
   certifications: string = '';
   langues: string = '';
-  niveauId: number = 0;
-  niveau?: Niveau;
-  posteId: number = 0;
-  poste?: Poste;
-  carrieres?: Carriere[];
+  carrieres: Carriere[] = [];
   nationnalite: string = '';
   siteId?: number;
   lieuNaissance: string = '';
@@ -57,4 +53,5 @@ export class Demission {
   reasonDemission?: ReasonDemission;
   comment: string = "";
   isCanceled: boolean = false;
+  collaborateurId: number = 0;
 }

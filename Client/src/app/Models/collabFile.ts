@@ -1,4 +1,5 @@
 export interface CollabFile {
+  id: number;
   fileName: string;
   type: string;
   url: string;

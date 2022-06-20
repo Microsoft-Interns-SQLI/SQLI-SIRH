@@ -50,26 +50,18 @@ namespace API_MySIRH.Repositories
 
         public IQueryable<Collaborateur> GetCollaborateurs()
         {
-            var query = _context.Collaborateurs
-
-            .Include(c => c.Carrieres)! // todo : to remove
-            .ThenInclude(carr => carr.Poste)
-            .Include(c => c.Carrieres)!
-            .ThenInclude(carr => carr.Niveau)
-
-            .AsSplitQuery() // todo : good practice ?
-            .Include(x => x.Certifications).AsNoTracking();
+            var query = _context.Collaborateurs.AsNoTracking();
             return query;
         }
 
-        public IQueryable<Collaborateur> GetCollaborateursByPostId(IQueryable collaborateurs,int postId) 
+        public IQueryable<Collaborateur> GetCollaborateursByPostId(IQueryable collaborateurs, int postId)
         {
             var query = ((List<Collaborateur>)collaborateurs)
-                    .Where(coll => coll.GetCurrentCarriere() !=null && coll.GetCurrentCarriere().PosteId == postId);
+                    .Where(coll => coll.GetCurrentCarriere() != null && coll.GetCurrentCarriere().PosteId == postId);
             return query.AsQueryable();
         }
 
-        public IQueryable<Collaborateur> GetCollaborateursByNiveauId(IQueryable collaborateurs,int niveauId) 
+        public IQueryable<Collaborateur> GetCollaborateursByNiveauId(IQueryable collaborateurs, int niveauId)
         {
             var query = ((List<Collaborateur>)collaborateurs)
                     .Where(coll => coll.GetCurrentCarriere() != null && coll.GetCurrentCarriere().NiveauId == niveauId);
@@ -80,12 +72,8 @@ namespace API_MySIRH.Repositories
         {
             return await
                     this._context.Collaborateurs
-
-                        .Include(c => c.Carrieres)! // todo : to remove
-                        .ThenInclude(carr => carr.Poste)
-                        .Include(c => c.Carrieres)!
-                        .ThenInclude(carr => carr.Niveau)
-
+                        .Include(c => c.Carrieres)!.ThenInclude(carr => carr.Poste)
+                        .Include(c => c.Carrieres)!.ThenInclude(carr => carr.Niveau)
                         .Include(c => c.SkillCenter)
                         .Include(c => c.Site)
                         .Include(c => c.ModeRecrutement)

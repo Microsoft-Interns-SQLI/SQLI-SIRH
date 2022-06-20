@@ -17,14 +17,14 @@ namespace API_MySIRH.Services
             _mapper = mapper;
         }
 
-        public async Task Add(CollaborateurCertificationDTO collaborateurCertification)
+        public async Task<CollaborateurCertificationDTO> Add(CollaborateurCertificationDTO collaborateurCertification)
         {
-            await _collaborateurCertificationRepository.Add(_mapper.Map<CollaborateurCertification>(collaborateurCertification));
+            return _mapper.Map<CollaborateurCertificationDTO>(await _collaborateurCertificationRepository.Add(_mapper.Map<CollaborateurCertification>(collaborateurCertification)));
         }
 
-        public Task Delete(CollaborateurCertificationDTO collaborateurCertification)
+        public async Task Delete(CollaborateurCertificationDTO collaborateurCertification)
         {
-            throw new NotImplementedException();
+            await _collaborateurCertificationRepository.Delete(_mapper.Map<CollaborateurCertification>(collaborateurCertification));
         }
 
         public async Task<CollaborateurCertificationResponse> GetAll(FilterParamsForCertifAndFormation filter)
@@ -69,9 +69,9 @@ namespace API_MySIRH.Services
             return _mapper.Map<List<CollaborateurCertificationDTO>>(await _collaborateurCertificationRepository.GetByCollabAndCertif(collaborateurId, certificationId));
         }
 
-        public async Task Update(CollaborateurCertificationDTO collaborateurCertification)
+        public async Task<CollaborateurCertificationDTO> Update(CollaborateurCertificationDTO collaborateurCertification)
         {
-            await _collaborateurCertificationRepository.Update(_mapper.Map<CollaborateurCertification>(collaborateurCertification));
+            return _mapper.Map<CollaborateurCertificationDTO>(await _collaborateurCertificationRepository.Update(_mapper.Map<CollaborateurCertification>(collaborateurCertification)));
         }
         private List<CollaborateurCertification> FiltrerTable(FilterParamsForCertifAndFormation filter, List<CollaborateurCertification> list)
         {

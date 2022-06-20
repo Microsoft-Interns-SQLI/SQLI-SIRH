@@ -39,6 +39,10 @@ export class FormationsComponent implements OnInit, OnDestroy {
     currentPage: this.pageNumber,
   } as Pagination;
 
+
+  postesId: number[] = [];
+  niveauxId: number[] = [];
+
   constructor(private formationCertifService: FormationCertificationsService,
     private collaborateurService: CollaboratorsService,
     private spinnerService: SpinnerService) { }
@@ -64,7 +68,7 @@ export class FormationsComponent implements OnInit, OnDestroy {
           this.tab = data.list;
         }
       );
-      
+
       this.subAnnees = this.formationCertifService.getFormationYears().subscribe(data => this.annees = data);
 
     } else {
@@ -90,16 +94,13 @@ export class FormationsComponent implements OnInit, OnDestroy {
     search?: string,
     orderbyFormation?: string,
     orderbyCertification?: string,
-    year?:number,
-    status?:number
+    year?: number,
+    status?: number,
+    postsId?: number[],
+    niveauId?: number[]
   ) {
-    if (search != undefined) {
-      this.spinnerService.isSearch.next(true);
-    } else {
-      this.spinnerService.isSearch.next(false);
-    }
     this.subCollab = this.collaborateurService
-      .getCollaboratorsList(pageSize, pageNumber, undefined, search, undefined, orderbyFormation, orderbyCertification,undefined,undefined, year,status)
+      .getCollaboratorsList(pageSize, pageNumber, undefined, search, undefined, orderbyFormation, orderbyCertification, postsId, niveauId, year, status)
       .subscribe(
         resp => {
           this.rows = resp.result;
@@ -108,6 +109,36 @@ export class FormationsComponent implements OnInit, OnDestroy {
       );
   }
 
+  onChangePostes(postes: number[]) {
+    this.postesId = postes;
+
+    this.loadCollaborators(
+      this.pagination.pageSize,
+      1,
+      undefined,
+      undefined,
+      undefined,
+      this.yearSelected,
+      +this.statusSelected === 0 ? undefined : this.statusSelected,
+      this.postesId,
+      this.niveauxId.toString() == '' ? undefined : this.niveauxId
+    );
+  }
+  onChangeNiveaux(niveaux: number[]) {
+    this.niveauxId = niveaux;
+
+    this.loadCollaborators(
+      this.pagination.pageSize,
+      1,
+      undefined,
+      undefined,
+      undefined,
+      this.yearSelected,
+      +this.statusSelected === 0 ? undefined : this.statusSelected,
+      this.postesId.toString() == '' ? undefined : this.postesId,
+      this.niveauxId
+    );
+  }
   getCurrentPage(page: number) {
     this.pageNumber = page;
     this.loadCollaborators(
@@ -124,35 +155,40 @@ export class FormationsComponent implements OnInit, OnDestroy {
       this.selected ? libelle : undefined,
       !this.selected ? libelle : undefined,
       this.yearSelected,
-      +this.statusSelected === 0 ? undefined : this.statusSelected
-      );
+      +this.statusSelected === 0 ? undefined : this.statusSelected,
+      this.postesId.toString() == '' ? undefined : this.postesId,
+      this.niveauxId.toString() == '' ? undefined : this.niveauxId
+    );
 
-      if (this.selected) {
-  
-        this.subCollabCertif = this.formationCertifService.getCollabFormation().subscribe(
-          (data: FormationCertificationResponse) => {
-            this.tab = data.list;
-          }
-        );
-      }else{
-        this.subCollabCertif = this.formationCertifService.getCollabCertif().subscribe(
-          (data: FormationCertificationResponse) => {
-            this.tab = data.list;
-          }
-        );
-      }
+    if (this.selected) {
+
+      this.subCollabCertif = this.formationCertifService.getCollabFormation().subscribe(
+        (data: FormationCertificationResponse) => {
+          this.tab = data.list;
+        }
+      );
+    } else {
+      this.subCollabCertif = this.formationCertifService.getCollabCertif().subscribe(
+        (data: FormationCertificationResponse) => {
+          this.tab = data.list;
+        }
+      );
+    }
   }
-  
-  onSearch(search: string):void{
-      this.loadCollaborators(
-        this.pageSize,
-        1,
-        search === '' ? undefined : search,
-        undefined,
-        undefined,
-        undefined
-      )
-    
+
+  onSearch(search: string): void {
+    this.loadCollaborators(
+      this.pageSize,
+      1,
+      search === '' ? undefined : search,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      this.postesId.toString() == '' ? undefined : this.postesId,
+      this.niveauxId.toString() == '' ? undefined : this.niveauxId
+    )
+
   }
   updateYears(year: number) {
     let yearExist: boolean = false;

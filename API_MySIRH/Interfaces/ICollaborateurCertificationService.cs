@@ -11,8 +11,8 @@ namespace API_MySIRH.Interfaces
         Task<CollaborateurCertificationDTO> GetById(int id);
         Task<List<CollaborateurCertificationDTO>> GetByCertification(int id);
         Task<List<CollaborateurCertificationDTO>> GetByCollabAndCertif(int collaborateurId, int certificationId);
-        Task Add(CollaborateurCertificationDTO collaborateurCertification);
-        Task Update(CollaborateurCertificationDTO collaborateurCertification);
+        Task<CollaborateurCertificationDTO> Add(CollaborateurCertificationDTO collaborateurCertification);
+        Task<CollaborateurCertificationDTO> Update(CollaborateurCertificationDTO collaborateurCertification);
         Task Delete(CollaborateurCertificationDTO collaborateurCertification);
 
         Task<List<int>> GetAnnees();

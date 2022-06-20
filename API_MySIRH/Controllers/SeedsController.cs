@@ -432,7 +432,6 @@ namespace API_MySIRH.Controllers
                 {
                     Collaborateur = collaborateur,
                     TypeContrat = this._dataContext.TypeContrats.Where(tc => tc.Name == typeContrat).FirstOrDefault(),
-                    IsInSQLI = true
                 });
             }
         }
