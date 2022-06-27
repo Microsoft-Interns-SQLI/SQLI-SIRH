@@ -8,6 +8,7 @@ namespace API_MySIRH.Interfaces
         Task<PagedList<CollaborateurDTO>> GetCollaborateurs(FilterParams filterParams);
         Task<PagedList<CollaborateurDTO>> GetDemissions(FilterParams filterParams);
         IEnumerable<CollaborateurDTO> GetCollaborateurs();
+        IEnumerable<CollaborateurDTO> GetNoPagingCollaborateurs(FilterParams filterParams); // Change To Async !!
         Task<CollaborateurDTO> GetCollaborateurById(int id);
         Task<CollaborateurDTO> GetCollaborateurByMatricule(string matricule);
         Task<CollaborateurDTO> GetCollaborateurByEmail(string email);

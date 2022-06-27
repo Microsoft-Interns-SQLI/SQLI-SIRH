@@ -32,7 +32,7 @@ namespace API_MySIRH.Repositories
             return await this._data.Demissions.AsNoTracking().Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
-        public IQueryable<Collaborateur> GetDemissions()
+        public IQueryable<Collaborateur> GetCollabsDemissions()
         {
             var query = _data.Collaborateurs
 
@@ -40,7 +40,7 @@ namespace API_MySIRH.Repositories
                 .ThenInclude(carr => carr.Poste)
                 .Include(c => c.Carrieres)!
                 .ThenInclude(carr => carr.Niveau)
-
+                .Include(dem=>dem.Demissions)
                 .AsSplitQuery() // todo : good practice ?
                 .Include(x => x.Certifications)
                 .AsNoTracking();
@@ -52,6 +52,11 @@ namespace API_MySIRH.Repositories
             _data.Entry(demission).State = EntityState.Modified;
             await this._data.SaveChangesAsync();
             return await this.GetDemissionByID(demission.Id);
+        }
+
+        public IQueryable<Demission> GetDemissions()
+        {
+            return _data.Demissions.AsNoTracking();
         }
     }
 }

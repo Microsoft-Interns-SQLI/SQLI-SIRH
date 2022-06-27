@@ -26,7 +26,7 @@ namespace API_MySIRH.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CollaborateurDTO>>> GetDemissions([FromQuery] FilterParams filterParams)
         {
-            //var collabs = await _collaborateurService.GetDemissions(filterParams);
+           // var collabs = await _collaborateurService.GetDemissions(filterParams);
             //Response.AddPaginationHeader(collabs.CurrentPage, collabs.PageSize, collabs.TotalCount, collabs.TotalPages);
             //return Ok(collabs);
             throw new NotImplementedException(); // call this from collab as it returns a list of collabs !!

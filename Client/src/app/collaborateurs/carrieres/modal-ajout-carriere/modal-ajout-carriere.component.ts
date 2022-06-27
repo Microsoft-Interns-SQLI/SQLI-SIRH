@@ -65,7 +65,7 @@ export class ModalAjoutCarriereComponent implements OnInit {
     this.form.markAllAsTouched();
     if (formGroup.valid) {
       // trick : to close the modal
-      document.getElementById('btn-close-modal-carriere')?.click();
+      document.getElementById('btn-close-modal-ajout-carriere')?.click();
 
       this.carriereService.addCarriere(formGroup.value).subscribe(
         {

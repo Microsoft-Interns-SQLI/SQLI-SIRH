@@ -1,22 +1,12 @@
-<div
-  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom"
->
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
   <h2 class="h2" *ngIf="!collab_id">Ajouter Collaborateur</h2>
   <h2 class="h2" *ngIf="collab_id">Details Collaborateur</h2>
   <div class="btn-toolbar">
-    <button
-      type="button"
-      class="btn btn-primary btn-sm me-2"
-      (click)="saveCollaborator()"
-      [disabled]="!formGroup?.dirty"
-    >
+    <button type="button" class="btn btn-primary btn-sm me-2" (click)="saveCollaborator()"
+      [disabled]="!formGroup?.dirty">
       Sauvegarder
     </button>
-    <button
-      type="button"
-      class="btn btn-danger btn-sm me-2"
-      (click)="navigateBack()"
-    >
+    <button type="button" class="btn btn-danger btn-sm me-2" (click)="navigateBack()">
       Retour
     </button>
   </div>
@@ -28,10 +18,7 @@
   </div>
 
   <div class="col-md-9">
-    <app-add-edit-form-table
-      [myFormGroup]="formGroup"
-      [collab]="collab"
-    ></app-add-edit-form-table>
+    <app-add-edit-form-table [myFormGroup]="formGroup" [collab]="collab"></app-add-edit-form-table>
   </div>
 </div>
 

@@ -163,7 +163,7 @@ namespace API_MySIRH.Services
 
         public async Task<PagedList<CollaborateurDTO>> GetDemissions(FilterParams filterParams)
         {
-            var query = this._demissionService.GetDemissions(filterParams);
+            var query = this._demissionService.GetCollabsDemissions(filterParams);
 
             if (!string.IsNullOrEmpty(filterParams.Site))
                 query = query.Where(c => c.Site.Name == filterParams.Site);
@@ -199,6 +199,66 @@ namespace API_MySIRH.Services
                 query = this.ManageFilters(query, filterParams);
             }
             return await PagedList<CollaborateurDTO>.CreateAsync(query.ProjectTo<CollaborateurDTO>(_mapper.ConfigurationProvider).AsNoTracking(), filterParams.pageNumber, filterParams.pageSize);
+        }
+
+        public IEnumerable<CollaborateurDTO> GetNoPagingCollaborateurs(FilterParams filterParams)
+        {
+            var query = this._collaborateurRepository.GetCollaborateurs().AsQueryable();
+            Console.WriteLine(query.ToString());
+            if (!string.IsNullOrEmpty(filterParams.Site))
+                query = query.Where(c => c.Site.Name == filterParams.Site);
+
+            if (!(string.IsNullOrWhiteSpace(filterParams.Search)))
+                query = query.Where(c => c.Nom.Contains(filterParams.Search) || c.Prenom.Contains(filterParams.Search));
+
+            if (!string.IsNullOrEmpty(filterParams.postesId))
+            {
+                query = query.Where(coll => filterParams.postesId.Contains((coll.Carrieres.AsEnumerable().OrderByDescending(c => c.Annee).First().PosteId).ToString()))
+                    .AsQueryable();
+            }
+
+            if (!string.IsNullOrEmpty(filterParams.niveauxId))
+            {
+                query = query.Where(coll => filterParams.niveauxId.Contains((coll.Carrieres.AsEnumerable().OrderByDescending(c => c.Annee).First().NiveauId).ToString()))
+                                .AsQueryable();
+
+            }
+
+            if (!string.IsNullOrWhiteSpace(filterParams.OrderByCertification))
+            {
+                query = query.OrderByDescending(
+                    x => x.Certifications.Where(x => x.Libelle == filterParams.OrderByCertification.Replace('\\', ' ').Replace('"', ' ').Trim()).Any()
+                    && x.CollaborateurCertifications.Where(x => x.DateDebut.Value.Year == filterParams.Year).Any());
+
+                if (filterParams.Status != 0)
+                {
+                    query = query.OrderByDescending(
+                    x => x.Certifications.Where(x => x.Libelle == filterParams.OrderByCertification.Replace('\\', ' ').Replace('"', ' ').Trim()).Any()
+                    && x.CollaborateurCertifications.Where(x => x.DateDebut.Value.Year == filterParams.Year).Any()
+                    && x.CollaborateurCertifications.Where(x => x.Status == filterParams.Status).Any());
+                }
+
+
+            }
+            else if (!string.IsNullOrWhiteSpace(filterParams.OrderByFormation))
+            {
+                query = query.OrderByDescending(
+                    x => x.Formations.Where(x => x.Libelle == filterParams.OrderByFormation.Replace('\\', ' ').Replace('"', ' ').Trim()).Any()
+                    && x.CollaborateurFormations.Where(x => x.DateDebut.Value.Year == filterParams.Year).Any());
+
+                if (filterParams.Status != 0)
+                {
+                    query = query.OrderByDescending(
+                                x => x.Formations.Where(x => x.Libelle == filterParams.OrderByFormation.Replace('\\', ' ').Replace('"', ' ').Trim()).Any()
+                                && x.CollaborateurFormations.Where(x => x.Status == filterParams.Status).Any()
+                                && x.CollaborateurFormations.Where(x => x.DateDebut.Value.Year == filterParams.Year).Any());
+                }
+            }
+            else
+            {
+                query = this.ManageFilters(query, filterParams);
+            }
+            return query.ProjectTo<CollaborateurDTO>(_mapper.ConfigurationProvider).AsNoTracking().AsEnumerable();
         }
 
         public IEnumerable<CollaborateurDTO> GetCollaborateurs()

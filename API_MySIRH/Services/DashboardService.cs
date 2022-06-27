@@ -12,71 +12,90 @@ namespace API_MySIRH.Services
     {
         private readonly IMdmService<Post, PostDTO> _postService;
         private readonly IMdmService<Niveau, NiveauDTO> _niveauService;
+        private readonly ICollaborateurRepository _collaborateurRepository;
+        private readonly IDemissionRepository _demissionRepository;
 
-        public DashboardService(IMdmService<Post, PostDTO> postService, IMdmService<Niveau, NiveauDTO> niveauService)
+        public DashboardService(IMdmService<Post, PostDTO> postService, IMdmService<Niveau, NiveauDTO> niveauService,ICollaborateurRepository collaborateurRepository, IDemissionRepository demissionRepository)
         {
             _postService = postService;
             _niveauService = niveauService;
+            _collaborateurRepository = collaborateurRepository;
+            _demissionRepository = demissionRepository;
         }
 
-        public double GetAverageAge(IEnumerable<CollaborateurDTO> collaborateurs)
+
+        public double GetAverageAge()
         {
-            return collaborateurs.Average(collaborateur => DateNaissanceCalcule(collaborateur.DateNaissance));
+            double ageSum = 0;
+            foreach(Collaborateur collaborateur in _collaborateurRepository.GetCollaborateurs())
+            {
+                ageSum += DateNaissanceCalcule(collaborateur.DateNaissance);
+            }
+            return ageSum/(double)_collaborateurRepository.GetCollaborateurs().Count();
         }
 
-        public double GetAverageExp(IEnumerable<CollaborateurDTO> collaborateurs)
+        public double GetAverageExp()
         {
-            return collaborateurs.Average(collaborateur => ExperienceCalcule((DateTime)collaborateur.DateEntreeSqli));
+            double ageSum = 0;
+            foreach (Collaborateur collaborateur in _collaborateurRepository.GetCollaborateurs())
+            {
+                ageSum += ExperienceCalcule((DateTime)collaborateur.DateEntreeSqli);
+            }
+            return ageSum /(double) _collaborateurRepository.GetCollaborateurs().Count();
         }
 
-        public double GetDemissionCount(IEnumerable<CollaborateurDTO> collaborateurs)
+        public double GetDemissionCount()
         {
-            return collaborateurs.Count(); // .Where(collaborateur => collaborateur.DateSortieSqli < DateTime.Now).Count(); // ikhadem: TODO: get data from related object
+            /*  return (from i in _demissionRepository.GetDemissions()
+                      where i.Demissions.Count() > 0 && ((DateTime)i.Demissions.OrderByDescending(x => x.DateSortieSqli).First().DateSortieSqli).Year == DateTime.Now.Year
+                      select i).Count();*/
+           return _demissionRepository.GetDemissions().Where(dem => dem.DateSortieSqli != null && DateTime.Now.Year == ((DateTime)dem.DateSortieSqli).Year).Count();
+
         }
 
-        public double GetFemaleCount(IEnumerable<CollaborateurDTO> collaborateurs)
+        public double GetFemaleCount()
         {
-            return collaborateurs.Where(collaborateur => collaborateur.Civilite.Equals("F")).Count();
+            return _collaborateurRepository.GetCollaborateurs().Where(collaborateur => collaborateur.Civilite.Equals("F")).Count();
         }
 
-        public double GetHeadCount(IEnumerable<CollaborateurDTO> collaborateurs)
+        public double GetHeadCount()
         {
-            return collaborateurs.Count();
+            return _collaborateurRepository.GetCollaborateurs().Count()- _demissionRepository.GetDemissions().Count(); ;
         }
 
-        public double GetHeadCountPerNiveaux(IEnumerable<CollaborateurDTO> collaborateurs, string niveauName)
+        public double GetHeadCountPerNiveaux(string niveauName)
         {
             NiveauDTO myNiveau = _niveauService.GetAll().Result.Where(niveau => niveau.Name.Equals(niveauName)).FirstOrDefault();
             if (myNiveau == null) return 0;
-            return collaborateurs.Where(collab => collab.Carrieres?.OrderByDescending(carr => carr.Annee).First().NiveauId == myNiveau.Id).ToList().Count();
+            return _collaborateurRepository.GetCollaborateurs().Where(collab => collab.Carrieres.Any() && collab.Carrieres.OrderByDescending(carr => carr.Annee).First().NiveauId == myNiveau.Id).ToList().Count();
         }
 
-        public double GetHeadCountPerPoste(IEnumerable<CollaborateurDTO> collaborateurs, string postName)
+        public double GetHeadCountPerPoste(string postName)
         {
             PostDTO myPost = _postService.GetAll().Result.Where(post => post.Name.Equals(postName)).FirstOrDefault();
             if (myPost == null) return 0;
-            return collaborateurs.Where(collab => collab.Carrieres?.OrderByDescending(carr => carr.Annee).First().PosteId == myPost.Id).ToList().Count();
+            return _collaborateurRepository.GetCollaborateurs().Where(collab => collab.Carrieres.Any() && collab.Carrieres.OrderByDescending(carr => carr.Annee).First().PosteId == myPost.Id).ToList().Count;
         }
 
-        public double GetMaleCount(IEnumerable<CollaborateurDTO> collaborateurs)
+        public double GetMaleCount()
         {
-            return collaborateurs.Where(collaborateur => collaborateur.Civilite.Equals("M")).Count();
+            return _collaborateurRepository.GetCollaborateurs().Where(collaborateur => collaborateur.Civilite.Equals("M")).Count();
         }
 
-        public double GetTauxSoustraitant(IEnumerable<CollaborateurDTO> collaborateurs)
+        public double GetTauxSoustraitant()
         {
-            double freelanceCount = collaborateurs.Where(collaborateur => collaborateur.Matricule.Equals("0")).Count();
-            return freelanceCount / GetHeadCount(collaborateurs);
+            double freelanceCount = _collaborateurRepository.GetCollaborateurs().Where(collaborateur => collaborateur.Matricule.Equals("0")).Count();
+            return freelanceCount / GetHeadCount();
         }
 
-        private int DateNaissanceCalcule(DateTime dateNaissance)
+        private double DateNaissanceCalcule(DateTime dateNaissance)
         {
-            return (int)((DateTime.Now - dateNaissance).TotalDays / 365);
+            return ((DateTime.Now - dateNaissance).TotalDays / 365);
         }
 
-        private int ExperienceCalcule(DateTime dateEntreeSQli)
+        private double ExperienceCalcule(DateTime dateEntreeSQli)
         {
-            return (int)((DateTime.Now - dateEntreeSQli).TotalDays / 365);
+            return ((DateTime.Now - dateEntreeSQli).TotalDays / 365);
         }
 
     }

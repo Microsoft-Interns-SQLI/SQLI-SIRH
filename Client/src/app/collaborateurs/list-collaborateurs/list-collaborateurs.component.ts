@@ -306,7 +306,18 @@ export class ListCollaborateursComponent implements OnInit, OnDestroy {
   export() {
     if (this.exportAll) {
       this.exportSubscription = this.service
-        .exportCollaborateurs()
+        .exportCollaborateurs(
+          undefined,
+          this.pagination.pageSize,
+          this.pagination.currentPage,
+          this.selected,
+          this.searchInput === '' ? undefined : this.searchInput,
+          undefined,
+          undefined,
+          undefined,
+          this.postesId.toString() == '' ? undefined : this.postesId,
+          this.niveauxId.toString() == '' ? undefined : this.niveauxId
+          )
         .subscribe((data) => {
           const buffer = new Blob([data], { type: data.type });
           FileSaver.saveAs(buffer, 'Collaborateurs.xlsx');
