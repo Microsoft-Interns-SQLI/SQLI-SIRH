@@ -33,11 +33,13 @@
                                 </div>
                                 <div class="col-md-6 text-end">
                                     <button class="btn btn-sm btn-danger me-2" data-bs-toggle="modal"
+                                        [ngClass]="collab.carrieres.length === 1 ? 'my-btn-disabled' : '' "
+                                        [disabled]="collab.carrieres.length === 1"
+                                        [title]="collab.carrieres.length === 1 ? 'minimum : 1 job dans le parcours' : '' "
                                         data-bs-target="#modal-delete-carriere" (click)="carriereToDelete = carriere">
                                         <i class="bi bi-trash"></i>
                                     </button>
-                                    <button class="btn btn-sm btn-primary" disabled data-bs-toggle="modal"
-                                        data-bs-target="#modal-edit-carriere" (click)="carriereToDelete = carriere">
+                                    <button class="btn btn-sm btn-primary" title="coming soon ...">
                                         <svg _ngcontent-qty-c87="" _ngcontent-fyw-c112=""
                                             xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             fill="currentColor" viewBox="0 0 16 16" class="bi bi-pencil-square">

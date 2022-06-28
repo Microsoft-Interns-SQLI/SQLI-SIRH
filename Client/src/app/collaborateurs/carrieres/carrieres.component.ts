@@ -7,7 +7,8 @@ import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Component({
   selector: 'app-carrieres',
-  templateUrl: './carrieres.component.html'
+  templateUrl: './carrieres.component.html',
+  styleUrls: ['./carrieres.component.css']
 })
 @AutoUnsubscribe()
 export class CarrieresComponent implements OnInit {
