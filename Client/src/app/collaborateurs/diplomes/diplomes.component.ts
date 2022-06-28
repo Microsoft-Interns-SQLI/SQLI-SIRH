@@ -12,6 +12,7 @@ import { ToastService } from 'src/app/shared/toast/toast.service';
 @AutoUnsubscribe()
 export class DiplomesComponent implements OnInit {
   @Input() collab!: Collaborator;
+  diplomeToDelete?: Diplome;
 
   constructor(
     private toastService: ToastService,
@@ -21,13 +22,8 @@ export class DiplomesComponent implements OnInit {
   ngOnInit(): void { }
 
   deleteDiplome(idDiplome: number) {
-    // todo : need a confirm modal 
-    if (confirm("êtes-vous sûr de vouloir supprimer ce diplôme ?")) {
-      this.diplomesService.deleteDiplome(idDiplome).subscribe(() => {
-        this.collab.diplomes = this.collab.diplomes.filter(diplm => diplm.id !== idDiplome);
-        this.toastService.showToast("success", "Diplôme supprimé avec succès.", 2);
-      })
-    }
+    this.collab.diplomes = this.collab.diplomes.filter(diplm => diplm.id !== idDiplome);
+    this.toastService.showToast("success", "Diplôme supprimé avec succès.", 2);
   }
 
   addDiplome(diplome: Diplome) {

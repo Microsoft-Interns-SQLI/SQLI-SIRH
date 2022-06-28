@@ -38,7 +38,8 @@
                                     <td>{{ diplome.detail }}</td>
                                     <td>{{ diplome.description }}</td>
                                     <td>
-                                        <button class="btn btn-sm btn-danger" (click)="deleteDiplome(diplome.id)">
+                                        <button class="btn btn-sm btn-danger" (click)="diplomeToDelete = diplome;"
+                                            data-bs-toggle="modal" data-bs-target="#modal-confirm-delete-diplome">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </td>
@@ -54,3 +55,6 @@
 
 <app-modal-ajout-diplome [collaborateur]="collab" (diplomesEvent)="addDiplome($event)">
 </app-modal-ajout-diplome>
+
+<app-modal-confirm-delete-diplome [diplome]="diplomeToDelete" (deleteDiplomesEvent)="deleteDiplome($event)">
+</app-modal-confirm-delete-diplome>
