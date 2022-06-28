@@ -38,8 +38,8 @@
                                         {{affectation.dateFin ? (affectation.dateFin | date: 'dd/MM/yyyy') : "N/A" }}
                                     </td>
                                     <td>
-                                        <button class="btn btn-sm btn-danger"
-                                            (click)="deleteAffectation(affectation.id)">
+                                        <button class="btn btn-sm btn-danger" (click)="contratToDelete = affectation"
+                                            data-bs-toggle="modal" data-bs-target="#modal-delete-contrat">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </td>
@@ -55,3 +55,6 @@
 
 <app-modal-ajout-contrat [collaborateur]="collab" (affectationsEvent)="AddAffectation($event)">
 </app-modal-ajout-contrat>
+
+<app-modal-confirm-delete-contrat [contrat]="contratToDelete" (deleteContratEvent)="deleteAffectation($event)">
+</app-modal-confirm-delete-contrat>

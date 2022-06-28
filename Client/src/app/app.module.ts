@@ -78,6 +78,7 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { ModalConfirmDeleteCarriereComponent } from './collaborateurs/carrieres/modal-confirm-delete-carriere/modal-confirm-delete-carriere.component';
 import { ModalEditCarriereComponent } from './collaborateurs/carrieres/modal-edit-carriere/modal-edit-carriere.component';
 import { ModalConfirmDeleteDiplomeComponent } from './collaborateurs/diplomes/modal-confirm-delete-diplome/modal-confirm-delete-diplome.component';
+import { ModalConfirmDeleteContratComponent } from './collaborateurs/contrats/modal-confirm-delete-contrat/modal-confirm-delete-contrat.component';
 
 @NgModule({
   declarations: [
@@ -143,6 +144,7 @@ import { ModalConfirmDeleteDiplomeComponent } from './collaborateurs/diplomes/mo
     ModalConfirmDeleteCarriereComponent,
     ModalEditCarriereComponent,
     ModalConfirmDeleteDiplomeComponent,
+    ModalConfirmDeleteContratComponent,
   ],
   imports: [
     CommonModule,

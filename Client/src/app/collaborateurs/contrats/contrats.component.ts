@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Collaborator } from 'src/app/Models/Collaborator';
 import { CollabTypeContrat } from 'src/app/Models/CollabTypeContrat';
+import { Contrat } from 'src/app/Models/MdmModel';
 import { ContratsService } from 'src/app/services/contrats.service';
 import { AutoUnsubscribe } from 'src/app/shared/decorators/AutoUnsubscribe';
 import { ToastService } from 'src/app/shared/toast/toast.service';
@@ -13,6 +14,7 @@ import { ToastService } from 'src/app/shared/toast/toast.service';
 export class ContratsComponent implements OnInit {
   affectations!: CollabTypeContrat[];
   @Input() collab!: Collaborator;
+  contratToDelete?: CollabTypeContrat;
 
   constructor(
     private contratsService: ContratsService,
@@ -30,13 +32,8 @@ export class ContratsComponent implements OnInit {
   }
 
   deleteAffectation(idAffectation: number) {
-    // todo : need a confirm modal 
-    if (confirm("êtes-vous sûr de vouloir désaffecter ce contrat ?")) {
-      this.contratsService.deleteAffectation(idAffectation).subscribe(() => {
-        this.affectations = this.affectations.filter(aff => aff.id !== idAffectation);
-        this.toastService.showToast("success", "Contrat supprimé avec succès.", 2);
-      })
-    }
+    this.affectations = this.affectations.filter(aff => aff.id !== idAffectation);
+    this.toastService.showToast("success", "Contrat supprimé avec succès.", 2);
   }
 
   AddAffectation(collabTypeContrat: CollabTypeContrat) {
