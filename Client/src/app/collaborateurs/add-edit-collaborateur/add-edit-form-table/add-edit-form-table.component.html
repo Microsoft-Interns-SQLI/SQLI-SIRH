@@ -179,7 +179,7 @@
               </div>
             </div>
             <div *ngIf="collab.id" id="carriere" aria-labelledby="carriere-tab" role="tabpanel" class="tab-pane fade">
-              <app-carrieres [collab]="collab" #carrieres></app-carrieres>
+              <app-carrieres [collab]="collab"></app-carrieres>
             </div>
             <div *ngIf="collab.id" id="cv-documents" aria-labelledby="cv-documents-tab" role="tabpanel"
               class="tab-pane fade">
@@ -190,7 +190,7 @@
             </div>
             <div *ngIf="collab" id="contrat-statut" aria-labelledby="contrat-statut-tab" role="tabpanel"
               class="tab-pane fade">
-              <app-contrats [collab]="collab" #contrats></app-contrats>
+              <app-contrats [collab]="collab"></app-contrats>
             </div>
             <div *ngIf="collab" id="diplomes" aria-labelledby="diplomes-tab" role="tabpanel" class="tab-pane fade">
               <app-diplomes [collab]="collab" #diplomes></app-diplomes>
@@ -219,9 +219,6 @@
 
   <app-modal-ajout-diplome [collaborateur]="collab" (refreshDiplomes)="refreshDiplomes($event)">
   </app-modal-ajout-diplome>
-
-  <app-modal-ajout-contrat [collaborateur]="collab" (refreshAffectations)="refreshAffectations($event)">
-  </app-modal-ajout-contrat>
 
   <app-modal-ajout-demission [demission]="demis" [title]="demisTitle" (addDemmision)="addDemission($event)">
   </app-modal-ajout-demission>

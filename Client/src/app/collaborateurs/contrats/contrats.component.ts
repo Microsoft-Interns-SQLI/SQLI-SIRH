@@ -5,7 +5,6 @@ import { ContratsService } from 'src/app/services/contrats.service';
 import { AutoUnsubscribe } from 'src/app/shared/decorators/AutoUnsubscribe';
 import { ToastService } from 'src/app/shared/toast/toast.service';
 
-
 @Component({
   selector: 'app-contrats',
   templateUrl: './contrats.component.html',

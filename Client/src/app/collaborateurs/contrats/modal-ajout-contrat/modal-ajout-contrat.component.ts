@@ -20,7 +20,7 @@ import { ToastService } from 'src/app/shared/toast/toast.service';
 export class ModalAjoutContratComponent implements OnInit {
   form!: FormGroup;
   typesContratData: any = new SelectInputData();
-  @Output() refreshAffectations = new EventEmitter<CollabTypeContrat>();
+  @Output() affectationsEvent = new EventEmitter<CollabTypeContrat>();
   @Input() collaborateur?: Collaborator;
 
   constructor(
@@ -60,7 +60,7 @@ export class ModalAjoutContratComponent implements OnInit {
 
       this.contratService.affecteContrat(formGroup.value).subscribe({
         next: (addedContrat) => {
-          this.refreshAffectations.emit(addedContrat as CollabTypeContrat);
+          this.affectationsEvent.emit(addedContrat as CollabTypeContrat);
           this.initForm();
         },
         error: (erreur) => {

@@ -31,7 +31,6 @@ import { CollabFile } from 'src/app/Models/collabFile';
   templateUrl: './add-edit-form-table.component.html',
 })
 export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
-  @ViewChild('contrats') contrats!: ContratsComponent;
   @ViewChild('diplomes') diplomes!: DiplomesComponent;
   @Input() collab!: Collaborator;
   @Input() myFormGroup!: FormGroup;
@@ -94,10 +93,6 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
       new SelectInputObject('Divorce', 'Divorce'),
       new SelectInputObject('Veuf/Veuve', 'Veuf/Veuve'),
     ];
-  }
-
-  refreshAffectations(collabTypeContrat: CollabTypeContrat) {
-    this.contrats.AddAffectation(collabTypeContrat);
   }
 
   refreshDiplomes(diplome: Diplome) {
