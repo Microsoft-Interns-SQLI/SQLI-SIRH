@@ -415,6 +415,7 @@ namespace API_MySIRH.Controllers
                     {
                         await this._dataContext.Diplomes.AddAsync(new Diplome
                         {
+                            Label = "-",
                             Collaborateur = collaborateur,
                             Annee = int.Parse(diplome.Split(':')[0]),
                             Detail = diplome.Split(':')[1]

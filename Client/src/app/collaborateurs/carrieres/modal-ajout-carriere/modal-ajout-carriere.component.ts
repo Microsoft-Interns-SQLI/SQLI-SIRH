@@ -15,7 +15,7 @@ import { ToastService } from 'src/app/shared/toast/toast.service';
 @AutoUnsubscribe()
 export class ModalAjoutCarriereComponent implements OnInit {
   form!: FormGroup;
-  @Output() refreshCarrieres = new EventEmitter<Carriere>();
+  @Output() carriereEvent = new EventEmitter<Carriere>();
   @Input() collaborateur?: Collaborator;
 
   postes: any = new SelectInputData();
@@ -70,7 +70,7 @@ export class ModalAjoutCarriereComponent implements OnInit {
       this.carriereService.addCarriere(formGroup.value).subscribe(
         {
           next: (addedCarriere) => {
-            this.refreshCarrieres.emit(addedCarriere as Carriere);
+            this.carriereEvent.emit(addedCarriere as Carriere);
             this.initForm();
           },
           error: (erreur) => {

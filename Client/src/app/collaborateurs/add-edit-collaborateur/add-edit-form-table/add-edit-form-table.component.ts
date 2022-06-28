@@ -20,10 +20,8 @@ import {
   SelectInputObject,
 } from './_form_inputs/select-input/select-input';
 import { CollabTypeContrat } from 'src/app/Models/CollabTypeContrat';
-import { Carriere } from 'src/app/Models/Carriere';
 import { DemissionService } from 'src/app/services/demission.service';
 import { ContratsComponent } from '../../contrats/contrats.component';
-import { CarrieresComponent } from '../../carrieres/carrieres.component';
 import { DiplomesComponent } from '../../diplomes/diplomes.component';
 import { ToastService } from 'src/app/shared/toast/toast.service';
 import { CollabFile } from 'src/app/Models/collabFile';
@@ -33,7 +31,6 @@ import { CollabFile } from 'src/app/Models/collabFile';
   templateUrl: './add-edit-form-table.component.html',
 })
 export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
-  @ViewChild('carrieres') carrieres!: CarrieresComponent;
   @ViewChild('contrats') contrats!: ContratsComponent;
   @ViewChild('diplomes') diplomes!: DiplomesComponent;
   @Input() collab!: Collaborator;
@@ -58,7 +55,7 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
     private formationCertifService: FormationCertificationsService,
     private demissionService: DemissionService,
     private toastService: ToastService
-  ) {}
+  ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.collab.id != 0) {
@@ -105,10 +102,6 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
 
   refreshDiplomes(diplome: Diplome) {
     this.diplomes.addDiplome(diplome);
-  }
-
-  refreshCarrieres(carriere: Carriere) {
-    this.carrieres.addCarriere(carriere);
   }
 
   ngOnDestroy(): void {
