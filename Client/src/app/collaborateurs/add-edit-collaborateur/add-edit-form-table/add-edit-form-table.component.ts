@@ -5,24 +5,18 @@ import {
   OnDestroy,
   OnInit,
   SimpleChanges,
-  ViewChild,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { Subscription, switchMap } from 'rxjs';
 import { Collaborator, Demission } from 'src/app/Models/Collaborator';
 import { CollabFormationCertif } from 'src/app/Models/collaborationCertificationFormation';
-import { Diplome } from 'src/app/Models/MdmModel';
 import { FormationCertificationsService } from 'src/app/services/formation-certifications.service';
 import { MdmService } from 'src/app/services/mdm.service';
 import {
   SelectInputData,
   SelectInputObject,
 } from './_form_inputs/select-input/select-input';
-import { CollabTypeContrat } from 'src/app/Models/CollabTypeContrat';
 import { DemissionService } from 'src/app/services/demission.service';
-import { ContratsComponent } from '../../contrats/contrats.component';
-import { DiplomesComponent } from '../../diplomes/diplomes.component';
 import { ToastService } from 'src/app/shared/toast/toast.service';
 import { CollabFile } from 'src/app/Models/collabFile';
 
@@ -31,7 +25,6 @@ import { CollabFile } from 'src/app/Models/collabFile';
   templateUrl: './add-edit-form-table.component.html',
 })
 export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
-  @ViewChild('diplomes') diplomes!: DiplomesComponent;
   @Input() collab!: Collaborator;
   @Input() myFormGroup!: FormGroup;
 
@@ -93,10 +86,6 @@ export class AddEditFormTableComponent implements OnInit, OnChanges, OnDestroy {
       new SelectInputObject('Divorce', 'Divorce'),
       new SelectInputObject('Veuf/Veuve', 'Veuf/Veuve'),
     ];
-  }
-
-  refreshDiplomes(diplome: Diplome) {
-    this.diplomes.addDiplome(diplome);
   }
 
   ngOnDestroy(): void {

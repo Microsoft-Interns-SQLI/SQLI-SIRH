@@ -9,7 +9,6 @@ import { ToastService } from 'src/app/shared/toast/toast.service';
   selector: 'app-diplomes',
   templateUrl: './diplomes.component.html',
 })
-
 @AutoUnsubscribe()
 export class DiplomesComponent implements OnInit {
   @Input() collab!: Collaborator;

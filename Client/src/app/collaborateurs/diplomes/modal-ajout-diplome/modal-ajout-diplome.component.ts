@@ -13,7 +13,7 @@ import { ToastService } from 'src/app/shared/toast/toast.service';
 @AutoUnsubscribe()
 export class ModalAjoutDiplomeComponent implements OnInit {
   form!: FormGroup;
-  @Output() refreshDiplomes = new EventEmitter<Diplome>();
+  @Output() diplomesEvent = new EventEmitter<Diplome>();
   @Input() collaborateur?: Collaborator;
 
 
@@ -46,7 +46,7 @@ export class ModalAjoutDiplomeComponent implements OnInit {
       this.diplomesService.addDiplome(formGroup.value).subscribe(
         {
           next: (addedDiplome) => {
-            this.refreshDiplomes.emit(addedDiplome as Diplome);
+            this.diplomesEvent.emit(addedDiplome as Diplome);
             this.initForm();
           },
           error: (erreur) => {
