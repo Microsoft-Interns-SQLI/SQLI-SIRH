@@ -259,20 +259,26 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">
+          Confirmation de suppression.
+        </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Are You Sure You want to delete ? {{ collabToDelete?.nom }}
-        {{ collabToDelete?.prenom }}
+        Êtes-vous sûr de vouloir supprimer ce collaborateur :
+        <strong>
+          {{ collabToDelete?.nom }}
+          {{ collabToDelete?.prenom }}
+        </strong>
+        ??
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
+        <button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">
+          Annuler
         </button>
         <button type="button" data-bs-dismiss="modal" (click)="confirmDelete(collabToDelete?.id)"
-          class="btn btn-danger">
-          Delete
+          class="btn btn-sm btn-danger">
+          Supprimer
         </button>
       </div>
     </div>
