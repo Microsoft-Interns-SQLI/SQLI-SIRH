@@ -5,12 +5,12 @@
 }
 
 @media (max-width: 690px) {
-.my-sidebar {
-  display: none;
-}
+  .my-sidebar {
+    display: none;
+  }
 }
 
 .table {
-  border-collapse: separate;  
-  border-spacing:0 5px;
+  border-collapse: separate;
+  border-spacing: 0 5px;
 }

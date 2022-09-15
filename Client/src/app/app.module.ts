@@ -79,6 +79,7 @@ import { ModalConfirmDeleteCarriereComponent } from './collaborateurs/carrieres/
 import { ModalEditCarriereComponent } from './collaborateurs/carrieres/modal-edit-carriere/modal-edit-carriere.component';
 import { ModalConfirmDeleteDiplomeComponent } from './collaborateurs/diplomes/modal-confirm-delete-diplome/modal-confirm-delete-diplome.component';
 import { ModalConfirmDeleteContratComponent } from './collaborateurs/contrats/modal-confirm-delete-contrat/modal-confirm-delete-contrat.component';
+import { JobsPanelComponent } from './jobs-panel/jobs-panel.component';
 
 @NgModule({
   declarations: [
@@ -145,6 +146,7 @@ import { ModalConfirmDeleteContratComponent } from './collaborateurs/contrats/mo
     ModalEditCarriereComponent,
     ModalConfirmDeleteDiplomeComponent,
     ModalConfirmDeleteContratComponent,
+    JobsPanelComponent,
   ],
   imports: [
     CommonModule,
@@ -183,4 +185,4 @@ import { ModalConfirmDeleteContratComponent } from './collaborateurs/contrats/mo
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
