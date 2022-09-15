@@ -16,6 +16,7 @@ import { AuthentificationGuardService } from './guards/authentification.guard.se
 import { HomeComponent } from './home/home.component';
 import { IntegrationsComponent } from './integrations/integrations.component';
 import { AuthentificationInterceptor } from './interceptors/authentification.interceptor';
+import { JobsPanelComponent } from './jobs-panel/jobs-panel.component';
 import { LayoutComponent } from './layout/layout.component';
 import { MdmPanelComponent } from './mdm-panel/mdm-panel.component';
 import { AddEditMemosComponent } from './memos/add-edit-memos/add-edit-memos.component';
@@ -64,6 +65,7 @@ export const routes: Routes = [
       { path: 'server-error', component: ServerErrorComponent },
       { path: 'upload', component: UploadComponent },
       { path: 'mdm', component: MdmPanelComponent },
+      { path: 'jobs', component: JobsPanelComponent },
     ],
   },
 

@@ -1,0 +1,189 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h2 class="h2">Jobs</h2>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-3">
+            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addJob">
+                Ajout
+            </button>
+        </div>
+    </div>
+</div>
+
+filtres ...
+<hr />
+
+<table class="table">
+    <thead>
+        <th>
+            <button class="btn btn-sm m-0 p-0" value="titre" #titre>
+                <strong>
+                    Ref
+                    <i class="bi bi-arrow-down-short"></i>
+                </strong>
+            </button>
+        </th>
+        <th>
+            <button class="btn btn-sm m-0 p-0" value="titre" #titre>
+                <strong>
+                    Titre
+                    <i class="bi bi-arrow-down-short"></i>
+                </strong>
+            </button>
+        </th>
+        <th>
+            <button class="btn btn-sm m-0 p-0" value="titre" #titre>
+                <strong>
+                    Entité
+                    <i class="bi bi-arrow-down-short"></i>
+                </strong>
+            </button>
+        </th>
+        <th>
+            <button class="btn btn-sm m-0 p-0" value="titre" #titre>
+                <strong>
+                    Début
+                    <i class="bi bi-arrow-down-short"></i>
+                </strong>
+            </button>
+        </th>
+        <th>
+            <button class="btn btn-sm m-0 p-0" value="titre" #titre>
+                <strong>
+                    En cours
+                    <i class="bi bi-arrow-down-short"></i>
+                </strong>
+            </button>
+        </th>
+        <th>
+            <button class="btn btn-sm m-0 p-0" value="titre" #titre>
+                <strong>
+                    Fin
+                    <i class="bi bi-arrow-down-short"></i>
+                </strong>
+            </button>
+        </th>
+        <th>
+            <button class="btn btn-sm m-0 p-0" value="titre" #titre>
+                <strong>
+                    Statut
+                    <i class="bi bi-arrow-down-short"></i>
+                </strong>
+            </button>
+        </th>
+        <th>
+            <button class="btn btn-sm m-0 p-0" value="titre" #titre>
+                <strong>
+                    Responsable
+                    <i class="bi bi-arrow-down-short"></i>
+                </strong>
+            </button>
+        </th>
+        <th>
+            Actions
+        </th>
+    </thead>
+    <tbody>
+        <tr class="shadow-sm p-3 mb-5 bg-body rounded align-baseline" id="job-{{ job.id }}"
+            *ngFor="let job of dataJobsArray">
+            <td>
+                #JOB{{ job.id }}
+            </td>
+            <td>
+                {{ job.label }}
+                <br>
+                <small>
+                    {{ job.typeContrat }}
+                </small>
+            </td>
+            <td>
+                {{ job.entite }}
+            </td>
+            <td>
+                ??
+            </td>
+            <td>
+                {{ job.besoinEffectif }} ??
+            </td>
+            <td>
+                ??
+            </td>
+            <td>
+                {{ job.isClosed ? "❌" : "✅" }}
+            </td>
+            <td>
+                M.Sijelmassi
+                <br>
+                <small>
+                    {{ job.dateCreation | date: 'dd/MM/yyyy' }}
+                </small>
+            </td>
+            <td>
+                <button class="btn btn-sm btn-warning me-2 mb-1">
+                    <i class="bi bi-newspaper"></i>
+                </button>
+                <button class="btn btn-sm btn-primary me-2 mb-1">
+                    <i class="bi bi-pencil-square"></i>
+                </button>
+                <button class="btn btn-sm btn-danger mb-1">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="modal fade" id="addJob" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Ajout d'un nouveau Job
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Titre :</label>
+                            <input class="form-control form-control-sm" type="label">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Entité :</label>
+                        <select class="form-control form-control-sm">
+                            <option value disabled selected>-Selectionner-</option>
+                            <option value="maroc">maroc</option>
+                            <option value="suisse">suisse</option>
+                            <option value="espagne">espagne</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Salaire :</label>
+                        <input class="form-control form-control-sm" type="number" step="0.1">
+                    </div>
+                    <div class="col-md-6">
+                        <label>Effectif :</label>
+                        <input class="form-control form-control-sm" type="number">
+                    </div>
+                    <div class="col-md-6">
+                        <label>Début candidature :</label>
+                        <input class="form-control form-control-sm" type="date">
+                    </div>
+                    <div class="col-md-6">
+                        <label>Fin candidature :</label>
+                        <input class="form-control form-control-sm" type="date">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                    Annuler
+                </button>
+                <button type="button" class="btn btn-primary">
+                    Sauvegarder
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
